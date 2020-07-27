@@ -83,3 +83,87 @@ img:not([alt]) {
     scroll-behavior: auto !important;
   }
 }
+
+:root {
+  font-size: clamp(1rem, 0.4625em + 1vw, 22px);
+}
+
+@font-face {
+  font-family: 'Lunchtype Regular';
+  src: url('assets/lunchtype22-regular-webfont.woff2') format('woff2'),
+    url('assets/lunchtype22-regular-webfont.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Lunchtype Expanded';
+  src: url('assets/lunchtype24-regular-expanded-webfont.woff2') format('woff2'),
+    url('assets/lunchtype24-regular-expanded-webfont.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Lunchtype Expanded Medium';
+  src: url('assets/lunchtype24-medium-expanded-webfont.woff2') format('woff2'),
+    url('assets/lunchtype24-medium-expanded-webfont.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Lunchtype Condensed';
+  src: url('assets/lunchtype25-regular_condensed-webfont.woff2') format('woff2'),
+    url('assets/lunchtype25-regular_condensed-webfont.woff') format('woff');
+}
+
+:root {
+  --font-regular: 'Lunchtype Regular';
+  --font-expanded: 'Lunchtype Expanded';
+  --font-expanded-medium: 'Lunchtype Expanded Medium';
+  --font-condensed: 'Lunchtype Condensed';
+
+  --color-primary: #ffffff;
+  --color-secondary: #000000;
+  --color-tertiary: #eeeeee;
+  --color-accent: #2f80ed;
+
+  --flow-space: 16px;
+}
+
+/* Styles */
+body {
+  font-family: var(--font-regular), Arial, -apple-system, sans-serif;
+  line-height: 1.45;
+}
+
+h1 {
+  font-family: var(--font-expanded-medium);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-size: 4rem;
+}
+
+h1 + p {
+  font-size: 1.2rem;
+}
+
+a[class] {
+  text-decoration: none;
+}
+
+a.button {
+  display: inline-block;
+  padding: 0.4em 1em;
+  margin-top: var(--flow-space);
+  background-color: var(--color-accent);
+  color: var(--color-primary);
+  border-radius: 1.5em;
+}
+
+.button:hover {
+  background-color: var(--color-primary);
+  color: var(--color-accent);
+  box-shadow: 0 0 0 2px var(--color-accent);
+}
+
+.wrapper {
+  padding: 0 var(--flow-space);
+  max-width: 1440px;
+  margin: 0 auto;
+}
