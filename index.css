@@ -85,7 +85,11 @@ img:not([alt]) {
 }
 
 :root {
-  font-size: clamp(1rem, 0.4625em + 1vw, 22px);
+  /* For older browsers */
+  font-size: calc(0.4625em + 1vw);
+  font-size: min(max(1em, calc(0.4625em + 1vw)), 22px);
+  /* Newer browsers */
+  font-size: clamp(1em, 0.4625em + 1vw, 22px);
 }
 
 @font-face {
@@ -132,15 +136,38 @@ body {
   line-height: 1.45;
 }
 
+main {
+  padding-bottom: 3em;
+}
+
 h1 {
   font-family: var(--font-expanded-medium);
   line-height: 1.1;
   letter-spacing: -0.02em;
-  font-size: 4rem;
+  font-size: 3.6rem;
 }
 
 h1 + p {
   font-size: 1.2rem;
+}
+
+h2 {
+  font-family: var(--font-expanded-medium);
+  line-height: 1.1;
+  font-size: 2.5rem;
+  margin-bottom: var(--flow-space);
+}
+
+h2 span {
+  font-family: var(--font-regular);
+  font-size: 1rem;
+  display: block;
+}
+
+h3 {
+  font-family: var(--font-expanded);
+  font-size: 2rem;
+  line-height: 1.1;
 }
 
 a[class] {
@@ -149,8 +176,10 @@ a[class] {
 
 a.button {
   display: inline-block;
-  padding: 0.4em 1em;
-  margin-top: var(--flow-space);
+  font-family: var(--font-condensed);
+  font-size: 1.2rem;
+  padding: 0.2em 1em;
+  text-align: center;
   background-color: var(--color-accent);
   color: var(--color-primary);
   border-radius: 1.5em;
@@ -166,4 +195,189 @@ a.button {
   padding: 0 var(--flow-space);
   max-width: 1440px;
   margin: 0 auto;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--flow-space) 0;
+  margin-bottom: 1em;
+}
+
+.logo img {
+  max-width: 8em;
+}
+
+/* Header */
+
+header div {
+  display: flex;
+  flex-direction: column;
+  padding: 1em 0;
+  text-align: center;
+}
+
+header div > * {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+header div > * + * {
+  margin-top: var(--flow-space);
+}
+
+header div p {
+  max-width: 25ch;
+}
+
+header div a {
+  /* align-self: flex-start; */
+  margin-top: calc(var(--flow-space) * 1.5);
+}
+
+header img {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+/* Logo garden */
+
+.partners {
+  margin-top: var(--flow-space);
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: nowrap;
+  max-width: 464px;
+}
+
+.partners img {
+  max-width: 88px;
+}
+
+article:first-of-type {
+  margin-top: 2em;
+  padding: 5em 0 7em;
+  background-color: var(--color-tertiary);
+}
+
+article:first-of-type small {
+  font-size: 1rem;
+}
+
+article:first-of-type h2 span {
+  margin-bottom: 1em;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2em;
+  padding: 1em;
+  text-align: center;
+  box-shadow: -30px -30px 60px 0 rgba(255 255 255 / 0.35),
+    30px 30px 60px 0 rgba(202 202 202 / 0.35);
+  border-radius: 0.5em;
+}
+
+.card p {
+  max-width: 28ch;
+  margin: 2em auto;
+}
+
+.card img {
+  object-fit: contain;
+}
+
+article:nth-of-type(2) {
+  margin-top: 3em;
+  text-align: center;
+}
+
+article:nth-of-type(2) p:last-of-type {
+  font-size: 1.5rem;
+  line-height: 1.25;
+  max-width: 22ch;
+  margin: 1rem auto 0;
+}
+
+article:nth-of-type(2) > div {
+  display: flex;
+  position: relative;
+  flex-direction: column-reverse;
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+  border-radius: 0.5em;
+}
+
+.exponant {
+  font-family: var(--font-expanded-medium);
+  font-size: 5rem;
+}
+
+.carousel {
+  overflow-x: hidden;
+  height: 40vh;
+}
+
+.cta {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.cta * + * {
+  margin-top: 1rem;
+}
+
+.cta div {
+  display: flex;
+  flex-direction: column;
+}
+
+.cta div > * {
+  margin-inline-start: auto;
+  margin-inline-end: auto;
+}
+
+.cta h3 {
+  max-width: 15ch;
+}
+
+.cta p {
+  max-width: 30ch;
+}
+
+footer.wrapper {
+  padding-top: 2em;
+}
+
+footer {
+  border-top: 1px solid var(--color-tertiary);
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+footer p {
+  max-width: 25ch;
+  text-align: center;
+}
+
+footer a {
+  display: block;
+  color: inherit;
+}
+
+footer img {
+  max-width: 8em;
+}
+
+footer img:not(:first-child) {
+  display: none;
 }
