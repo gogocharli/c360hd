@@ -96,24 +96,28 @@ img:not([alt]) {
   font-family: 'Lunchtype Regular';
   src: url('assets/lunchtype22-regular-webfont.woff2') format('woff2'),
     url('assets/lunchtype22-regular-webfont.woff') format('woff');
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Lunchtype Expanded';
   src: url('assets/lunchtype24-regular-expanded-webfont.woff2') format('woff2'),
     url('assets/lunchtype24-regular-expanded-webfont.woff') format('woff');
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Lunchtype Expanded Medium';
   src: url('assets/lunchtype24-medium-expanded-webfont.woff2') format('woff2'),
     url('assets/lunchtype24-medium-expanded-webfont.woff') format('woff');
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Lunchtype Condensed';
   src: url('assets/lunchtype25-regular_condensed-webfont.woff2') format('woff2'),
     url('assets/lunchtype25-regular_condensed-webfont.woff') format('woff');
+  font-display: swap;
 }
 
 :root {
