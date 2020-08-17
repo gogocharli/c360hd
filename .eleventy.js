@@ -1,4 +1,5 @@
 const i18n = require('eleventy-plugin-i18n');
+const translations = require('./src/_data/i18n/index');
 
 module.exports = (config) => {
   // Plugins
@@ -8,6 +9,8 @@ module.exports = (config) => {
       '*': 'en-CA',
     },
   });
+
+  config.addPassthroughCopy('/assets/');
 
   return {
     // Specify templating engines
