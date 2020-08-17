@@ -1,0 +1,57 @@
+{% extends "layouts/base.html" %}
+
+{% if locale == 'fr-CA' %}
+    {% set cards = collection.cartes %}
+{% else %}
+    {% set cards = collection.cards %}
+{% endif %}
+
+{% block content %}
+    <article class="intro wrapper">
+            <div class="intro__content">
+                <h1>{{ intro.headline }}</h1>
+                <p>{{ intro.sub }}</p>
+                <a href="https://forms.gle/NxDMmnEw4EABsPNr5" class="button">{{ intro.buttonText }}</a>
+            </div>
+            <img src="assets/humanity-location.png" alt="Woman walking to her destination">
+    </article>
+
+    {% include "partials/partners.html" %}
+
+    <article class="value">
+        <div class="wrapper">
+            <h2>
+                <span>{{ value.sub }}</span>
+                {{ value.headline }}
+            </h2>
+            <small>
+                {{ value.description }}
+            </small>
+            {% for card in cards %}
+                <img src="{{ card.image }}" alt="">
+                {{ card.title }}
+            {% endfor %}
+        </div>
+    </article>
+
+    <article class="examples">
+        <h2>{{ examples.title }}</h2>
+        <div>
+            <p class="exponant">{{ examples.exponant }}</p>
+            <p>{{ examples.description }}</p>
+            <div class="carousel">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!4v1595957210621!6m8!1m7!1sCAoSLEFGMVFpcE9wNHNLWVY1ZlVuSkJHbFl3bzJRVTh6THQ1Uk5ZZFgwLU8tNDlS!2m2!1d45.51811258162802!2d-73.56959223747253!3f67.5!4f1.2999999999999972!5f0.7820865974627469"
+                    width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen=""
+                    aria-hidden="false" tabindex="0" title="Otaku Manga Lounge"></iframe>
+            </div>
+        </div>
+    </article>
+
+    <article class="main-cta">
+        <h3>{{ mainCta.title }}</h3>
+        <p>{{ mainCta.description }}</p>
+        <a href="mailto:{{ site.email }}" class="button">{{ mainCta.buttonText }}</a>
+    </article>
+
+{% endblock %}

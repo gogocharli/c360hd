@@ -1,0 +1,18 @@
+<a class="[ skip-link ] [ button ]" href="#main-content">Skip to content</a>
+
+<header role ="banner" class="wrapper">
+    <a href="/{{ locale }}/" aria-lable="{{ site.name }} - home">
+        {% include "partials/logo.svg" %}
+    </a>
+    
+    <nav class="nav" aria-label="Primary">
+        <ul class="nav__list">
+            <li>
+                <a href="/{{ locale }}/examples/">{{ 'examples' | i18n }}</a>
+            </li>
+            <li>
+                <a href="/{{ locale }}/store/">{{ 'store' | i18n }}</a>
+            </li>
+        </ul>
+    </nav>
+</header>

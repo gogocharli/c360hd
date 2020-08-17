@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@11ty/eleventy": "^0.11.0",
+    "eleventy-plugin-i18n": "^0.1.1",
     "parcel": "^2.0.0-beta.1"
   },
   "devDependencies": {

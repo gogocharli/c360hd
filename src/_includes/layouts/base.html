@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}" dir="{{ dir }}">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ site.name }}</title>
+    <link rel="stylesheet" href="/index.css">
+</head>
+
+<body>
+    {% include 'partials/main-nav.html' %}
+
+    <main tabindex="-1" id="main-content">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="wrapper">
+        {% include "partials/logo.svg" %}
+        <p>
+            {{ site.address }}
+            <a href="tel:{{ site.number }}">{{ site.number }}</a>
+        </p>
+        <img src="assets/streetview-logo.jpg" alt="Streetview Trusted">
+        <img src="assets/streetview-badge.jpg" alt="Google Maps Streetview Trusted">
+    </footer>
+</body>
