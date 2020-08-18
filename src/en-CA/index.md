@@ -3,7 +3,7 @@ layout: 'layouts/home.html'
 intro:
   headline: A leap into the future.
   sub: Quality virtual tours are essential to stand out in the digital age
-  buttonText: Accelarate your growth
+  buttonText: Boost your image
 value:
   headline: Your image is your most important asset
   sub: Did you know?
@@ -16,4 +16,7 @@ mainCta:
   title: Only as much as you need
   description: We come to you and provide the most suited solution to your needs
   buttonText: Contact Us
+  image:
+    src: /assets/humanity-success.png
+    alt: Woman on a propelled upwards by a rocket backpack
 ---

@@ -1,9 +1,9 @@
 {% extends "layouts/base.html" %}
 
 {% if locale == 'fr-CA' %}
-    {% set cards = collection.cartes %}
+    {% set cards = collections.cartes %}
 {% else %}
-    {% set cards = collection.cards %}
+    {% set cards = collections.cards %}
 {% endif %}
 
 {% block content %}
@@ -13,10 +13,10 @@
                 <p>{{ intro.sub }}</p>
                 <a href="https://forms.gle/NxDMmnEw4EABsPNr5" class="button">{{ intro.buttonText }}</a>
             </div>
-            <img src="assets/humanity-location.png" alt="Woman walking to her destination">
+            <img src="/assets/humanity-location.png" alt="{{ 'hero' | i18n }}">
     </article>
 
-    {# {% include "partials/partners.html" %} #}
+    {% include "partials/partners.html" %}
 
     <article class="value">
         <div class="wrapper">
@@ -28,8 +28,8 @@
                 {{ value.description }}
             </small>
             {% for card in cards %}
-                <img src="{{ card.image }}" alt="">
-                {{ card.title }}
+                <img src="{{ card.data.image }}" alt="">
+                <p>{{ card.data.title}}</p>
             {% endfor %}
         </div>
     </article>
@@ -49,9 +49,12 @@
     </article>
 
     <article class="main-cta">
-        <h3>{{ mainCta.title }}</h3>
-        <p>{{ mainCta.description }}</p>
-        <a href="mailto:{{ site.email }}" class="button">{{ mainCta.buttonText }}</a>
+        <img src="{{ mainCta.image.src }}" alt="{{ mainCta.image.alt }}">
+        <div claass="main-cta__content">
+            <h3>{{ mainCta.title }}</h3>
+            <p>{{ mainCta.description }}</p>
+            <a href="mailto:{{ site.email }}" class="button">{{ mainCta.buttonText }}</a>
+        </div>
     </article>
 
 {% endblock %}

@@ -1,11 +1,17 @@
-{# From https://github.com/adamduncan/eleventy-plugin-i18n-demo/blob/master/src/_includes/components/language-selector.njk #}
+{# 
+  From https://github.com/adamduncan/eleventy-plugin-i18n-demo/blob/master/src/_includes/components/language-selector.njk 
+  With a few modifications
+#}
 
 {% set pageUrl = page.url.split('/').slice(2).join('/') %}
 
-{% if locales.length %}
-  <ul>
-    {% for locale in locales -%}
-      <li><a href="/{{ locale.code }}/{{ pageUrl }}" rel="alternate" hreflang="{{ locale.code }}">{{ locale.label }}</a></li>
-    {% endfor -%}
-  </ul>
+{% if languages.length %}
+  {% for language in languages -%}
+  {% set active = 'active' if language.code == locale else '' %}
+    <li>
+      <a href="/{{ language.code }}/{{ pageUrl }}" rel="alternate" hreflang="{{ language.code }}" 
+         class="{{ active }}">{{ language.label }}
+      </a>
+    </li>
+  {% endfor -%}
 {% endif %}

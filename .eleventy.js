@@ -10,7 +10,7 @@ module.exports = (config) => {
     },
   });
 
-  config.addPassthroughCopy('/assets/');
+  config.addPassthroughCopy('assets');
 
   return {
     // Specify templating engines
