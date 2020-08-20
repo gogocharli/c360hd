@@ -13,6 +13,7 @@ module.exports = (config) => {
   config.addPassthroughCopy('assets');
   config.addPassthroughCopy('./src/styles');
   config.addPassthroughCopy('./src/scripts');
+  config.addPassthroughCopy('_redirects');
 
   return {
     // Specify templating engines
