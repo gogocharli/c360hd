@@ -9,9 +9,30 @@
   force = false
   conditions = {Language = ["fr"]}
 
-  [[redirects]]
+[[redirects]]
+  from = "/"
+  to = "/fr-CA"
+  status = 301
+  force = false
+  conditions = {Language = ["fr-ca"]}
+
+[[redirects]]
+from = "/"
+to = "/en-CA"
+status = 301
+force = false
+conditions = {Language = ["en"]}
+
+[[redirects]]
   from = "/"
   to = "/en-CA"
   status = 301
   force = false
-  conditions = {Language = ["en"]}
+  conditions = {Language = ["en-us"]}
+
+[[redirects]]
+  from = "/"
+  to = "/en-CA"
+  status = 301
+  force = false
+  conditions = {Language = ["en-ca"]}
