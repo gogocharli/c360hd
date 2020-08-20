@@ -1,7 +1,7 @@
 ---
 layout: 'layouts/home.html'
 intro:
-  headline: Un pied dans l'avenir.
+  headline: Un pas vers l'avenir.
   sub: Des visites virtuelles de qualité sont un atout essentiel à l'ère digitale
   buttonText: Boostez votre image
 value:

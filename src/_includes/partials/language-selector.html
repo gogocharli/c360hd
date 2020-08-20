@@ -8,9 +8,8 @@
 {% if languages.length %}
   {% for language in languages -%}
   {% set active = 'active' if language.code == locale else '' %}
-    <li>
-      <a href="/{{ language.code }}/{{ pageUrl }}" rel="alternate" hreflang="{{ language.code }}" 
-         class="{{ active }}">{{ language.label }}
+    <li class="lgg-link {{ active }}">
+      <a href="/{{ language.code }}/{{ pageUrl }}" rel="alternate" hreflang="{{ language.code }}">{{ language.label }}
       </a>
     </li>
   {% endfor -%}

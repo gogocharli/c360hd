@@ -94,29 +94,30 @@ img:not([alt]) {
 
 @font-face {
   font-family: 'Lunchtype Regular';
-  src: url('assets/lunchtype22-regular-webfont.woff2') format('woff2'),
-    url('assets/lunchtype22-regular-webfont.woff') format('woff');
+  src: url('/assets/lunchtype22-regular-webfont.woff2') format('woff2'),
+    url('/assets/lunchtype22-regular-webfont.woff') format('woff');
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Lunchtype Expanded';
-  src: url('assets/lunchtype24-regular-expanded-webfont.woff2') format('woff2'),
-    url('assets/lunchtype24-regular-expanded-webfont.woff') format('woff');
+  src: url('/assets/lunchtype24-regular-expanded-webfont.woff2') format('woff2'),
+    url('/assets/lunchtype24-regular-expanded-webfont.woff') format('woff');
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Lunchtype Expanded Medium';
-  src: url('assets/lunchtype24-medium-expanded-webfont.woff2') format('woff2'),
-    url('assets/lunchtype24-medium-expanded-webfont.woff') format('woff');
+  src: url('/assets/lunchtype24-medium-expanded-webfont.woff2') format('woff2'),
+    url('/assets/lunchtype24-medium-expanded-webfont.woff') format('woff');
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Lunchtype Condensed';
-  src: url('assets/lunchtype25-regular_condensed-webfont.woff2') format('woff2'),
-    url('assets/lunchtype25-regular_condensed-webfont.woff') format('woff');
+  src: url('/assets/lunchtype25-regular_condensed-webfont.woff2')
+      format('woff2'),
+    url('/assets/lunchtype25-regular_condensed-webfont.woff') format('woff');
   font-display: swap;
 }
 
@@ -136,7 +137,7 @@ img:not([alt]) {
 
 /* Styles */
 body {
-  font-family: var(--font-regular), Arial, -apple-system, sans-serif;
+  font-family: var(--font-regular), --apple-system, Arial, Helvetica, sans-serif;
   line-height: 1.45;
 }
 
@@ -189,6 +190,80 @@ a.button {
   border-radius: 1.5em;
 }
 
+header {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header a {
+  color: var(--color-accent);
+}
+
+header .menu-toggle {
+  position: absolute;
+  top: 12px;
+  right: 32px;
+  font-size: 1rem;
+  font-family: var(--font-regular);
+  z-index: 10;
+}
+
+.menu-toggle rect {
+  fill: currentColor;
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  max-width: 600px;
+  height: 100vh;
+
+  display: grid;
+  place-items: center;
+  background-color: var(--color-accent);
+  z-index: 1; /* Keep it above everything else */
+
+  transform: translateX(100%);
+  transition: transform 0.5s 0s cubic-bezier(0.77, 0, 0.18, 1);
+}
+
+.nav .nav__list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-expanded-medium), sans-serif;
+  font-size: 3rem;
+  color: var(--color-primary);
+}
+
+.nav .nav__list > * + * {
+  margin-top: 0.4em;
+}
+
+.nav a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav .nav__list .lgg-link {
+  font-family: var(--font-expanded), sans-serif;
+  margin-top: 2em;
+  font-size: 1.5rem;
+}
+
+.lgg-link.active {
+  display: none;
+}
+
+.nav.is-open {
+  transform: translateX(0);
+  transition-delay: 0.2s;
+}
+
 .button:hover {
   background-color: var(--color-primary);
   color: var(--color-accent);
@@ -213,37 +288,56 @@ a.button {
   max-width: 8em;
 }
 
-/* Header */
+.skip-link {
+  position: absolute;
+  top: 2em;
+  left: 2em;
+  z-index: 99;
+}
 
-header {
+.skip-link:not(:focus) {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: auto;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+}
+
+/* .intro */
+
+.intro {
   text-align: center;
 }
 
-header div {
+.intro div {
   display: flex;
   flex-direction: column;
   padding: 1em 0;
 }
 
-header div > * {
+.intro div > * {
   margin-left: auto;
   margin-right: auto;
 }
 
-header div > * + * {
+.intro div > * + * {
   margin-top: var(--flow-space);
 }
 
-header div p {
+.intro div p {
   max-width: 25ch;
 }
 
-header div a {
+.intro div a {
   /* align-self: flex-start; */
   margin-top: calc(var(--flow-space) * 1.5);
 }
 
-header img {
+.intro img {
   margin-top: 1em;
   margin-bottom: 1em;
 }
@@ -265,17 +359,17 @@ header img {
   max-width: 88px;
 }
 
-article:first-of-type {
+.value {
   margin-top: 2em;
   padding: 5em 0 7em;
   background-color: var(--color-tertiary);
 }
 
-article:first-of-type small {
+.value small {
   font-size: 1rem;
 }
 
-article:first-of-type h2 span {
+.value h2 span {
   margin-bottom: 1em;
 }
 
@@ -300,19 +394,19 @@ article:first-of-type h2 span {
   object-fit: contain;
 }
 
-article:nth-of-type(2) {
+.examples {
   margin-top: 3em;
   text-align: center;
 }
 
-article:nth-of-type(2) p:last-of-type {
+.examples p:last-of-type {
   font-size: 1.5rem;
   line-height: 1.25;
   max-width: 22ch;
   margin: 1rem auto 0;
 }
 
-article:nth-of-type(2) > div {
+.examples > div {
   display: flex;
   position: relative;
   flex-direction: column-reverse;
@@ -331,31 +425,31 @@ article:nth-of-type(2) > div {
   height: 40vh;
 }
 
-.cta {
+.main-cta {
   text-align: center;
   display: flex;
   flex-direction: column;
 }
 
-.cta * + * {
+.main-cta * + * {
   margin-top: 1rem;
 }
 
-.cta div {
+.main-cta div {
   display: flex;
   flex-direction: column;
 }
 
-.cta div > * {
+.main-cta div > * {
   margin-inline-start: auto;
   margin-inline-end: auto;
 }
 
-.cta h3 {
+.main-cta h3 {
   max-width: 15ch;
 }
 
-.cta p {
+.main-cta p {
   max-width: 30ch;
 }
 
@@ -391,12 +485,12 @@ footer img:not(:first-child) {
 }
 
 @media (min-width: 30em) {
-  article:first-of-type h2:not(span) {
+  .value h2:not(span) {
     font-size: 2.5rem;
     max-width: 17ch;
   }
 
-  article:first-of-type small {
+  .value small {
     display: block;
     max-width: 44ch;
   }
@@ -407,14 +501,14 @@ footer img:not(:first-child) {
 }
 
 @media (min-width: 37em) {
-  article:first-of-type .wrapper {
+  .value .wrapper {
     display: -ms-grid;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 1rem;
   }
 
-  article:first-of-type h2,
+  .value h2,
   small {
     grid-column: 1 / span 2;
   }
@@ -449,7 +543,7 @@ footer img:not(:first-child) {
     font-size: 3rem;
   }
 
-  header {
+  .intro {
     --flow-space: 16px;
 
     display: -ms-grid;
@@ -459,35 +553,35 @@ footer img:not(:first-child) {
     text-align: left;
   }
 
-  header div {
+  .intro div {
     grid-column: 2 / span 5;
     align-self: center;
   }
 
-  header div > * {
+  .intro div > * {
     margin-left: unset;
   }
 
-  header img {
+  .intro img {
     grid-column: 7 / span 6;
   }
 
-  article:first-of-type .wrapper {
+  .value .wrapper {
     grid-template-columns: repeat(12, 1fr);
     grid-gap: 16px;
   }
 
-  article:first-of-type {
+  .value {
     padding-top: 8em;
     -webkit-clip-path: polygon(0px 4%, 100% 0px, 100% 96%, 0% 100%);
     clip-path: polygon(0px 4%, 100% 0px, 100% 96%, 0% 100%);
   }
 
-  article:first-of-type h2 {
+  .value h2 {
     grid-column: 2 / span 7;
   }
 
-  article:first-of-type small {
+  .value small {
     align-self: center;
     grid-column: 9 / span 4;
     font-size: 0.8rem;
@@ -510,26 +604,26 @@ footer img:not(:first-child) {
     margin-top: -3em;
   }
 
-  article:nth-of-type(2) {
+  .examples {
     margin-bottom: 5rem;
   }
 
-  article:nth-of-type(2) h2 {
+  .examples h2 {
     margin: 0 auto 2em;
     max-width: 15ch;
   }
 
-  article:nth-of-type(2) > div {
+  .examples > div {
     flex-direction: row;
     justify-content: space-between;
   }
 
-  article:nth-of-type(2) p {
+  .examples p {
     padding-top: 2rem;
     padding-bottom: 2rem;
   }
 
-  article:nth-of-type(2) p:last-of-type {
+  .examples p:last-of-type {
     font-size: 1.1rem;
     line-height: 1.4;
     margin: unset;
@@ -561,27 +655,27 @@ footer img:not(:first-child) {
     border-radius: 0.5em;
   }
 
-  .cta {
+  .main-cta {
     flex-direction: row;
     text-align: left;
     justify-content: space-evenly;
   }
 
-  .cta div {
+  .main-cta div {
     align-self: center;
   }
 
-  .cta > div > * {
+  .main-cta > div > * {
     margin-inline-start: unset;
     margin-inline-end: unset;
   }
 
-  .cta img {
+  .main-cta img {
     max-width: 464px;
     margin-right: 16px;
   }
 
-  .cta a {
+  .main-cta a {
     align-self: flex-start;
   }
 

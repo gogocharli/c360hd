@@ -28,13 +28,15 @@
                 {{ value.description }}
             </small>
             {% for card in cards %}
-                <img src="{{ card.data.image }}" alt="">
-                <p>{{ card.data.title}}</p>
+                <div class="card">
+                    <img src="{{ card.data.image }}" alt="">
+                    <p>{{ card.data.title}}</p>
+                </div>
             {% endfor %}
         </div>
     </article>
 
-    <article class="examples">
+    <article class="examples wrapper">
         <h2>{{ examples.title }}</h2>
         <div>
             <p class="exponant">{{ examples.exponant }}</p>
