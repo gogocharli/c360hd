@@ -1,5 +1,6 @@
 ---
 layout: 'layouts/home.html'
+title: C360HD
 intro:
   headline: Un pas vers l'avenir.
   sub: Des visites virtuelles de qualité sont un atout essentiel à l'ère digitale

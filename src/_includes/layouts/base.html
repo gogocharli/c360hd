@@ -8,13 +8,10 @@
   {%- set pageTitle = title -%}
 {%- endif -%}
 
-{# Avoid duplication on the home page #}
-{%- set siteTitle = site.name -%}
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ siteTitle }} | {{ title }}</title>
+    <title>{{ pageTitle}}</title>
     <link rel="stylesheet" href="/styles/index.css">
     <script src="/scripts/gsap.min.js" defer></script>
     <script src="/scripts/main.js" defer></script>

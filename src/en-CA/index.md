@@ -1,6 +1,6 @@
 ---
 layout: 'layouts/home.html'
-title: 'Store'
+title: C360HD
 intro:
   headline: A leap into the future.
   sub: Quality virtual tours are essential to stand out in the digital age
