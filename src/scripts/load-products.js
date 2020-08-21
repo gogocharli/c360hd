@@ -1,3 +1,5 @@
+import { handleFormSubmission } from './stripe-purchase.js';
+
 /**
  * Returns a product dom element from an HTML template
  * @param {Object} product – the item's information
@@ -20,6 +22,10 @@ function createProductFromTemplate(item) {
   const img = product.querySelector('img');
   img.src = item.image;
   img.alt = item.name;
+
+  // Attach an event listener to the individual product's form
+  const form = product.querySelector('form');
+  form.addEventListener('submit', handleFormSubmission);
 
   return product;
 }

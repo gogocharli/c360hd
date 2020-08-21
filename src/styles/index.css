@@ -511,6 +511,35 @@ footer img:not(:first-child) {
   margin-right: auto;
 }
 
+.success {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 3em 1em;
+  align-items: center;
+  justify-content: center;
+}
+
+.success > * + * {
+  margin-top: 2rem;
+}
+
+.success h2 {
+  max-width: 20ch;
+  margin-bottom: 0;
+}
+
+.success p {
+  font-size: 1.5rem;
+  line-height: 1.25;
+  max-width: 20ch;
+  align-self: center;
+}
+
+.success a {
+  align-self: center;
+}
+
 @media (min-width: 30em) {
   .value h2:not(span) {
     font-size: 2.5rem;
@@ -554,6 +583,10 @@ footer img:not(:first-child) {
 
   .card:last-of-type {
     grid-row: 5;
+  }
+
+  .success h2 {
+    max-width: 20ch;
   }
 }
 

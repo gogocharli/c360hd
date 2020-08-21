@@ -1,13 +1,24 @@
 <!DOCTYPE html>
 <html lang="{{ lang }}" dir="{{ dir }}">
 
+{%- set pageTitle = title + ' | ' + site.name -%}
+
+{# We don't want any duplication. This is likely for the home page. #}
+{%- if site.name === title -%} 
+  {%- set pageTitle = title -%}
+{%- endif -%}
+
+{# Avoid duplication on the home page #}
+{%- set siteTitle = site.name -%}
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ site.name }}</title>
+    <title>{{ siteTitle }} | {{ title }}</title>
     <link rel="stylesheet" href="/styles/index.css">
     <script src="/scripts/gsap.min.js" defer></script>
     <script src="/scripts/main.js" defer></script>
+    <script src="https://js.stripe.com/v3/" defer></script>
     {%- if pageScripts -%}
         {%- for script in pageScripts %}
             <script type="module">

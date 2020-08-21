@@ -1,5 +1,6 @@
 ---
 layout: 'layouts/home.html'
+title: 'Store'
 intro:
   headline: A leap into the future.
   sub: Quality virtual tours are essential to stand out in the digital age

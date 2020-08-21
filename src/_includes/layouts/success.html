@@ -1,0 +1,9 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+    <div class="success wrapper">
+        <h2>{{ success.title }}</h2>
+        <p>{{ success.body }}</p>
+        <a href="/{{locale}}/" class="button">{{ success.redirectText }}</a>
+    </div>
+{% endblock %}

@@ -15,4 +15,8 @@ module.exports = {
     'fr-CA': 'Demoiselle guidée vers sa destination',
     'en-CA': 'Woman walking to her destination',
   },
+  buy: {
+    'fr-CA': 'Acheter',
+    'en-CA': 'Buy Now',
+  },
 };
