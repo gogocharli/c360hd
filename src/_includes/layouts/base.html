@@ -6,8 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ site.name }}</title>
     <link rel="stylesheet" href="/styles/index.css">
-    <script src="/scripts/main.js" defer></script>
     <script src="/scripts/gsap.min.js" defer></script>
+    <script src="/scripts/main.js" defer></script>
+    {%- if pageScripts -%}
+        {%- for script in pageScripts %}
+            <script type="module">
+                import { {{ script.module }} } from '{{ script.src }}';
+                {{ script.module }}();
+            </script>
+        {% endfor -%}
+    {%- endif -%}
 </head>
 
 <body>

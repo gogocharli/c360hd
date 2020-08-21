@@ -1,38 +1,13 @@
 [build]
-    command = "npm run build"
-    publish = "dist"
+  command = "npm run build"
+  publish = "dist"
+  functions = "functions"
 
+[dev]
+  framework = "eleventy"
+
+# For french
 [[redirects]]
   from = "/"
   to = "/fr-CA"
-  status = 301
-  force = false
-  conditions = {Language = ["fr"]}
-
-[[redirects]]
-  from = "/"
-  to = "/fr-CA"
-  status = 301
-  force = false
-  conditions = {Language = ["fr-ca"]}
-
-[[redirects]]
-from = "/"
-to = "/en-CA"
-status = 301
-force = false
-conditions = {Language = ["en"]}
-
-[[redirects]]
-  from = "/"
-  to = "/en-CA"
-  status = 301
-  force = false
-  conditions = {Language = ["en-us"]}
-
-[[redirects]]
-  from = "/"
-  to = "/en-CA"
-  status = 301
-  force = false
-  conditions = {Language = ["en-ca"]}
+  conditions = {Language = ["fr"], Country = ["CA"]}

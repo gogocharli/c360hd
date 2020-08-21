@@ -175,11 +175,17 @@ h3 {
   line-height: 1.1;
 }
 
+button {
+  border: 0;
+  background: 0;
+  cursor: pointer;
+}
+
 a[class] {
   text-decoration: none;
 }
 
-a.button {
+.button {
   display: inline-block;
   font-family: var(--font-condensed);
   font-size: 1.2rem;
@@ -264,7 +270,8 @@ header .menu-toggle {
   transition-delay: 0.2s;
 }
 
-.button:hover {
+.button:hover,
+.button:focus {
   background-color: var(--color-primary);
   color: var(--color-accent);
   box-shadow: 0 0 0 2px var(--color-accent);
@@ -484,6 +491,26 @@ footer img:not(:first-child) {
   display: none;
 }
 
+.products > * + * {
+  margin-top: 4rem;
+  text-align: center;
+}
+
+.product .price {
+  font-family: var(--font-expanded), sans-serif;
+  font-size: 1.5em;
+}
+
+.product button {
+  font-size: 1.5em;
+}
+
+.product img {
+  width: 40vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 @media (min-width: 30em) {
   .value h2:not(span) {
     font-size: 2.5rem;
@@ -686,5 +713,24 @@ footer img:not(:first-child) {
   footer img:not(:first-child) {
     display: block;
     object-fit: cover;
+  }
+
+  .products {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    grid-gap: 2em;
+  }
+
+  .products > * + * {
+    margin-top: 0;
+  }
+
+  .product img {
+    width: 20vw;
+  }
+
+  .product h2 {
+    font-size: 2rem;
   }
 }

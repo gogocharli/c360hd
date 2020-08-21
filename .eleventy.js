@@ -14,6 +14,7 @@ module.exports = (config) => {
   config.addPassthroughCopy('./src/styles');
   config.addPassthroughCopy('./src/scripts');
   config.addPassthroughCopy('_redirects');
+  config.addPassthroughCopy('functions');
 
   return {
     // Specify templating engines
