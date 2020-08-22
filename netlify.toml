@@ -5,9 +5,3 @@
 
 [dev]
   framework = "eleventy"
-
-# For french
-[[redirects]]
-  from = "/"
-  to = "/fr-CA"
-  conditions = {Language = ["fr"], Country = ["CA"]}
