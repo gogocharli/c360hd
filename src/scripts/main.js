@@ -29,7 +29,7 @@ menuToggleEl.addEventListener('click', () => {
 });
 
 // Hydrate iframe on index page
-const mapsEl = document.querySelector('[title=Otaku Manga Lounge]');
+const mapsEl = document.querySelector('#otaku');
 window.onload = () => {
   mapsEl.src = `https://www.google.com/maps/embed?pb=!4v1595957210621!6m8!1m7!1sCAoSLEFGMVFpcE9wNHNLWVY1ZlVuSkJHbFl3bzJRVTh6THQ1Uk5ZZFgwLU8tNDlS!2m2!1d45.51811258162802!2d-73.56959223747253!3f67.5!4f1.2999999999999972!5f0.7820865974627469`;
 };
