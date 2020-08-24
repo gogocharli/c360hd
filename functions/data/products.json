@@ -12,7 +12,15 @@
     "name": "Google Streetview Starter",
     "description": "The perfect fit for small businesses, includes up to 20 virtual tours",
     "image": "https://res.cloudinary.com/dannmyv80/image/upload/v1598031986/shape_1_aqyxqe.png",
-    "amount": 39600,
+    "amount": 49500,
+    "currency": "CAD"
+  },
+  {
+    "sku": "TST001",
+    "name": "Test Payment",
+    "description": "Check if payment workflow works",
+    "image": "https://res.cloudinary.com/dannmyv80/image/upload/v1598031986/shape_1_aqyxqe.png",
+    "amount": 100,
     "currency": "CAD"
   }
 ]
