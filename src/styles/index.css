@@ -113,19 +113,10 @@ img:not([alt]) {
   font-display: swap;
 }
 
-@font-face {
-  font-family: 'Lunchtype Condensed';
-  src: url('/assets/lunchtype25-regular_condensed-webfont.woff2')
-      format('woff2'),
-    url('/assets/lunchtype25-regular_condensed-webfont.woff') format('woff');
-  font-display: swap;
-}
-
 :root {
   --font-regular: 'Lunchtype Regular';
   --font-expanded: 'Lunchtype Expanded';
   --font-expanded-medium: 'Lunchtype Expanded Medium';
-  --font-condensed: 'Lunchtype Condensed';
 
   --color-primary: #ffffff;
   --color-secondary: #000000;
@@ -187,9 +178,9 @@ a[class] {
 
 .button {
   display: inline-block;
-  font-family: var(--font-condensed);
+  font-family: var(--font-regular);
   font-size: 1.2rem;
-  padding: 0.2em 1em;
+  padding: 0.5em 1em;
   text-align: center;
   background-color: var(--color-accent);
   color: var(--color-primary);

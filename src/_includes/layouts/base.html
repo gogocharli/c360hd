@@ -16,14 +16,20 @@
     <script src="/scripts/gsap.min.js" defer></script>
     <script src="/scripts/main.js" defer></script>
     <script src="https://js.stripe.com/v3/" defer></script>
-    {%- if pageScripts -%}
-        {%- for script in pageScripts %}
+    {%- if pageModules -%}
+        {%- for script in pageModules %}
             <script type="module">
                 import { {{ script.module }} } from '{{ script.src }}';
                 {{ script.module }}();
             </script>
         {% endfor -%}
     {%- endif -%}
+
+    {% if pageScripts %}
+        {%- for src in pageScripts %}
+            <script src="{{ src }}" defer></script>
+        {% endfor -%}
+    {% endif %}
 </head>
 
 <body>

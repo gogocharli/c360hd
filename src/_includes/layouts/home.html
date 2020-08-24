@@ -1,5 +1,7 @@
 {% extends "layouts/base.html" %}
 
+{% set pageScripts = [ '/scripts/iframe-loading.js'] %}
+
 {% if locale == 'fr-CA' %}
     {% set cards = collections.cartes %}
 {% else %}
@@ -29,7 +31,7 @@
             </small>
             {% for card in cards %}
                 <div class="card">
-                    <img src="{{ card.data.image }}" alt="">
+                    <img loadind=lazy src="{{ card.data.image }}" alt="">
                     <p>{{ card.data.title}}</p>
                 </div>
             {% endfor %}
@@ -51,7 +53,7 @@
     </article>
 
     <article class="main-cta">
-        <img src="{{ mainCta.image.src }}" alt="{{ mainCta.image.alt }}">
+        <img loadind=lazy src="{{ mainCta.image.src }}" alt="{{ mainCta.image.alt }}">
         <div claass="main-cta__content">
             <h3>{{ mainCta.title }}</h3>
             <p>{{ mainCta.description }}</p>
