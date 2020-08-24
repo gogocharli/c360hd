@@ -5,7 +5,8 @@
     "description": "Get started with your streetview package by scheduling your photoshoot date",
     "image": "https://res.cloudinary.com/dannmyv80/image/upload/v1598031986/shape_1_aqyxqe.png",
     "amount": 9900,
-    "currency": "CAD"
+    "currency": "CAD",
+    "setup": true
   },
   {
     "sku": "STV002",
@@ -13,7 +14,8 @@
     "description": "The perfect fit for small businesses, includes up to 20 virtual tours",
     "image": "https://res.cloudinary.com/dannmyv80/image/upload/v1598031986/shape_1_aqyxqe.png",
     "amount": 49500,
-    "currency": "CAD"
+    "currency": "CAD",
+    "setup": false
   },
   {
     "sku": "TST001",
@@ -21,6 +23,7 @@
     "description": "Check if payment workflow works",
     "image": "https://res.cloudinary.com/dannmyv80/image/upload/v1598031986/shape_1_aqyxqe.png",
     "amount": 100,
-    "currency": "CAD"
+    "currency": "CAD",
+    "setup": false
   }
 ]

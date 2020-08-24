@@ -1,5 +1,9 @@
 {% extends "layouts/base.html" %}
 
+{% set pageScripts = [
+    { module: 'retrieveCheckoutSession', src: '/scripts/stripe-purchase.js'}
+] %}
+
 {% block content %}
     <div class="success wrapper">
         <h2>{{ success.title }}</h2>

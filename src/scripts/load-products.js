@@ -12,12 +12,14 @@ function createProductFromTemplate(item) {
   product.querySelector('h2').innerText = item.name;
   product.querySelector('.description').innerText = item.description;
   product.querySelector('[name=sku]').value = item.sku;
+  product.querySelector('[name=setup]').value = item.setup;
 
   // Render the currency using the Intl formatter for safety
-  product.querySelector('.price').innerText = new Intl.NumberFormat('en-CA', {
-    style: 'currency',
-    currency: item.currency,
-  }).format((item.amount / 100).toFixed(2)); // Currency is saved as cents, convert to dollars
+  product.querySelector('.price').innerText =
+    new Intl.NumberFormat('en-CA', {
+      style: 'currency',
+      currency: item.currency,
+    }).format((item.amount / 100).toFixed(2)) + ' +tx'; // Currency is saved as cents, convert to dollars
 
   const img = product.querySelector('img');
   img.src = item.image;
