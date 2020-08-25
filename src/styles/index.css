@@ -204,6 +204,7 @@ header .menu-toggle {
   right: 32px;
   font-size: 1rem;
   font-family: var(--font-regular);
+  background-color: var(--color-primary);
   z-index: 10;
 }
 
@@ -221,7 +222,7 @@ header .menu-toggle {
 
   display: grid;
   place-items: center;
-  background-color: var(--color-accent);
+  background-color: var(--color-primary);
   z-index: 1; /* Keep it above everything else */
 
   transform: translateX(100%);
@@ -234,7 +235,7 @@ header .menu-toggle {
   align-items: center;
   font-family: var(--font-expanded-medium), sans-serif;
   font-size: 3rem;
-  color: var(--color-primary);
+  color: var(--color-accent);
 }
 
 .nav .nav__list > * + * {
@@ -756,5 +757,43 @@ footer img:not(:first-child) {
 
   .product h2 {
     font-size: 2rem;
+  }
+}
+
+@media (min-width: 90em) {
+  header .menu-toggle {
+    display: none;
+  }
+
+  .nav {
+    position: static;
+    width: 100%;
+    max-width: unset;
+    height: unset;
+
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    background: 0;
+
+    transform: translateX(0);
+  }
+
+  .nav .nav__list {
+    flex-direction: row;
+    justify-content: center;
+    font-family: var(--font-expanded), sans-serif;
+    font-size: 1rem;
+    color: var(--color-accent);
+  }
+
+  .nav .nav__list > * + * {
+    margin-top: 0;
+    margin-left: 2em;
+  }
+
+  .nav .nav__list .lgg-link {
+    margin-top: 0;
+    font-size: inherit;
   }
 }
