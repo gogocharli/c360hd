@@ -11,7 +11,7 @@ export async function handleFormSubmission(event) {
   let response;
   // Contact the create checkout lambda to obtain our product
   if (form.get('setup') == 'true') {
-    response = await fetch('/.netlify/functions/setup-payments', {
+    response = await fetch('/api/setup-payments', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -19,7 +19,7 @@ export async function handleFormSubmission(event) {
       body: JSON.stringify(data),
     }).then((res) => res.json());
   } else {
-    response = await fetch('/.netlify/functions/create-checkout', {
+    response = await fetch('/api/create-checkout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ export async function retrieveCheckoutSession() {
     };
 
     // Send it to our netlify function
-    const postID = await fetch('/.netlify/functions/save-payments', {
+    const postID = await fetch('/api/save-payments', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

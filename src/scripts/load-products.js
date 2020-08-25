@@ -33,7 +33,7 @@ function createProductFromTemplate(item) {
 }
 
 export async function loadProducts() {
-  const data = await fetch('/.netlify/functions/get-products')
+  const data = await fetch('/api/get-products')
     .then((res) => res.json())
     .catch((err) => console.log(err));
 
