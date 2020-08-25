@@ -9,8 +9,14 @@ exports.handler = async (event) => {
 
   const { setup_intent, customer } = session;
 
-  // Get the payment method to use next
-  const { payment_method } = await stripe.setupIntents.retrieve(setup_intent);
+  // Get payment method
+  const paymentMethods = await stripe.paymentMethods.list({
+    customer: customer,
+    type: 'card',
+    limit: 1,
+  });
+
+  const payment_method = paymentMethods.data[0].id;
 
   // Create a payment intent
   try {
