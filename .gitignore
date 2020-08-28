@@ -1,6 +1,7 @@
 node_modules/
 dist/
 cache
-.parcel-cache
+public/bundle.*
+
 # Local Netlify folder
 .netlify
