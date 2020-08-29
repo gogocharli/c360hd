@@ -18,6 +18,8 @@
     "dev": "webpack-dev-server --content-base public"
   },
   "dependencies": {
-    "svelte-flatpickr": "^2.4.0"
+    "svelte-flatpickr": "^2.4.0",
+    "svelte-forms-lib": "^1.2.0",
+    "yup": "^0.29.3"
   }
 }

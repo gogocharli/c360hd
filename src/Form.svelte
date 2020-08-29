@@ -1,27 +1,61 @@
 <script>
+  // Svelte modules
   import { createEventDispatcher } from 'svelte';
+
+  // External packages
+  import { createForm, ErrorMessage } from 'svelte-forms-lib';
   import Flatpickr from 'svelte-flatpickr';
 
-  const dispatch = createEventDispatcher();
+  const validateAndSend = () =>
+    new Promise((resolve) => setTimeout(resolve, 1000));
 
-  function handleSubmit() {
-    dispatch('formsubmit', {
-      state: {
-        name,
-        decisionMaker,
-        address,
-        primaryNumber,
-        secondaryNumber,
-        email,
-        payment,
-        photos,
-        date,
-        time,
-        salesRepId,
-        addInfo,
-      },
-    });
-  }
+  const {
+    // Observables state
+    form,
+    errors,
+    state,
+    touched,
+    isValid,
+    isSubmitting,
+    isValidating,
+    // Handlers
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  } = createForm({
+    initialValues: {
+      company: '',
+      decisionMaker: '',
+      address: '',
+      primaryNumber: '',
+      secondaryNumber: '',
+      email: '',
+      payment: '',
+      photos: '',
+      date: null,
+      time: null,
+      repId: '',
+      addInfo: '',
+    },
+    validate: (values) => {
+      let errs = {};
+
+      if (values.date == null) {
+        errs['date'] = 'Please provide a valid time';
+      }
+
+      if (values.time == null) {
+        errs['time'] = 'Please choose a valid time between 10AM and 5PM';
+      }
+
+      return errs;
+    },
+    onSubmit: (values) => {
+      return validateAndSend().then(() => {
+        console.log(values);
+      });
+    },
+  });
 
   const flatpickrDateOpts = {
     minDate: 'today',
@@ -39,29 +73,15 @@
     dateFormat: 'Y-m-d',
   };
 
-  const flatpickrtimeOpts = {
+  const flatpickrTimeOpts = {
     enableTime: true,
     noCalendar: true,
     minTime: '10:00',
     maxTime: '17:00',
     dateFormat: 'H:i',
     time_24hr: true,
-    defaultDate: '10:00',
     minuteIncrement: '30:00',
   };
-
-  export let name = '';
-  export let decisionMaker = '';
-  export let address = '';
-  export let primaryNumber = '';
-  export let secondaryNumber = '';
-  export let email = '';
-  export let payment = '';
-  export let photos = '';
-  export let date = null;
-  export let time = null;
-  export let salesRepId = '';
-  export let addInfo = '';
 </script>
 
 <link
@@ -72,18 +92,29 @@
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/themes/material_blue.min.css" />
 
+<!-- {#if STATE.send.success}
+  <div id="sendmessage">Your message has been sent. Thank you!</div>
+{/if}
 
-<form>
+{#if STATE.send.error}
+  <div id="sendmessage">
+    {STATE.send.error}
+    <br />
+    Please try again
+  </div>
+{/if} -->
+
+<form on:submit={handleSubmit} role="form">
   <div class="field">
     <label for="company">
-      <span class="field__label">Company Name</span>
+      <span class="field__label">Business Name</span>
     </label>
     <input
       type="text"
       name="company"
       id="company"
       required="required"
-      bind:value={name} />
+      bind:value={$form.company} />
   </div>
   <div class="field">
     <label for="decisionMaker">
@@ -94,7 +125,7 @@
       name="decisionMaker"
       id="decisionMaker"
       required="required"
-      bind:value={decisionMaker} />
+      bind:value={$form.decisionMaker} />
   </div>
   <div class="field">
     <label for="address">
@@ -105,7 +136,7 @@
       name="address"
       id="address"
       required="required"
-      bind:value={address} />
+      bind:value={$form.address} />
   </div>
   <div class="field">
     <label for="primaryContact">
@@ -114,10 +145,10 @@
     <input
       type="text"
       inputmode="numeric"
-      name="primaryContact"
-      id="primaryContact"
+      name="primaryNumber"
+      id="primaryNumber"
       required="required"
-      bind:value={primaryNumber} />
+      bind:value={$form.primaryNumber} />
   </div>
   <div class="field">
     <label for="secondaryContact">
@@ -126,9 +157,9 @@
     <input
       type="text"
       inputmode="numeric"
-      name="secondaryContact"
-      id="secondaryContact"
-      bind:value={secondaryNumber} />
+      name="secondaryNumber"
+      id="secondaryNumber"
+      bind:value={$form.secondaryNumber} />
   </div>
   <div class="field">
     <label for="email">
@@ -139,7 +170,7 @@
       name="email"
       id="email"
       required="required"
-      bind:value={email} />
+      bind:value={$form.email} />
   </div>
   <div class="field">
     <p>Payment Method</p>
@@ -151,7 +182,7 @@
         type="radio"
         name="payment"
         id="card"
-        bind:group={payment}
+        bind:group={$form.payment}
         value="card" />
       <label for="cheque">
         <span class="field__label">Cheque</span>
@@ -160,15 +191,15 @@
         type="radio"
         name="payment"
         id="cheque"
-        bind:group={payment}
+        bind:group={$form.payment}
         value="cheque" />
     </div>
   </div>
   <div class="field">
-    <label for="panoNumber">
+    <label for="photos">
       <span class="field__label">Number of Photoshoots</span>
     </label>
-    <select name="panoNumber" id="panoNumber" bind:value={photos}>
+    <select name="photos" id="photos" bind:value={$form.photos}>
       <option value="0-10">0-10</option>
       <option value="10-20">10-20</option>
       <option value="20-30">20-30</option>
@@ -179,13 +210,13 @@
     <label for="date">
       <span class="field__label">Date</span>
     </label>
-    <Flatpickr options={flatpickrDateOpts} bind:value={date} id="date" />
+    <Flatpickr options={flatpickrDateOpts} bind:value={$form.date} id="date" />
   </div>
   <div class="field">
     <label for="time">
       <span class="field__label">Time</span>
     </label>
-    <Flatpickr options={flatpickrtimeOpts} bind:value={time} id="time" />
+    <Flatpickr options={flatpickrTimeOpts} bind:value={$form.time} id="time" />
   </div>
   <div class="field">
     <label for="repId">
@@ -196,7 +227,7 @@
       name="repId"
       id="repId"
       required="required"
-      bind:value={salesRepId} />
+      bind:value={$form.repId} />
   </div>
   <div class="field">
     <label for="addInfo">
@@ -209,9 +240,9 @@
       name="addInfo"
       id="addInfo"
       aria-describedby="infoHint"
-      bind:value={addInfo} />
+      bind:value={$form.addInfo} />
   </div>
-  <button type="submit" class="button" on:click|preventDefault={handleSubmit}>
-    Submit
+  <button type="submit" class="button">
+    {#if $isSubmitting}loading...{:else}Submit{/if}
   </button>
 </form>
