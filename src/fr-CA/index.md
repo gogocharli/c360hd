@@ -1,6 +1,7 @@
 ---
 layout: 'layouts/home.html'
 title: C360HD
+description: Boostez vos activités en incluant des tours virtuels par des professionels à votre profil Google
 intro:
   headline: Un pas vers l'avenir.
   sub: Des visites virtuelles de qualité sont un atout essentiel à l'ère digitale

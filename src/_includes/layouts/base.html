@@ -1,52 +1,48 @@
 <!DOCTYPE html>
 <html lang="{{ lang }}" dir="{{ dir }}">
+  {%- set pageTitle = title + ' | ' + site.name -%} {# We don't want any
+  duplication. This is likely for the home page. #} {%- if site.name === title
+  -%} {%- set pageTitle = title -%} {%- endif -%}
 
-{%- set pageTitle = title + ' | ' + site.name -%}
-
-{# We don't want any duplication. This is likely for the home page. #}
-{%- if site.name === title -%} 
-  {%- set pageTitle = title -%}
-{%- endif -%}
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ pageTitle}}</title>
-    <link rel="stylesheet" href="/styles/index.css">
+    <title>{{ pageTitle }}</title>
+    <link rel="stylesheet" href="/styles/index.css" />
     <script src="/scripts/gsap.min.js" defer></script>
     <script src="/scripts/main.js" defer></script>
     <script src="https://js.stripe.com/v3/" defer></script>
-    {%- if pageModules -%}
-        {%- for script in pageModules %}
-            <script type="module">
-                import { {{ script.module }} } from '{{ script.src }}';
-                {{ script.module }}();
-            </script>
-        {% endfor -%}
-    {%- endif -%}
+    {%- if pageModules -%} {%- for script in pageModules %}
+    <script type="module">
+      import { {{ script.module }} } from '{{ script.src }}';
+      {{ script.module }}();
+    </script>
+    {% endfor -%} {%- endif -%} {% if pageScripts %} {%- for src in pageScripts
+    %}
+    <script src="{{ src }}" defer></script>
+    {% endfor -%} {% endif %}
 
-    {% if pageScripts %}
-        {%- for src in pageScripts %}
-            <script src="{{ src }}" defer></script>
-        {% endfor -%}
-    {% endif %}
-</head>
+    <meta name="description" content="{{ description }}" />
+  </head>
 
-<body>
+  <body>
     {% include 'partials/main-nav.html' %}
 
     <main tabindex="-1" id="main-content">
-        {% block content %}
-        {% endblock %}
+      {% block content %} {% endblock %}
     </main>
 
     <footer class="wrapper">
-        {% include "partials/logo.svg" %}
-        <p>
-            {{ site.address }}
-            <a href="tel:{{ site.number }}">{{ site.number }}</a>
-        </p>
-        <img src="/assets/streetview-logo.jpg" alt="Streetview Trusted">
-        <img src="/assets/streetview-badge.jpg" alt="Google Maps Streetview Trusted">
+      {% include "partials/logo.svg" %}
+      <p>
+        {{ site.address }}
+        <a href="tel:{{ site.number }}">{{ site.number }}</a>
+      </p>
+      <img src="/assets/streetview-logo.jpg" alt="Streetview Trusted" />
+      <img
+        src="/assets/streetview-badge.jpg"
+        alt="Google Maps Streetview Trusted"
+      />
     </footer>
-</body>
+  </body>
+</html>

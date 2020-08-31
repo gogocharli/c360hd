@@ -16,14 +16,5 @@
     "amount": 49500,
     "currency": "CAD",
     "setup": false
-  },
-  {
-    "sku": "TST001",
-    "name": "Test Payment",
-    "description": "Check if payment workflow works",
-    "image": "https://res.cloudinary.com/dannmyv80/image/upload/v1598031986/shape_1_aqyxqe.png",
-    "amount": 100,
-    "currency": "CAD",
-    "setup": false
   }
 ]

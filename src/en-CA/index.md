@@ -1,6 +1,7 @@
 ---
 layout: 'layouts/home.html'
 title: C360HD
+description: Boost your business visiblity by getting the best virtual tours for your Google Maps listing
 intro:
   headline: A leap into the future.
   sub: Quality virtual tours are essential to stand out in the digital age
