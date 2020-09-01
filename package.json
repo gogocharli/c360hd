@@ -2,9 +2,15 @@
   "name": "svelte-app",
   "version": "1.0.0",
   "devDependencies": {
+    "@tailwindcss/custom-forms": "^0.2.1",
+    "autoprefixer": "^9.8.6",
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.1",
     "mini-css-extract-plugin": "^0.6.0",
+    "postcss": "^7.0.32",
+    "postcss-cli": "^7.1.1",
+    "postcss-loader": "^3.0.0",
+    "postcss-preset-env": "^6.7.0",
     "serve": "^11.0.0",
     "style-loader": "^0.23.1",
     "svelte": "^3.0.0",
@@ -18,8 +24,12 @@
     "dev": "webpack-dev-server --content-base public"
   },
   "dependencies": {
+    "lodash.isdate": "^4.0.1",
     "svelte-flatpickr": "^2.4.0",
     "svelte-forms-lib": "^1.2.0",
+    "svelte-loading-spinners": "^0.1.1",
+    "svelte-preprocess": "^4.2.0",
+    "tailwindcss": "^1.7.6",
     "yup": "^0.29.3"
   }
 }
