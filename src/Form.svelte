@@ -11,6 +11,21 @@
   const validateAndSend = () =>
     new Promise((resolve) => setTimeout(resolve, 5000));
 
+  const initialValues = {
+    company: '',
+    decisionMaker: '',
+    address: '',
+    primaryNumber: '',
+    secondaryNumber: '',
+    email: '',
+    payment: '',
+    photos: '',
+    date: null,
+    time: null,
+    repId: '',
+    addInfo: '',
+  };
+
   const {
     // Observables state
     form,
@@ -25,20 +40,7 @@
     handleChange,
     handleSubmit,
   } = createForm({
-    initialValues: {
-      company: '',
-      decisionMaker: '',
-      address: '',
-      primaryNumber: '',
-      secondaryNumber: '',
-      email: '',
-      payment: '',
-      photos: '',
-      date: null,
-      time: null,
-      repId: '',
-      addInfo: '',
-    },
+    initialValues,
     validationSchema: yup.object().shape({
       company: yup.string().required(),
       decisionMaker: yup.string().required(),
@@ -55,7 +57,9 @@
     }),
     onSubmit: (values) => {
       return validateAndSend().then(() => {
-        console.log(values, $state);
+        scrollToTop();
+        status = 'SUCCESS';
+        console.log(initialValues, $state.form);
       });
     },
   });
@@ -85,6 +89,23 @@
     time_24hr: true,
     minuteIncrement: '30:00',
   };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
+  };
+
+  const resetForm = () => {
+    console.log($form);
+    form.set(initialValues);
+    console.log($form);
+    status = 'PENDING';
+  };
+
+  $: status = 'PENDING';
 </script>
 
 <style>
@@ -105,19 +126,27 @@
   }
 
   .modal {
-    display: none;
+    display: none; /* Hidden when the form is not submitting */
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
   }
-
   .modal p {
     color: #2f80ed;
   }
 
   .modal.submitting {
+    display: block;
+  }
+
+  .response {
+    display: none;
+  }
+
+  .response.success,
+  .response.error {
     display: block;
   }
 </style>
@@ -135,17 +164,35 @@
   role="form"
   class:loading={$isSubmitting}
   class="flex flex-col items-center container p-8 space-y-4 mx-auto">
+  {#if status === 'SUCCESS'}
+    <div
+      class="response success bg-teal-100 border border-teal-500 rounded-b
+        text-teal-900 px-16 py-3 shadow-md space-y-4">
+      <p>Order sent!</p>
+      <button
+        class="py-2 px-4 rounded bg-teal-500 text-white"
+        type="reset"
+        on:click={resetForm}>Reset</button>
+    </div>
+  {/if}
+
+  {#if status === 'ERROR'}
+    <div
+      class="response error bg-red-100 border border-red-400 text-red-700 px-4
+        py-3 rounded">
+      <p>Something went wrong. Please try again.</p>
+    </div>
+  {/if}
 
   <div
     class:submitting={$isSubmitting}
     class="modal bg-opacity-75 bg-blue-100 flex flex-col items-center
-    justify-center p-16 transition-opacity">
-
+      justify-center p-16 transition-opacity">
     <p class="text-2xl text-center text-blue-700 font-bold mb-8">
       Please wait while we process your order
     </p>
 
-    <SyncLoader size="60" color="#2f80ed" unit="px" />
+    <SyncLoader size="60" color="#2f80ed" unit="px" class="mx-auto" />
   </div>
   <div class="field">
     <label for="company">
@@ -172,9 +219,7 @@
       bind:value={$form.decisionMaker} />
   </div>
   <div class="field">
-    <label for="address">
-      <span class="field__label">Address</span>
-    </label>
+    <label for="address"> <span class="field__label">Address</span> </label>
     <input
       class="form-input"
       type="text"
@@ -209,9 +254,7 @@
       bind:value={$form.secondaryNumber} />
   </div>
   <div class="field">
-    <label for="email">
-      <span class="field__label">E-Mail</span>
-    </label>
+    <label for="email"> <span class="field__label">E-Mail</span> </label>
     <input
       class="form-input"
       type="text"
@@ -219,9 +262,7 @@
       id="email"
       required="required"
       bind:value={$form.email} />
-    {#if $errors.email}
-      <small>{$errors.email}</small>
-    {/if}
+    {#if $errors.email}<small>{$errors.email}</small>{/if}
   </div>
   <div class="field">
     <p class="text-lg mt-2 text-gray-700">Payment Method</p>
@@ -248,9 +289,7 @@
           value="cheque" />
       </label>
 
-      {#if $errors.payment}
-        <small>{$errors.payment}</small>
-      {/if}
+      {#if $errors.payment}<small>{$errors.payment}</small>{/if}
     </div>
   </div>
   <div class="field">
@@ -268,34 +307,26 @@
       <option value="20-30">20-30</option>
       <option value="30+">30+</option>
     </select>
-    {#if $errors.photos}
-      <small>{$errors.photos}</small>
-    {/if}
+    {#if $errors.photos}<small>{$errors.photos}</small>{/if}
   </div>
   <div class="field">
-    <label for="date">
-      <span class="field__label">Date</span>
-    </label>
+    <label for="date"> <span class="field__label">Date</span> </label>
     <Flatpickr
-      class="form-input"
+      class="form-input text-center"
       options={flatpickrDateOpts}
       bind:value={$form.date}
       id="date" />
   </div>
   <div class="field">
-    <label for="time">
-      <span class="field__label">Time</span>
-    </label>
+    <label for="time"> <span class="field__label">Time</span> </label>
     <Flatpickr
-      class="form-input"
+      class="form-input min-w-full text-center"
       options={flatpickrTimeOpts}
       bind:value={$form.time}
       id="time" />
   </div>
   <div class="field">
-    <label for="repId">
-      <span class="field__label">Sales Rep ID</span>
-    </label>
+    <label for="repId"> <span class="field__label">Sales Rep ID</span> </label>
     <input
       class="form-input"
       type="text"
