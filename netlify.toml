@@ -4,7 +4,12 @@
   functions = "functions"
 
 [dev]
-  framework = "svelte"
+  framework = "#custom"
+  command = "npm run dev"
+  targetPort = 8080
+  port = 8888
+  publish = "public"
+  autoLaunch = true
 
 [[redirects]]
   from = "/api/*"

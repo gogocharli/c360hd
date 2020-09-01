@@ -8,8 +8,26 @@
   import Flatpickr from 'svelte-flatpickr';
   import { SyncLoader } from 'svelte-loading-spinners';
 
-  const validateAndSend = () =>
-    new Promise((resolve) => setTimeout(resolve, 5000));
+  const validateAndSend = (formResponses) => {
+    isSubmitting.set(true);
+    fetch('/api/order', {
+      method: 'POST',
+      body: JSON.stringify(formResponses),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        status = 'SUCCESS';
+      })
+      .catch((error) => {
+        console.error(error);
+        status = 'ERROR';
+      })
+      .finally(() => {
+        isSubmitting.set(false);
+        scrollToTop();
+      });
+  };
 
   const initialValues = {
     company: '',
@@ -55,13 +73,7 @@
       repId: yup.string().required(),
       addInfo: yup.string(),
     }),
-    onSubmit: (values) => {
-      return validateAndSend().then(() => {
-        scrollToTop();
-        status = 'SUCCESS';
-        console.log(initialValues, $state.form);
-      });
-    },
+    onSubmit: (values) => validateAndSend(values),
   });
 
   const flatpickrDateOpts = {
@@ -99,13 +111,11 @@
   };
 
   const resetForm = () => {
-    console.log($form);
     form.set(initialValues);
-    console.log($form);
     status = 'PENDING';
   };
 
-  $: status = 'PENDING';
+  let status = 'PENDING';
 </script>
 
 <style>
