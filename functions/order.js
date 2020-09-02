@@ -1,3 +1,8 @@
+const hdate = require('human-date');
+
+const { createEmail } = require('./templates');
+const { formatTime } = require('./date-time');
+
 exports.handler = (event, _context, callback) => {
   const mailgun = require('mailgun-js');
   const mg = mailgun({
@@ -7,31 +12,24 @@ exports.handler = (event, _context, callback) => {
 
   const data = JSON.parse(event.body);
 
+  // Verify that required inputs aren't empty
+  for (let field of Object.keys(data)) {
+    if (field === 'secondaryNumber' || field === 'addInfo') {
+      continue;
+    } else if (!data[field]) {
+      callback(
+        new Error(`${field} is empty, make sure to fill the form completely.`)
+      );
+    }
+  }
+
   let { email, decisionMaker, date, time, repId } = data;
 
+  date = hdate.prettyPrint(date);
+  time = formatTime(time);
+
   // Define the message
-  // TODO import from an external file
-  const mailContent = {
-    from: 'Charles <c360hdmtl@gmail.com>',
-    to: `${decisionMaker} <${email}>`,
-    subject: 'Your Google Streetview Virtual Tours Confirmation',
-    text: `
-      Hello, ${decisionMaker}!
-
-      Thank you for deciding to work with us for your virtual tours to boost the visibility of your business!
-
-      Our photographer is scheduled to be at your store between 9AM to 5PM with a preference for ${String(
-        time
-      )} on the ${String(date)}.
-
-      For more informtion, please contact your sales representative: ${repId}
-
-      Here is a link to make your payment or deposit: https://c360hd.com/en-ca/store/
-
-      See you soon!
-      Charles from C360HD.
-    `,
-  };
+  const mailContent = createEmail(decisionMaker, email, date, time, repId);
 
   // Send the message with the API Call
   mg.messages().send(mailContent, (error, response) => {
