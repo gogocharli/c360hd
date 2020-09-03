@@ -66,7 +66,7 @@
       primaryNumber: yup.string().required(),
       secondaryNumber: yup.string(),
       email: yup.string().email().required(),
-      payment: yup.string().oneOf(['card', 'cheque']).required(),
+      payment: yup.string().oneOf(['card', 'cheque', 'cash']).required(),
       photos: yup.string().oneOf(['0-10', '10-20', '20-30', '30+']).required(),
       date: yup.date().required(),
       time: yup.date().required(),
@@ -297,6 +297,17 @@
           id="cheque"
           bind:group={$form.payment}
           value="cheque" />
+      </label>
+
+      <label for="cash" class="inline-flex items-center ml-6">
+        <span class="field__label">Cash</span>
+        <input
+          class="form-radio ml-2 h-6 w-6"
+          type="radio"
+          name="payment"
+          id="cash"
+          bind:group={$form.payment}
+          value="cash" />
       </label>
 
       {#if $errors.payment}<small>{$errors.payment}</small>{/if}
