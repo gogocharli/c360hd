@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "airtable": "^0.9.0",
     "date-time": "^3.1.0",
     "dotenv": "^8.2.0",
     "human-date": "^1.4.0",

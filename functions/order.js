@@ -1,7 +1,11 @@
 const hdate = require('human-date');
 
-const { createEmail } = require('./templates');
-const { formatTime } = require('./date-time');
+const { createEmail } = require('./utils/templates');
+const { formatTime } = require('./utils/date-time');
+
+// Depend on the number of available photographers on the field
+MAX_CONCURRENT_ORDERS = 4;
+MAX_DAILY_ORDERS = MAX_CONCURRENT_ORDERS * 7;
 
 exports.handler = (event, _context, callback) => {
   const mailgun = require('mailgun-js');
@@ -25,11 +29,13 @@ exports.handler = (event, _context, callback) => {
 
   let { email, decisionMaker, date, time, repId } = data;
 
-  date = hdate.prettyPrint(date);
-  time = formatTime(time);
+  humanDate = hdate.prettyPrint(date);
+  time = formatTime(time); // 15h00
+
+  // TODO Get the rep name, phone number and email from the ID with a Airtable Query
 
   // Define the message
-  const mailContent = createEmail(decisionMaker, email, date, time, repId);
+  const mailContent = createEmail(decisionMaker, email, humanDate, time, repId);
 
   // Send the message with the API Call
   mg.messages().send(mailContent, (error, response) => {
