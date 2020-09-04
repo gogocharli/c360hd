@@ -13,23 +13,43 @@ const base = new Airtable({ apiKey: 'keyr7hFsG1NJ64sna' }).base(
 
 const table = base('Orders');
 
-const getRecords = async () => {
-  // let fields = [];
+const getDates = (callback) => {
+  let records = [];
+
+  // Process each page and add the original records to our array
+  const processPage = (partialRecords, fetchNextPage) => {
+    records = [...records, ...partialRecords];
+    fetchNextPage();
+  };
+
+  const processRecords = (err) => {
+    if (err) {
+      throw new Error(err);
+    }
+
+    // Create a new array from all the records
+    const orders = records.map((record) => {
+      return {
+        _id: record.getId(),
+        date: record.get('Date'),
+        time: record.get('Time'),
+      };
+    });
+
+    callback(orders);
+  };
   try {
-    const records = await table
+    table
       .select({
         view: 'API',
         fields: ['Date', 'Time'],
       })
-      .firstPage();
-
-    const fields = await records.map((record) => {
-      return { date: record.get('Date'), time: record.get('Time') };
-    });
-    console.log(fields, fields.length);
+      .eachPage(processPage, processRecords);
   } catch (err) {
     console.error(err);
   }
 };
 
-getRecords();
+const askData = (cb) => getDates(cb);
+
+askData(console.log);
