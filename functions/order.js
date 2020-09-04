@@ -3,10 +3,6 @@ const hdate = require('human-date');
 const { createEmail } = require('./utils/templates');
 const { formatTime } = require('./utils/date-time');
 
-// Depend on the number of available photographers on the field
-MAX_CONCURRENT_ORDERS = 4;
-MAX_DAILY_ORDERS = MAX_CONCURRENT_ORDERS * 7;
-
 exports.handler = (event, _context, callback) => {
   const mailgun = require('mailgun-js');
   const mg = mailgun({
@@ -31,6 +27,8 @@ exports.handler = (event, _context, callback) => {
 
   humanDate = hdate.prettyPrint(date);
   time = formatTime(time); // 15h00
+
+  // TODO Make sure that the time is not taken
 
   // TODO Get the rep name, phone number and email from the ID with a Airtable Query
 
