@@ -24,6 +24,9 @@ const OPENING_HOURS = [
   '17h30',
 ];
 
+class scheduleError extends Error {}
+
+exports.scheduleError = scheduleError;
 /*
   Extract upcoming order dates from airtable into an array of objects containing date and time
   Filter the records which contain the same date
@@ -56,7 +59,6 @@ exports.schedule = async function (date, time) {
     // Check if there are shootings at that time
     if (isAvailable(isSameDate, time)) {
       // If there is enough space for that time
-      console.log('Can place order', date, time);
       return true;
     } else {
       // Find the next set of time with less than 4 orders
@@ -93,16 +95,15 @@ exports.schedule = async function (date, time) {
       For example, if 15h00 is chosen, return 14h00, 15h30, 16h00 if available 
       */
       // Throw an error to the sales rep with the next three available hours
-      throw new Error(
-        `Schedule conflict. How about the following hours instead ${availableHours.slice(
-          0,
-          3
-        )}`
+      throw new scheduleError(
+        `Schedule conflict. How about the following hours instead ${availableHours
+          .slice(0, 3)
+          .join(', ')}`
       );
     }
   } else {
     // Present an error to choose new date
-    throw new Error(
+    throw new scheduleError(
       "Can't book more for that day, please choose another date."
     );
   }

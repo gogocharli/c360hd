@@ -5,9 +5,11 @@
  * @param {string} email - The recipient's email
  * @param {string} date - Human readable version of the date
  * @param {string} time - The preferred time
+ * @param {string} repId - The sales agent Id
+ * @param {string} orderNumber - The order Number
  * @returns {{from: string, to: string, subject: string, text: string}}
  */
-exports.createEmail = (name, email, date, time, repId) => {
+exports.createEmail = (name, email, date, time, repId, orderNumber) => {
   return {
     from: 'Charles <c360hdmtl@gmail.com>',
     to: `${name} <${email}>`,
@@ -20,6 +22,8 @@ exports.createEmail = (name, email, date, time, repId) => {
     Our photographer is scheduled to be at your store between 9AM to 5PM with a preference for ${time} on the ${date}.
 
     For more information, please contact your sales representative: ${repId}
+
+    Your order number is: ${orderNumber}
 
     Here is a link to make your payment or deposit: https://c360hd.com/en-ca/store/
 

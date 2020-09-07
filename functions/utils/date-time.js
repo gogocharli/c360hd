@@ -14,3 +14,15 @@ exports.formatTime = (time) => {
   mins = +mins + 30 < 60 ? '00' : '30';
   return [hours, mins].join('h');
 };
+
+/**
+ * Extracts date from an ISO 8601 time string in airtable's format
+ *
+ * @param {string} date
+ * @returns {string} the matched date
+ */
+exports.formatDate = (date) => {
+  const regex = /(^.*)(?:T)/g;
+  const formattedDate = regex.exec(date)[1];
+  return formattedDate;
+};

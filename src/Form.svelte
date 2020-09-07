@@ -14,10 +14,17 @@
       method: 'POST',
       body: JSON.stringify(formResponses),
     })
+      .then(checkStatus)
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
-        status = 'SUCCESS';
+        if (res.error) {
+          console.log(res.error);
+          status = 'SCHEDULE_ERROR';
+          errorMessage = res.error;
+        } else {
+          console.log(res);
+          status = 'SUCCESS';
+        }
       })
       .catch((error) => {
         console.error(error);
@@ -28,6 +35,18 @@
         scrollToTop();
       });
   };
+
+  class scheduleError extends Error {}
+
+  function checkStatus(res) {
+    if ((res.status >= 200 && res.status < 300) || res.status == 418) {
+      return res;
+    } else {
+      let err = new Error(res.statusText);
+      err.response = res;
+      throw err;
+    }
+  }
 
   const initialValues = {
     company: '',
@@ -66,7 +85,7 @@
       primaryNumber: yup.string().required(),
       secondaryNumber: yup.string(),
       email: yup.string().email().required(),
-      payment: yup.string().oneOf(['card', 'cheque', 'cash']).required(),
+      payment: yup.string().oneOf(['Card', 'Cheque', 'Cash']).required(),
       photos: yup.string().oneOf(['0-10', '10-20', '20-30', '30+']).required(),
       date: yup.date().required(),
       time: yup.date().required(),
@@ -116,6 +135,7 @@
   };
 
   let status = 'PENDING';
+  let errorMessage;
 </script>
 
 <style>
@@ -186,6 +206,14 @@
     </div>
   {/if}
 
+  {#if status === 'SCHEDULE_ERROR'}
+    <div
+      class="response error bg-red-100 border border-red-400 text-red-700 px-4
+        py-3 rounded">
+      <p>{errorMessage}</p>
+    </div>
+  {/if}
+
   {#if status === 'ERROR'}
     <div
       class="response error bg-red-100 border border-red-400 text-red-700 px-4
@@ -193,7 +221,6 @@
       <p>Something went wrong. Please try again.</p>
     </div>
   {/if}
-
   <div
     class:submitting={$isSubmitting}
     class="modal bg-opacity-75 bg-blue-100 flex flex-col items-center
@@ -285,7 +312,7 @@
           name="payment"
           id="card"
           bind:group={$form.payment}
-          value="card" />
+          value="Card" />
       </label>
 
       <label for="cheque" class="inline-flex items-center ml-6">
@@ -296,7 +323,7 @@
           name="payment"
           id="cheque"
           bind:group={$form.payment}
-          value="cheque" />
+          value="Cheque" />
       </label>
 
       <label for="cash" class="inline-flex items-center ml-6">
@@ -307,7 +334,7 @@
           name="payment"
           id="cash"
           bind:group={$form.payment}
-          value="cash" />
+          value="Cash" />
       </label>
 
       {#if $errors.payment}<small>{$errors.payment}</small>{/if}

@@ -1,5 +1,6 @@
 dependencies:
   airtable: 0.9.0
+  crypto-random-string: 3.3.0
   date-time: 3.1.0
   dotenv: 8.2.0
   human-date: 1.4.0
@@ -1112,6 +1113,14 @@ packages:
       node: '>= 8'
     resolution:
       integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==
+  /crypto-random-string/3.3.0:
+    dependencies:
+      type-fest: 0.8.1
+    dev: false
+    engines:
+      node: '>=8'
+    resolution:
+      integrity: sha512-teWAwfMb1d6brahYyKqcBEb5Yp8PJPvPOdOonXDnvaKOTmKDFNVE8E3Y2XQuzjNV/3XMwHbrX9fHWvrhRKt4Gg==
   /cssom/0.3.8:
     dev: true
     resolution:
@@ -3903,7 +3912,6 @@ packages:
     resolution:
       integrity: sha512-q+MB8nYR1KDLrgr4G5yemftpMC7/QLqVndBmEEdqzmNj5dcFOO4Oo8qlwZE3ULT3+Zim1F8Kq4cBnikNhlCMlg==
   /type-fest/0.8.1:
-    dev: true
     engines:
       node: '>=8'
     resolution:
@@ -4168,6 +4176,7 @@ packages:
       integrity: sha512-aePbxDmcYW++PaqBsJ+HYUFwCdv4LVvdnhBy78E57PIor8/OVvhMrADFFEDh8DHDFRv/O9i3lPhsENjO7QX0+A==
 specifiers:
   airtable: ^0.9.0
+  crypto-random-string: ^3.3.0
   date-time: ^3.1.0
   dotenv: ^8.2.0
   human-date: ^1.4.0

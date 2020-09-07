@@ -1,5 +1,5 @@
 const Airtable = require('airtable');
-const base = new Airtable({ apiKey: 'keyr7hFsG1NJ64sna' }).base(
+const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
   'appxpI4tUKTnWtKys'
 );
 
@@ -11,15 +11,22 @@ const base = new Airtable({ apiKey: 'keyr7hFsG1NJ64sna' }).base(
  * @returns {Promise<[]>} An array of record objects
  */
 exports.getFromTable = async (table, ...fields) => {
-  try {
-    const records = await base(table)
-      .select({
-        view: 'API',
-        fields,
-      })
-      .all();
-    return records;
-  } catch (err) {
-    console.error(err);
-  }
+  const records = await base(table)
+    .select({
+      view: 'API',
+      fields,
+    })
+    .all();
+  return records;
+};
+
+/**
+ *
+ * @param {String} table The table to write to
+ * @param {*} info The information to write to the table
+ * @returns {Promise<[]>} An array of record objects
+ */
+exports.writeToTable = async (table, info = {}) => {
+  const createdRecord = await base(table).create([{ fields: info }]);
+  return createdRecord;
 };
