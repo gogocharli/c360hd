@@ -5,14 +5,23 @@ const MAX_CONCURRENT_ORDERS = 4;
 const MAX_DAILY_ORDERS = MAX_CONCURRENT_ORDERS * 7;
 const OPENING_HOURS = [
   '9h00',
+  '9h30',
   '10h00',
+  '10h30',
   '11h00',
+  '11h30',
   '12h00',
+  '12h30',
   '13h00',
+  '13h30',
   '14h00',
+  '14h30',
   '15h00',
+  '15h30',
   '16h00',
+  '16h30',
   '17h00',
+  '17h30',
 ];
 
 /*
@@ -26,30 +35,35 @@ const OPENING_HOURS = [
 
 /**
  * Schedules the order at the desired date and time.
- * If the date is fully booked, throw an error message that can be passed to the order form
- * If the time is not available, throw an error message with 3 other available hours
+ * - If the date is fully booked, throw an error message that can be passed to the order form.
+ * - If the time is not available, throw an error message with 3 other available hours.
  * @param {String} date Formatted as `2020-09-14` for `September 14th 2020`
  * @param {String} time Formatted as `15h00` for `3PM`
  */
-const schedule = async function (date, time) {
-  const orders = await getFromTable('Orders', 'Date', 'Time');
+exports.schedule = async function (date, time) {
+  const data = await getFromTable('Orders', 'Date', 'Time');
+  const orders = data.map((order) => {
+    return { Date: order.get('Date'), Time: order.get('Time') };
+  });
+
   const isSameDate = orders
     .filter((order) => order.Date === date)
     .map((order) => order.Time);
 
-  if (!isSameDate.length < MAX_DAILY_ORDERS) {
+  if (!isSameDate.length) {
+    return true;
+  } else if (isSameDate.length < MAX_DAILY_ORDERS) {
     // Check if there are shootings at that time
-    // If there is enough space that day
     if (isAvailable(isSameDate, time)) {
-      // TODO Create the record
-      console.log('Can place order');
+      // If there is enough space for that time
+      console.log('Can place order', date, time);
+      return true;
     } else {
       // Find the next set of time with less than 4 orders
       // Get the other filled hours of the day
-
-      let availableHours = isSameDate.filter((hour) => {
+      let availableHours = OPENING_HOURS.filter((hour) => {
         // If the hour has been shedule, don't include it in the available hours
-        return !OPENING_HOURS.includes(hour);
+        return !isSameDate.includes(hour);
       });
 
       if (availableHours.length < 3) {
@@ -72,13 +86,25 @@ const schedule = async function (date, time) {
             availableHours.push(hour);
           }
         }
-
-        // Throw an error to the sales rep with the next three available hours
       }
+
+      /*
+      TODO Return the hours closest to the desired hour.
+      For example, if 15h00 is chosen, return 14h00, 15h30, 16h00 if available 
+      */
+      // Throw an error to the sales rep with the next three available hours
+      throw new Error(
+        `Schedule conflict. How about the following hours instead ${availableHours.slice(
+          0,
+          3
+        )}`
+      );
     }
   } else {
     // Present an error to choose new date
-    console.log('error my friend');
+    throw new Error(
+      "Can't book more for that day, please choose another date."
+    );
   }
 };
 

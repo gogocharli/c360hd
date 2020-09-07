@@ -11,5 +11,6 @@ exports.formatTime = (time) => {
   const localDate = dateTime({ local: true, date: new Date(time) });
   const localTime = localDate.split(' ').pop().split(':');
   [hours, mins] = localTime;
+  mins = +mins + 30 < 60 ? '00' : '30';
   return [hours, mins].join('h');
 };
