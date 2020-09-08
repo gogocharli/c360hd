@@ -4,13 +4,13 @@ const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
 );
 
 /**
- * Fetches data from the relevant airtable base
+ * Fetches data as a list from the relevant airtable base
  *
  * @param {String} table The table to select from
  * @param  {...String} fields Fields to return from the table
  * @returns {Promise<[]>} An array of record objects
  */
-exports.getFromTable = async (table, ...fields) => {
+exports.getAllFromTable = async (table, ...fields) => {
   const records = await base(table)
     .select({
       view: 'API',
@@ -18,6 +18,18 @@ exports.getFromTable = async (table, ...fields) => {
     })
     .all();
   return records;
+};
+
+/**
+ * Returns the matching Id from
+ *
+ * @param {String} table The table to select from
+ * @param {String} id The unique key of the record
+ * @returns {Promise<{}>}
+ */
+exports.getRecordById = async (table, id) => {
+  const match = await base(table).find(id);
+  return match;
 };
 
 /**

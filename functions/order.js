@@ -5,7 +5,7 @@ const cryptoRandomString = require('crypto-random-string');
 
 const { createEmail } = require('./utils/templates');
 const { formatDate, formatTime } = require('./utils/date-time');
-const { getFromTable, writeToTable } = require('./utils/queries');
+const { getAllFromTable, writeToTable } = require('./utils/queries');
 const { schedule, scheduleError } = require('./scheduler');
 
 exports.handler = async (event, _context, callback) => {
@@ -34,7 +34,7 @@ exports.handler = async (event, _context, callback) => {
   date = formatDate(date); // 2020-09-24
   time = formatTime(time); // 15h00
 
-  // TODO Make sure that the time is not taken
+  // Create a new distinguishable order number
   let orderNumber = cryptoRandomString({
     length: 6,
     type: 'distinguishable',
@@ -42,6 +42,21 @@ exports.handler = async (event, _context, callback) => {
 
   try {
     if ((await schedule(date, time)) === true) {
+      // Get the rep name and phone number from the ID
+      const repsRecords = await getAllFromTable('Reps');
+      const matchedRep = repsRecords
+        .filter((rep) => {
+          return rep.get('RepID') === repId;
+        })
+        .map((rep) => {
+          return {
+            key: rep.getId(),
+            name: rep.get('Name'),
+            number: rep.get('Number'),
+          };
+        });
+      const repInfo = matchedRep[0];
+
       // Create order
       const clientInfo = {
         Client: data.company,
@@ -61,7 +76,7 @@ exports.handler = async (event, _context, callback) => {
         Time: time,
         'Payment Method': data.payment,
         'Photos Estimate': data.photos,
-        'Rep ID': repId,
+        'Rep ID': [repInfo.key],
         'Additional Info': data.addInfo,
         Clients: [clientId],
         Status: 'Pending',
@@ -71,19 +86,18 @@ exports.handler = async (event, _context, callback) => {
 
       if (createOrder) {
         // Define the message
-        const mailContent = createEmail(
-          decisionMaker,
-          email,
-          humanDate,
+        const mailContent = {
+          name: decisionMaker,
+          email: email,
+          date: humanDate,
           time,
-          repId,
-          orderNumber
-        );
+          repInfo,
+          orderNumber,
+        };
+        const customerEmail = createEmail(mailContent);
 
-        // TODO Get the rep name, phone number and email from the ID with a Airtable Query
-
-        // Send the message with the API Call
-        await mg.messages().send(mailContent);
+        // Send email to the client
+        await mg.messages().send(customerEmail);
 
         return {
           statusCode: 200,

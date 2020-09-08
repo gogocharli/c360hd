@@ -5,13 +5,14 @@
  * @param {string} email - The recipient's email
  * @param {string} date - Human readable version of the date
  * @param {string} time - The preferred time
- * @param {string} repId - The sales agent Id
+ * @param {{key: string, name: string, number: string}} repId - The sales agent Id
  * @param {string} orderNumber - The order Number
  * @returns {{from: string, to: string, subject: string, text: string}}
  */
-exports.createEmail = (name, email, date, time, repId, orderNumber) => {
+// TODO add 'bcc' value to sales@c360hd.com
+exports.createEmail = ({ name, email, date, time, repInfo, orderNumber }) => {
   return {
-    from: 'Charles <c360hdmtl@gmail.com>',
+    from: 'C360HD <c360hdmtl@gmail.com>',
     to: `${name} <${email}>`,
     subject: 'Your Google Streetview Virtual Tours Confirmation',
     text: `
@@ -21,7 +22,7 @@ exports.createEmail = (name, email, date, time, repId, orderNumber) => {
 
     Our photographer is scheduled to be at your store between 9AM to 5PM with a preference for ${time} on the ${date}.
 
-    For more information, please contact your sales representative: ${repId}
+    For more information, please contact your sales representative ${repInfo.name} at ${repInfo.number}
 
     Your order number is: ${orderNumber}
 

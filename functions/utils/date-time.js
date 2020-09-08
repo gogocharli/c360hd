@@ -8,10 +8,10 @@ const dateTime = require('date-time');
  */
 
 exports.formatTime = (time) => {
-  const localDate = dateTime({ local: true, date: new Date(time) });
+  const localDate = dateTime({ local: false, date: new Date(time) });
   const localTime = localDate.split(' ').pop().split(':');
   [hours, mins] = localTime;
-  mins = +mins + 30 < 60 ? '00' : '30';
+  mins = +mins + 30 < 60 ? '00' : '30'; // Rounds to 30 minutes interval
   return [hours, mins].join('h');
 };
 

@@ -1,4 +1,4 @@
-const { getFromTable } = require('./utils/queries');
+const { getAllFromTable } = require('./utils/queries');
 
 // Depend on the number of available photographers on the field
 const MAX_CONCURRENT_ORDERS = 4;
@@ -44,7 +44,7 @@ exports.scheduleError = scheduleError;
  * @param {String} time Formatted as `15h00` for `3PM`
  */
 exports.schedule = async function (date, time) {
-  const data = await getFromTable('Orders', 'Date', 'Time');
+  const data = await getAllFromTable('Orders', 'Date', 'Time');
   const orders = data.map((order) => {
     return { Date: order.get('Date'), Time: order.get('Time') };
   });
