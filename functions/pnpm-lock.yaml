@@ -5,6 +5,7 @@ dependencies:
   dotenv: 8.2.0
   human-date: 1.4.0
   mailgun-js: 0.22.0
+  moment-timezone: 0.5.31
 devDependencies:
   jest: 26.4.2
 lockfileVersion: 5.1
@@ -2792,6 +2793,16 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-WRoDn//mXBiJ1H40rqa3vH0toePwSsGb45iInWlTySa+Uu4k3tYUSxa2v1KqAiLtvlrSzaExqS1gtk96A9zvEA==
+  /moment-timezone/0.5.31:
+    dependencies:
+      moment: 2.27.0
+    dev: false
+    resolution:
+      integrity: sha512-+GgHNg8xRhMXfEbv81iDtrVeTcWt0kWmTEY1XQK14dICTXnWJnT0dxdlPspwqF3keKMVPXwayEsk1DI0AA/jdA==
+  /moment/2.27.0:
+    dev: false
+    resolution:
+      integrity: sha512-al0MUK7cpIcglMv3YF13qSgdAIqxHTO7brRtaz3DlSULbqfazqkc5kEjNrLDOM7fsjshoFIihnU8snrP7zUvhQ==
   /ms/2.0.0:
     resolution:
       integrity: sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=
@@ -4182,3 +4193,4 @@ specifiers:
   human-date: ^1.4.0
   jest: ^26.4.2
   mailgun-js: ^0.22.0
+  moment-timezone: ^0.5.31

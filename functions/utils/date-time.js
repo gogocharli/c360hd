@@ -1,4 +1,9 @@
 const dateTime = require('date-time');
+const moment = require('moment-timezone');
+
+const convertTimeZone = (time, timeZone = 'America/Toronto') => {
+  return moment.tz(time, timeZone).format();
+};
 
 /**
  * Extracts local time from an ISO 8601 time string in a readable format
@@ -8,7 +13,7 @@ const dateTime = require('date-time');
  */
 
 exports.formatTime = (time) => {
-  const localDate = dateTime({ local: false, date: new Date(time) });
+  const localDate = dateTime({ date: new Date(convertTimeZone(time)) });
   const localTime = localDate.split(' ').pop().split(':');
   [hours, mins] = localTime;
   mins = +mins + 30 < 60 ? '00' : '30'; // Rounds to 30 minutes interval
