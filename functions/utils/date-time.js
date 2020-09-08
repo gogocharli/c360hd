@@ -1,8 +1,12 @@
-const dateTime = require('date-time');
 const moment = require('moment-timezone');
-
+moment.locale('en-gb');
+/**
+ *
+ * @param {String} time
+ * @param {String=} timeZone
+ */
 const convertTimeZone = (time, timeZone = 'America/Toronto') => {
-  return moment.tz(time, timeZone).format();
+  return moment.tz(time, timeZone).format('LLL');
 };
 
 /**
@@ -13,7 +17,7 @@ const convertTimeZone = (time, timeZone = 'America/Toronto') => {
  */
 
 exports.formatTime = (time) => {
-  const localDate = dateTime({ date: new Date(convertTimeZone(time)) });
+  const localDate = convertTimeZone(time);
   const localTime = localDate.split(' ').pop().split(':');
   [hours, mins] = localTime;
   mins = +mins + 30 < 60 ? '00' : '30'; // Rounds to 30 minutes interval
