@@ -14,6 +14,7 @@
     "crypto-random-string": "^3.3.0",
     "date-time": "^3.1.0",
     "dotenv": "^8.2.0",
+    "googleapis": "^59.0.0",
     "human-date": "^1.4.0",
     "mailgun-js": "^0.22.0",
     "moment-timezone": "^0.5.31"

@@ -7,6 +7,7 @@ const { createEmail } = require('./utils/templates');
 const { formatDate, formatTime } = require('./utils/date-time');
 const { getAllFromTable, writeToTable } = require('./utils/queries');
 const { schedule, scheduleError } = require('./scheduler');
+const { addToCalendar } = require('./calendar');
 
 exports.handler = async (event, _context, callback) => {
   const mailgun = require('mailgun-js');
@@ -28,11 +29,11 @@ exports.handler = async (event, _context, callback) => {
     }
   }
 
-  let { email, decisionMaker, date, time, repId } = data;
+  let { email, decisionMaker, address, company, date, time, repId } = data;
 
   humanDate = hdate.prettyPrint(date); // September 24, 2020
   date = formatDate(date); // 2020-09-24
-  time = formatTime(time); // 15h00
+  humanTime = formatTime(time); // 15h00
 
   // Create a new distinguishable order number
   let orderNumber = cryptoRandomString({
@@ -41,7 +42,7 @@ exports.handler = async (event, _context, callback) => {
   });
 
   try {
-    if ((await schedule(date, time)) === true) {
+    if ((await schedule(date, humanTime)) === true) {
       // Get the rep name and phone number from the ID
       const repsRecords = await getAllFromTable('Reps');
       const matchedRep = repsRecords
@@ -59,9 +60,9 @@ exports.handler = async (event, _context, callback) => {
 
       // Create order
       const clientInfo = {
-        Client: data.company,
+        Client: company,
         Decider: decisionMaker,
-        Address: data.address,
+        Address: address,
         'Primary Contact': data.primaryNumber,
         'Secondary Contact': data.secondaryNumber,
         Email: email,
@@ -73,7 +74,7 @@ exports.handler = async (event, _context, callback) => {
       const orderInfo = {
         'Order Number': orderNumber,
         Date: date,
-        Time: time,
+        Time: humanTime,
         'Payment Method': data.payment,
         'Photos Estimate': data.photos,
         'Rep ID': [repInfo.key],
@@ -90,7 +91,7 @@ exports.handler = async (event, _context, callback) => {
           name: decisionMaker,
           email: email,
           date: humanDate,
-          time,
+          time: humanTime,
           repInfo,
           orderNumber,
         };
@@ -98,6 +99,16 @@ exports.handler = async (event, _context, callback) => {
 
         // Send email to the client
         await mg.messages().send(customerEmail);
+
+        // Defines the calendar booking
+        const eventInfo = {
+          summary: company,
+          description: `${decisionMaker}\n${data.primaryNumber}`,
+          location: address,
+        };
+
+        // Add to calendar
+        await addToCalendar(date, time, eventInfo).catch(console.error);
 
         return {
           statusCode: 200,

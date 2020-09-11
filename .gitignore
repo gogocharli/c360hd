@@ -2,6 +2,7 @@ node_modules/
 dist/
 cache
 public/bundle.*
+*.tmp
 
 # Local Netlify folder
 .netlify

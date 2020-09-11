@@ -1,9 +1,10 @@
 const moment = require('moment-timezone');
 moment.locale('en-gb');
 /**
+ * Converts UTC timezone to local using locale
  *
  * @param {String} time
- * @param {String=} timeZone
+ * @param {String=} timeZone `America/Toronto` by default
  */
 const convertTimeZone = (time, timeZone = 'America/Toronto') => {
   return moment.tz(time, timeZone).format('LLL');
@@ -34,4 +35,18 @@ exports.formatDate = (date) => {
   const regex = /(^.*)(?:T)/g;
   const formattedDate = regex.exec(date)[1];
   return formattedDate;
+};
+
+/**
+ * Creates a date string from a date and a time UTC string
+ *
+ * @param {String} date Formatted as `2020-09-24`
+ * @param {String} time A UTC string
+ * @returns {String}
+ */
+exports.createDateTime = (date, time) => {
+  const timeRegex = /(?:^.+)(T.*$)/g;
+  const timeSection = timeRegex.exec(time)[1];
+  const dateTime = date + timeSection;
+  return dateTime;
 };

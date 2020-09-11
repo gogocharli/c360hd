@@ -24,6 +24,7 @@ const OPENING_HOURS = [
   '17h30',
 ];
 
+// TODO remove custom error for object with success/error message
 class scheduleError extends Error {}
 
 exports.scheduleError = scheduleError;
@@ -90,10 +91,6 @@ exports.schedule = async function (date, time) {
         }
       }
 
-      /*
-      TODO Return the hours closest to the desired hour.
-      For example, if 15h00 is chosen, return 14h00, 15h30, 16h00 if available 
-      */
       // Throw an error to the sales rep with the next three available hours
       throw new scheduleError(
         `Schedule conflict. How about the following hours instead ${availableHours
