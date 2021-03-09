@@ -1,21 +1,32 @@
 {
   "name": "c360",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "2.0.0",
+  "private": true,
   "scripts": {
-    "dev": "npx @11ty/eleventy --serve",
-    "build": "npx @11ty/eleventy"
+    "test": "jest",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodetaroMiura/c360hd.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CodetaroMiura/c360hd/issues"
+  },
+  "homepage": "https://github.com/CodetaroMiura/c360hd#readme",
   "dependencies": {
-    "@11ty/eleventy": "^0.11.0",
-    "eleventy-plugin-i18n": "^0.1.1",
-    "parcel": "^2.0.0-beta.1"
+    "next": "^10.0.8",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.5"
+    "@types/node": "^14.14.33",
+    "@types/react": "^17.0.3",
+    "typescript": "^4.2.3"
   }
 }
