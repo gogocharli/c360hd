@@ -2,6 +2,7 @@
     "typescript.tsdk": "node_modules/typescript/lib",
     "conventionalCommits.scopes": [
         "arch",
-        "i18n"
+        "i18n",
+        "migrate API from old implementation to Next"
     ]
 }

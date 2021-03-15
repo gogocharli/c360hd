@@ -45,17 +45,14 @@ async function searchAgent(query: string) {
   }
 }
 
-async function getAgent(agentNumber: string) {
-  const searchOptions = { field: 'RepID', query: agentNumber };
+async function getAgent(id: string) {
   try {
-    const [agentRecord] = await RepsTable.all({
-      filterField: searchOptions,
-    });
+    const agentRecord = await RepsTable.getRow(id);
     const agent = filterAgentFields(agentRecord);
     return agent;
   } catch (error) {
     console.error(error);
-    const errorMessage = `Couldn't find agent ${agentNumber} \n ${error.message}`;
+    const errorMessage = `Couldn't find agent ${id} \n ${error.message}`;
     throw { errorMessage, code: 400 };
   }
 }
