@@ -1,4 +1,9 @@
 {
   "h1": "Hello",
-  "description": "Welcome to Next.js"
+  "description": "Welcome to Next.js",
+  "links": {
+    "examples": "Examples",
+    "questions": "Questions",
+    "pricing": "Our Options"
+  }
 }

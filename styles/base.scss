@@ -12,3 +12,7 @@ body {
   @include apply-utility('leading', 'tight');
   @include apply-utility('font', 'poppins');
 }
+
+.hero {
+  background-color: rosybrown;
+}
