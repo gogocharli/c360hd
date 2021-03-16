@@ -1,0 +1,14 @@
+@import 'fonts';
+@import 'config';
+@import 'gorko';
+@import 'reset';
+
+body {
+  background-color: get-color('light');
+  color: get-color('dark');
+  font-size: get-size('400');
+  scroll-behavior: smooth;
+
+  @include apply-utility('leading', 'tight');
+  @include apply-utility('font', 'poppins');
+}
