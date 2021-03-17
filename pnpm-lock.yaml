@@ -16,6 +16,7 @@ dependencies:
 devDependencies:
   '@types/airtable': 0.8.1
   '@types/jest': 26.0.20
+  '@types/luxon': 1.26.2
   '@types/node': 14.14.33
   '@types/react': 17.0.3
   gorko: 0.2.3
@@ -1258,7 +1259,7 @@ packages:
     dependencies:
       '@types/istanbul-lib-coverage': 2.0.3
       '@types/istanbul-reports': 3.0.0
-      '@types/node': 14.14.33
+      '@types/node': 14.14.35
       '@types/yargs': 15.0.13
       chalk: 4.1.0
     dev: true
@@ -1531,9 +1532,17 @@ packages:
     dev: true
     resolution:
       integrity: sha512-9zi2Y+5USJRxd0FsahERhBwlcvFh6D2GLQnY2FH2BzK8J9s9omvNHIbvABwIluXa0fD8XVKMLTO0aOEuUfACAA==
+  /@types/luxon/1.26.2:
+    dev: true
+    resolution:
+      integrity: sha512-2pvzy4LuxBMBBLAbml6PDcJPiIeZQ0Hqj3PE31IxkNI250qeoRMDovTrHXeDkIL4auvtarSdpTkLHs+st43EYQ==
   /@types/node/14.14.33:
     resolution:
       integrity: sha512-oJqcTrgPUF29oUP8AsUqbXGJNuPutsetaa9kTQAQce5Lx5dTYWV02ScBiT/k1BX/Z7pKeqedmvp39Wu4zR7N7g==
+  /@types/node/14.14.35:
+    dev: true
+    resolution:
+      integrity: sha512-Lt+wj8NVPx0zUmUwumiVXapmaLUcAk3yPuHCFVXras9k5VT9TdhJqKqGVUQCD60OTMCl0qxJ57OiTL0Mic3Iag==
   /@types/normalize-package-data/2.4.0:
     dev: true
     resolution:
@@ -7114,6 +7123,7 @@ packages:
 specifiers:
   '@types/airtable': ^0.8.1
   '@types/jest': ^26.0.20
+  '@types/luxon': ^1.26.2
   '@types/node': ^14.14.33
   '@types/react': ^17.0.3
   airtable: ^0.10.1

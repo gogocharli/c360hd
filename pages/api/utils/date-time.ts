@@ -19,9 +19,9 @@ function convertTimeZone(time: string, timeZone = 'America/Toronto'): string {
  */
 
 function formatTime(time: string): string {
-  const localDate = convertTimeZone(time);
-  const localTime = localDate.split(' ').pop().split(':');
-  let [hours, mins] = localTime;
+  const localTime = convertTimeZone(time);
+
+  let [hours, mins] = localTime.split(':');
   mins = +mins + 30 < 60 ? '00' : '30'; // Rounds to 30 minutes interval
   return [hours, mins].join('h');
 }
@@ -63,8 +63,9 @@ function createDateTime(date: string, time: string): DateTime {
  */
 function humanizeDate(date: string, lang: 'en' | 'fr' = 'en'): string {
   const dt = DateTime.fromISO(date);
-  const format = { month: 'long', day: 'numeric' };
-  const formattedDate = dt.setLocale(lang).toLocaleString(format);
+  const formattedDate = dt
+    .setLocale(lang)
+    .toLocaleString({ month: 'long', day: 'numeric' });
 
   // setLocale is not working reliably in Node 12.18.3 due to the lack of NODE_ICU
   // I haven't been able to make it work reliably in Netlify's interface
@@ -110,6 +111,7 @@ function dateToFrench(date: string): string {
   };
 
   let [month, day] = date.split(' ');
+  // @ts-ignore
   month = months[month];
   return `${day} ${month}`;
 }
