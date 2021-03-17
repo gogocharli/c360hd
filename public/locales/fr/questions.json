@@ -1,0 +1,31 @@
+{
+  "heading": "Questions fréquentes",
+  "virtual": {
+    "title": "Qu'est-ce qu'un tour virtuel?",
+    "desc": "Un tour virtuel est une association de panoramas prises sur tous les angles. Reliées ensemble, ces photos permettent à toute personne de visiter un environement en se déplacant de l’une à une autre."
+  },
+  "profile": {
+    "title": "Comment me procurer un profil sur Google?",
+    "desc": "Un profil Google Business est requis pour avoir accès à votre tour virtuel quand il sera prêt. Vous trouverez sur",
+    "linkText": "cette page",
+    "postLink": "des instructions détaillées sur comment le faire."
+  },
+  "payment": {
+    "title": "Qu’acceptez-vous comme forme de paiement?",
+    "desc": "Nous utilisons Stripe pour toutes les formes de paiement en ligne traditionelles. Que ce soit des cartes de débit ou crédit, vous avez la garantie d’une transaction simple et sécuritaire."
+  },
+  "photos": {
+    "title": "A qui appartiennent les photos prises?",
+    "desc": "C360HD vous remet les photos originales et tours virtuels ainsi que leur droit dès que votre solde a été payé. Le tour virtuel est immediatement transféré sur votre compte pour que vous puissez jouir des bénéfices le plus rapidement possible."
+  },
+  "time": {
+    "title": "Combien de temps avant que mon tour soit visible?",
+    "desc": "Nous nous engagons à éditer votre tour virtuel et vos photos en 48heures après la prise de vue. Toutefois, il se peut que Google mette de 15 à 20 jours avant qu’elles aparaissent."
+  },
+  "discount": {
+    "title": "Il-y-a t’il des rabais pour les chaines de magasins?",
+    "desc": "Absolument! Nos clients sont de toutes les tailles alors nous comprenons le désir de certains d’avor des prix plus aptes à plusieurs emplacements. Veuillez entrez en",
+    "linkText": "contact direct",
+    "postLink": "avec nous et nous nous ferons un plaisir de vous aider."
+  }
+}
