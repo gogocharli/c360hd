@@ -1,0 +1,30 @@
+{
+  "hero": {
+    "title": "Offers that care for your image",
+    "subtitle": "Over with complicated SEO pricing. Choose an offer and we take care of the rest."
+  },
+  "classic": {
+    "title": "Classic",
+    "perks": {
+      "panos": "Up to 20 panosphères",
+      "photos": "Up to 10 photos HD 4K",
+      "public": "Publishing on your Google profile",
+      "facebook": "Integration link on your facebook profile",
+      "web": "Integration link for your website",
+      "shoots": "Second shooting in the following 12 months"
+    }
+  },
+  "special": {
+    "title": "Spécial",
+    "perks": {
+      "panos": "Up to 30 panosphères",
+      "photos": "Up to 20 photos HD 4K",
+      "public": "Publishing on your Google profile",
+      "facebook": "Integration link on your facebook profile",
+      "web": "Integration link for your website",
+      "shoots": "Second shooting in the following 12 months",
+      "extra": "Additional panospheres and HD photos for $15 each"
+    }
+  },
+  "btnText": "Order now"
+}

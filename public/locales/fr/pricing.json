@@ -1,0 +1,30 @@
+{
+  "hero": {
+    "title": "Des offres au souci de votre image",
+    "subtitle": "Fini les tariffs SEO compliqués. Choisissez une offre et on s'occupe du reste."
+  },
+  "classic": {
+    "title": "Classique",
+    "perks": {
+      "panos": "Jusqu'à 20 panosphères",
+      "photos": "Jusqu'à 10 photos HD 4K",
+      "public": "Publication sur votre profil Google",
+      "facebook": "Lien d'intégration sur votre profile facebook",
+      "web": "Lien d'intégration site web",
+      "shoots": "Deuxième prise de vue dans les 12 mois"
+    }
+  },
+  "special": {
+    "title": "Spécial",
+    "perks": {
+      "panos": "Jusqu'à 30 panosphères",
+      "photos": "Jusqu'à 20 photos HD 4K",
+      "public": "Publication sur votre profil Google",
+      "facebook": "Lien d'intégration sur votre profile facebook",
+      "web": "Lien d'intégration site web",
+      "shoots": "Deuxième prise de vue dans les 12 mois",
+      "extra": "Panosphères et photos HD additionelles à $15 chacune"
+    }
+  },
+  "btnText": "Réservez maintenant"
+}
