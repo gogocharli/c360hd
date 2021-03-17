@@ -1,0 +1,22 @@
+{
+  "hero": {
+    "title": "A visual competitive advantage",
+    "subtitle": "Our realizations"
+  },
+  "categories": {
+    "title": "Categories",
+    "resto": "Restauration",
+    "fashion": "Fashion and accessories",
+    "convenience": "Convenience stores",
+    "beauty": "Beauty salons",
+    "art": "Art galleries",
+    "nursery": "Nurseries",
+    "recent": "Recent",
+    "other": "Other"
+  },
+  "search": {
+    "placeholder": "Cherchez un client…",
+    "noResults": "Sorry, we found no match for your search. Please look for something else."
+  },
+  "buttonText": "SHow All"
+}
