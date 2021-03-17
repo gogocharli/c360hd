@@ -1,0 +1,52 @@
+{
+  "hero": {
+    "title": "La pièce manquante de votre présence en ligne",
+    "desc": "Etendez la portée de votre entreprise en invitant vos clients à l'intérieur de votre",
+    "btnText": "En Savoir Plus"
+  },
+  "sections": [
+    {
+      "title": "Comment les clients vous cherchent en ligne",
+      "card-1": "44% d'entre eux se tourneront vers un engin de recherche pour votre addresse.",
+      "card-2": "41% de ces recherches aboutisseront en une visite sur place.",
+      "card-3": "2 clients sur 3 ont consulté les infos et photos sur votre listing avant leur visite."
+    },
+    {
+      "title": "Votre listing est le vrai b.a.-ba de la présence en ligne",
+      "subtitle": "Le mot-clé n'est pas le mot-clé",
+      "desc": "Les clients se fient aux moteurs de recherche et réseaux sociaux dans la phase d’exploration puis se tournent vers Google Maps au moment critique de la prise de décision.",
+      "card-1": {
+        "title": "Gagnez de la crédibilité plus facilement",
+        "desc": "La majorité des acheteurs sont plus réticents à faire affaire avec un commerce local dont le profil est incomplet ou qui manque de photos."
+      },
+      "card-2": {
+        "title": "Motivez l'action auprès des acheteurs",
+        "desc": "Montrez de l'information utile à propos de vous aux acheteurs locaux quand ils cherchent à se procurer des articles dans leur secteur."
+      },
+      "card-3": {
+        "title": "Créez l'intérêt des consommateurs",
+        "desc": "Avant de se tourner vers un achat local, 9 clients sur 10 se tournent vers un moteur de recherche. 7 d’entre eux pensent que les heures d’ouverture doivent être faciles à découvrir."
+      }
+    },
+    {
+      "title": "Soyez plus proches de vos clients",
+      "card-1": {
+        "title": "Plus de qualité",
+        "desc": "Votre image est votre meilleur atout. Notre objectif est de la présenter sous son meilleur angle."
+      },
+      "card-2": {
+        "title": "Plus de résultats",
+        "desc": "Les annonces avec photos et visite virtuelle sont deux fois plus suceptibles de susciter l’intérêt en ligne."
+      },
+      "card-3": {
+        "title": "Plus de confiance",
+        "desc": "Profitez de l’expertise d’une agence 100% canadienne certifiée par Google pour son imagerie virtuelle."
+      }
+    },
+    {
+      "title": "Nos réalisations",
+      "desc": "Nous avons eu l’opportunité de travailler avec des commerces locaux de diverses tailles afin de leur permettre d’accroître l’efficacité de leurs annonces. Quelque soit l’industrie, votre entreprise bénéficiera d’une présence en ligne plus forte suite à l’ajout de visites virtuelles sur son profil.",
+      "btnText": "Explorez les projets"
+    }
+  ]
+}
