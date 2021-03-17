@@ -12,21 +12,21 @@ export function Header({ theme = 'dark' }: { theme?: 'dark' | 'light' }) {
           <Symbol />
         </a>
       </Link>
-      <nav className='[nav] [ site-head__nav ]'>
+      <nav className='[ nav ] [ site-head__nav ]'>
         <ul>
           <li>
             <Link href='/questions'>
-              <a className='site-head__brand'>{t('links.questions')}</a>
+              <a className=''>{t('links.questions')}</a>
             </Link>
           </li>
           <li>
             <Link href='/examples'>
-              <a className='site-head__brand'>{t('links.examples')}</a>
+              <a className=''>{t('links.examples')}</a>
             </Link>
           </li>
           <li>
             <Link href='/pricing'>
-              <a className='site-head__brand'>{t('links.pricing')}</a>
+              <a className=''>{t('links.pricing')}</a>
             </Link>
           </li>
         </ul>

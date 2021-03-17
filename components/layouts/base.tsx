@@ -1,4 +1,6 @@
 import Head from 'next/head';
+import { Header } from '../header';
+import { Footer } from '../footer';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -10,7 +12,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           content='C360HD is a next level company focused on local businesses'
         />
       </Head>
+      <Header />
       <main>{children}</main>
+      <Footer />
     </>
   );
 }

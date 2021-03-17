@@ -5,7 +5,6 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import BaseLayout from '../components/layouts/base';
-import { Header } from '../components/header';
 
 export default function Home() {
   const { t } = useTranslation('common');
@@ -14,7 +13,6 @@ export default function Home() {
       <Head>
         <title>C360HD</title>
       </Head>
-      <Header />
       <section>
         <h1 className={`text-600 md:text-700 lg:text-800 weight-bold`}>
           {t('h1')}

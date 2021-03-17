@@ -4,6 +4,22 @@
   "links": {
     "examples": "Exemples",
     "questions": "Questions",
-    "pricing": "Nos Options"
+    "pricing": "Nos Options",
+    "about": "À propos",
+    "contact": "Contactez nous",
+    "careers": "Carrières",
+    "legal": "Mentions légales",
+    "paymentPolicy": "Politique de paiement",
+    "terms": "Convention de services"
+  },
+  "categories": {
+    "products": "Produits",
+    "company": "Compagnie",
+    "legal": "Légal"
+  },
+  "toggles": {
+    "login": "Connection",
+    "logout": "Deconnection",
+    "lang": "English"
   }
 }
