@@ -1,4 +1,4 @@
-module.export = {
-  preset: 'test-jest',
+module.exports = {
+  preset: 'ts-jest',
   testEnvironment: 'node',
 };
