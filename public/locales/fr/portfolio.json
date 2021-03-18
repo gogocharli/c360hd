@@ -1,0 +1,22 @@
+{
+  "hero": {
+    "title": "Un avantage compétitif visuel.",
+    "subtitle": "Nos réalisations"
+  },
+  "categories": {
+    "title": "Catégories",
+    "resto": "Restauration",
+    "fashion": "Mode et accésoires",
+    "convenience": "Supermarchés",
+    "beauty": "Salons de beauté",
+    "art": "Gallerie artistique",
+    "nursery": "Garderies",
+    "recent": "Récent",
+    "other": "Autres"
+  },
+  "search": {
+    "placeholder": "Recherchez un client…",
+    "noResults": "Désolé, aucun correspondance avec le terme recherché. Veuillez entrer un autre terme."
+  },
+  "buttonText": "Tout Montrer"
+}
