@@ -1,0 +1,38 @@
+{
+  "hero": {
+    "title": "Questions? Don't hesitate.",
+    "desc": "Our technical support team is always there to provide you with answers for all your questions related to our services."
+  },
+  "form": {
+    "title": "Write to us",
+    "desc": "Please fill this form to inform us of any question you might have about our products. We will do our best to follow up as soon as possible.",
+    "required": "Required field",
+    "company": {
+      "name": "Company",
+      "error": "Please provide the name of your business"
+    },
+    "fullName": {
+      "name": "Full Name",
+      "error": "Please provide your first and last name"
+    },
+    "phone": {
+      "name": "Phone number",
+      "error": "Please provide a valid phone number"
+    },
+    "email": {
+      "name": "E-mail",
+      "error": "Please provide a valid email address"
+    },
+    "subject": {
+      "name": "Subject of your request",
+      "options": [
+        "Payment related questions",
+        "Problems about your virtual tour",
+        "General information"
+      ]
+    },
+    "message": {
+      "name": "Your message"
+    }
+  }
+}

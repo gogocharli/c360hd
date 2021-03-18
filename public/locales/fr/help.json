@@ -1,0 +1,38 @@
+{
+  "hero": {
+    "title": "Des questions? N'hésitez pas.",
+    "desc": "Notre équipe de support technique est toujours prête à vous fournir les réponses concernant votre commande ou nos tariffications."
+  },
+  "form": {
+    "title": "Écrivez-nous",
+    "desc": "Veuillez-remplir ce formulaire pour nous faire part de toute question ou attente concernant une de nos offres. Nous vous répondrons sous peu.",
+    "required": "Champ requis",
+    "company": {
+      "name": "Compagnie",
+      "error": "Veuillez entrer le nom de votre compagnie"
+    },
+    "fullName": {
+      "name": "Nom Complet",
+      "error": "Veuillez entrer votre nom et prénom"
+    },
+    "phone": {
+      "name": "Numéro de tel",
+      "error": "Veuillez entrer un numéro de téléphone valide"
+    },
+    "email": {
+      "name": "E-mail",
+      "error": "Veuillez entrer une addresse courriel valide"
+    },
+    "subject": {
+      "name": "Sujet de votre requête",
+      "options": [
+        "Questions concernant un paiement",
+        "Problèmes liés à mon tour virtuel",
+        "Informations générales"
+      ]
+    },
+    "message": {
+      "name": "Votre message"
+    }
+  }
+}
