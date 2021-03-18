@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
-import Symbol from './logos/symbol-c360.svg';
+import Symbol from 'components/logos/symbol-c360.svg';
 
 export function Header({ theme = 'dark' }: { theme?: 'dark' | 'light' }) {
   const { t } = useTranslation('common');

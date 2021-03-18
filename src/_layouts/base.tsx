@@ -1,6 +1,6 @@
 import Head from 'next/head';
-import { Header } from '../header';
-import { Footer } from '../footer';
+import { Header } from '@includes/header';
+import { Footer } from '@includes/footer';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
