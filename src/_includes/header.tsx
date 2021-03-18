@@ -1,10 +1,8 @@
 import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
+import { NavList, FootLinks } from './nav-list';
 import Symbol from 'components/logos/symbol-c360.svg';
 
-export function Header({ theme = 'dark' }: { theme?: 'dark' | 'light' }) {
-  const { t } = useTranslation('common');
-
+export function Header() {
   return (
     <header role='banner' className='site-head'>
       <Link href='/'>
@@ -12,25 +10,16 @@ export function Header({ theme = 'dark' }: { theme?: 'dark' | 'light' }) {
           <Symbol />
         </a>
       </Link>
-      <nav className='[ nav ] [ site-head__nav ]'>
-        <ul>
-          <li>
-            <Link href='/questions'>
-              <a className=''>{t('links.questions')}</a>
-            </Link>
-          </li>
-          <li>
-            <Link href='/examples'>
-              <a className=''>{t('links.examples')}</a>
-            </Link>
-          </li>
-          <li>
-            <Link href='/pricing'>
-              <a className=''>{t('links.pricing')}</a>
-            </Link>
-          </li>
-        </ul>
+      <nav>
+        <NavList reduced />
       </nav>
+
+      <div>
+        <nav>
+          <NavList />
+        </nav>
+        <FootLinks />
+      </div>
     </header>
   );
 }
