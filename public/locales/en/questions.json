@@ -6,9 +6,7 @@
   },
   "profile": {
     "title": "How to get a Google business listing?",
-    "desc": "A Google Business listing is required for having access to your virtual tour when it is ready. Here's",
-    "linkText": "instructions",
-    "postLink": "on how to create your own."
+    "desc": "A Google Business listing is required for having access to your virtual tour when it is ready. Here's <a href='https://business.google.com/create' rel='noopene'>instructions</a> on how to create your own."
   },
   "payment": {
     "title": "Which payment methods do you accept?",
@@ -24,8 +22,6 @@
   },
   "discount": {
     "title": "Are there discounts for retail chains?",
-    "desc": "Absolutely! Our customers are of all sizes, thus we understand the desire of some of them to have prices aligned to multiple locations. Please",
-    "linkText": "contact us",
-    "postLink": "directly and we'll be pleased to help you."
+    "desc": "Absolutely! Our customers are of all sizes, thus we understand the desire of some of them to have prices aligned to multiple locations. Please <a href='mailto:admin@c360hd.com'>contact us</a> directly and we'll be pleased to help you."
   }
 }
