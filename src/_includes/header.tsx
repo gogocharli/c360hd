@@ -1,10 +1,25 @@
 import Link from 'next/link';
-import { NavList, FootLinks } from './nav-list';
-import Symbol from 'components/logos/symbol-c360.svg';
+import { useEffect, useState } from 'react';
+
 import { useMediaQuery } from '../hooks/useMediaQuery';
+import { NavList, FootLinks } from '@components/nav-list';
+import Symbol from '@components/logos/symbol-c360.svg';
+import MenuIcon from '@components/glyph-bars.svg';
 
 export function Header() {
-  const match = useMediaQuery('(max-width: 30em)');
+  const isSmallViewPort = useMediaQuery('(max-width: 30em)');
+  const [isMenuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isSmallViewPort) {
+      setMenuOpen(false);
+    }
+  }, [isSmallViewPort]);
+
+  function handleMenuToggle() {
+    setMenuOpen((prevState) => !prevState);
+  }
+
   return (
     <header role='banner' className='site-head'>
       <Link href='/'>
@@ -12,12 +27,29 @@ export function Header() {
           <Symbol />
         </a>
       </Link>
-      {match ? (
-        <div>
-          <nav>
-            <NavList />
-          </nav>
-          <FootLinks />
+      {isSmallViewPort ? (
+        <div className='menu-wrapper'>
+          {/* hidden to hide from everyone but screen reader users */}
+          <span hidden id='menu-label'>
+            Main Menu
+          </span>
+          <button
+            className='menu-toggle'
+            id='menu-toggle'
+            aria-labelledby='menu-label'
+            aria-expanded={isMenuOpen}
+            onClick={handleMenuToggle}
+          >
+            <MenuIcon />
+          </button>
+          {isMenuOpen && (
+            <div className='menu' id='menu'>
+              <nav>
+                <NavList />
+              </nav>
+              <FootLinks />
+            </div>
+          )}
         </div>
       ) : (
         <nav>

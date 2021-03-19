@@ -1,4 +1,4 @@
-import { NavList, FootLinks } from './nav-list';
+import { NavList, FootLinks } from '@components/nav-list';
 
 export function Footer() {
   return (

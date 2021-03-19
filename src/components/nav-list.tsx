@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
-import Logo from 'components/logos/logo-c360.svg';
+import Logo from './logos/logo-c360.svg';
 
 export function NavList({ reduced = false }) {
   const { t } = useTranslation('common');

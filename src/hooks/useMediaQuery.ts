@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'React';
+import { useState, useEffect } from 'react';
 
 export function useMediaQuery(query: string) {
   if (typeof window == 'undefined') return false;
