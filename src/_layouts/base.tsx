@@ -17,7 +17,7 @@ export default function Layout({
       <Head>
         <link rel='icon' href='favicon.svg' type='image/svg' key='icon' />
         <meta name='description' content={pageMeta?.desc ?? t('siteDesc')} />
-        <title>{pageMeta?.title ?? t('siteTitle') + ' | C360HD'}</title>
+        <title>{(pageMeta?.title ?? t('siteTitle')) + ' | C360HD'}</title>
       </Head>
       <Header />
       <main>{children}</main>
