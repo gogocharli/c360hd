@@ -1,10 +1,9 @@
 import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
 
-const slidesList = ['trust', 'action', 'interest'];
-
 export function HomeCarousel() {
   const { t } = useTranslation('home');
+  const slidesList = ['trust', 'action', 'interest'];
 
   return (
     <ul>
