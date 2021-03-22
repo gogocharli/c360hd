@@ -4,7 +4,8 @@
     "paths": {
       "@components/*": ["components/*"],
       "@includes/*": ["_includes/*"],
-      "@layouts/*": ["_layouts/*"]
+      "@layouts/*": ["_layouts/*"],
+      "@styles/*": ["styles/*"]
     },
     "target": "es5",
     "allowJs": true,
