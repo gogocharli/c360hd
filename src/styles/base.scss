@@ -3,12 +3,53 @@
 @import 'gorko';
 @import 'reset';
 
+:root {
+  --color-light-main: #{get-color('light')};
+  --color-light-shade: #{get-color('light-shade')};
+  --color-light-highlight: #{get-color('light-highlight')};
+
+  --color-dark-main: #{get-color('dark')};
+  --color-light-shade: #{get-color('dark-shade')};
+  --color-dark-highlight: #{get-color('dark-highlight')};
+}
+
+:root {
+  --theme-color-bg: var(--color-dark-main);
+  --theme-color-fg: var(--color-light-main);
+  --theme-color-hg: var(--color-dark-highlight);
+}
+
 body {
-  background-color: get-color('light');
-  color: get-color('dark');
+  background-color: hsl(var(--theme-color-bg));
+  color: hsl(var(--theme-color-fg));
   font-size: get-size('400');
   scroll-behavior: smooth;
 
   @include apply-utility('leading', 'tight');
   @include apply-utility('font', 'poppins');
+}
+
+a:not([class]) {
+  color: hsl(var(--theme-color-fg));
+  text-decoration-color: currentColor;
+}
+
+li:not([class]) {
+  list-style: none;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+footer {
+  flex-shrink: 0;
+}
+
+main:focus {
+  outline: none;
+}
+
+::selection {
+  background: hsla(var(--theme-color-hg) / 0.99);
 }

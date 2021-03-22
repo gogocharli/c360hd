@@ -1,0 +1,17 @@
+@include media-query('md') {
+  .md-grid {
+    display: grid;
+    grid-gap: get-size('300');
+    gap: get-size('300');
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@include media-query('lg') {
+  .lg-grid {
+    display: grid;
+    grid-gap: get-size('300');
+    gap: get-size('300');
+    grid-template-columns: repeat(8, 1fr);
+  }
+}

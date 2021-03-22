@@ -32,12 +32,12 @@ $gorko-size-scale: (
   * You can also use them to power borders, fills or shadows, for example.
   */
 $gorko-colors: (
-  'dark': hsl(215, 100%, 11%),
-  'dark-shade': hsl(213, 84%, 10%),
-  'dark-highlight': hsl(218, 43%, 27%),
-  'light': hsl(207, 100%, 96%),
-  'light-shade': hsl(198, 90%, 73%),
-  'light-highlight': hsl(207, 100%, 88%),
+  'dark': 215 100% 11%,
+  'dark-shade': 213 84% 10%,
+  'dark-highlight': 218 43% 27%,
+  'light': 207 100% 96%,
+  'light-shade': 198 90% 73%,
+  'light-highlight': 207 100% 88%,
 );
 
 /**
