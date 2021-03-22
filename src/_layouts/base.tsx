@@ -20,7 +20,9 @@ export default function Layout({
         <title>{(pageMeta?.title ?? t('siteTitle')) + ' | C360HD'}</title>
       </Head>
       <Header />
-      <main>{children}</main>
+      <main id='main-content' tabIndex={-1}>
+        {children}
+      </main>
       <Footer />
     </>
   );
