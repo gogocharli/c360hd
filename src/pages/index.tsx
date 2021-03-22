@@ -6,6 +6,9 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import BaseLayout from '../_layouts/base';
+import { JourneyHighlights } from '@components/journey';
+import { HomeCarousel } from '@components/carousel';
+import { Features } from '@components/features';
 
 export default function Home() {
   const { t } = useTranslation('home');
@@ -24,30 +27,7 @@ export default function Home() {
       <article id='journey'>
         <h2>{t('sections.0.title')}</h2>
         {/* @todo include image animation here */}
-        <ul>
-          <li>
-            <Image
-              src='/images/location-img.png'
-              alt=''
-              width={310}
-              height={184}
-            />
-            <p>{t('sections.0.content.0')}</p>
-          </li>
-          <li>
-            <Image
-              src='/images/packing-img.png'
-              alt=''
-              width={310}
-              height={184}
-            />
-            <p>{t('sections.0.content.1')}</p>
-          </li>
-          <li>
-            <Image src='/images/busy-img.png' alt='' width={310} height={184} />
-            <p>{t('sections.0.content.2')}</p>
-          </li>
-        </ul>
+        <JourneyHighlights />
       </article>
       <article id='basics'>
         <h2>
@@ -56,75 +36,11 @@ export default function Home() {
           {t('sections.1.title')}
         </h2>
         <p>{t('sections.1.desc')}</p>
-        <ul>
-          <li>
-            <Image
-              src='/images/trust-img.png'
-              alt=''
-              width={308}
-              height={288}
-            />
-            <div>
-              <h3>{t('sections.1.content.0.title')}</h3>
-              <p>{t('sections.1.content.0.desc')}</p>
-            </div>
-          </li>
-          <li>
-            <Image
-              src='/images/action-img.png'
-              alt=''
-              width={308}
-              height={288}
-            />
-            <div>
-              <h3>{t('sections.1.content.1.title')}</h3>
-              <p>{t('sections.1.content.1.desc')}</p>
-            </div>
-          </li>
-          <li>
-            <Image
-              src='/images/interest-img.png'
-              alt=''
-              width={308}
-              height={288}
-            />
-            <div>
-              <h3>{t('sections.1.content.2.title')}</h3>
-              <p>{t('sections.1.content.2.desc')}</p>
-            </div>
-          </li>
-        </ul>
+        <HomeCarousel />
       </article>
-      <article id='advantage'>
+      <article id='features'>
         <h2>{t('sections.2.title')}</h2>
-        <ul>
-          <li>
-            <Image src='/icons/icon-show.png' alt='' width={76} height={72} />
-            <div>
-              <h3>{t('sections.2.content.0.title')}</h3>
-              <p>{t('sections.2.content.0.desc')}</p>
-            </div>
-          </li>
-          <li>
-            <Image
-              src='/icons/icon-activity.png'
-              alt=''
-              width={78}
-              height={72}
-            />
-            <div>
-              <h3>{t('sections.2.content.1.title')}</h3>
-              <p>{t('sections.2.content.1.desc')}</p>
-            </div>
-          </li>
-          <li>
-            <Image src='/icons/icon-shield.png' alt='' width={75} height={72} />
-            <div>
-              <h3>{t('sections.2.content.2.title')}</h3>
-              <p>{t('sections.2.content.2.desc')}</p>
-            </div>
-          </li>
-        </ul>
+        <Features />
         <Link href='/pricing'>
           <a>{t('sections.2.btnText')}</a>
         </Link>

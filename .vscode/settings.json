@@ -4,6 +4,7 @@
         "arch",
         "i18n",
         "migrate API from old implementation to Next",
-        "styles"
+        "styles",
+        "markup"
     ]
 }
