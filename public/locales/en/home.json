@@ -7,42 +7,48 @@
   "sections": [
     {
       "title": "How your clients find you online",
-      "card-1": "44% of them will reach for a search engine for your address information.",
-      "card-2": "41% of those searches will end up in an on-site visit.",
-      "card-3": "2 clients out of 3 will consult the info and photos on your listing before visiting."
+      "content": [
+        "44% of them will reach for a search engine for your address information.",
+        "41% of those searches will end up in an on-site visit.",
+        "2 clients out of 3 will consult the info and photos on your listing before visiting."
+      ]
     },
     {
       "title": "Your listing is the true abc of online presence",
       "subtitle": "The keyword is not the key word",
       "desc": "Clients turn to search engines and social networks during the exploration phase and then look on Google Maps at the crucial moment before decision making.",
-      "card-1": {
-        "title": "Improve your reputation faster",
-        "desc": "Most buyers are more reticient at purchasing from local stores which profile is incomplete or lack photos of the establishment."
-      },
-      "card-2": {
-        "title": "Capitalize on local buyers' intent",
-        "desc": "Display valuable and up to date information about you is provided to local buyers when looking to purchase in their area."
-      },
-      "card-3": {
-        "title": "Generate customer interest easily",
-        "desc": "Before turning to local buying, 9 out of 10 customers will start on a search engine. 7 of them think that its primardial for opening hours to be easily discoverable."
-      }
+      "content": [
+        {
+          "title": "Improve your reputation faster",
+          "desc": "Most buyers are more reticient at purchasing from local stores which profile is incomplete or lack photos of the establishment."
+        },
+        {
+          "title": "Capitalize on local buyers' intent",
+          "desc": "Display valuable and up to date information about you is provided to local buyers when looking to purchase in their area."
+        },
+        {
+          "title": "Generate customer interest easily",
+          "desc": "Before turning to local buying, 9 out of 10 customers will start on a search engine. 7 of them think that its primardial for opening hours to be easily discoverable."
+        }
+      ]
     },
     {
       "title": "Become more close to your clients",
       "btnText": "Book a shooting",
-      "card-1": {
-        "title": "More quality",
-        "desc": "Your image is your best asset. Our objective is to present it under its best light."
-      },
-      "card-2": {
-        "title": "More results",
-        "desc": "Listings with photos and a virtual tour are twice as likely to entice interest online."
-      },
-      "card-3": {
-        "title": "More trust",
-        "desc": "Profit of the expertise from a canadian agency certified by Google for its virtual imagery."
-      }
+      "content": [
+        {
+          "title": "More quality",
+          "desc": "Your image is your best asset. Our objective is to present it under its best light."
+        },
+        {
+          "title": "More results",
+          "desc": "Listings with photos and a virtual tour are twice as likely to entice interest online."
+        },
+        {
+          "title": "More trust",
+          "desc": "Profit of the expertise from a canadian agency certified by Google for its virtual imagery."
+        }
+      ]
     },
     {
       "title": "Our realizations",
