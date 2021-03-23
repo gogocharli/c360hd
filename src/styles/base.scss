@@ -25,6 +25,10 @@ body {
   font-size: get-size('400');
   scroll-behavior: smooth;
 
+  /* Most of the text is dark on light which means the text will be bolder */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
   @include apply-utility('leading', 'tight');
   @include apply-utility('font', 'poppins');
 }

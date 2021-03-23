@@ -7,7 +7,7 @@
       "@layouts/*": ["_layouts/*"],
       "@styles/*": ["styles/*"]
     },
-    "target": "es5",
+    "target": "es2015",
     "allowJs": true,
     "lib": ["dom", "dom.iterable", "esnext"],
     "skipLibCheck": true,

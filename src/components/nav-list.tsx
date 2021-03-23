@@ -112,8 +112,7 @@ export function FootLinks() {
       </Link>
       <Link href='/'>
         <a>
-          {/* @ts-ignore */}
-          <Logo height='72' />
+          <Logo height={72} />
         </a>
       </Link>
     </div>

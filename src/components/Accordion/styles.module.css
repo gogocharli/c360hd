@@ -1,0 +1,21 @@
+.accordionItem {
+  background-color: var(--color-dark-main);
+  color: var(--color-light-main);
+}
+
+.accordionButton {
+  background: 0;
+  background-color: inherit;
+  border: 0;
+  color: inherit;
+  font-weight: 400;
+  font-size: 1.25rem;
+}
+
+.icon {
+  fill: currentColor;
+}
+
+.icon d {
+  fill: currentColor;
+}
