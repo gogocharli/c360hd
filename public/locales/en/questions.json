@@ -1,27 +1,29 @@
 {
   "heading": "Common questions",
-  "virtual": {
-    "title": "What's a virtual tour?",
-    "desc": "A virtual tour is a composition of panoramas taken on all angles. Linked together, these photos allow anyone to visit an environment by moving between each of them."
-  },
-  "profile": {
-    "title": "How to get a Google business listing?",
-    "desc": "A Google Business listing is required for having access to your virtual tour when it is ready. Here's <a href='https://business.google.com/create' rel='noopene'>instructions</a> on how to create your own."
-  },
-  "payment": {
-    "title": "Which payment methods do you accept?",
-    "desc": "We use Stripe as our payment processor and thus accept all traditional forms of online payment. Whether it is debit or credit cards, you can be reassured to have a simple and secure transaction."
-  },
-  "photos": {
-    "title": "Who ows the photos taken?",
-    "desc": "C360HD hands rights of all photos and virtual tours shots once you've completed your payment with us. The virtual tour is immediately transfered to your Google account so you can benefit from it as soon as possible."
-  },
-  "time": {
-    "title": "How long is the wait before my tour is visible?",
-    "desc": "We commit ourselves to edit your virtual tour and photos in the 48 hours following the shooting. However, it can happen for Google to take 15 to 20 days before they appear."
-  },
-  "discount": {
-    "title": "Are there discounts for retail chains?",
-    "desc": "Absolutely! Our customers are of all sizes, thus we understand the desire of some of them to have prices aligned to multiple locations. Please <a href='mailto:admin@c360hd.com'>contact us</a> directly and we'll be pleased to help you."
-  }
+  "questions": [
+    {
+      "title": "What's a virtual tour?",
+      "desc": "A virtual tour is a composition of panoramas taken on all angles. Linked together, these photos allow anyone to visit an environment by moving between each of them."
+    },
+    {
+      "title": "How to get a Google business listing?",
+      "desc": "A Google Business listing is required for having access to your virtual tour when it is ready. Here's <a href='https://business.google.com/create' rel='noopene'>instructions</a> on how to create your own."
+    },
+    {
+      "title": "Which payment methods do you accept?",
+      "desc": "We use Stripe as our payment processor and thus accept all traditional forms of online payment. Whether it is debit or credit cards, you can be reassured to have a simple and secure transaction."
+    },
+    {
+      "title": "Who ows the photos taken?",
+      "desc": "C360HD hands rights of all photos and virtual tours shots once you've completed your payment with us. The virtual tour is immediately transfered to your Google account so you can benefit from it as soon as possible."
+    },
+    {
+      "title": "How long is the wait before my tour is visible?",
+      "desc": "We commit ourselves to edit your virtual tour and photos in the 48 hours following the shooting. However, it can happen for Google to take 15 to 20 days before they appear."
+    },
+    {
+      "title": "Are there discounts for retail chains?",
+      "desc": "Absolutely! Our customers are of all sizes, thus we understand the desire of some of them to have prices aligned to multiple locations. Please <a href='mailto:admin@c360hd.com'>contact us</a> directly and we'll be pleased to help you."
+    }
+  ]
 }
