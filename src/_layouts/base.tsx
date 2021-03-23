@@ -9,7 +9,7 @@ export default function Layout({
   pageMeta,
 }: {
   children: React.ReactNode;
-  pageMeta?: { title: string; desc: string };
+  pageMeta?: { title?: string; desc?: string };
 }) {
   const { t } = useTranslation('site');
   return (
