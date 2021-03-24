@@ -16,7 +16,7 @@
       }
     },
     "fullName": {
-      "name": "Nom Complet",
+      "name": "Nom et Prénom",
       "error": {
         "required": "Veuillez entrer votre nom et prénom"
       }

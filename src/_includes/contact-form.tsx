@@ -32,10 +32,10 @@ export function ContactForm() {
             name='company'
             id='company'
             ref={register({
-              required: t(`form.company.error.required`) as string,
+              required: `${t('form.company.error.required')}`,
             })}
           />
-          <ErrorMessage errors={errors} name='company' />
+          <ErrorMessage errors={errors} name='company' as={<ErrorText />} />
         </div>
         <div className='field'>
           <label htmlFor='fullName' className='field-label'>
@@ -45,9 +45,9 @@ export function ContactForm() {
             type='text'
             name='fullName'
             id='fullName'
-            ref={register({ required: true })}
+            ref={register({ required: `${t('form.fullName.error.required')}` })}
           />
-          {errors.fullName && <ErrorField fieldName='fullName' />}
+          <ErrorMessage errors={errors} name='fullName' as={<ErrorText />} />
         </div>
         <div className='field'>
           <label htmlFor='phone' className='field-label'>
@@ -60,9 +60,9 @@ export function ContactForm() {
             autoComplete='tel'
             name='phone'
             id='phone'
-            ref={register({ required: true })}
+            ref={register({ required: `${t('form.phone.error.required')}` })}
           />
-          {errors.phone && <ErrorField fieldName='phone' />}
+          <ErrorMessage errors={errors} name='phone' as={<ErrorText />} />
         </div>
         <div className='field'>
           <label htmlFor='email' className='field-label'>
@@ -73,9 +73,9 @@ export function ContactForm() {
             autoComplete='email'
             name='email'
             id='email'
-            ref={register({ required: true })}
+            ref={register({ required: `${t('form.email.error.required')}` })}
           />
-          {errors.email && <ErrorField fieldName='email' />}
+          <ErrorMessage errors={errors} name='email' as={<ErrorText />} />
         </div>
         <div className='field'>
           <label htmlFor='subject' className='field-label'>
@@ -101,19 +101,21 @@ export function ContactForm() {
             id='message'
             cols={30}
             rows={10}
-            ref={register({ required: true, minLength: 20, maxLength: 200 })}
+            ref={register({
+              required: `${t('form.message.error.required')}`,
+              minLength: `${t('form.message.error.minLength')}`,
+            })}
           />
-          {errors.message && <ErrorField fieldName='message' />}
+          <ErrorMessage errors={errors} name='email' as={<ErrorText />} />
         </div>
-        <input type='submit' value={t('form.submit') as string} />
+        <input type='submit' value={`${t('form.submit')}`} />
       </form>
     </>
   );
 }
 
-function ErrorField({ fieldName }: { fieldName: string }) {
-  const { t } = useTranslation('contact');
-  return <span className='field__error'>{t(`form.${fieldName}.error`)}</span>;
+function ErrorText({ children }: { children?: React.ReactNode }) {
+  return <span className='field__error'>{children}</span>;
 }
 
 enum SubjectEnum {
