@@ -3,10 +3,10 @@ import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 
 export function ContactForm() {
-  const { register, handleSubmit, watch, errors } = useForm<FormInputs>();
+  const { register, handleSubmit, errors } = useForm<FormInputs>();
   const { t } = useTranslation('contact');
 
-  function onSubmit(data) {
+  function onSubmit(data: FormInputs) {
     console.log(data);
   }
 
@@ -15,11 +15,12 @@ export function ContactForm() {
       <div className='form__heading'>
         <h3>{t('form.title')}</h3>
         <p>{t('form.desc')}</p>
+        <p>{t('form.required')}</p>
       </div>
       <form
         name='contact'
         method='POST'
-        data-netlify-form='true'
+        data-netlify='true'
         className='flow'
         onSubmit={handleSubmit(onSubmit)}
       >
@@ -31,9 +32,7 @@ export function ContactForm() {
             type='text'
             name='company'
             id='company'
-            ref={register({
-              required: `${t('form.company.error.required')}`,
-            })}
+            ref={register({ required: `${t('form.company.error.required')}` })}
           />
           <ErrorMessage errors={errors} name='company' as={<ErrorText />} />
         </div>
@@ -103,10 +102,13 @@ export function ContactForm() {
             rows={10}
             ref={register({
               required: `${t('form.message.error.required')}`,
-              minLength: `${t('form.message.error.minLength')}`,
+              minLength: {
+                value: 20,
+                message: `${t('form.message.error.minLength')}`,
+              },
             })}
           />
-          <ErrorMessage errors={errors} name='email' as={<ErrorText />} />
+          <ErrorMessage errors={errors} name='message' as={<ErrorText />} />
         </div>
         <input type='submit' value={`${t('form.submit')}`} />
       </form>
