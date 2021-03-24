@@ -11,7 +11,7 @@ export function NavList({ reduced = false }) {
       {reduced ? (
         <ul>
           <li>
-            <Link href='/questions'>
+            <Link href='/contact'>
               <a className=''>{t('links.questions')}</a>
             </Link>
           </li>
@@ -32,7 +32,7 @@ export function NavList({ reduced = false }) {
             <p>{t('categories.products')}</p>
             <ul>
               <li>
-                <Link href='/questions'>
+                <Link href='/contact'>
                   <a>{t('links.questions')}</a>
                 </Link>
               </li>

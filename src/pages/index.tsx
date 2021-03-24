@@ -19,7 +19,7 @@ export default function Home() {
           <h1 className={`text-600 md:text-700 lg:text-800 weight-bold`}>
             {t('hero.title')}
           </h1>
-          <p>{t('hero.desc')}</p>
+          <p>{t('hero.subtitle')}</p>
           <Link href='/pricing'>
             <a>{t('hero.btnText')}</a>
           </Link>

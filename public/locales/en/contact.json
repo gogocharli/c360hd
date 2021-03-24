@@ -1,9 +1,9 @@
 {
-  "pageTitle": "Contactez-nous",
+  "pageTitle": "Contact Us",
   "pageDesc": "",
   "hero": {
     "title": "Questions? Don't hesitate.",
-    "desc": "Our technical support team is always there to provide you with answers for all your questions related to our services."
+    "subtitle": "Our technical support team is always there to provide you with answers for all your questions related to our services."
   },
   "form": {
     "title": "Write to us",
@@ -35,6 +35,7 @@
     },
     "message": {
       "name": "Your message"
-    }
+    },
+    "submit": "Send"
   }
 }
