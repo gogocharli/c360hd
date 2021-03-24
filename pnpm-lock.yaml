@@ -13,6 +13,7 @@ dependencies:
   postmark: 2.7.3
   react: 17.0.1
   react-dom: 17.0.1_react@17.0.1
+  react-hook-form: 6.15.5_react@17.0.1
   twilio: 3.57.0
 devDependencies:
   '@types/airtable': 0.8.1
@@ -5672,6 +5673,14 @@ packages:
       react: 17.0.1
     resolution:
       integrity: sha512-6eV150oJZ9U2t9svnsspTMrWNyHc6chX0KzDeAOXftRa8bNeOKTTfCJ7KorIwenkHd2xqVTBTCZd79yk/lx/Ug==
+  /react-hook-form/6.15.5_react@17.0.1:
+    dependencies:
+      react: 17.0.1
+    dev: false
+    peerDependencies:
+      react: ^16.8.0 || ^17
+    resolution:
+      integrity: sha512-so2jEPYKdVk1olMo+HQ9D9n1hVzaPPFO4wsjgSeZ964R7q7CHsYRbVF0PGBi83FcycA5482WHflasdwLIUVENg==
   /react-i18next/11.8.9_i18next@19.9.2+react@17.0.1:
     dependencies:
       '@babel/runtime': 7.13.10
@@ -7205,6 +7214,7 @@ specifiers:
   postmark: ^2.7.3
   react: ^17.0.1
   react-dom: ^17.0.1
+  react-hook-form: ^6.15.5
   sass: ^1.32.8
   svgo: ^2.2.2
   ts-jest: ^26.5.3
