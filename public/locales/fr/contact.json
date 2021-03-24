@@ -11,19 +11,27 @@
     "required": "Champ requis",
     "company": {
       "name": "Compagnie",
-      "error": "Veuillez entrer le nom de votre compagnie"
+      "error": {
+        "required": "Veuillez entrer le nom de votre compagnie"
+      }
     },
     "fullName": {
       "name": "Nom Complet",
-      "error": "Veuillez entrer votre nom et prénom"
+      "error": {
+        "required": "Veuillez entrer votre nom et prénom"
+      }
     },
     "phone": {
       "name": "Numéro de tel",
-      "error": "Veuillez entrer un numéro de téléphone valide"
+      "error": {
+        "required": "Veuillez entrer un numéro de téléphone"
+      }
     },
     "email": {
       "name": "E-mail",
-      "error": "Veuillez entrer une addresse courriel valide"
+      "error": {
+        "required": "Veuillez entrer une addresse courriel"
+      }
     },
     "subject": {
       "name": "Sujet de votre requête",
@@ -34,7 +42,11 @@
       ]
     },
     "message": {
-      "name": "Votre message"
+      "name": "Votre message",
+      "error": {
+        "required": "Veuillez écrire un message pour nous permettre de mieux vous répondre",
+        "minLength": "Votre message doit contenir au moins 20 charactères"
+      }
     },
     "submit": "Envoyer"
   }

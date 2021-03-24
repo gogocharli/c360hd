@@ -11,19 +11,27 @@
     "required": "Required field",
     "company": {
       "name": "Company",
-      "error": "Please provide the name of your business"
+      "error": {
+        "required": "Please provide the name of your business"
+      }
     },
     "fullName": {
-      "name": "Full Name",
-      "error": "Please provide your first and last name"
+      "name": "First and Last Name",
+      "error": {
+        "required": "Please provide your first and last name"
+      }
     },
     "phone": {
       "name": "Phone number",
-      "error": "Please provide a valid phone number"
+      "error": {
+        "required": "Please provide a phone number"
+      }
     },
     "email": {
       "name": "E-mail",
-      "error": "Please provide a valid email address"
+      "error": {
+        "required": "Please provide an email address"
+      }
     },
     "subject": {
       "name": "Subject of your request",
@@ -34,7 +42,11 @@
       ]
     },
     "message": {
-      "name": "Your message"
+      "name": "Your message",
+      "error": {
+        "required": "Please tell us about what we can help you with",
+        "minLength": "Your message must be at least 20 characters long"
+      }
     },
     "submit": "Send"
   }
