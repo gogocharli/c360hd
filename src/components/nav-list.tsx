@@ -107,7 +107,7 @@ export function FootLinks() {
           @todo take care of changing between login or logout
           @see netlify authentication for valide path for auth
         */}
-      <Link href='profile'>
+      <Link href='/'>
         <a>{t('toggles.login')}</a>
       </Link>
       <Link href='/'>

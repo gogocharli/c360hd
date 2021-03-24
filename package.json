@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/CodetaroMiura/c360hd#readme",
   "dependencies": {
+    "@hookform/error-message": "^0.0.5",
     "@reach/accordion": "^0.13.2",
     "airtable": "^0.10.1",
     "change-case": "^4.1.2",
