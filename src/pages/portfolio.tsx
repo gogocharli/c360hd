@@ -1,6 +1,5 @@
 import type { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 import Image from 'next/image';
 
 import { useTranslation } from 'next-i18next';
@@ -8,24 +7,38 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import BaseLayout from '@layouts/base';
 import { AccordionMenu, AccordionItem } from '@components/Accordion';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 export default function Portfolio() {
-  const { t } = useTranslation('portfolio');
-  const pageMeta = { title: t('pageTitle'), desc: t('pageDesc') };
-
-  const { search: filter } = typeof window !== 'undefined' && window?.location;
-  const category = new URLSearchParams(filter)?.get('filter');
+  const router = useRouter();
+  const { query } = router;
+  const filterRef = useRef(query.filter ?? '');
   const [searchQuery, setSearchQuery] = useState('');
 
-  useEffect(() => {
-    console.log(category);
-  }, [category]);
+  const { t } = useTranslation('portfolio');
 
-  function handleSearchChange(e) {
-    const value = e.target.value;
-    console.log(value);
+  useEffect(() => {
+    const { filter } = query;
+    if (filterRef.current === filter) {
+      console.log(`Disable ${filter}`);
+      return;
+    }
+
+    filterRef.current = filter;
+    console.log(filter);
+  }, [query]);
+
+  function handleSearchChange(e: React.FormEvent<EventTarget>) {
+    const { value } = e.target as HTMLInputElement;
     setSearchQuery(value);
+  }
+
+  function filterCategory(category: string) {
+    return function () {
+      router.push(`/portfolio?filter=${category}`, undefined, {
+        shallow: true,
+      });
+    };
   }
 
   const categoryList = [
@@ -39,6 +52,7 @@ export default function Portfolio() {
     'other',
   ];
 
+  const pageMeta = { title: t('pageTitle'), desc: t('pageDesc') };
   return (
     <BaseLayout pageMeta={pageMeta} theme='light'>
       <section className='hero'>
@@ -54,6 +68,17 @@ export default function Portfolio() {
         />
       </section>
       <article>
+        <AccordionMenu>
+          <AccordionItem
+            item={{ value: 'filter', title: `${t('categories.title')}` }}
+          >
+            {categoryList.map((category) => (
+              <button key={category} onClick={filterCategory(category)}>
+                {t(`categories.${category}`)}
+              </button>
+            ))}
+          </AccordionItem>
+        </AccordionMenu>
         <input
           type='search'
           name='search'
@@ -62,17 +87,10 @@ export default function Portfolio() {
           value={searchQuery}
           onChange={handleSearchChange}
         />
-        <AccordionMenu>
-          <AccordionItem
-            item={{ value: 'filter', title: `${t('categories.title')}` }}
-          >
-            {categoryList.map((category) => (
-              <Link href={`/portfolio?filter=${category}`} key={category}>
-                <a>{t(`categories.${category}`)}</a>
-              </Link>
-            ))}
-          </AccordionItem>
-        </AccordionMenu>
+        <div className='gallery'>
+          Gallery Items
+          <button onClick={filterCategory('all')}>{t('buttonText')}</button>
+        </div>
       </article>
     </BaseLayout>
   );
