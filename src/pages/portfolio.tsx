@@ -26,7 +26,10 @@ export default function Portfolio() {
     }
 
     filterRef.current = filter;
-    console.log(filter);
+
+    // Scroll to the top of the page for consistency
+    // Shallow routing doesn't by default
+    window.scrollTo(0, 0);
   }, [query]);
 
   function handleSearchChange(e: React.FormEvent<EventTarget>) {
