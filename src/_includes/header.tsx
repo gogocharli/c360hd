@@ -12,6 +12,8 @@ export function Header() {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const { t } = useTranslation('common');
 
+  // Make sure to close the menu when the viewport grows
+  // otherwise it can remain open once it shrinks back
   useEffect(() => {
     if (!isSmallViewPort) {
       setMenuOpen(false);

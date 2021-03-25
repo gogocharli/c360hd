@@ -16,7 +16,7 @@ export function NavList({ reduced = false }) {
             </Link>
           </li>
           <li>
-            <Link href='/examples'>
+            <Link href='/portfolio'>
               <a className=''>{t('links.examples')}</a>
             </Link>
           </li>
@@ -37,7 +37,7 @@ export function NavList({ reduced = false }) {
                 </Link>
               </li>
               <li>
-                <Link href='/examples'>
+                <Link href='/portfolio'>
                   <a>{t('links.examples')}</a>
                 </Link>
               </li>
