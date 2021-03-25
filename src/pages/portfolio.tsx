@@ -1,5 +1,7 @@
+import React, { useEffect, useState, useRef } from 'react';
 import type { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import Image from 'next/image';
 
 import { useTranslation } from 'next-i18next';
@@ -7,7 +9,6 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import BaseLayout from '@layouts/base';
 import { AccordionMenu, AccordionItem } from '@components/Accordion';
-import React, { useEffect, useState, useRef } from 'react';
 
 export default function Portfolio() {
   const router = useRouter();
@@ -88,7 +89,25 @@ export default function Portfolio() {
           onChange={handleSearchChange}
         />
         <div className='gallery'>
-          Gallery Items
+          <section className='gallery__content'>
+            <div className='gallery__row'>
+              <h3>Restauration</h3>
+              <Link href='/portfolio?filter=restauration'>
+                <a>{t('buttonText')}</a>
+              </Link>
+              <button className='gallery__item'>
+                <Image
+                  src='/gallery/espace-flo-img.jpg'
+                  alt=''
+                  width={96}
+                  height={96}
+                  quality={1}
+                />
+                <h4>Espace Flow</h4>
+                <p>Restauration</p>
+              </button>
+            </div>
+          </section>
           <button onClick={filterCategory('all')}>{t('buttonText')}</button>
         </div>
       </article>
