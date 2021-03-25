@@ -8,7 +8,7 @@
   "form": {
     "title": "Write to us",
     "desc": "Please fill this form to inform us of any question you might have about our products. We will do our best to follow up as soon as possible.",
-    "required": "Required field",
+    "required": "Please fill all fields",
     "company": {
       "name": "Company",
       "error": {
