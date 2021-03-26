@@ -9,6 +9,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import BaseLayout from '@layouts/base';
 import { AccordionMenu, AccordionItem } from '@components/Accordion';
+import { Gallery } from '@components/Gallery/gallery';
 
 export default function Portfolio() {
   const router = useRouter();
@@ -69,6 +70,7 @@ export default function Portfolio() {
           alt='Man rocking on a chair'
           width={417}
           height={417}
+          priority
         />
       </section>
       <article>
@@ -91,28 +93,7 @@ export default function Portfolio() {
           value={searchQuery}
           onChange={handleSearchChange}
         />
-        <div className='gallery'>
-          <section className='gallery__content'>
-            <div className='gallery__row'>
-              <h3>Restauration</h3>
-              <Link href='/portfolio?filter=restauration'>
-                <a>{t('buttonText')}</a>
-              </Link>
-              <button className='gallery__item'>
-                <Image
-                  src='/gallery/espace-flo-img.jpg'
-                  alt=''
-                  width={96}
-                  height={96}
-                  quality={1}
-                />
-                <h4>Espace Flow</h4>
-                <p>Restauration</p>
-              </button>
-            </div>
-          </section>
-          <button onClick={filterCategory('all')}>{t('buttonText')}</button>
-        </div>
+        <Gallery />
       </article>
     </BaseLayout>
   );
