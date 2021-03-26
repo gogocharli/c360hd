@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import type { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 import Image from 'next/image';
 
 import { useTranslation } from 'next-i18next';
