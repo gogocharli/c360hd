@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { GalleryRow } from './gallery-row';
-import { useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 
 const initalItems = [
   { category: 'fashion', name: 'Espace Flo', src: 'espace-flo-img' },
@@ -45,6 +45,14 @@ export function Gallery() {
     { search: '', filter, items: initalItems },
     initCategory
   );
+
+  useEffect(() => {
+    if (filter) {
+      dispatch({ type: 'filter', filter: filter as string });
+      return;
+    }
+    dispatch({ type: 'reset' });
+  }, [filter]);
 
   const isIdle = state.filter == '';
   const isFiltered = state.filter !== '';
