@@ -2,19 +2,24 @@ import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 
 import { GalleryItem, GalleryListItem } from './gallery-item';
+import { useMediaQuery } from 'hooks/useMediaQuery';
 
 export function GalleryRow({
   category,
   itemList,
   all = false,
-  carousel = false,
 }: {
   category: string;
   itemList: { category: string; name: string; src: string }[];
   all?: boolean;
-  carousel?: boolean;
 }) {
   const { t } = useTranslation('portfolio');
+  const isSmallViewport = useMediaQuery('(max-width: 50em)');
+
+  const isCompleteList = all;
+  const isCarousel = isSmallViewport && !isCompleteList;
+  const orientation =
+    isSmallViewport && isCompleteList ? 'horizontal' : 'vertical';
 
   return (
     <div className='gallery__row'>
@@ -22,7 +27,7 @@ export function GalleryRow({
         <h3>{t(`categories.${category}`)}</h3>
         {/* Remove the link to show all when all items
          in the list are already there */}
-        {!all && (
+        {!isCompleteList && (
           <Link href={`/portfolio?filter=${category}`}>
             <a>{t('buttonText')}</a>
           </Link>
@@ -35,9 +40,11 @@ export function GalleryRow({
             name={name}
             src={src}
             key={name}
+            orientation={orientation}
           />
         ))}
       </div>
+      {isCarousel && <div className='carousel__scroll'>Carousel</div>}
     </div>
   );
 }

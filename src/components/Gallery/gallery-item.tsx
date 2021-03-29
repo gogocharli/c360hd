@@ -1,10 +1,16 @@
 import Image from 'next/image';
 
 export function GalleryItem({
-  name = 'Espace Flo',
-  category = 'Restauration',
-  src = 'espace-flo-img',
-}: GalleryListItem) {
+  name,
+  category,
+  src,
+  orientation = 'vertical',
+}: {
+  name: string;
+  category: string;
+  src: string;
+  orientation?: 'horizontal' | 'vertical';
+}) {
   return (
     <>
       <button className='gallery__item'>
