@@ -4,7 +4,7 @@ import { initalItems } from './gallery-items';
 type GalleryAction =
   | { type: 'reset' }
   | { type: 'filter'; filter: string }
-  | { type: 'search'; search: string };
+  | { type: 'search'; query: string };
 
 interface GalleryState {
   search: string;
@@ -37,13 +37,30 @@ function categoryReducer(
       };
     }
     case 'search': {
-      const { search } = action;
-      const { items } = state;
+      const { query } = action;
+      const { items, filter, search } = state;
 
-      // Search trough the current items
+      /*
+        Search through the current items if there's any
+        When the user removes characters search against 
+        the original filtered list
+        Otherwise, return an empty list. We know they can't be
+        any more matches so no need to repopulate the list
+       */
+      const itemList =
+        items.length > 0
+          ? items
+          : query.length < search.length
+          ? initalItems.filter(filterByCategory(filter || 'all'))
+          : [];
+
+      // Get items which match the search query
+      // TODO change from linear search to hash function indexing
+      const newList = itemList.filter((item) => item.name.includes(query));
       return {
         ...state,
-        search,
+        search: query,
+        items: newList,
       };
     }
     default:

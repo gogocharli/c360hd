@@ -8,7 +8,7 @@ import { GalleryRow, InitialRows } from './gallery-row';
 import { initalItems } from './gallery-items';
 import { categoryReducer, initCategory } from './reducer';
 
-export function Gallery() {
+export function Gallery({ search }: { search: string }) {
   const { t } = useTranslation('portfolio');
   const {
     query: { filter },
@@ -26,6 +26,17 @@ export function Gallery() {
     }
     dispatch({ type: 'reset' });
   }, [filter]);
+
+  useEffect(() => {
+    if (search == '') {
+      filter
+        ? dispatch({ type: 'filter', filter: filter as string })
+        : dispatch({ type: 'reset' });
+      return;
+    }
+
+    dispatch({ type: 'search', query: search });
+  }, [search]);
 
   const isIdle = state.filter == '';
   const isFiltered = state.filter !== '';
