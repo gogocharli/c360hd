@@ -14,6 +14,7 @@ export default function Portfolio() {
   const router = useRouter();
   const { query } = router;
   const filterRef = useRef(query.filter ?? '');
+  const searchInputRef = useRef();
   const [searchQuery, setSearchQuery] = useState('');
 
   const { t } = useTranslation('portfolio');
@@ -36,9 +37,16 @@ export default function Portfolio() {
     window.scrollTo(0, 0);
   }, [query]);
 
-  function handleSearchChange(e: React.FormEvent<EventTarget>) {
-    const { value } = e.target as HTMLInputElement;
-    setSearchQuery(value);
+  // Debounce input before changing query
+  let scheduled = null;
+  function handleSearchChange() {
+    if (!scheduled) {
+      window.setTimeout(() => {
+        setSearchQuery(scheduled.value);
+        scheduled = null;
+      }, 250);
+    }
+    scheduled = searchInputRef.current;
   }
 
   function filterCategory(category: string) {
@@ -94,10 +102,10 @@ export default function Portfolio() {
           id='search'
           aria-label={`${t('search.placeholder')}`}
           placeholder={`${t('search.placeholder')}`}
-          value={searchQuery}
+          ref={searchInputRef}
           onChange={handleSearchChange}
         />
-        <Gallery />
+        <Gallery search={searchQuery} />
       </article>
     </BaseLayout>
   );
