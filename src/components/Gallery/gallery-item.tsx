@@ -4,11 +4,7 @@ export function GalleryItem({
   name = 'Espace Flo',
   category = 'Restauration',
   src = 'espace-flo-img',
-}: {
-  name: string;
-  category: string;
-  src: string;
-}) {
+}: GalleryListItem) {
   return (
     <>
       <button className='gallery__item'>
@@ -52,3 +48,11 @@ export function GalleryItem({
     </>
   );
 }
+
+interface GalleryListItem {
+  category: string;
+  name: string;
+  src: string;
+}
+
+export type { GalleryListItem };

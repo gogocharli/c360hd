@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 
-import { GalleryItem } from './gallery-item';
+import { GalleryItem, GalleryListItem } from './gallery-item';
 
 export function GalleryRow({
   category,
@@ -33,5 +33,43 @@ export function GalleryRow({
         ))}
       </div>
     </div>
+  );
+}
+
+export function InitialRows({ items }: { items: GalleryListItem[] }) {
+  // Index the list by category
+  const categories = items.reduce((acc, item) => {
+    const category = item.category;
+
+    if (acc[category] == undefined) {
+      acc[category] = [];
+      acc[category].push(item);
+    } else {
+      acc[category].push(item);
+    }
+
+    return acc;
+  }, {});
+
+  // Show the first two lists with more than three items (layout requirement)
+  const isLongerThan3 = ([, itemList]: [string, GalleryListItem[]]) =>
+    itemList.length >= 3;
+
+  const categoriesList = Object.entries(categories)
+    .filter(isLongerThan3)
+    .slice(0, 2) as [string, GalleryListItem[]][];
+
+  return (
+    <>
+      {/* @todo create a recent list based on a date key in the final version */}
+      <GalleryRow category='recent' itemList={items.slice(0, 3)} />
+      {categoriesList.map(([category, itemList]) => (
+        <GalleryRow
+          category={category}
+          itemList={itemList.slice(0, 3)}
+          key={category}
+        />
+      ))}
+    </>
   );
 }
