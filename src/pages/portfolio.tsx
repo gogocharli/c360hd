@@ -19,13 +19,17 @@ export default function Portfolio() {
   const { t } = useTranslation('portfolio');
 
   useEffect(() => {
+    // Whenever a new query is pushed to the router
+    // Disable the filter if it was the same from the previous
     const { filter } = query;
     if (filterRef.current === filter) {
-      console.log(`Disable ${filter}`);
+      router.push(`/portfolio`, undefined, {
+        shallow: true,
+      });
       return;
+    } else {
+      filterRef.current = filter;
     }
-
-    filterRef.current = filter;
 
     // Scroll to the top of the page for consistency
     // Shallow routing doesn't by default
@@ -89,6 +93,7 @@ export default function Portfolio() {
           name='search'
           id='search'
           aria-label={`${t('search.placeholder')}`}
+          placeholder={`${t('search.placeholder')}`}
           value={searchQuery}
           onChange={handleSearchChange}
         />

@@ -6,10 +6,12 @@ import { GalleryItem, GalleryListItem } from './gallery-item';
 export function GalleryRow({
   category,
   itemList,
+  all = false,
   carousel = false,
 }: {
   category: string;
   itemList: { category: string; name: string; src: string }[];
+  all?: boolean;
   carousel?: boolean;
 }) {
   const { t } = useTranslation('portfolio');
@@ -18,9 +20,13 @@ export function GalleryRow({
     <div className='gallery__row'>
       <div className='row__header'>
         <h3>{t(`categories.${category}`)}</h3>
-        <Link href={`/portfolio?filter=${category}`}>
-          <a>{t('buttonText')}</a>
-        </Link>
+        {/* Remove the link to show all when all items
+         in the list are already there */}
+        {!all && (
+          <Link href={`/portfolio?filter=${category}`}>
+            <a>{t('buttonText')}</a>
+          </Link>
+        )}
       </div>
       <div className='row__content'>
         {itemList.map(({ category, name, src }) => (

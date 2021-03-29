@@ -3,7 +3,7 @@ import { useEffect, useReducer } from 'react';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 
-import { InitialRows } from './gallery-row';
+import { GalleryRow, InitialRows } from './gallery-row';
 import { initalItems } from './gallery-items';
 import { categoryReducer, initCategory } from './reducer';
 
@@ -33,6 +33,9 @@ export function Gallery() {
   return (
     <div className='gallery'>
       {isIdle && <InitialRows items={state.items} />}
+      {isFiltered && (
+        <GalleryRow category={state.filter} itemList={state.items} all />
+      )}
       <Link href='/portfolio?filter=all'>
         <a>{t('buttonText')}</a>
       </Link>
