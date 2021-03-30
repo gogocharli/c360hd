@@ -20,6 +20,11 @@ export default function Layout({
         <link rel='icon' href='favicon.svg' type='image/svg' key='icon' />
         <meta name='description' content={pageMeta?.desc ?? t('siteDesc')} />
         <title>{(pageMeta?.title ?? t('siteTitle')) + ' | C360HD'}</title>
+        <link
+          rel='stylesheet'
+          href='https://use.typekit.net/jst8wwr.css'
+          crossOrigin='anonymous'
+        />
       </Head>
       <Header />
       <main id='main-content' tabIndex={-1}>

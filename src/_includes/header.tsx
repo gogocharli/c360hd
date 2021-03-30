@@ -27,9 +27,9 @@ export function Header() {
   return (
     <>
       <Link href='#main-content'>
-        <a>{t('skip-link')}</a>
+        <a className='[ skip-link ] [ button ]'>{t('skip-link')}</a>
       </Link>
-      <header role='banner' className='site-head'>
+      <header role='banner' className='[ site-head ] [ wrapper ]'>
         <Link href='/'>
           <a className='site-head__brand' aria-label='Home – C360HD'>
             <Symbol />
@@ -51,8 +51,8 @@ export function Header() {
               <MenuIcon />
             </button>
             {isMenuOpen && (
-              <div className='menu' id='menu'>
-                <nav>
+              <div className='[ menu ] [ flow ]' id='menu'>
+                <nav className='[ nav ] [ menu__nav ]'>
                   <NavList />
                 </nav>
                 <FootLinks />
@@ -60,11 +60,87 @@ export function Header() {
             )}
           </div>
         ) : (
-          <nav>
+          <nav className='[ nav ] [ site-head__nav ]'>
             <NavList reduced />
           </nav>
         )}
       </header>
+      <style jsx>{`
+        .skip-link {
+          position: absolute;
+          top: 1.25rem;
+          left: 1.25rem;
+          z-index: 99; // Always keep on top
+        }
+
+        .skip-link:not(:focus) {
+          // Visually hide when not focused
+          border: 0;
+          clip: rect(0 0 0 0);
+          height: auto;
+          margin: 0;
+          overflow: hidden;
+          padding: 0;
+          position: absolute;
+          width: 1px;
+          white-space: nowrap;
+        }
+
+        header {
+          align-items: center;
+          display: flex;
+          justify-content: space-between;
+          padding-bottom: 0.75rem;
+          padding-top: 0.75rem;
+        }
+
+        .site-head__brand {
+          line-height: 1;
+        }
+
+        .menu {
+          --flow-space: 3rem;
+
+          background-color: hsl(var(--color-dark-main));
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          min-height: 100vh;
+          padding: 1.5rem 1rem;
+          position: absolute;
+
+          bottom: 0;
+          left: 0;
+          right: 0;
+          top: 0;
+          z-index: 10;
+        }
+
+        .menu-toggle {
+          background: 0;
+          background-color: hsl(var(--theme-color-fg));
+          border: 0;
+          border-radius: 100px;
+          box-sizing: content-box;
+          height: 2rem;
+          padding: 0;
+          position: relative;
+          width: 3rem;
+          z-index: 20;
+        }
+      `}</style>
+
+      <style jsx global>{`
+        body {
+          // overflow-y: ${isMenuOpen ? 'hidden' : 'auto'};
+        }
+      `}</style>
+
+      <style jsx global>{`
+        .site-head__brand svg {
+          width: 2rem;
+        }
+      `}</style>
     </>
   );
 }

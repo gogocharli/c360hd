@@ -23,6 +23,9 @@ body {
   background-color: hsl(var(--theme-color-bg));
   color: hsl(var(--theme-color-fg));
   font-size: get-size('400');
+  font-feature-settings: 'ss02' on;
+  overflow-x: hidden;
+  position: relative;
   scroll-behavior: smooth;
 
   /* Most of the text is dark on light which means the text will be bolder */
@@ -36,6 +39,14 @@ body {
 a:not([class]) {
   color: hsl(var(--theme-color-fg));
   text-decoration-color: currentColor;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-feature-settings: 'ss02' off;
 }
 
 li:not([class]) {
@@ -57,3 +68,14 @@ main:focus {
 ::selection {
   background: hsla(var(--theme-color-hg) / 0.99);
 }
+
+@import 'utilities/align-center';
+@import 'utilities/auto-grid';
+@import 'utilities/blend';
+@import 'utilities/explicit-grid';
+@import 'utilities/flow';
+@import 'utilities/no-list';
+@import 'utilities/radius';
+@import 'utilities/ss02';
+@import 'utilities/visually-hidden';
+@import 'utilities/wrapper';
