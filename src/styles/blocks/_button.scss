@@ -1,0 +1,72 @@
+.button {
+  @include apply-utility('weight', 'bold');
+
+  --transition-duration: 350ms;
+  --transition-curve: cubic-bezier(0.165, 0.84, 0.44, 1);
+
+  background: 0;
+  border: 0;
+  border-radius: 2em;
+  color: hsl(var(--theme-color-bg));
+  display: inline-block;
+  font-size: get-size('300');
+  line-height: 1;
+  overflow: hidden; // contain the pseudo-elements
+  padding: 1rem 1.5rem;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: color var(--transition-duration) var(--transition-curve);
+
+  &:hover {
+    color: hsl(var(--theme-color-fg));
+
+    &::after {
+      transform: translateZ(0) translate(-50%, 50%) scale(1);
+    }
+  }
+
+  &::before {
+    background-color: hsl(var(--theme-color-fg));
+    border-radius: inherit;
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -2;
+  }
+
+  &::after {
+    --transition-duration: 340ms;
+    background-color: hsl(var(--theme-color-bg));
+    border-radius: 50%;
+    bottom: 0;
+    content: '';
+    height: 400px;
+    left: 50%;
+    width: 400px;
+    position: absolute;
+    transform: translateZ(0) translate(-50%, 50%) scale(0);
+    transition: transform var(--transition-duration) var(--transition-curve);
+    z-index: -1;
+  }
+
+  // Variant for secondary buttons (eg. forms)
+  &[data-variant='secondary'] {
+    color: hsl(var(--theme-color-fg));
+
+    &::before {
+      background-color: hsl(var(--theme-color-hg));
+    }
+
+    &::after {
+      background-color: hsl(var(--theme-color-tint));
+    }
+  }
+}
+
+a.button {
+  cursor: pointer;
+}

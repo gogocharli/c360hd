@@ -160,9 +160,12 @@ export function FootLinks({ noLogo = false }: { noLogo?: boolean }) {
     <div className='[ footer-links ] [ flow ]'>
       <div className='buttons'>
         <Link href={pathname} locale={locale == 'en' ? 'fr' : 'en'}>
-          <a className=' [ lang-switch ] [ button ss02 ] [ text-300 ]'>
+          <a
+            className=' [ lang-switch ] [ button ss02 ] [ text-300 ]'
+            data-variant='secondary'
+          >
             <Image src='/glyphs/globe-alt.svg' width={24} height={24} alt='' />
-            {t('toggles.lang')}
+            <span>{t('toggles.lang')}</span>
           </a>
         </Link>
         {/*
@@ -170,7 +173,10 @@ export function FootLinks({ noLogo = false }: { noLogo?: boolean }) {
           @see netlify authentication for valide path for auth
         */}
         <Link href='/'>
-          <a className=' [ login ] [ button ss02 ] [ text-300 ]'>
+          <a
+            className=' [ login ] [ button ss02 ] [ text-300 ]'
+            data-variant='secondary'
+          >
             {t('toggles.login')}
           </a>
         </Link>
@@ -189,6 +195,10 @@ export function FootLinks({ noLogo = false }: { noLogo?: boolean }) {
           align-items: center;
           display: flex;
           justify-content: space-between;
+        }
+
+        .lang-switch > span {
+          margin-left: 0.5rem;
         }
 
         .site-foot__brand {

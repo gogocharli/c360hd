@@ -11,12 +11,14 @@
   --color-dark-main: #{get-color('dark')};
   --color-dark-shade: #{get-color('dark-shade')};
   --color-dark-highlight: #{get-color('dark-highlight')};
+  --color-dark-tint: #{get-color('dark-tint')};
 }
 
 :root {
   --theme-color-bg: var(--color-dark-main);
   --theme-color-fg: var(--color-light-main);
   --theme-color-hg: var(--color-dark-highlight);
+  --theme-color-tint: var(--color-dark-tint);
 }
 
 body {
@@ -68,6 +70,8 @@ main:focus {
 ::selection {
   background: hsla(var(--theme-color-hg) / 0.99);
 }
+
+@import 'blocks/button';
 
 @import 'utilities/align-center';
 @import 'utilities/auto-grid';
