@@ -3,6 +3,7 @@
 
   --transition-duration: 350ms;
   --transition-curve: cubic-bezier(0.165, 0.84, 0.44, 1);
+  --hover-translate: -50%, -50%;
 
   background: 0;
   border: 0;
@@ -22,7 +23,7 @@
     color: hsl(var(--theme-color-fg));
 
     &::after {
-      transform: translateZ(0) translate(-50%, 50%) scale(1);
+      transform: translateZ(0) translate(var(--hover-translate)) scale(1);
     }
   }
 
@@ -42,13 +43,13 @@
     --transition-duration: 340ms;
     background-color: hsl(var(--theme-color-bg));
     border-radius: 50%;
-    bottom: 0;
     content: '';
     height: 400px;
-    left: 50%;
+    left: 0;
+    top: 0;
     width: 400px;
     position: absolute;
-    transform: translateZ(0) translate(-50%, 50%) scale(0);
+    transform: translateZ(0) translate(var(--hover-translate)) scale(0);
     transition: transform var(--transition-duration) var(--transition-curve);
     z-index: -1;
   }
@@ -57,12 +58,16 @@
   &[data-variant='secondary'] {
     color: hsl(var(--theme-color-fg));
 
+    &:hover {
+      color: hsl(var(--theme-color-bg));
+    }
+
     &::before {
       background-color: hsl(var(--theme-color-hg));
     }
 
     &::after {
-      background-color: hsl(var(--theme-color-tint));
+      background-color: hsl(var(--theme-color-fg));
     }
   }
 }

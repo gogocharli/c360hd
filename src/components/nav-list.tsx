@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
+import { Button } from '@components/button';
 import Logo from './logos/logo-c360.svg';
 
 export function NavList({ reduced = false }) {
@@ -172,17 +173,12 @@ export function FootLinks({ noLogo = false }: { noLogo?: boolean }) {
           @todo take care of changing between login or logout
           @see netlify authentication for valide path for auth
         */}
-        <Link href='/'>
-          <a
-            className=' [ login ] [ button ss02 ] [ text-300 ]'
-            data-variant='secondary'
-          >
-            {t('toggles.login')}
-          </a>
-        </Link>
+        <Button href='/' className='login' type='secondary'>
+          {t('toggles.login')}
+        </Button>
       </div>
       {!noLogo && (
-        <Link href='/'>
+        <Link href='/' passHref>
           <a className='site-foot__brand'>
             <Logo height={72} />
           </a>
