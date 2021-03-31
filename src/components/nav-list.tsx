@@ -30,67 +30,69 @@ export function NavList({ reduced = false }) {
       ) : (
         <>
           <div className='[ category ] [ flow ss02 ]'>
-            <p className='weight-bold leading-flat text-450'>
+            <p className='weight-bold leading-flat xs:text-300 text-450'>
               {t('categories.products')}
             </p>
             <ul className='[ nav__list ] [ flow ]'>
               <li>
                 <Link href='/contact'>
-                  <a className='text-300'>{t('links.questions')}</a>
+                  <a className='xs:text-200 text-300'>{t('links.questions')}</a>
                 </Link>
               </li>
               <li>
                 <Link href='/portfolio'>
-                  <a className='text-300'>{t('links.examples')}</a>
+                  <a className='xs:text-200 text-300'>{t('links.examples')}</a>
                 </Link>
               </li>
               <li>
                 <Link href='/pricing'>
-                  <a className='text-300'>{t('links.pricing')}</a>
+                  <a className='xs:text-200 text-300'>{t('links.pricing')}</a>
                 </Link>
               </li>
             </ul>
           </div>
           <div className='[ category ] [ flow ss02 ]'>
-            <p className='weight-bold leading-flat text-450'>
+            <p className='weight-bold leading-flat xs:text-300 text-450'>
               {t('categories.company')}
             </p>
             <ul className='[ nav__list ] [ flow ]'>
               <li>
                 <Link href='/about'>
-                  <a className='text-300'>{t('links.about')}</a>
+                  <a className='xs:text-200 text-300'>{t('links.about')}</a>
                 </Link>
               </li>
               <li>
                 <Link href='/contact'>
-                  <a className='text-300'>{t('links.contact')}</a>
+                  <a className='xs:text-200 text-300'>{t('links.contact')}</a>
                 </Link>
               </li>
               <li>
                 <Link href='/careers'>
-                  <a className='text-300'>{t('links.careers')}</a>
+                  <a className='xs:text-200 text-300'>{t('links.careers')}</a>
                 </Link>
               </li>
             </ul>
           </div>
           <div className='[ category ] [ flow ss02 ]'>
-            <p className='weight-bold leading-flat text-450'>
+            <p className='weight-bold leading-flat xs:text-300 text-450'>
               {t('categories.legal')}
             </p>
             <ul className='[ nav__list ] [ flow ]'>
               <li>
                 <Link href='/legal'>
-                  <a className='text-300'>{t('links.legal')}</a>
+                  <a className='xs:text-200 text-300'>{t('links.legal')}</a>
                 </Link>
               </li>
               <li>
                 <Link href='/payment-policy'>
-                  <a className='text-300'>{t('links.paymentPolicy')}</a>
+                  <a className='xs:text-200 text-300'>
+                    {t('links.paymentPolicy')}
+                  </a>
                 </Link>
               </li>
               <li>
                 <Link href='/terms'>
-                  <a className='text-300'>{t('links.terms')}</a>
+                  <a className='xs:text-200 text-300'>{t('links.terms')}</a>
                 </Link>
               </li>
             </ul>
@@ -125,6 +127,20 @@ export function NavList({ reduced = false }) {
         .nav__list > li {
           --flow-space: 1rem;
         }
+
+        @media (max-width: 22.5em) {
+          .nav__wrapper {
+            --flow-space: 1rem;
+          }
+
+          .category > * {
+            --flow-space: 0.5rem;
+          }
+
+          .nav__list > li {
+            --flow-space: 0.25rem;
+          }
+        }
       `}</style>
 
       <style jsx>{`
@@ -136,7 +152,7 @@ export function NavList({ reduced = false }) {
   );
 }
 
-export function FootLinks() {
+export function FootLinks({ noLogo = false }: { noLogo?: boolean }) {
   const { pathname, locale } = useRouter();
   const { t } = useTranslation('common');
 
@@ -159,11 +175,13 @@ export function FootLinks() {
           </a>
         </Link>
       </div>
-      <Link href='/'>
-        <a className='site-foot__brand'>
-          <Logo height={72} />
-        </a>
-      </Link>
+      {!noLogo && (
+        <Link href='/'>
+          <a className='site-foot__brand'>
+            <Logo height={72} />
+          </a>
+        </Link>
+      )}
 
       <style jsx>{`
         .buttons,

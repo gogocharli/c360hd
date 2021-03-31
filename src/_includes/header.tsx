@@ -51,11 +51,13 @@ export function Header() {
               <MenuIcon />
             </button>
             {isMenuOpen && (
-              <div className='[ menu ] [ flow ]' id='menu'>
-                <nav className='[ nav ] [ menu__nav ]'>
-                  <NavList />
-                </nav>
-                <FootLinks />
+              <div className='[ menu ]' id='menu'>
+                <div className='[ menu__wrapper ] [ flow ]'>
+                  <nav className='[ nav ] [ menu__nav ]'>
+                    <NavList />
+                  </nav>
+                  <FootLinks noLogo />
+                </div>
               </div>
             )}
           </div>
@@ -99,8 +101,6 @@ export function Header() {
         }
 
         .menu {
-          --flow-space: 3rem;
-
           background-color: hsl(var(--color-dark-main));
           display: flex;
           flex-direction: column;
@@ -114,6 +114,11 @@ export function Header() {
           right: 0;
           top: 0;
           z-index: 10;
+        }
+
+        .menu__wrapper {
+          --flow-space: 2rem;
+          flex-grow: 1;
         }
 
         .menu-toggle {
@@ -132,7 +137,7 @@ export function Header() {
 
       <style jsx global>{`
         body {
-          // overflow-y: ${isMenuOpen ? 'hidden' : 'auto'};
+          overflow-y: ${isMenuOpen ? 'hidden' : 'auto'};
         }
       `}</style>
 
