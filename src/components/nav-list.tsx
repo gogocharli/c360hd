@@ -153,6 +153,36 @@ export function NavList({ reduced = false }) {
             line-height: 1;
           }
         }
+
+        @media (min-width: 40em) {
+          .nav__wrapper {
+            --flow-space: 0;
+
+            display: flex;
+            grid-column: 2 / span 5;
+            justify-content: center;
+            text-align: left;
+          }
+
+          .nav__wrapper > * + * {
+            margin-left: max(3rem, 2vw);
+          }
+
+          .category > * {
+            --flow-space: 1.5rem;
+          }
+        }
+
+        @media (min-width: 65em) {
+          .nav__wrapper {
+            grid-column: 4 / span 3;
+            justify-content: space-between;
+          }
+
+          .nav__wrapper > * + * {
+            margin-left: unset;
+          }
+        }
       `}</style>
 
       <style jsx>{`
@@ -215,6 +245,62 @@ export function FootLinks({ noLogo = false }: { noLogo?: boolean }) {
         .site-foot__brand {
           display: flex;
           justify-content: center;
+        }
+
+        @media (min-width: 40em) {
+          .footer-links {
+            --flow-space: 0;
+
+            display: flex;
+            flex-direction: row-reverse;
+            grid-column: 2 / span 5;
+            grid-row: 2;
+            justify-content: space-between;
+            margin-top: 4rem;
+          }
+
+          .buttons {
+            flex-basis: 66%;
+            justify-content: flex-end;
+          }
+        }
+
+        @media (min-width: 65em) {
+          .footer-links {
+            align-items: center;
+            flex-direction: column-reverse;
+            grid-column: 1 / span 3;
+            grid-row: 1;
+            margin-top: 0;
+          }
+
+          .buttons {
+            flex-basis: 100%;
+            justif-content: center;
+            margin-top: 2.5rem;
+          }
+        }
+      `}</style>
+
+      <style jsx>{`
+        .buttons {
+          transform: translateX(${locale == 'en' ? '-20px' : 0});
+        }
+      `}</style>
+
+      <style jsx global>{`
+        .buttons > * + * {
+          margin-left: 1.5rem;
+        }
+
+        @media (min-width: 65em) {
+          .buttons > * + * {
+            margin-left: 2rem;
+          }
+
+          .site-foot__brand svg {
+            height: 7.5rem;
+          }
         }
       `}</style>
     </div>

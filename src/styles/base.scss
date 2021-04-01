@@ -19,6 +19,9 @@
   --theme-color-fg: var(--color-light-main);
   --theme-color-hg: var(--color-dark-highlight);
   --theme-color-tint: var(--color-dark-tint);
+
+  --grid-md: repeat(7, 1fr);
+  --grid-lg: repeat(13, 1fr);
 }
 
 body {

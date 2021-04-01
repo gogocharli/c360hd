@@ -17,13 +17,31 @@ export function Footer() {
 
           background-color: hsl(var(--theme-color-bg));
           color: hsl(var(--theme-color-fg));
-
           padding-bottom: 1.5rem;
           padding-top: 1.5rem;
         }
 
         footer nav {
           --flow-space: 3rem;
+        }
+
+        @media (min-width: 40em) {
+          footer {
+            padding-bottom: 4rem;
+            padding-top: 4rem;
+          }
+
+          footer nav {
+            display: grid;
+            grid-template-columns: var(--grid-md);
+          }
+        }
+
+        @media (min-width: 65em) {
+          footer {
+            padding-bottom: 5rem;
+            padding-top: 5rem;
+          }
         }
       `}</style>
     </>
