@@ -98,6 +98,7 @@ export function Header() {
 
         .site-head__brand {
           line-height: 1;
+          color: inherit;
         }
 
         .menu {
@@ -133,6 +134,11 @@ export function Header() {
           width: 3rem;
           z-index: 20;
         }
+
+        .nav__list {
+          display: flex;
+          align-items: center;
+        }
       `}</style>
 
       <style jsx global>{`
@@ -144,6 +150,16 @@ export function Header() {
       <style jsx global>{`
         .site-head__brand svg {
           width: 2rem;
+        }
+
+        .site-head__brand svg > * {
+          fill: currentColor;
+        }
+
+        @media (min-width: 32em) {
+          .site-head__brand svg {
+            width: 4rem;
+          }
         }
       `}</style>
     </>

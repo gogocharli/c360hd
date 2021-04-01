@@ -18,6 +18,11 @@
   text-align: center;
   text-decoration: none;
   transition: color var(--transition-duration) var(--transition-curve);
+  z-index: 1;
+
+  .icon > path {
+    fill: currentColor;
+  }
 
   &:hover {
     color: hsl(var(--theme-color-fg));
@@ -59,7 +64,7 @@
     color: hsl(var(--theme-color-fg));
 
     &:hover {
-      color: hsl(var(--theme-color-bg));
+      color: hsl(var(--theme-color-bg)) !important;
     }
 
     &::before {

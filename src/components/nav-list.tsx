@@ -1,9 +1,9 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { Button } from '@components/button';
 import Logo from './logos/logo-c360.svg';
+import Globe from './globe-alt.svg';
 
 export function NavList({ reduced = false }) {
   const { t } = useTranslation('common');
@@ -11,21 +11,21 @@ export function NavList({ reduced = false }) {
   return (
     <div className='[ nav__wrapper ] [ align-center flow ]'>
       {reduced ? (
-        <ul className='nav__list'>
+        <ul className='nav__list reduced'>
           <li>
             <Link href='/contact'>
-              <a className=''>{t('links.questions')}</a>
+              <a className='text-300 weight-bold'>{t('links.questions')}</a>
             </Link>
           </li>
           <li>
             <Link href='/portfolio'>
-              <a className=''>{t('links.examples')}</a>
+              <a className='text-300 weight-bold'>{t('links.examples')}</a>
             </Link>
           </li>
           <li>
-            <Link href='/pricing'>
-              <a className=''>{t('links.pricing')}</a>
-            </Link>
+            <Button href='/pricing' type='secondary' className='featured'>
+              {t('links.pricing')}
+            </Button>
           </li>
         </ul>
       ) : (
@@ -142,11 +142,31 @@ export function NavList({ reduced = false }) {
             --flow-space: 0.25rem;
           }
         }
+
+        @media (min-width: 32em) {
+          .nav__list.reduced {
+            display: flex;
+            align-items: center;
+          }
+
+          .nav__list.reduced :is(a, li) {
+            line-height: 1;
+          }
+        }
       `}</style>
 
       <style jsx>{`
         .nav__list > li + li {
           margin: ${reduced && '0 0 0 2rem'};
+        }
+      `}</style>
+
+      <style jsx global>{`
+        .button[data-variant='secondary'].featured {
+          color: hsl(var(--color-dark-main));
+        }
+        .button[data-variant='secondary'].featured::before {
+          background-color: hsl(var(--color-light-highlight));
         }
       `}</style>
     </div>
@@ -160,15 +180,15 @@ export function FootLinks({ noLogo = false }: { noLogo?: boolean }) {
   return (
     <div className='[ footer-links ] [ flow ]'>
       <div className='buttons'>
-        <Link href={pathname} locale={locale == 'en' ? 'fr' : 'en'}>
-          <a
-            className=' [ lang-switch ] [ button ss02 ] [ text-300 ]'
-            data-variant='secondary'
-          >
-            <Image src='/glyphs/globe-alt.svg' width={24} height={24} alt='' />
-            <span>{t('toggles.lang')}</span>
-          </a>
-        </Link>
+        <Button
+          href={pathname}
+          locale={locale == 'en' ? 'fr' : 'en'}
+          className='lang-switch'
+          type='secondary'
+        >
+          <Globe className='icon' width={16} height={16} />
+          <span>{t('toggles.lang')}</span>
+        </Button>
         {/*
           @todo take care of changing between login or logout
           @see netlify authentication for valide path for auth
@@ -186,15 +206,10 @@ export function FootLinks({ noLogo = false }: { noLogo?: boolean }) {
       )}
 
       <style jsx>{`
-        .buttons,
-        .lang-switch {
+        .buttons {
           align-items: center;
           display: flex;
           justify-content: space-between;
-        }
-
-        .lang-switch > span {
-          margin-left: 0.5rem;
         }
 
         .site-foot__brand {
