@@ -19,9 +19,20 @@
   --theme-color-fg: var(--color-light-main);
   --theme-color-hg: var(--color-dark-highlight);
   --theme-color-tint: var(--color-dark-tint);
+}
 
+:root {
   --grid-md: repeat(7, 1fr);
   --grid-lg: repeat(13, 1fr);
+}
+
+:root {
+  --card-shadow-main: -30px 30px 120px rgba(0, 18, 43, 0.5),
+    30px -30px 78px rgba(0, 28, 67, 0.5);
+
+  --card-shadow-focus: 0px 0px 16.4508px 6.58034px rgba(194, 228, 255, 0.3),
+    -24.6763px 24.6763px 98.7051px rgba(0, 18, 43, 0.5),
+    24.6763px -24.6763px 64.1583px rgba(0, 28, 67, 0.5);
 }
 
 body {

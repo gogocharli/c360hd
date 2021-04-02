@@ -126,7 +126,8 @@ export function Header() {
 
         .menu__wrapper {
           --flow-space: 2rem;
-          flex-grow: 1;
+          flex: 0;
+          margin-top: -5rem;
         }
 
         .menu-toggle {

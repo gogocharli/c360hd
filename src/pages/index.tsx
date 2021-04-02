@@ -1,5 +1,4 @@
 import type { GetStaticProps } from 'next';
-import Link from 'next/link';
 
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -23,14 +22,14 @@ export default function Home() {
           <p className='measure-short leading-loose'>{t('hero.subtitle')}</p>
           <Button href='/pricing'>{t('hero.btnText')}</Button>
         </section>
-        <article id='journey' className='journey'>
+        <article id='journey' className='[ journey ] [ wrapper ]'>
           <h2 className='[ text-550 md:text-600 ] [ align-center measure-compact leading-flat md:tracking-tight ]'>
             {t('sections.0.title')}
           </h2>
           {/* @todo include image animation here */}
           <JourneyHighlights />
         </article>
-        <article id='basics' className='basics'>
+        <article id='basics' className='[ basics ] [ wrapper ]'>
           <h2>
             <span className='[ subtitle ] [ text-200  md:text-300 weight-normal ] [ tracking-loose upper ]'>
               {t('sections.1.subtitle')}

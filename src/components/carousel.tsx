@@ -14,6 +14,7 @@ export function HomeCarousel() {
             alt=''
             width={308}
             height={288}
+            className='blend'
           />
           <p>{t(`sections.1.content.${index}.title`)}</p>
           <p>{t(`sections.1.content.${index}.desc`)}</p>
