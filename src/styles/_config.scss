@@ -85,14 +85,14 @@ $gorko-config: (
       'tight': '-0.01em',
       'flat': '-0.02em',
     ),
-    'output': 'standard',
+    'output': 'responsive',
     'property': 'letter-spacing',
   ),
   'measure': (
     'items': (
-      'micro': '15ch',
+      'micro': '12ch',
       'compact': '30ch',
-      'short': '38ch',
+      'short': '34ch',
       'long': '65ch',
     ),
     'output': 'responsive',

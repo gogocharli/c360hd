@@ -8,7 +8,7 @@ import MenuIcon from '@components/glyph-bars.svg';
 import { useTranslation } from 'next-i18next';
 
 export function Header() {
-  const isSmallViewPort = useMediaQuery('(max-width: 30em)');
+  const isSmallViewPort = useMediaQuery('(max-width: 32em)');
   const [isMenuOpen, setMenuOpen] = useState(false);
   const { t } = useTranslation('common');
 
@@ -90,6 +90,8 @@ export function Header() {
 
         header {
           align-items: center;
+          background-color: hsl(var(--theme-color-bg));
+          color: hsl(var(--theme-color-fg));
           display: flex;
           justify-content: space-between;
           padding-bottom: 0.75rem;
@@ -102,7 +104,12 @@ export function Header() {
         }
 
         .menu {
-          background-color: hsl(var(--color-dark-main));
+          --theme-color-bg: var(--color-dark-main);
+          --theme-color-fg: var(--color-light-main);
+          --theme-color-hg: var(--color-dark-highlight);
+
+          background-color: hsl(var(--theme-color-bg));
+          color: hsl(var(--theme-color-fg));
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -154,6 +161,18 @@ export function Header() {
 
         .site-head__brand svg > * {
           fill: currentColor;
+        }
+
+        .menu-toggle rect {
+          fill: hsl(var(--theme-color-bg));
+        }
+
+        .menu-toggle[aria-expanded='true'] {
+          background-color: hsl(var(--theme-color-bg));
+        }
+
+        .menu-toggle[aria-expanded='true'] rect {
+          fill: hsl(var(--theme-color-fg));
         }
 
         @media (min-width: 32em) {

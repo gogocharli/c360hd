@@ -44,7 +44,7 @@ export function Button({
       {href ? (
         <Link href={href} locale={locale ?? routerLocale}>
           <a
-            className={`[ ${className} ] [ button ss02 ] [ text-300 ]`}
+            className={`[ ${className ?? ''} ] [ button ss02 ] [ text-300 ]`}
             data-variant={type}
             onMouseEnter={transformOnHover}
             onMouseLeave={transformOnHover}
@@ -55,7 +55,7 @@ export function Button({
         </Link>
       ) : (
         <button
-          className={`[ ${className} ] [ button ss02 ] [ text-300 ]`}
+          className={`[ ${className ?? ''} ] [ button ss02 ] [ text-300 ]`}
           data-variant={type}
           onMouseEnter={transformOnHover}
           onMouseLeave={transformOnHover}

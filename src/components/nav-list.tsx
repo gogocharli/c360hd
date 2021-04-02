@@ -283,8 +283,10 @@ export function FootLinks({ noLogo = false }: { noLogo?: boolean }) {
       `}</style>
 
       <style jsx>{`
-        .buttons {
-          transform: translateX(${locale == 'en' ? '-20px' : 0});
+        @media (min-width: 65em) {
+          .buttons {
+            transform: translateX(${!noLogo && locale == 'en' ? '-20px' : 0});
+          }
         }
       `}</style>
 

@@ -17,6 +17,7 @@ export function Footer() {
 
           background-color: hsl(var(--theme-color-bg));
           color: hsl(var(--theme-color-fg));
+          margin-top: 3rem;
           padding-bottom: 1.5rem;
           padding-top: 1.5rem;
         }
@@ -27,6 +28,7 @@ export function Footer() {
 
         @media (min-width: 40em) {
           footer {
+            margin-top: 5.5rem;
             padding-bottom: 4rem;
             padding-top: 4rem;
           }
