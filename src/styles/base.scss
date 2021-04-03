@@ -12,6 +12,9 @@
   --color-dark-shade: #{get-color('dark-shade')};
   --color-dark-highlight: #{get-color('dark-highlight')};
   --color-dark-tint: #{get-color('dark-tint')};
+
+  --color-accent-sky: #{get-color('accent-sky')};
+  --color-accent-purple: #{get-color('accent-purple')};
 }
 
 :root {
@@ -19,6 +22,7 @@
   --theme-color-fg: var(--color-light-main);
   --theme-color-hg: var(--color-dark-highlight);
   --theme-color-tint: var(--color-dark-tint);
+  --theme-color-accent: var(--color-accent-sky);
 }
 
 :root {
