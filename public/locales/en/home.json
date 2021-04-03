@@ -33,19 +33,20 @@
       ]
     },
     {
-      "title": "Become more close to your clients",
+      "title": "Become {{- open}}more{{- close}} close to your clients",
       "btnText": "Book a shooting",
+      "more": "More",
       "content": [
         {
-          "title": "More quality",
+          "title": "quality",
           "desc": "Your image is your best asset. Our objective is to present it under its best light."
         },
         {
-          "title": "More results",
+          "title": "results",
           "desc": "Listings with photos and a virtual tour are twice as likely to entice interest online."
         },
         {
-          "title": "More trust",
+          "title": "trust",
           "desc": "Profit of the expertise from a canadian agency certified by Google for its virtual imagery."
         }
       ]

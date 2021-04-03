@@ -27,25 +27,26 @@
           "desc": "Montrez de l'information utile à propos de vous aux acheteurs locaux quand ils cherchent à se procurer des articles dans leur secteur."
         },
         {
-          "title": "Créez l'intérêt des consommateurs",
+          "title": "Sucitez l'intérêt facilement",
           "desc": "Avant de se tourner vers un achat local, 9 clients sur 10 se tournent vers un moteur de recherche. 7 d’entre eux pensent que les heures d’ouverture doivent être faciles à découvrir."
         }
       ]
     },
     {
-      "title": "Soyez plus proches de vos clients",
+      "title": "Soyez {{- open}}plus{{- close }} proches de vos clients",
       "btnText": "Réservez un shooting",
+      "more": "Plus",
       "content": [
         {
-          "title": "Plus de qualité",
+          "title": "de qualité",
           "desc": "Votre image est votre meilleur atout. Notre objectif est de la présenter sous son meilleur angle."
         },
         {
-          "title": "Plus de résultats",
+          "title": "de résultats",
           "desc": "Les annonces avec photos et visite virtuelle sont deux fois plus suceptibles de susciter l’intérêt en ligne."
         },
         {
-          "title": "Plus de confiance",
+          "title": "de confiance",
           "desc": "Profitez de l’expertise d’une agence 100% canadienne certifiée par Google pour son imagerie virtuelle."
         }
       ]

@@ -23,7 +23,9 @@ export function HomeCarousel() {
               <h3 className='[ text-550 lg:text-600 ] [ measure-micro leading-flat ]'>
                 {t(`sections.1.content.${index}.title`)}
               </h3>
-              <p>{t(`sections.1.content.${index}.desc`)}</p>
+              <p className='[ text-300 ]'>
+                {t(`sections.1.content.${index}.desc`)}
+              </p>
             </div>
           </li>
         ))}
@@ -41,6 +43,9 @@ export function HomeCarousel() {
           color: hsl(var(--color-dark-main));
           display: flex;
           flex-direction: column;
+          margin-left: auto;
+          margin-right: auto;
+          max-width: 343px;
           padding: 2rem 2.5rem;
         }
 

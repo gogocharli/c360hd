@@ -2,6 +2,7 @@
 @import 'config';
 @import 'gorko';
 @import 'reset';
+@import 'utilities/italic';
 
 :root {
   --color-light-main: #{get-color('light')};
@@ -97,6 +98,7 @@ main:focus {
 @import 'utilities/blend';
 @import 'utilities/explicit-grid';
 @import 'utilities/flow';
+@import 'utilities/italic';
 @import 'utilities/no-list';
 @import 'utilities/radius';
 @import 'utilities/ss02';

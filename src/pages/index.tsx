@@ -46,9 +46,15 @@ export default function Home() {
           <HomeCarousel />
         </article>
         <article id='features' className='[ features ] [ flow ]'>
-          <h2 className='[ text-600 md:text-800 ] [ leading-flat tracking-tight md:tracking-flat measure-micro align-center ]'>
-            {t('sections.2.title')}
-          </h2>
+          <h2
+            className='[ text-600 md:text-800 ] [ leading-flat tracking-tight md:tracking-flat measure-micro align-center ]'
+            dangerouslySetInnerHTML={{
+              __html: t('sections.2.title', {
+                open: '<span class="ital">',
+                close: '</span>',
+              }),
+            }}
+          />
           <Features />
           <Button href='/pricing'>{t('sections.2.btnText')}</Button>
         </article>
@@ -77,12 +83,6 @@ export default function Home() {
           margin-right: auto;
         }
 
-        .features,
-        .realisations {
-          display: flex;
-          flex-direction: column;
-        }
-
         .basics {
           padding-top: 2rem;
           padding-bottom: 2rem;
@@ -99,13 +99,30 @@ export default function Home() {
         .basics .subtitle {
           color: hsl(var(--theme-color-accent));
         }
+
+        .basics p {
+          margin-top: 1rem;
+        }
+
+        .features {
+          --flow-space: 3.5rem;
+
+          padding-top: 2rem;
+          padding-bottom: 2rem;
+        }
+
+        .features,
+        .realisations {
+          display: flex;
+          flex-direction: column;
+        }
       `}</style>
 
       <style jsx global>{`
         :root {
-          --theme-color-bg: var(--color-light-main);
-          --theme-color-fg: var(--color-dark-main);
-          --theme-color-hg: var(--color-light-highlight);
+          // --theme-color-bg: var(--color-light-main);
+          // --theme-color-fg: var(--color-dark-main);
+          // --theme-color-hg: var(--color-light-highlight);
           --theme-color-tint: var(--color-light-tint);
 
           background-color: hsl(var(--theme-color-bg));
