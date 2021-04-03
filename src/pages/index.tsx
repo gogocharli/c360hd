@@ -29,19 +29,20 @@ export default function Home() {
           {/* @todo include image animation here */}
           <JourneyHighlights />
         </article>
-        <article id='basics' className='[ basics ] [ wrapper ]'>
-          <h2>
-            <span className='[ subtitle ] [ text-200  md:text-300 weight-normal ] [ tracking-loose upper ]'>
-              {t('sections.1.subtitle')}
-            </span>
-            <br />
-            <span className='[ title ] [ text-550 md:text-600 ] [ leading-flat ]'>
-              {t('sections.1.title')}
-            </span>
-          </h2>
-          <p className='[ text-300 ] [ measure-short ]'>
-            {t('sections.1.desc')}
-          </p>
+        <article id='basics' className='basics'>
+          <div className='wrapper'>
+            <h2>
+              <span className='[ subtitle ] [ text-200 md:text-300 weight-normal ] [ tracking-loose upper ]'>
+                {t('sections.1.subtitle')}
+              </span>
+              <span className='[ title ] [ text-550 md:text-600 ] [ leading-flat ]'>
+                {t('sections.1.title')}
+              </span>
+            </h2>
+            <p className='[ text-300 ] [ measure-short ]'>
+              {t('sections.1.desc')}
+            </p>
+          </div>
           <HomeCarousel />
         </article>
         <article id='features' className='[ features ] [ flow ]'>
@@ -80,6 +81,23 @@ export default function Home() {
         .realisations {
           display: flex;
           flex-direction: column;
+        }
+
+        .basics {
+          padding-top: 2rem;
+          padding-bottom: 2rem;
+        }
+
+        .basics h2 > span {
+          display: block;
+        }
+
+        .basics .title {
+          margin-top: 0.5rem;
+        }
+
+        .basics .subtitle {
+          color: hsl(var(--theme-color-accent));
         }
       `}</style>
 
