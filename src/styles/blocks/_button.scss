@@ -4,6 +4,7 @@
   --transition-duration: 350ms;
   --transition-curve: cubic-bezier(0.165, 0.84, 0.44, 1);
   --hover-translate: -50%, -50%;
+  --hover-bg: var(--color-accent-sea);
 
   background: 0;
   border: 0;
@@ -45,14 +46,14 @@
   }
 
   &::after {
-    --transition-duration: 340ms;
-    background-color: hsl(var(--theme-color-bg));
+    --transition-duration: 400ms;
+    background-color: hsl(var(--hover-bg));
     border-radius: 50%;
     content: '';
-    height: 400px;
+    height: 800px;
     left: 0;
     top: 0;
-    width: 400px;
+    width: 800px;
     position: absolute;
     transform: translateZ(0) translate(var(--hover-translate)) scale(0);
     transition: transform var(--transition-duration) var(--transition-curve);
@@ -61,6 +62,8 @@
 
   // Variant for secondary buttons (eg. forms)
   &[data-variant='secondary'] {
+    --hover-bg: var(--theme-color-accent);
+
     color: hsl(var(--theme-color-fg));
 
     &:hover {
@@ -72,7 +75,7 @@
     }
 
     &::after {
-      background-color: hsl(var(--theme-color-fg));
+      background-color: hsl(var(--theme-color-accent));
     }
   }
 }

@@ -21,7 +21,7 @@ export function Button({
   children: React.ReactNode;
 }) {
   const buttonRef = React.useRef<ButtonType>();
-  const bgSize = -200;
+  const bgSize = -400;
 
   /**
    * Update the translate options for the element in order

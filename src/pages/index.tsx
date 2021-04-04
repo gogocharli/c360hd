@@ -8,6 +8,7 @@ import { JourneyHighlights } from '@components/journey';
 import { HomeCarousel } from '@components/carousel';
 import { Features } from '@components/features';
 import { Button } from '@components/button';
+import Arrow from '@components/icon-arrow-right.svg';
 
 export default function Home() {
   const { t } = useTranslation('home');
@@ -58,10 +59,18 @@ export default function Home() {
           <Features />
           <Button href='/pricing'>{t('sections.2.btnText')}</Button>
         </article>
-        <article id='realisations' className='[ realisations ] [ flow ]'>
-          <h3 className='text-550 leading-flat'>{t('sections.3.title')}</h3>
-          <p>{t('sections.3.desc')}</p>
-          <Button href='/portfolio'>{t('sections.3.btnText')}</Button>
+        <article
+          id='realisations'
+          className='[ realisations ] [ flow align-center ]'
+        >
+          <div className='content'>
+            <h3 className='text-550 leading-flat'>{t('sections.3.title')}</h3>
+            <p className='text-300 lg:text-400'>{t('sections.3.desc')}</p>
+          </div>
+          <Button href='/portfolio'>
+            <span>{t('sections.3.btnText')}</span>
+            <Arrow className='icon' width={16} />
+          </Button>
         </article>
       </BaseLayout>
 
@@ -116,6 +125,25 @@ export default function Home() {
           display: flex;
           flex-direction: column;
         }
+
+        .realisations {
+          --color-selection: var(--color-light-highlight);
+          --flow-space: 2rem;
+          --theme-color-bg: var(--color-light-main);
+          --theme-color-fg: var(--color-dark-main);
+
+          background-color: hsl(var(--theme-color-accent));
+          border-radius: 0.5rem;
+          color: hsl(var(--color-dark-main));
+          margin-left: auto;
+          margin-right: auto;
+          max-width: 343px;
+          padding: 2rem 2.5rem;
+        }
+
+        .realisations .content p {
+          margin-top: 1rem;
+        }
       `}</style>
 
       <style jsx global>{`
@@ -133,6 +161,10 @@ export default function Home() {
         .features a.button,
         .realisations a.button {
           align-self: center;
+        }
+
+        .realisations .button {
+          --hover-bg: var(--color-light-main);
         }
       `}</style>
     </>

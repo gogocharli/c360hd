@@ -15,6 +15,7 @@
   --color-dark-tint: #{get-color('dark-tint')};
 
   --color-accent-sky: #{get-color('accent-sky')};
+  --color-accent-sea: #{get-color('accent-sea')};
   --color-accent-purple: #{get-color('accent-purple')};
 }
 
@@ -24,6 +25,7 @@
   --theme-color-hg: var(--color-dark-highlight);
   --theme-color-tint: var(--color-dark-tint);
   --theme-color-accent: var(--color-accent-sky);
+  --color-selection: var(--theme-color-hg);
 }
 
 :root {
@@ -88,7 +90,7 @@ main:focus {
 }
 
 ::selection {
-  background: hsla(var(--theme-color-hg) / 0.99);
+  background: hsla(var(--color-selection) / 0.99);
 }
 
 @import 'blocks/button';
