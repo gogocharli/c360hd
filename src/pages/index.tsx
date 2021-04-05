@@ -88,16 +88,46 @@ export default function Home() {
         </article>
         <article
           id='realisations'
-          className='[ realisations ] [ flow align-center ]'
+          className='[ realisations ] [ align-center ]'
         >
-          <div className='content'>
-            <h3 className='text-550 leading-flat'>{t('sections.3.title')}</h3>
-            <p className='text-300 lg:text-400'>{t('sections.3.desc')}</p>
+          <div className='flow'>
+            <div className='content'>
+              <h3 className='text-550 leading-flat'>{t('sections.3.title')}</h3>
+              <p className='text-300 lg:text-400'>{t('sections.3.desc')}</p>
+            </div>
+            <Button href='/portfolio'>
+              <span>{t('sections.3.btnText')}</span>
+              <Arrow className='icon' width={16} />
+            </Button>
           </div>
-          <Button href='/portfolio'>
-            <span>{t('sections.3.btnText')}</span>
-            <Arrow className='icon' width={16} />
-          </Button>
+          <div className='icon-stack'>
+            <div>
+              <img src='/icons/icon-pill.svg' alt='' />
+            </div>
+            <div>
+              <img src='/icons/icon-bowl.svg' alt='' />
+            </div>
+            <div>
+              <img src='/icons/icon-girl.svg' alt='' />
+            </div>
+            <div>
+              <img src='/icons/icon-tennis.svg' alt='' />
+            </div>
+          </div>
+          <div className='icon-stack'>
+            <div>
+              <img src='/icons/icon-shopping-cart.svg' alt='' />
+            </div>
+            <div>
+              <img src='/icons/icon-modem.svg' alt='' />
+            </div>
+            <div>
+              <img src='/icons/icon-coffee.svg' alt='' />
+            </div>
+            <div>
+              <img src='/icons/icon-shopping-bag.svg' alt='' />
+            </div>
+          </div>
         </article>
       </BaseLayout>
 
@@ -189,6 +219,10 @@ export default function Home() {
           margin-top: 1rem;
         }
 
+        .icon-stack {
+          display: none;
+        }
+
         @media (min-width: 50em) {
           .journey h2 {
             max-width: 19ch;
@@ -229,6 +263,69 @@ export default function Home() {
           .features {
             --flow-space: 4rem;
           }
+
+          .realisations {
+            display: grid;
+            grid-template-columns: var(--grid-lg);
+            grid-column-gap: 0.5rem;
+            max-width: 1176px;
+            padding: 3.5rem 0;
+            text-align: left;
+            width: 90vw;
+          }
+
+          .realisations > * {
+            align-self: center;
+          }
+
+          .realisations > div:first-of-type {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            grid-column: 2 / span 6;
+          }
+
+          .realisations .content p {
+            margin-top: 1.5rem;
+            max-width: 37ch;
+          }
+
+          .icon-stack {
+            display: flex;
+            flex-direction: column;
+            margin-top: 0;
+          }
+
+          .icon-stack img {
+            position: absolute;
+            height: 1rem;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 1rem;
+          }
+
+          .icon-stack > div {
+            border-radius: 2px;
+            box-shadow: 3.95652px 3.95652px 11.8696px rgba(115, 149, 227, 0.55),
+              -3.95652px -3.95652px 11.8696px rgba(143, 185, 255, 0.54);
+            height: 0;
+            padding-bottom: 100%;
+            position: relative;
+            width: 100%;
+          }
+
+          .icon-stack > div + div {
+            margin-top: 1.5rem;
+          }
+
+          .icon-stack:nth-child(2) {
+            grid-column: 9 / 10;
+          }
+
+          .icon-stack:last-of-type {
+            grid-column: 11 / 12;
+          }
         }
 
         @media (min-width: 65em) {
@@ -249,6 +346,19 @@ export default function Home() {
           }
           .features {
             --flow-space: 4.5rem;
+          }
+
+          .realisations {
+            padding: 7rem 0;
+          }
+
+          .realisations .content p {
+            margin-top: 2.5rem;
+          }
+
+          .icon-stack img {
+            height: 1.5rem;
+            width: 1.5rem;
           }
         }
 
@@ -283,6 +393,21 @@ export default function Home() {
 
         .realisations > * {
           --flow-space: 2rem;
+        }
+
+        @media (min-width: 50em) {
+          .realisations > * {
+            --flow-space: 1.5rem;
+          }
+          .realisations a.button {
+            align-self: start;
+          }
+        }
+
+        @media (min-width: 65em) {
+          .realisations > * {
+            --flow-space: 2.5rem;
+          }
         }
       `}</style>
     </>

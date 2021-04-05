@@ -93,6 +93,10 @@ main:focus {
   background: hsla(var(--color-selection) / 0.99);
 }
 
+[class*='text-400'] {
+  line-height: 1.6;
+}
+
 @import 'blocks/button';
 
 @import 'utilities/align-center';
