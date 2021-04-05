@@ -42,6 +42,18 @@ export default function Layout({
         main {
           --flow-space: 4.5rem;
         }
+
+        @media (min-width: 50em) {
+          main {
+            --flow-space: 7.5rem;
+          }
+        }
+
+        @media (min-width: 65em) {
+          main {
+            --flow-space: 8.75rem;
+          }
+        }
       `}</style>
 
       <style jsx global>{`
