@@ -73,7 +73,7 @@ export default function Home() {
           </div>
           <HomeCarousel />
         </article>
-        <article id='features' className='[ features ] [ flow ]'>
+        <article id='features' className='[ features ] [ flow wrapper ]'>
           <h2
             className='[ text-600 md:text-800 ] [ leading-flat tracking-tight md:tracking-flat measure-micro align-center ]'
             dangerouslySetInnerHTML={{
@@ -173,7 +173,6 @@ export default function Home() {
 
         .realisations {
           --color-selection: var(--color-light-highlight);
-          --flow-space: 2rem;
           --theme-color-bg: var(--color-light-main);
           --theme-color-fg: var(--color-dark-main);
 
@@ -226,6 +225,10 @@ export default function Home() {
           .basics .image:last-of-type {
             align-self: flex-end;
           }
+
+          .features {
+            --flow-space: 4rem;
+          }
         }
 
         @media (min-width: 65em) {
@@ -243,6 +246,9 @@ export default function Home() {
 
           .basics .images {
             max-width: 22rem;
+          }
+          .features {
+            --flow-space: 4.5rem;
           }
         }
 
@@ -273,6 +279,10 @@ export default function Home() {
 
         .realisations .button {
           --hover-bg: var(--color-light-main);
+        }
+
+        .realisations > * {
+          --flow-space: 2rem;
         }
       `}</style>
     </>

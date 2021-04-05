@@ -46,7 +46,7 @@
   }
 
   &::after {
-    --transition-duration: 400ms;
+    --transition-duration: 500ms;
     background-color: hsl(var(--hover-bg));
     border-radius: 50%;
     content: '';
