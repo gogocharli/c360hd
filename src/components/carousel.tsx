@@ -35,6 +35,7 @@ export function HomeCarousel() {
       <style jsx>{`
         ul {
           display: flex;
+          flex-direction: column;
           padding: 0 1rem;
         }
 
@@ -67,7 +68,7 @@ export function HomeCarousel() {
 
         @media (min-width: 50em) {
           ul {
-            display: flex;
+            flex-direction: row;
             overflow: auto;
             margin-top: 5rem;
             scroll-snap-type: inline mandatory;
