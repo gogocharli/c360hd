@@ -144,6 +144,12 @@ export default function Home() {
         .realisations .content p {
           margin-top: 1rem;
         }
+
+        @media (min-width: 50em) {
+          .journey h2 {
+            max-width: 19ch;
+          }
+        }
       `}</style>
 
       <style jsx global>{`
