@@ -10,7 +10,7 @@ import { HomeCarousel } from '@components/carousel';
 import { Features } from '@components/features';
 import { Button } from '@components/button';
 import Arrow from '@components/icon-arrow-right.svg';
-import { Browser } from '@components/browser';
+import { Browser } from '@components/Browser/browser';
 
 export default function Home() {
   const { t } = useTranslation('home');

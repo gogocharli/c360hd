@@ -1,4 +1,9 @@
+import { useState } from 'react';
+import { useTranslation } from 'next-i18next';
+
 export function Browser() {
+  const [screen, setScreen] = useState('query');
+
   return (
     <>
       <div id='browser' className='browser'>
@@ -7,8 +12,33 @@ export function Browser() {
             <img src='/images/logo-google-img.png' alt='' className='logo' />
             <div className='search__wrapper'>
               <div className='search row'>
-                <img src='/icons/icon-search.svg' alt='' className='icon' />
-                <span></span>
+                <img src='/glyphs/glyph-search.svg' alt='' className='icon' />
+                <span>Salon de coiffure</span>
+              </div>
+
+              {/* Query results */}
+              <div className='row first-result'>
+                <div>
+                  <img src='/glyphs/glyph-time.svg' alt='' className='icon' />
+                  <span>Salon de coiffure</span>
+                </div>
+                <p>Remove</p>
+              </div>
+              <div className='row'>
+                <img src='/glyphs/glyph-search.svg' alt='' className='icon' />
+                <span>Salon de coiffure</span>
+              </div>
+              <div className='row'>
+                <img src='/glyphs/glyph-search.svg' alt='' className='icon' />
+                <span>Salon de coiffure</span>
+              </div>
+              <div className='row'>
+                <img src='/glyphs/glyph-search.svg' alt='' className='icon' />
+                <span>Salon de coiffure</span>
+              </div>
+              <div className='row'>
+                <img src='/glyphs/glyph-search.svg' alt='' className='icon' />
+                <span>Salon de coiffure</span>
               </div>
             </div>
           </div>
@@ -23,9 +53,11 @@ export function Browser() {
           border-radius: 4px;
           box-sizing: content-box;
           box-shadow: 0px 0px 20px 2px rgb(73 99 151 / 0.3);
-          overflow: hidden;
+          color: hsl(var(--theme-color-fg));
+          line-height: 1;
           margin-left: auto;
           margin-right: auto;
+          overflow: hidden;
           pointer-events: none;
           position: relative;
           width: min(91.5vw, 917px);
@@ -73,22 +105,47 @@ export function Browser() {
             30px -30px 80px rgba(216, 238, 238, 0.6);
           display: flex;
           flex-direction: column;
-          height: 10%;
+          height: 11.22%;
           margin-top: 3.5%;
           position: relative;
-          width: 47.11%;
+          width: 51.6%;
         }
 
-        .search {
+        .row {
           align-items: center;
           display: flex;
+          font-size: clamp(6px, calc(1vw + 0.1rem), 16px);
+          margin-left: 4.6%;
+          margin-right: 4.6%;
           height: 100%;
         }
 
-        .search .icon {
-          width: 3.7%;
-          margin-left: 3.7%;
+        .row span {
+          margin-left: 2.05%;
+        }
+
+        .row.first-result {
+          justify-content: space-between;
+        }
+
+        .row.first-result div {
+          display: flex;
+          flex-grow: 1;
+        }
+
+        .row.first-result span {
+          margin-left: 3%;
+        }
+
+        .row.first-result p {
+          opacity: 0.5;
+        }
+
+        .row .icon {
+          line-height: 1;
           max-width: 16px;
+          opacity: 0.6;
+          width: 3.7%;
         }
 
         @media (min-width: 50em) {
@@ -109,6 +166,20 @@ export function Browser() {
           .browser__content {
             --menu-size: 56px;
           }
+        }
+      `}</style>
+
+      <style jsx>{`
+        .search__wrapper {
+          height: ${screen === 'default' ? 100 : 52.6}%;
+        }
+
+        .row {
+          height: ${screen === 'default' ? 100 : 14.3}%;
+        }
+
+        .search {
+          height: ${screen === 'default' ? 100 : 23}%;
         }
       `}</style>
     </>
