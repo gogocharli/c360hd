@@ -18,11 +18,28 @@ export default function Home() {
     <>
       <BaseLayout className='home'>
         <section className='[ hero ] [ flow align-center ]'>
-          <h1 className='[ text-600 md:text-700 lg:text-800 weight-bold ] [ leading-flat tracking-tight measure-micro ]'>
-            {t('hero.title')}
-          </h1>
-          <p className='measure-short leading-loose'>{t('hero.subtitle')}</p>
-          <Button href='/pricing'>{t('hero.btnText')}</Button>
+          <div className='[ hero__content ] [ flow ]'>
+            <h1 className='[ title ] [ text-600 md:text-700 lg:text-800 weight-bold ] [ leading-flat tracking-tight measure-micro ]'>
+              {t('hero.title')}
+            </h1>
+            <p className='[ subtitle ] [ text-400 measure-short leading-loose ]'>
+              {t('hero.subtitle')}
+            </p>
+            <Button href='/pricing'>{t('hero.btnText')}</Button>
+          </div>
+          <div aria-hidden='true'>
+            <div className='[ hero__content ] [ flow ]'>
+              <h1 className='[ title ] [ text-600 md:text-700 lg:text-800 weight-bold ] [ leading-flat tracking-tight measure-micro ]'>
+                {t('hero.title')}
+              </h1>
+              <p className='[ subtitle ] [ text-400 measure-short leading-loose ]'>
+                {t('hero.subtitle')}
+              </p>
+              <a href='#' className='button' tabIndex={-1}>
+                {t('hero.btnText')}
+              </a>
+            </div>
+          </div>
         </section>
         <article id='journey' className='[ journey ] [ wrapper ]'>
           <h2 className='[ text-550 md:text-600 ] [ align-center measure-compact leading-flat md:tracking-tight ]'>
@@ -137,12 +154,19 @@ export default function Home() {
 
           background-color: hsl(var(--theme-color-bg));
           color: hsl(var(--theme-color-fg));
+        }
+
+        .hero__content {
           display: flex;
           flex-direction: column;
           padding: 4.5rem 0.5rem;
         }
 
-        .hero > *,
+        .hero div[aria-hidden='true'] {
+          display: none;
+        }
+
+        .hero__content > *,
         .journey h2,
         .features h2 {
           margin-left: auto;
@@ -224,6 +248,18 @@ export default function Home() {
         }
 
         @media (min-width: 50em) {
+          .hero__content {
+            padding: 4.5rem 1.5rem;
+          }
+
+          .hero .title {
+            max-width: 16ch;
+          }
+
+          .hero .subtitle {
+            max-width: 30ch;
+          }
+
           .journey h2 {
             max-width: 19ch;
           }
@@ -329,6 +365,52 @@ export default function Home() {
         }
 
         @media (min-width: 65em) {
+          .hero {
+            position: relative;
+            text-align: left;
+          }
+
+          .hero,
+          .hero div[aria-hidden='true'] {
+            display: grid;
+            grid-column-gap: 1rem;
+            grid-template-columns: var(--grid-lg);
+          }
+
+          .hero div[aria-hidden='true'] {
+            background-color: hsl(var(--color-dark-main));
+            clip-path: polygon(45% 0, 100% 0, 100% 100%, 45% 100%);
+            grid-column: 1 / span 13;
+            grid-row: 1;
+            margin-top: 0;
+            position: relative;
+            z-index: 10;
+          }
+
+          .hero__content {
+            padding: 10.5rem 1.5rem;
+            grid-column: 2 / span 9;
+            grid-row: 1;
+          }
+
+          .hero__content:last-of-type {
+            color: hsl(var(--color-light-main));
+          }
+
+          .hero__content:last-of-type a {
+            opacity: 0;
+          }
+
+          .hero .title,
+          .hero p {
+            margin-left: 0;
+            margin-right: 0;
+          }
+
+          .hero p {
+            max-width: 40ch;
+          }
+
           .basics {
             padding-bottom: 3.5rem;
             padding-top: 3.5rem;
@@ -407,6 +489,10 @@ export default function Home() {
         @media (min-width: 65em) {
           .realisations > * {
             --flow-space: 2.5rem;
+          }
+
+          .hero a.button {
+            align-self: flex-start;
           }
         }
       `}</style>

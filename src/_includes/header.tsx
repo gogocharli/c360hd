@@ -147,6 +147,12 @@ export function Header() {
           display: flex;
           align-items: center;
         }
+
+        @media (min-width: 65em) {
+          header {
+            max-width: min(66vw, 90rem);
+          }
+        }
       `}</style>
 
       <style jsx global>{`

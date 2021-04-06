@@ -79,6 +79,8 @@ export function JourneyHighlights() {
           ul {
             display: flex;
             justify-content: space-between;
+            margin-left: auto;
+            margin-right: auto;
             max-width: 80rem;
           }
 
