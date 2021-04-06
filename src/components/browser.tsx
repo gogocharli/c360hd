@@ -37,7 +37,7 @@ export function Browser() {
         }
 
         .browser__wrapper {
-          background: url('/images/browser-sm-img.jpg');
+          background: url('/images/browser-img.svg');
           background-repeat: no-repeat;
           background-color: inherit;
           background-size: contain;
@@ -96,10 +96,6 @@ export function Browser() {
             width: 786px;
           }
 
-          .browser__wrapper {
-            background: url('/images/browser-md-img.jpg');
-          }
-
           .browser__content {
             --menu-size: 48px;
           }
@@ -108,10 +104,6 @@ export function Browser() {
         @media (min-width: 65em) {
           .browser {
             width: 917px;
-          }
-
-          .browser__wrapper {
-            background: url('/images/browser-lg-img.jpg');
           }
 
           .browser__content {
