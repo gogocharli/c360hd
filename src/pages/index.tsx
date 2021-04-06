@@ -10,6 +10,7 @@ import { HomeCarousel } from '@components/carousel';
 import { Features } from '@components/features';
 import { Button } from '@components/button';
 import Arrow from '@components/icon-arrow-right.svg';
+import { Browser } from '@components/browser';
 
 export default function Home() {
   const { t } = useTranslation('home');
@@ -45,7 +46,7 @@ export default function Home() {
           <h2 className='[ text-550 md:text-600 ] [ align-center measure-compact leading-flat md:tracking-tight ]'>
             {t('sections.0.title')}
           </h2>
-          {/* @todo include image animation here */}
+          <Browser />
           <JourneyHighlights />
         </article>
         <article id='basics' className='basics'>
@@ -383,6 +384,7 @@ export default function Home() {
             grid-column: 1 / span 13;
             grid-row: 1;
             margin-top: 0;
+            pointer-events: none;
             position: relative;
             z-index: 10;
           }
