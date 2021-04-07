@@ -9,38 +9,79 @@ export function Browser() {
       <div id='browser' className='browser'>
         <div className='browser__wrapper'>
           <div className='browser__content'>
-            <img src='/images/logo-google-img.png' alt='' className='logo' />
-            <div className='search__wrapper'>
-              <div className='search row'>
-                <img src='/glyphs/glyph-search.svg' alt='' className='icon' />
-                <span>Salon de coiffure</span>
-              </div>
-
-              {/* Query results */}
-              <div className='row first-result'>
-                <div>
-                  <img src='/glyphs/glyph-time.svg' alt='' className='icon' />
-                  <span>Salon de coiffure</span>
+            {screen === 'results' ? (
+              <>{/* Add the listing and loading */}</>
+            ) : (
+              <>
+                <img
+                  src='/images/logo-google-img.png'
+                  alt=''
+                  className='logo'
+                />
+                <div className='search__wrapper'>
+                  <div className='search row'>
+                    <img
+                      src='/glyphs/glyph-search.svg'
+                      alt=''
+                      className='icon'
+                    />
+                    <span>Salon de coiffure</span>
+                  </div>
+                  {screen === 'query' && (
+                    <>
+                      <div className='row first-result'>
+                        <div>
+                          <img
+                            src='/glyphs/glyph-time.svg'
+                            alt=''
+                            className='icon'
+                            loading='lazy'
+                          />
+                          <span>Salon de coiffure</span>
+                        </div>
+                        <p>Remove</p>
+                      </div>
+                      <div className='row'>
+                        <img
+                          src='/glyphs/glyph-search.svg'
+                          alt=''
+                          className='icon'
+                          loading='lazy'
+                        />
+                        <span>Salon de coiffure</span>
+                      </div>
+                      <div className='row'>
+                        <img
+                          src='/glyphs/glyph-search.svg'
+                          alt=''
+                          className='icon'
+                          loading='lazy'
+                        />
+                        <span>Salon de coiffure</span>
+                      </div>
+                      <div className='row'>
+                        <img
+                          src='/glyphs/glyph-search.svg'
+                          alt=''
+                          className='icon'
+                          loading='lazy'
+                        />
+                        <span>Salon de coiffure</span>
+                      </div>
+                      <div className='row'>
+                        <img
+                          src='/glyphs/glyph-search.svg'
+                          alt=''
+                          className='icon'
+                          loading='lazy'
+                        />
+                        <span>Salon de coiffure</span>
+                      </div>
+                    </>
+                  )}
                 </div>
-                <p>Remove</p>
-              </div>
-              <div className='row'>
-                <img src='/glyphs/glyph-search.svg' alt='' className='icon' />
-                <span>Salon de coiffure</span>
-              </div>
-              <div className='row'>
-                <img src='/glyphs/glyph-search.svg' alt='' className='icon' />
-                <span>Salon de coiffure</span>
-              </div>
-              <div className='row'>
-                <img src='/glyphs/glyph-search.svg' alt='' className='icon' />
-                <span>Salon de coiffure</span>
-              </div>
-              <div className='row'>
-                <img src='/glyphs/glyph-search.svg' alt='' className='icon' />
-                <span>Salon de coiffure</span>
-              </div>
-            </div>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -62,10 +103,6 @@ export function Browser() {
           position: relative;
           width: min(91.5vw, 917px);
           z-index: 5;
-        }
-
-        .browser * {
-          // box-sizing: inherit;
         }
 
         .browser__wrapper {
@@ -100,7 +137,7 @@ export function Browser() {
 
         .search__wrapper {
           background-color: hsl(var(--theme-color-bg));
-          border-radius: 20px;
+          border-radius: 8px;
           box-shadow: -30px 30px 76px rgba(203, 218, 230, 0.7),
             30px -30px 80px rgba(216, 238, 238, 0.6);
           display: flex;
@@ -111,13 +148,26 @@ export function Browser() {
           width: 51.6%;
         }
 
+        .search__wrapper::before {
+          background-color: #cce9ff;
+          content: '';
+          height: 14.3%;
+          opacity: 0;
+          position: absolute;
+          top: 23%;
+          transform: translateY(0);
+          width: 100%;
+        }
+
         .row {
           align-items: center;
           display: flex;
           font-size: clamp(6px, calc(1vw + 0.1rem), 16px);
           margin-left: 4.6%;
           margin-right: 4.6%;
+          position: relative;
           height: 100%;
+          z-index: 2;
         }
 
         .row span {
@@ -129,6 +179,7 @@ export function Browser() {
         }
 
         .row.first-result div {
+          align-items: center;
           display: flex;
           flex-grow: 1;
         }
@@ -156,6 +207,10 @@ export function Browser() {
           .browser__content {
             --menu-size: 48px;
           }
+
+          .search__wrapper {
+            border-radius: 16px;
+          }
         }
 
         @media (min-width: 65em) {
@@ -165,6 +220,10 @@ export function Browser() {
 
           .browser__content {
             --menu-size: 56px;
+          }
+
+          .search__wrapper {
+            border-radius: 10px;
           }
         }
       `}</style>
@@ -180,6 +239,9 @@ export function Browser() {
 
         .search {
           height: ${screen === 'default' ? 100 : 23}%;
+          box-shadow: ${screen === 'default'
+            ? ''
+            : '0px 1px 0px rgba(142, 175, 255, 0.21)'};
         }
       `}</style>
     </>
