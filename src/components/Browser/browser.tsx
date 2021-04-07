@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { useTranslation } from 'next-i18next';
+import Image from 'next/image';
+import { SearchScreen } from './search-screen';
 
 export function Browser() {
-  const [screen, setScreen] = useState('query');
+  const [screen, setScreen] = useState('results');
 
   return (
     <>
@@ -10,77 +11,85 @@ export function Browser() {
         <div className='browser__wrapper'>
           <div className='browser__content'>
             {screen === 'results' ? (
-              <>{/* Add the listing and loading */}</>
-            ) : (
               <>
-                <img
-                  src='/images/logo-google-img.png'
-                  alt=''
-                  className='logo'
-                />
-                <div className='search__wrapper'>
-                  <div className='search row'>
-                    <img
-                      src='/glyphs/glyph-search.svg'
-                      alt=''
-                      className='icon'
-                    />
-                    <span>Salon de coiffure</span>
+                <div className='loading'></div>
+                <div className='listing'>
+                  <div className='images'>
+                    <div className='photos' data-content='See photos'>
+                      <Image
+                        src='/browser/morency-center-img.jpg'
+                        width={147}
+                        height={128}
+                        alt='Morency Salon'
+                      />
+                    </div>
+                    <div className='map'>
+                      <Image
+                        src='/browser/morency-map-img.jpg'
+                        width={156}
+                        height={128}
+                        alt='Morency Salon'
+                      />
+                    </div>
                   </div>
-                  {screen === 'query' && (
-                    <>
-                      <div className='row first-result'>
-                        <div>
-                          <img
-                            src='/glyphs/glyph-time.svg'
-                            alt=''
-                            className='icon'
-                            loading='lazy'
-                          />
-                          <span>Salon de coiffure</span>
-                        </div>
-                        <p>Remove</p>
+                  <div className='title'>
+                    <div className='name'>Morency Coiffure</div>
+                    <div className='actions'>
+                      <p className='btn weight-bold'>Directions</p>
+                      <p className='btn weight-bold'>Save</p>
+                    </div>
+                    <div className='ratings'>
+                      <p>
+                        4.5 <img src='/browser/glyph-rating.svg' alt='' />
+                        <span className='text-light'>17 Google Reviews</span>
+                      </p>
+                    </div>
+                    <div className='description text-light'>
+                      <p>Hair salon in Montreal, Quebec</p>
+                    </div>
+                  </div>
+                  <div className='extra'>
+                    <div className='info flow'>
+                      <p>
+                        <span className='weight-bold'>Address :</span> 629 Rue
+                        Jarry E, Montréal, QC H2P 1V8
+                      </p>
+                      <p>
+                        <span className='weight-bold'>Hours : Open</span> ·
+                        Closes 9 p.m.
+                      </p>
+                      <p>
+                        <span className='weight-bold'>Phone :</span> (514)
+                        277-9171
+                      </p>
+                      <p className='suggestions text-light'>
+                        Suggest an edit · Own this business?
+                      </p>
+                    </div>
+                    <div className='share'>
+                      <p>
+                        <span className='weight-bold'>Know this place? :</span>{' '}
+                        Share the latest info
+                      </p>
+                    </div>
+                    <div className='questions'>
+                      <div>
+                        <p className='questions__title weight-bold'>
+                          Questions and Answers
+                        </p>
+                        <p className='text-light'>
+                          Be the first to ask a question
+                        </p>
                       </div>
-                      <div className='row'>
-                        <img
-                          src='/glyphs/glyph-search.svg'
-                          alt=''
-                          className='icon'
-                          loading='lazy'
-                        />
-                        <span>Salon de coiffure</span>
-                      </div>
-                      <div className='row'>
-                        <img
-                          src='/glyphs/glyph-search.svg'
-                          alt=''
-                          className='icon'
-                          loading='lazy'
-                        />
-                        <span>Salon de coiffure</span>
-                      </div>
-                      <div className='row'>
-                        <img
-                          src='/glyphs/glyph-search.svg'
-                          alt=''
-                          className='icon'
-                          loading='lazy'
-                        />
-                        <span>Salon de coiffure</span>
-                      </div>
-                      <div className='row'>
-                        <img
-                          src='/glyphs/glyph-search.svg'
-                          alt=''
-                          className='icon'
-                          loading='lazy'
-                        />
-                        <span>Salon de coiffure</span>
-                      </div>
-                    </>
-                  )}
+                      <p className='btn weight-bold'>Ask a question</p>
+                    </div>
+                  </div>
                 </div>
               </>
+            ) : screen === 'query' ? (
+              <SearchScreen query />
+            ) : (
+              <SearchScreen />
             )}
           </div>
         </div>
@@ -90,6 +99,7 @@ export function Browser() {
           --theme-color-bg: var(--color-light-main);
           --theme-color-fg: var(--color-dark-main);
           --theme-color-hg: var(--color-light-highlight);
+          --browser-border-shadow: 0px 1px 0px rgba(142, 175, 255, 0.21);
 
           border-radius: 4px;
           box-sizing: content-box;
@@ -99,7 +109,6 @@ export function Browser() {
           margin-left: auto;
           margin-right: auto;
           overflow: hidden;
-          pointer-events: none;
           position: relative;
           width: min(91.5vw, 917px);
           z-index: 5;
@@ -126,77 +135,162 @@ export function Browser() {
           margin-left: auto;
           margin-right: auto;
           padding: 2.617% 4.362%;
+          pointer-events: none;
           position: absolute;
           top: var(--menu-size);
           width: 100%;
         }
 
-        .browser__content .logo {
-          max-width: 40%;
+        // Results
+        .loading,
+        .listing {
+          flex-grow: 0;
+          height: 100%;
         }
 
-        .search__wrapper {
-          background-color: hsl(var(--theme-color-bg));
-          border-radius: 8px;
-          box-shadow: -30px 30px 76px rgba(203, 218, 230, 0.7),
-            30px -30px 80px rgba(216, 238, 238, 0.6);
+        .loading {
+          flex-basis: 49%;
+        }
+
+        .listing {
+          border-radius: 4px;
+          box-shadow: -30px 30px 76px rgba(203, 218, 230, 0.5),
+            30px -30px 80px rgba(216, 238, 238, 0.4);
+          display: flex;
+          flex-basis: 36.2%;
+          flex-direction: column;
+          font-feature-settings: 'ss02' off;
+          font-size: clamp(3px, calc(0.5vw + 0.1rem), 8px);
+          line-height: 1;
+          overflow: hidden;
+        }
+
+        .images {
+          display: flex;
+          flex-basis: 30%;
+        }
+
+        .images > * {
+          position: relative;
+        }
+
+        .photos {
+          flex-basis: 48.5%;
+        }
+
+        .photos::after {
+          background-image: linear-gradient(
+            to bottom,
+            rgba(0, 23, 55, 0.6),
+            rgba(0, 23, 55, 0.6)
+          );
+          bottom: 0;
+          color: hsl(var(--theme-color-bg));
+          content: attr(data-content);
+          padding: 0.75em;
+          position: absolute;
+          right: 0;
+        }
+
+        .map {
+          flex-basis: 51.5%;
+        }
+
+        .map::after {
+          content: url('/browser/glyph-expand.svg');
+          position: absolute;
+          right: 6.25%;
+          top: 6.25%;
+          width: 15.26%;
+        }
+
+        .title,
+        .info,
+        .share {
+          box-shadow: var(--browser-border-shadow);
+        }
+
+        .title {
           display: flex;
           flex-direction: column;
-          height: 11.22%;
-          margin-top: 3.5%;
-          position: relative;
-          width: 51.6%;
+          flex-basis: 26.2%;
+          justify-content: center;
+          padding-left: 5.29%;
         }
 
-        .search__wrapper::before {
-          background-color: #cce9ff;
-          content: '';
-          height: 14.3%;
-          opacity: 0;
-          position: absolute;
-          top: 23%;
-          transform: translateY(0);
-          width: 100%;
+        .title > * + * {
+          margin-top: 1em;
         }
 
-        .row {
+        .name {
+          font-size: 2.25em;
+        }
+
+        .actions {
+          display: flex;
+        }
+
+        .actions p {
+          width: 22.36%;
+        }
+
+        .ratings img {
+          display: inline-block;
+          height: clamp(3px, calc(0.5vw + 0.1rem), 8px);
+          vertical-align: bottom;
+        }
+
+        .info {
+          --flow-space: 1em;
+          padding-bottom: 1em;
+        }
+
+        .suggestions {
+          margin-top: 2em;
+        }
+
+        .share {
+          padding: 1em 0;
+        }
+
+        .questions {
           align-items: center;
           display: flex;
-          font-size: clamp(6px, calc(1vw + 0.1rem), 16px);
-          margin-left: 4.6%;
-          margin-right: 4.6%;
-          position: relative;
-          height: 100%;
-          z-index: 2;
+          margin-top: 2em;
         }
 
-        .row span {
-          margin-left: 2.05%;
+        .questions__title {
+          font-size: 1.5em;
+          margin-bottom: 0.5em;
         }
 
-        .row.first-result {
-          justify-content: space-between;
+        .questions .btn {
+          margin-left: 13.5%;
+          padding-left: 0.5em;
+          padding-right: 0.5em;
         }
 
-        .row.first-result div {
-          align-items: center;
-          display: flex;
+        .extra {
           flex-grow: 1;
+          padding: 2.641% 5.281% 0;
         }
 
-        .row.first-result span {
-          margin-left: 3%;
+        .btn {
+          align-items: center;
+          background-color: hsl(207 100% 92%);
+          border-radius: 2px;
+          display: flex;
+          justify-content: center;
+          max-width: 72px;
+          padding: 1em 0;
         }
 
-        .row.first-result p {
-          opacity: 0.5;
+        .btn + .btn {
+          margin-left: 0.5em;
         }
 
-        .row .icon {
-          line-height: 1;
-          max-width: 16px;
-          opacity: 0.6;
-          width: 3.7%;
+        .text-light {
+          color: hsl(var(--color-dark-tint));
         }
 
         @media (min-width: 50em) {
@@ -208,8 +302,8 @@ export function Browser() {
             --menu-size: 48px;
           }
 
-          .search__wrapper {
-            border-radius: 16px;
+          .listing {
+            border-radius: 8px;
           }
         }
 
@@ -221,27 +315,12 @@ export function Browser() {
           .browser__content {
             --menu-size: 56px;
           }
-
-          .search__wrapper {
-            border-radius: 10px;
-          }
         }
       `}</style>
-
       <style jsx>{`
-        .search__wrapper {
-          height: ${screen === 'default' ? 100 : 52.6}%;
-        }
-
-        .row {
-          height: ${screen === 'default' ? 100 : 14.3}%;
-        }
-
-        .search {
-          height: ${screen === 'default' ? 100 : 23}%;
-          box-shadow: ${screen === 'default'
-            ? ''
-            : '0px 1px 0px rgba(142, 175, 255, 0.21)'};
+        .browser__content {
+          flex-direction: ${screen === 'results' ? 'row' : 'column'};
+          justify-content: ${screen === 'results' ? 'space-between' : 'center'};
         }
       `}</style>
     </>
