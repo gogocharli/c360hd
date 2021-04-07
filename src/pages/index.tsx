@@ -119,6 +119,7 @@ export default function Home() {
             </Button>
           </div>
           <div className='icon-stack'>
+            {/* TODO use the image component instead */}
             <div>
               <img src='/icons/icon-pill.svg' alt='' />
             </div>

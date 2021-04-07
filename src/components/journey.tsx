@@ -57,6 +57,10 @@ export function JourneyHighlights() {
         }
 
         @media (min-width: 50em) {
+          ul {
+            margin-top: 2rem;
+          }
+
           li {
             align-items: center;
             flex-direction: row;
@@ -81,6 +85,7 @@ export function JourneyHighlights() {
             justify-content: space-between;
             margin-left: auto;
             margin-right: auto;
+            margin-top: 3.5rem;
             max-width: 80rem;
           }
 
