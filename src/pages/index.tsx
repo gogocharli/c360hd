@@ -119,32 +119,31 @@ export default function Home() {
             </Button>
           </div>
           <div className='icon-stack'>
-            {/* TODO use the image component instead */}
             <div>
-              <img src='/icons/icon-pill.svg' alt='' />
+              <img src='/icons/icon-pill.svg' alt='' loading='lazy' />
             </div>
             <div>
-              <img src='/icons/icon-bowl.svg' alt='' />
+              <img src='/icons/icon-bowl.svg' alt='' loading='lazy' />
             </div>
             <div>
-              <img src='/icons/icon-girl.svg' alt='' />
+              <img src='/icons/icon-girl.svg' alt='' loading='lazy' />
             </div>
             <div>
-              <img src='/icons/icon-tennis.svg' alt='' />
+              <img src='/icons/icon-tennis.svg' alt='' loading='lazy' />
             </div>
           </div>
           <div className='icon-stack'>
             <div>
-              <img src='/icons/icon-shopping-cart.svg' alt='' />
+              <img src='/icons/icon-shopping-cart.svg' alt='' loading='lazy' />
             </div>
             <div>
-              <img src='/icons/icon-modem.svg' alt='' />
+              <img src='/icons/icon-modem.svg' alt='' loading='lazy' />
             </div>
             <div>
-              <img src='/icons/icon-coffee.svg' alt='' />
+              <img src='/icons/icon-coffee.svg' alt='' loading='lazy' />
             </div>
             <div>
-              <img src='/icons/icon-shopping-bag.svg' alt='' />
+              <img src='/icons/icon-shopping-bag.svg' alt='' loading='lazy' />
             </div>
           </div>
         </article>
