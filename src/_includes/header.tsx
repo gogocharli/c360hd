@@ -103,6 +103,14 @@ export function Header() {
           color: inherit;
         }
 
+        .site-head__brand > :global(svg) {
+          width: 2rem;
+        }
+
+        .site-head__brand > :global(svg > *) {
+          fill: currentColor;
+        }
+
         .menu {
           --theme-color-bg: var(--color-dark-main);
           --theme-color-fg: var(--color-light-main);
@@ -143,9 +151,27 @@ export function Header() {
           z-index: 20;
         }
 
+        .menu-toggle :global(rect) {
+          fill: hsl(var(--theme-color-bg));
+        }
+
+        .menu-toggle[aria-expanded='true'] {
+          background-color: hsl(var(--theme-color-bg));
+        }
+
+        .menu-toggle[aria-expanded='true'] :global(rect) {
+          fill: hsl(var(--theme-color-fg));
+        }
+
         .nav__list {
           display: flex;
           align-items: center;
+        }
+
+        @media (min-width: 32em) {
+          .site-head__brand > :global(svg) {
+            width: 4rem;
+          }
         }
 
         @media (min-width: 65em) {
@@ -158,34 +184,6 @@ export function Header() {
       <style jsx global>{`
         body {
           overflow-y: ${isMenuOpen ? 'hidden' : 'auto'};
-        }
-      `}</style>
-
-      <style jsx global>{`
-        .site-head__brand svg {
-          width: 2rem;
-        }
-
-        .site-head__brand svg > * {
-          fill: currentColor;
-        }
-
-        .menu-toggle rect {
-          fill: hsl(var(--theme-color-bg));
-        }
-
-        .menu-toggle[aria-expanded='true'] {
-          background-color: hsl(var(--theme-color-bg));
-        }
-
-        .menu-toggle[aria-expanded='true'] rect {
-          fill: hsl(var(--theme-color-fg));
-        }
-
-        @media (min-width: 32em) {
-          .site-head__brand svg {
-            width: 4rem;
-          }
         }
       `}</style>
     </>

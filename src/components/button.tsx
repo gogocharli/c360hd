@@ -71,10 +71,8 @@ export function Button({
           display: flex;
           justify-content: space-between;
         }
-      `}</style>
 
-      <style jsx global>{`
-        .button > * + * {
+        .button > :global(* + *) {
           margin-left: 0.5rem;
         }
       `}</style>
