@@ -1,6 +1,8 @@
 import Image from 'next/image';
+import { useTranslation } from 'next-i18next';
 
 export function Listing() {
+  const { t } = useTranslation('home');
   return (
     <>
       <div className='listing'>
@@ -26,48 +28,62 @@ export function Listing() {
           <div className='name'>Morency Coiffure</div>
           <div className='actions'>
             <p className='btn weight-bold'>Directions</p>
-            <p className='btn weight-bold'>Save</p>
+            <p className='btn weight-bold'>{t('browser.listing.save')}</p>
           </div>
           <div className='ratings'>
             <p>
               4.5 <img src='/browser/glyph-rating.svg' alt='' />
-              <span className='text-light'>17 Google Reviews</span>
+              <span className='text-light'>
+                17 {t('browser.listing.reviews')}
+              </span>
             </p>
           </div>
           <div className='description text-light'>
-            <p>Hair salon in Montreal, Quebec</p>
+            <p>{t('browser.listing.description')}</p>
           </div>
         </div>
         <div className='extra'>
           <div className='info flow'>
             <p>
-              <span className='weight-bold'>Address :</span> 629 Rue Jarry E,
-              Montréal, QC H2P 1V8
+              <span className='weight-bold'>
+                {t('browser.listing.address')} :
+              </span>{' '}
+              629 Rue Jarry E, Montréal, QC H2P 1V8
             </p>
             <p>
-              <span className='weight-bold'>Hours : Open</span> · Closes 9 p.m.
+              <span className='weight-bold'>
+                {t('browser.listing.hours.0')}
+              </span>{' '}
+              · {t('browser.listing.hours.1')}
             </p>
             <p>
-              <span className='weight-bold'>Phone :</span> (514) 277-9171
+              <span className='weight-bold'>
+                {t('browser.listing.phone')} :
+              </span>{' '}
+              (514) 277-9171
             </p>
             <p className='suggestions text-light'>
-              Suggest an edit · Own this business?
+              {t('browser.listing.edit')}
             </p>
           </div>
           <div className='share'>
             <p>
-              <span className='weight-bold'>Know this place? :</span> Share the
-              latest info
+              <span className='weight-bold'>
+                {t('browser.listing.share.0')}
+              </span>{' '}
+              {t('browser.listing.share.1')}
             </p>
           </div>
           <div className='questions'>
             <div>
               <p className='questions__title weight-bold'>
-                Questions and Answers
+                {t('browser.listing.questions.0')}
               </p>
-              <p className='text-light'>Be the first to ask a question</p>
+              <p className='text-light'>{t('browser.listing.questions.1')}</p>
             </div>
-            <p className='btn weight-bold'>Ask a question</p>
+            <p className='btn weight-bold'>
+              {t('browser.listing.questions.2')}
+            </p>
           </div>
         </div>
       </div>

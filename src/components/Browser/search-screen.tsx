@@ -1,12 +1,16 @@
+import { useTranslation } from 'next-i18next';
+
 export function SearchScreen({ query = false }) {
+  const { t } = useTranslation('home');
   const isDefault = query === false;
+
   return (
     <>
       <img src='/images/logo-google-img.png' alt='' className='logo' />
       <div className='search__wrapper'>
         <div className='search row'>
           <img src='/glyphs/glyph-search.svg' alt='' className='icon' />
-          <span>Salon de coiffure</span>
+          <span>{t('browser.query')}</span>
         </div>
         {query && (
           <>
@@ -18,9 +22,9 @@ export function SearchScreen({ query = false }) {
                   className='icon'
                   loading='lazy'
                 />
-                <span>Salon de coiffure</span>
+                <span>{t('browser.results.0')}</span>
               </div>
-              <p>Remove</p>
+              <p>{t('browser.remove')}</p>
             </div>
             <div className='row'>
               <img
@@ -29,7 +33,7 @@ export function SearchScreen({ query = false }) {
                 className='icon'
                 loading='lazy'
               />
-              <span>Salon de coiffure</span>
+              <span>{t('browser.results.1')}</span>
             </div>
             <div className='row'>
               <img
@@ -38,7 +42,7 @@ export function SearchScreen({ query = false }) {
                 className='icon'
                 loading='lazy'
               />
-              <span>Salon de coiffure</span>
+              <span>{t('browser.results.2')}</span>
             </div>
             <div className='row'>
               <img
@@ -47,7 +51,7 @@ export function SearchScreen({ query = false }) {
                 className='icon'
                 loading='lazy'
               />
-              <span>Salon de coiffure</span>
+              <span>{t('browser.results.3')}</span>
             </div>
             <div className='row'>
               <img
@@ -56,7 +60,7 @@ export function SearchScreen({ query = false }) {
                 className='icon'
                 loading='lazy'
               />
-              <span>Salon de coiffure</span>
+              <span>{t('browser.results.4')}</span>
             </div>
           </>
         )}

@@ -56,5 +56,31 @@
       "desc": "Nous avons eu l’opportunité de travailler avec des commerces locaux de diverses tailles afin de leur permettre d’accroître l’efficacité de leurs annonces. Quelque soit l’industrie, votre entreprise bénéficiera d’une présence en ligne plus forte suite à l’ajout de visites virtuelles sur son profil.",
       "btnText": "Explorez les projets"
     }
-  ]
+  ],
+  "browser": {
+    "query": "salon coiffure",
+    "remove": "Remove",
+    "results": [
+      "salon coiffure proche",
+      "salon coiffure morency",
+      "salon coiffure excellence",
+      "salon coiffure mirabel",
+      "salon coiffure etcetra"
+    ],
+    "listing": {
+      "save": "Sauver",
+      "reviews": "Revues Google",
+      "description": "Salon de Coiffure à Montréal, Québec",
+      "address": "Addresse",
+      "hours": ["Horaire: Ouvert", "Ferme à 21h"],
+      "phone": "Téléphone",
+      "edit": "Suggérez une modification · Ce endroit vous appartient?",
+      "share": ["Connaissez cet endroit?", "Partagez la dernière info"],
+      "questions": [
+        "Questions et Réponses",
+        "Soyez le premier à poser une question",
+        "Demandez"
+      ]
+    }
+  }
 }
