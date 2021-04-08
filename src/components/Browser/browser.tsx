@@ -15,6 +15,16 @@ export function Browser() {
               <>
                 <LoadingBars />
                 <Listing />
+                <video loop preload='metadata' width={917}>
+                  <source
+                    src='/browser/morency-coiffure.webm'
+                    type='video/webm'
+                  />
+                  <source
+                    src='/browser/morency-coiffure.mp4'
+                    type='video/mp4'
+                  />
+                </video>
               </>
             ) : screen === 'query' ? (
               <SearchScreen query />
@@ -67,6 +77,14 @@ export function Browser() {
           pointer-events: none;
           position: absolute;
           top: var(--menu-size);
+          width: 100%;
+        }
+
+        video {
+          border-bottom: 2px solid hsl(var(--color-dark-highlight));
+          position: absolute;
+          left: 0;
+          top: 0;
           width: 100%;
         }
 
