@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import { useMediaQuery } from '../hooks/useMediaQuery';
 import { NavList, FootLinks } from '@components/nav-list';
@@ -36,35 +37,62 @@ export function Header() {
           </a>
         </Link>
         {isSmallViewPort ? (
-          <div className='menu-wrapper'>
-            {/* hidden to hide from everyone but screen reader users */}
-            <span hidden id='menu-label'>
-              Main Menu
-            </span>
-            <button
-              className='menu-toggle'
-              id='menu-toggle'
-              aria-labelledby='menu-label'
-              aria-expanded={isMenuOpen}
-              onClick={handleMenuToggle}
+          <AnimatePresence>
+            <motion.div
+              className='menu-wrapper'
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
             >
-              <MenuIcon />
-            </button>
-            {isMenuOpen && (
-              <div className='[ menu ]' id='menu'>
-                <div className='[ menu__wrapper ] [ flow ]'>
-                  <nav className='[ nav ] [ menu__nav ]'>
-                    <NavList />
-                  </nav>
-                  <FootLinks noLogo />
-                </div>
-              </div>
-            )}
-          </div>
+              {/* hidden to hide from everyone but screen reader users */}
+              <span hidden id='menu-label'>
+                Main Menu
+              </span>
+              <motion.button
+                className='menu-toggle'
+                id='menu-toggle'
+                aria-labelledby='menu-label'
+                aria-expanded={isMenuOpen}
+                onClick={handleMenuToggle}
+                whileTap={{ scale: 0.95 }}
+              >
+                <MenuIcon />
+              </motion.button>
+              <AnimatePresence>
+                {isMenuOpen && (
+                  <motion.div
+                    className='[ menu ]'
+                    id='menu'
+                    initial={{ clipPath: 'ellipse(0vmax 0vmax at 100% 0%)' }}
+                    animate={{
+                      clipPath: 'ellipse(120vmax 120vmax at 100% 0%)',
+                    }}
+                    exit={{
+                      clipPath: 'ellipse(0vmax 0vmax at 100% 0%)',
+                    }}
+                  >
+                    <div className='[ menu__wrapper ] [ flow ]'>
+                      <nav className='[ nav ] [ menu__nav ]'>
+                        <NavList />
+                      </nav>
+                      <FootLinks noLogo />
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          </AnimatePresence>
         ) : (
-          <nav className='[ nav ] [ site-head__nav ]'>
-            <NavList reduced />
-          </nav>
+          <AnimatePresence>
+            <motion.nav
+              className='[ nav ] [ site-head__nav ]'
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <NavList reduced />
+            </motion.nav>
+          </AnimatePresence>
         )}
       </header>
       <style jsx>{`
@@ -111,7 +139,7 @@ export function Header() {
           fill: currentColor;
         }
 
-        .menu {
+        :global(.menu) {
           --theme-color-bg: var(--color-dark-main);
           --theme-color-fg: var(--color-light-main);
           --theme-color-hg: var(--color-dark-highlight);
@@ -124,6 +152,7 @@ export function Header() {
           min-height: 100vh;
           padding: 1.5rem 1rem;
           position: absolute;
+          will-change: clip-path;
 
           bottom: 0;
           left: 0;
@@ -132,13 +161,13 @@ export function Header() {
           z-index: 10;
         }
 
-        .menu__wrapper {
+        :global(.menu__wrapper) {
           --flow-space: 2rem;
           flex: 0;
           margin-top: -5rem;
         }
 
-        .menu-toggle {
+        :global(.menu-toggle) {
           background: 0;
           background-color: hsl(var(--theme-color-fg));
           border: 0;
@@ -147,19 +176,21 @@ export function Header() {
           height: 2rem;
           padding: 0;
           position: relative;
+          transition: background-color 250ms ease-out;
           width: 3rem;
           z-index: 20;
         }
 
-        .menu-toggle :global(rect) {
+        :global(.menu-toggle rect) {
           fill: hsl(var(--theme-color-bg));
+          transition: fill 250ms ease-out;
         }
 
-        .menu-toggle[aria-expanded='true'] {
+        :global(.menu-toggle[aria-expanded='true']) {
           background-color: hsl(var(--theme-color-bg));
         }
 
-        .menu-toggle[aria-expanded='true'] :global(rect) {
+        :global(.menu-toggle[aria-expanded='true'] rect) {
           fill: hsl(var(--theme-color-fg));
         }
 
