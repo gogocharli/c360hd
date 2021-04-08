@@ -23,7 +23,7 @@ export function NavList({ reduced = false }) {
             </Link>
           </li>
           <li>
-            <Button href='/pricing' type='secondary' className='featured'>
+            <Button href='/pricing' className='featured'>
               {t('links.pricing')}
             </Button>
           </li>
@@ -190,13 +190,10 @@ export function NavList({ reduced = false }) {
           margin: ${reduced && '0 0 0 2rem'};
         }
       `}</style>
-
       <style jsx global>{`
-        .button[data-variant='secondary'].featured {
-          color: hsl(var(--color-dark-main));
-        }
-        .button[data-variant='secondary'].featured::before {
-          background-color: hsl(var(--color-light-highlight));
+        .button.featured {
+          --default-color: var(--theme-color-fg);
+          --default-bg: var(--theme-color-hg);
         }
       `}</style>
     </div>

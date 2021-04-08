@@ -4,12 +4,16 @@
   --transition-duration: 350ms;
   --transition-curve: cubic-bezier(0.165, 0.84, 0.44, 1);
   --hover-translate: -50%, -50%;
-  --hover-bg: var(--color-accent-sea);
+
+  --default-color: var(--theme-color-bg);
+  --hover-color: var(--theme-color-fg);
+  --default-bg: var(--color-light-highlight);
+  --hover-bg: var(--theme-color-accent);
 
   background: 0;
   border: 0;
   border-radius: 2em;
-  color: hsl(var(--theme-color-bg));
+  color: hsl(var(--default-color));
   display: inline-block;
   font-size: get-size('300');
   line-height: 1;
@@ -26,15 +30,13 @@
   }
 
   &:hover {
-    color: hsl(var(--theme-color-fg));
-
     &::after {
       transform: translateZ(0) translate(var(--hover-translate)) scale(1);
     }
   }
 
   &::before {
-    background-color: hsl(var(--theme-color-fg));
+    background-color: hsl(var(--default-bg));
     border-radius: inherit;
     content: '';
     height: 100%;
@@ -62,20 +64,21 @@
 
   // Variant for secondary buttons (eg. forms)
   &[data-variant='secondary'] {
+    --default-bg: var(--theme-color-hg);
     --hover-bg: var(--theme-color-accent);
-
-    color: hsl(var(--theme-color-fg));
+    --hover-color: var(--theme-color-bg);
+    --default-color: var(--theme-color-fg);
 
     &:hover {
-      color: hsl(var(--theme-color-bg)) !important;
+      color: hsl(var(--hover-color));
     }
 
     &::before {
-      background-color: hsl(var(--theme-color-hg));
+      background-color: hsl(var(--default-bg));
     }
 
     &::after {
-      background-color: hsl(var(--theme-color-accent));
+      background-color: hsl(var(--hover-bg));
     }
   }
 }

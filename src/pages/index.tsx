@@ -26,7 +26,9 @@ export default function Home() {
             <p className='[ subtitle ] [ text-400 measure-short leading-loose ]'>
               {t('hero.subtitle')}
             </p>
-            <Button href='/pricing'>{t('hero.btnText')}</Button>
+            <Button href='/pricing' type='secondary'>
+              {t('hero.btnText')}
+            </Button>
           </div>
           <div aria-hidden='true'>
             <div className='[ hero__content ] [ flow ]'>
@@ -113,7 +115,7 @@ export default function Home() {
               <h3 className='text-550 leading-flat'>{t('sections.3.title')}</h3>
               <p className='text-300 lg:text-400'>{t('sections.3.desc')}</p>
             </div>
-            <Button href='/portfolio'>
+            <Button href='/portfolio' type='secondary'>
               <span>{t('sections.3.btnText')}</span>
               <Arrow className='icon' width={16} />
             </Button>
@@ -456,9 +458,9 @@ export default function Home() {
 
       <style jsx global>{`
         :root {
-          // --theme-color-bg: var(--color-light-main);
-          // --theme-color-fg: var(--color-dark-main);
-          // --theme-color-hg: var(--color-light-highlight);
+          --theme-color-bg: var(--color-light-main);
+          --theme-color-fg: var(--color-dark-main);
+          --theme-color-hg: var(--color-light-highlight);
           --theme-color-tint: var(--color-light-tint);
 
           background-color: hsl(var(--theme-color-bg));
@@ -471,8 +473,18 @@ export default function Home() {
           align-self: center;
         }
 
-        .realisations .button {
-          --hover-bg: var(--color-light-main);
+        .hero a.button {
+          --default-color: var(--color-light-main);
+          --hover-color: var(--color-dark-main);
+          --default-bg: var(--color-dark-main);
+          --hover-bg: var(--color-light-highlight);
+        }
+
+        .realisations a.button {
+          --default-color: var(--color-light-main);
+          --hover-color: var(--color-dark-main);
+          --default-bg: var(--color-dark-main);
+          --hover-bg: var(--color-light-highlight);
         }
 
         .realisations > * {
