@@ -84,6 +84,7 @@ export function Product({ name }: { name: 'classic' | 'special' }) {
           font-feature-settings: 'ss02' off;
           padding: 3rem 2.5rem;
           position: relative;
+          transition: transform 300ms ease;
         }
 
         article::before,
@@ -91,10 +92,10 @@ export function Product({ name }: { name: 'classic' | 'special' }) {
           animation: 3s linear infinite normal forwards;
           animation-play-state: inherit;
           background-blend-mode: luminosity;
-          mix-blend-mode: luminosity;
-          line-height: 1;
-          position: absolute;
           height: 2rem;
+          line-height: 1;
+          mix-blend-mode: luminosity;
+          position: absolute;
           top: 3rem;
           width: 2rem;
           will-change: transform;
@@ -119,6 +120,9 @@ export function Product({ name }: { name: 'classic' | 'special' }) {
         article:focus-within,
         article:hover {
           animation-play-state: running;
+          box-shadow: -30px 30px 120px rgba(0, 18, 43, 0.3),
+            30px -30px 78px rgba(0, 28, 67, 0.3);
+          transform: scale(1.02);
         }
 
         ul {
