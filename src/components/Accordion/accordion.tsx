@@ -19,18 +19,65 @@ function Item({
   item: { value: string; title: string };
 }) {
   return (
-    <AccordionItem className='accordion__item'>
-      <h3>
-        <AccordionButton className='accordion__button'>
-          {item.title}
-          <div className='accordion__icon' aria-hidden='true'>
-            <PlusIcon className='icon__open' width={24} />
-            <MinusIcon className='icon__close' width={24} />
-          </div>
-        </AccordionButton>
-      </h3>
-      <AccordionPanel className='accordion__content'>{children}</AccordionPanel>
-    </AccordionItem>
+    <>
+      <AccordionItem className='accordion__item'>
+        <h3 className='text-300 md:text-400 weight-normal'>
+          <AccordionButton className='accordion__button'>
+            {item.title}
+            <div className='accordion__icon' aria-hidden='true'>
+              <PlusIcon className='icon__open' width={24} />
+              {/* <MinusIcon className='icon__close' width={24} /> */}
+            </div>
+          </AccordionButton>
+        </h3>
+        <AccordionPanel className='accordion__content'>
+          {children}
+        </AccordionPanel>
+      </AccordionItem>
+      <style jsx>{`
+        :global(.accordion__item) {
+          border-radius: 0.5rem;
+          box-shadow: 0px 0px 5px rgba(39, 61, 99, 0.8),
+            0px 0px 5px rgba(39, 61, 99, 0.6);
+          color: hsl(var(--theme-color-fg));
+          padding: 0.75rem 0.5rem;
+          text-align: left;
+        }
+
+        h3 {
+          display: flex;
+          padding: 0.375rem 0.5rem;
+        }
+
+        :global(.accordion__button) {
+          align-items: center;
+          background: 0;
+          background-color: hsl(var(--theme-color-bg));
+          border: 0;
+          color: inherit;
+          display: flex;
+          flex-grow: 1;
+          justify-content: space-between;
+          line-height: 1.2;
+          text-align: left;
+        }
+
+        :global(.accordion__content > p) {
+          font-size: 0.8rem;
+          padding: 0.5rem 0.75rem;
+        }
+
+        :global(.accordion__button svg) {
+          margin-left: 0.5rem;
+        }
+
+        @media (min-width: 50em) {
+          :global(.accordion__content > p) {
+            font-size: 1rem;
+          }
+        }
+      `}</style>
+    </>
   );
 }
 

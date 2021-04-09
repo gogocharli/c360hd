@@ -20,16 +20,48 @@ export function Questions() {
   }));
 
   return (
-    <article>
-      <h2>{t('heading')}</h2>
-      {/* @todo replace by a more customizable component */}
-      <AccordionMenu>
-        {menuItems.map(({ content, ...item }) => (
-          <AccordionItem item={item} key={item.value}>
-            <p>{content}</p>
-          </AccordionItem>
-        ))}
-      </AccordionMenu>
-    </article>
+    <>
+      <article id='faq' className='wrapper align-center'>
+        <h2 className='[ text-500 md:text-550 lg:text-600 ] [ leading-flat ]'>
+          {t('heading')}
+        </h2>
+        <AccordionMenu>
+          {menuItems.map(({ content, ...item }) => (
+            <AccordionItem item={item} key={item.value}>
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: content,
+                }}
+              />
+            </AccordionItem>
+          ))}
+        </AccordionMenu>
+      </article>
+
+      <style jsx>{`
+        article {
+          max-width: 35rem;
+          padding: 2rem;
+        }
+
+        h2 {
+          margin: 0 auto 2.5rem;
+        }
+
+        :global(div[data-reach-accordion] > * + *) {
+          margin-top: 1rem;
+        }
+
+        @media (min-width: 65em) {
+          article {
+            max-width: 46.5rem;
+          }
+
+          h2 {
+            margin-bottom: 3.5rem;
+          }
+        }
+      `}</style>
+    </>
   );
 }
