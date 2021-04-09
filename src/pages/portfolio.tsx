@@ -7,7 +7,7 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import BaseLayout from '@layouts/base';
-import { AccordionMenu, AccordionItem } from '@components/Accordion';
+import { AccordionMenu, AccordionItem } from '@components/Accordion/accordion';
 import { Gallery } from '@components/Gallery/gallery';
 
 export default function Portfolio() {

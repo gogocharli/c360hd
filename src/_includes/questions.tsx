@@ -1,5 +1,5 @@
 import { useTranslation } from 'next-i18next';
-import { AccordionItem, AccordionMenu } from '@components/Accordion';
+import { AccordionItem, AccordionMenu } from '@components/Accordion/accordion';
 
 const questionsList = [
   'virtual',

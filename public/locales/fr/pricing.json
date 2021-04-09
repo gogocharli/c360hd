@@ -3,7 +3,10 @@
   "pageDesc": "",
   "hero": {
     "title": "Des offres au souci de votre image",
-    "subtitle": "Fini les tariffs SEO compliqués. Choisissez une offre et on s'occupe du reste."
+    "subtitle": [
+      "Fini les tariffs SEO compliqués.",
+      "Choisissez une offre et on s'occupe du reste."
+    ]
   },
   "classic": {
     "title": "Classique",

@@ -3,7 +3,10 @@
   "pageDesc": "",
   "hero": {
     "title": "Offers that care for your image",
-    "subtitle": "Over with complicated SEO pricing. Choose an offer and we take care of the rest."
+    "subtitle": [
+      "Over with complicated SEO pricing.",
+      "Choose an offer and we take care of the rest."
+    ]
   },
   "classic": {
     "title": "Classic",
