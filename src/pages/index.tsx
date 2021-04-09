@@ -23,7 +23,7 @@ export default function Home() {
             <h1 className='[ title ] [ text-600 md:text-700 lg:text-800 weight-bold ] [ leading-flat tracking-tight measure-micro ]'>
               {t('hero.title')}
             </h1>
-            <p className='[ subtitle ] [ text-400 measure-short leading-loose ]'>
+            <p className='[ subtitle ] [ text-400 measure-compact leading-loose ]'>
               {t('hero.subtitle')}
             </p>
             <Button href='/pricing' type='secondary'>
@@ -163,6 +163,12 @@ export default function Home() {
           display: flex;
           flex-direction: column;
           padding: 4.5rem 0.5rem;
+        }
+
+        .hero__content:first-of-type {
+          /* Only this part of the page has a light theme */
+          -webkit-font-smoothing: auto;
+          -moz-osx-font-smoothing: auto;
         }
 
         .hero div[aria-hidden='true'] {
@@ -411,7 +417,7 @@ export default function Home() {
             margin-right: 0;
           }
 
-          .hero p {
+          .hero .subtitle {
             max-width: 40ch;
           }
 

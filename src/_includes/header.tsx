@@ -127,8 +127,9 @@ export function Header() {
         }
 
         .site-head__brand {
-          line-height: 1;
           color: inherit;
+          height: 2rem;
+          line-height: 1;
         }
 
         .site-head__brand > :global(svg) {
@@ -200,6 +201,10 @@ export function Header() {
         }
 
         @media (min-width: 32em) {
+          .site-head__brand {
+            height: 4rem;
+          }
+
           .site-head__brand > :global(svg) {
             width: 4rem;
           }
