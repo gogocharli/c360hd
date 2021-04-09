@@ -10,12 +10,14 @@ export function Button({
   locale,
   onClick,
   type = 'primary',
+  form = false,
   className,
   children,
 }: {
   href?: string;
   locale?: string;
   type?: 'primary' | 'secondary';
+  form?: boolean;
   onClick?: any;
   className?: string;
   children: React.ReactNode;
@@ -60,6 +62,7 @@ export function Button({
           onMouseEnter={transformOnHover}
           onMouseLeave={transformOnHover}
           onClick={onClick}
+          type={form ? 'submit' : 'button'}
           ref={buttonRef as LegacyRef<HTMLButtonElement>}
         >
           {children}
