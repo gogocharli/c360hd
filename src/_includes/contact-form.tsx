@@ -200,14 +200,10 @@ export function ContactForm() {
 function ErrorText({ children }: { children?: React.ReactNode }) {
   return (
     <>
-      <span className='field__error text-100'>{children}</span>
+      <span className='field__error text-100'>&#9888;{children}&#9888;</span>
       <style jsx>{`
         span {
           display: block;
-        }
-        span::before,
-        span::after {
-          content: ⚠️;
         }
       `}</style>
     </>
