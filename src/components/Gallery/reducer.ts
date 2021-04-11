@@ -56,7 +56,9 @@ function categoryReducer(
 
       // Get items which match the search query
       // TODO change from linear search to hash function indexing
-      const newList = itemList.filter((item) => item.name.includes(query));
+      const newList = itemList.filter((item) =>
+        item.name.toLowerCase().includes(query)
+      );
       return {
         ...state,
         search: query,

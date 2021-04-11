@@ -35,7 +35,7 @@ export function Gallery({ search }: { search: string }) {
       return;
     }
 
-    dispatch({ type: 'search', query: search });
+    dispatch({ type: 'search', query: search.toLowerCase() });
   }, [search]);
 
   const isIdle = state.filter == '';
