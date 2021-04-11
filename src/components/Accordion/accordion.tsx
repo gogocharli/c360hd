@@ -30,8 +30,8 @@ function Item({
             </div>
           </AccordionButton>
         </h3>
-        <AccordionPanel className='accordion__content'>
-          {children}
+        <AccordionPanel>
+          <div className='accordion__content'>{children}</div>
         </AccordionPanel>
       </AccordionItem>
       <style jsx>{`
@@ -39,26 +39,27 @@ function Item({
           border-radius: 0.5rem;
           box-shadow: 0px 0px 5px rgba(39, 61, 99, 0.8),
             0px 0px 5px rgba(39, 61, 99, 0.6);
-          color: hsl(var(--theme-color-fg));
+          color: hsl(var(--color-light-main));
           padding: 0.75rem 0.5rem;
           text-align: left;
         }
 
         h3 {
           display: flex;
-          padding: 0.375rem 0.5rem;
+          padding: 0.375rem 0.75rem;
         }
 
         :global(.accordion__button) {
           align-items: center;
           background: 0;
-          background-color: hsl(var(--theme-color-bg));
+          background-color: hsl(var(--color-dark-main));
           border: 0;
           color: inherit;
           display: flex;
           flex-grow: 1;
           justify-content: space-between;
           line-height: 1.2;
+          padding: 0; // Remove button padding from browser
           text-align: left;
         }
 
@@ -67,7 +68,8 @@ function Item({
           padding: 0.5rem 0.75rem;
         }
 
-        :global(.accordion__button svg) {
+        :global(.accordion__icon) {
+          height: 1.5rem;
           margin-left: 0.5rem;
         }
 
