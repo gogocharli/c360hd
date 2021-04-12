@@ -74,17 +74,19 @@ export default function Portfolio() {
       <BaseLayout pageMeta={pageMeta} theme='light' className='portfolio'>
         <section className='hero wrapper'>
           <div>
-            <p className="[ subtitle ] [ text-100 lg:text-300 ] [ upper tracking-loose ]">{t('hero.subtitle')}</p>
-            <h1 className="[ title ] [ text-600 lg:text-700 ] [ leading-flat tracking-tight lg:tracking-flat measure-micro ]">{t('hero.title')}</h1>
-          </div>
-          <div className="hero__image">
-            <Image
-              src='/images/chair-img.png'
-              alt='Man rocking on a chair'
-              width={417}
-              height={417}
-              priority
-            />
+            <div className='hero__content'>
+              <p className="[ subtitle ] [ text-100 lg:text-300 ] [ upper tracking-loose ]">{t('hero.subtitle')}</p>
+              <h1 className="[ title ] [ text-600 lg:text-700 ] [ leading-flat tracking-tight lg:tracking-flat measure-micro ]">{t('hero.title')}</h1>
+            </div>
+            <div className="hero__image blend">
+              <Image
+                src='/images/chair-img.png'
+                alt='Man rocking on a chair'
+                width={417}
+                height={417}
+                priority
+              />
+            </div>
           </div>
         </section>
         <article className='wrapper'>
@@ -118,6 +120,24 @@ export default function Portfolio() {
         </article>
       </BaseLayout>
       <style jsx>{`
+        .hero {
+          margin-top: 3.5rem;
+        }
+
+        .hero__content p {
+          color: hsl(var(--color-dark-highlight));
+          margin-left: .5ch;
+        }
+
+        .hero__image {
+          display: none;
+        }
+
+        article {
+          margin-top: 3rem;
+          padding-top: 1rem;
+        }
+
         article > :global(div[data-reach-accordion]) {
           background-color: hsl(var(--color-dark-main));
           border-radius: 0.5rem;
@@ -137,19 +157,6 @@ export default function Portfolio() {
           display: flex;
           flex-direction: column;
           margin-top: 0.75rem;
-        }
-
-        .hero {
-          margin-top: 3.5rem;
-        }
-
-        .hero .subtitle {
-          color: hsl(var(--color-dark-highlight));
-          margin-left: .5ch;
-        }
-
-        :global(.hero__image) {
-          display: none;
         }
 
         .filter {
@@ -193,9 +200,60 @@ export default function Portfolio() {
         }
 
         @media (min-width: 50em) {
-          :global(.hero__image) {
+          .hero > div {
+            background-color: hsl(var(--color-dark-main));
+            border-radius: .5rem;
+            color: hsl(var(--color-light-main));
+            display: grid;
+            grid-template-columns: var(--grid-lg);
+            grid-column-gap: 1rem;
+            padding-top: min(6.6vw, 120px);
+            padding-bottom: min(6.6vw, 120px);
+          }
+
+          .hero__content {
+            align-self: center;
+            grid-column: 2 / span 6;
+          }
+
+          .hero__content p {
+            color: hsl(222 100% 78%);
+          }
+
+          .hero__image {
             display: block;
+            grid-column: 8 / span 5;
+            justify-self: center;
+            width: 14.4rem;
          }
+        }
+
+        @media (min-width: 65em) {
+          .hero__image {
+            width: 26rem;
+          }
+
+          article {
+            display: grid;
+            grid-gap: 3rem 1rem;
+            grid-template-columns: var(--grid-lg);
+          }
+
+          article > :global(div[data-reach-accordion]) {
+            align-self: start;
+            grid-column: 1 / span 3;
+            grid-row: 1 / 3;
+            position: sticky;
+          }
+
+          .search__wrapper, :global(.gallery) {
+            grid-column: 4 / span 10;
+            margin-top: 0;
+          }
+
+          :global(.gallery) {
+            grid-row: 2;
+          }
         }
       `}</style>
     </>
