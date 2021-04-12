@@ -13,6 +13,7 @@ export function Button({
   form = false,
   className,
   children,
+  scroll = true,
 }: {
   href?: string;
   locale?: string;
@@ -21,6 +22,7 @@ export function Button({
   onClick?: any;
   className?: string;
   children: React.ReactNode;
+  scroll?: boolean;
 }) {
   const buttonRef = React.useRef<ButtonType>();
   const bgSize = -400;
@@ -44,7 +46,7 @@ export function Button({
   return (
     <>
       {href ? (
-        <Link href={href} locale={locale ?? routerLocale}>
+        <Link href={href} locale={locale ?? routerLocale} scroll={scroll}>
           <a
             className={`[ ${className ?? ''} ] [ button ss02 ] [ text-300 ]`}
             data-variant={type}
