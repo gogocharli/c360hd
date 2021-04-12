@@ -31,10 +31,6 @@ export default function Portfolio() {
     } else {
       filterRef.current = filter;
     }
-
-    // Scroll to the top of the page for consistency
-    // Shallow routing doesn't by default
-    window.scrollTo(0, 0);
   }, [query]);
 
   // Debounce input before changing query
