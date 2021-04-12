@@ -14,7 +14,7 @@ export default function Pricing() {
     <>
       <BaseLayout pageMeta={pageMeta} className='pricing'>
         <section className='[ hero ] [ align-center wrapper flow ]'>
-          <h1 className='[ title ] [ text-600 md:text-700 lg:text-800 ] [ measure-micro leading-flat ]'>
+          <h1 className='[ title ] [ text-600 md:text-700 lg:text-800 ] [ measure-micro leading-flat md:tracking-tight lg:tracking-flat ]'>
             {t('hero.title')}
           </h1>
           <p className='[ subtitle ] [ text-400 lg:text-500 ] [ measure-compact ]'>

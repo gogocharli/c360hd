@@ -22,7 +22,7 @@ export function Questions() {
   return (
     <>
       <article id='faq' className='wrapper align-center'>
-        <h2 className='[ text-500 md:text-550 lg:text-600 ] [ leading-flat ]'>
+        <h2 className='[ text-500 md:text-550 lg:text-600 ] [ leading-flat lg:tracking-tight ]'>
           {t('heading')}
         </h2>
         <AccordionMenu>

@@ -8,7 +8,7 @@ export function Product({ name }: { name: 'classic' | 'special' }) {
   return (
     <>
       <article className='[ product ] [ align-center flow ]'>
-        <h2 className='[ name ] [ text-550 lg:text-600 ] [ leading-flat ]'>
+        <h2 className='[ name ] [ text-550 lg:text-600 ] [ leading-flat lg:tracking-tight]'>
           {t(`${name}.title`)}
         </h2>
         <ul className='flow'>
@@ -170,16 +170,16 @@ export function Product({ name }: { name: 'classic' | 'special' }) {
         article::before,
         article::after {
           content: ${name == 'special'
-            ? 'url("/images/star-32w-img.png")'
-            : ''};
+          ? 'url("/images/star-32w-img.png")'
+          : ''};
         }
 
         @media (min-width: 65em) {
           article::before,
           article::after {
             content: ${name == 'special'
-              ? 'url("/images/star-48w-img.png")'
-              : ''};
+          ? 'url("/images/star-48w-img.png")'
+          : ''};
           }
         }
       `}</style>

@@ -72,18 +72,20 @@ export default function Portfolio() {
   return (
     <>
       <BaseLayout pageMeta={pageMeta} theme='light' className='portfolio'>
-        <section className='hero'>
+        <section className='hero wrapper'>
           <div>
-            <p>{t('hero.subtitle')}</p>
-            <h1>{t('hero.title')}</h1>
+            <p className="[ subtitle ] [ text-100 lg:text-300 ] [ upper tracking-loose ]">{t('hero.subtitle')}</p>
+            <h1 className="[ title ] [ text-600 lg:text-700 ] [ leading-flat tracking-tight lg:tracking-flat measure-micro ]">{t('hero.title')}</h1>
           </div>
-          <Image
-            src='/images/chair-img.png'
-            alt='Man rocking on a chair'
-            width={417}
-            height={417}
-            priority
-          />
+          <div className="hero__image">
+            <Image
+              src='/images/chair-img.png'
+              alt='Man rocking on a chair'
+              width={417}
+              height={417}
+              priority
+            />
+          </div>
         </section>
         <article className='wrapper'>
           <AccordionMenu>
@@ -137,6 +139,19 @@ export default function Portfolio() {
           margin-top: 0.75rem;
         }
 
+        .hero {
+          margin-top: 3.5rem;
+        }
+
+        .hero .subtitle {
+          color: hsl(var(--color-dark-highlight));
+          margin-left: .5ch;
+        }
+
+        :global(.hero__image) {
+          display: none;
+        }
+
         .filter {
           background: 0;
           border: 0;
@@ -175,6 +190,12 @@ export default function Portfolio() {
           position: absolute;
           top: 24px;
           width: 1.5rem;
+        }
+
+        @media (min-width: 50em) {
+          :global(.hero__image) {
+            display: block;
+         }
         }
       `}</style>
     </>

@@ -21,7 +21,7 @@ export function HomeCarousel() {
                 />
               </div>
               <div className='[ content ] [ flow ]'>
-                <h3 className='[ text-550 lg:text-600 ] [ measure-micro leading-flat ]'>
+                <h3 className='[ text-550 lg:text-600 ] [ measure-micro leading-flat lg:tracking-tight ]'>
                   {t(`sections.1.content.${index}.title`)}
                 </h3>
                 <p className='[ text-300 ]'>
