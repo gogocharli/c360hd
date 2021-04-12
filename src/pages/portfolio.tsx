@@ -175,10 +175,15 @@ export default function Portfolio() {
           background-color: hsl(var(--theme-color-hg));
           border: 0;
           border-radius: 8px;
+          color: hsl(var(--theme-color-fg));
           display: block;
           font-size: 1rem;
           padding: 1.5rem 0.75rem 1.5rem 3.25rem;
           width: 100%;
+        }
+
+        input::placeholder {
+          color: hsl(var(--color-dark-tint));
         }
 
         .search__wrapper {
@@ -243,7 +248,7 @@ export default function Portfolio() {
           }
 
           .search__wrapper, :global(.gallery) {
-            grid-column: 4 / span 9;
+            grid-column: 4 / span 10;
             margin-top: 0;
           }
 
