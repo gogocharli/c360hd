@@ -29,7 +29,7 @@ export function GalleryRow({
           {/* Remove the link to show all when all items
          in the list are already there */}
           {!isCompleteList && (
-            <Link href={`/portfolio?filter=${category}`}>
+            <Link href={`/portfolio?filter=${category}`} scroll={false}>
               <a className="[ text-300 ] [ no-deco weight-bold ]">{t('buttonText')}</a>
             </Link>
           )}

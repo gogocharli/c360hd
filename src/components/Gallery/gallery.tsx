@@ -40,28 +40,24 @@ export function Gallery({ search }: { search: string }) {
   }, [search]);
 
   const isIdle = state.filter == '';
-  const isFiltered = state.filter !== '';
-  const isNotFound = state.items.length === 0;
+  const hasResults = state.items.length !== 0;
 
   return (
     <>
       <div className='gallery flow'>
-        {isIdle && <InitialRows items={state.items} />}
-        {isFiltered && (
-          <GalleryRow category={state.filter} itemList={state.items} all />
-        )}
-        {isNotFound && (
+        {hasResults ? isIdle ? <InitialRows items={state.items} /> : <GalleryRow category={state.filter} itemList={state.items} all /> : (
           <div className='error'>
             <Image
               src='/images/magnifier-img.png'
               alt=''
               width={48}
               height={48}
+              className="blend"
             />
-            <p>{t('search.noResults')}</p>
+            <p className="align-center measure-short">{t('search.noResults')}</p>
           </div>
         )}
-        <Button href='/portfolio?filter=all'>
+        <Button href="/portfolio?filter=all">
           {t('buttonText')}
         </Button>
       </div>
@@ -77,6 +73,18 @@ export function Gallery({ search }: { search: string }) {
 
           align-self: center;
           margin-top: 4rem;
+        }
+
+        .error {
+          align-items: center;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 1.5rem 0;
+        }
+
+        .error p {
+          margin-top: 1.5rem;
         }
       `}</style>
     </>
