@@ -7,6 +7,7 @@ import { useTranslation } from 'next-i18next';
 import { GalleryRow, InitialRows } from './gallery-row';
 import { initalItems } from './gallery-items';
 import { categoryReducer, initCategory } from './reducer';
+import { Button } from '@components/button';
 
 export function Gallery({ search }: { search: string }) {
   const { t } = useTranslation('portfolio');
@@ -43,25 +44,41 @@ export function Gallery({ search }: { search: string }) {
   const isNotFound = state.items.length === 0;
 
   return (
-    <div className='gallery'>
-      {isIdle && <InitialRows items={state.items} />}
-      {isFiltered && (
-        <GalleryRow category={state.filter} itemList={state.items} all />
-      )}
-      {isNotFound && (
-        <div className='error'>
-          <Image
-            src='/images/magnifier-img.png'
-            alt=''
-            width={48}
-            height={48}
-          />
-          <p>{t('search.noResults')}</p>
-        </div>
-      )}
-      <Link href='/portfolio?filter=all'>
-        <a>{t('buttonText')}</a>
-      </Link>
-    </div>
+    <>
+      <div className='gallery flow'>
+        {isIdle && <InitialRows items={state.items} />}
+        {isFiltered && (
+          <GalleryRow category={state.filter} itemList={state.items} all />
+        )}
+        {isNotFound && (
+          <div className='error'>
+            <Image
+              src='/images/magnifier-img.png'
+              alt=''
+              width={48}
+              height={48}
+            />
+            <p>{t('search.noResults')}</p>
+          </div>
+        )}
+        <Button href='/portfolio?filter=all'>
+          {t('buttonText')}
+        </Button>
+      </div>
+      <style jsx>{`
+        .gallery {
+          --flow-space: 2.5rem;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .gallery > :global(.button) {
+          --default-color: var(--color-dark-main);
+
+          align-self: center;
+          margin-top: 4rem;
+        }
+      `}</style>
+    </>
   );
 }

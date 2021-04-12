@@ -22,30 +22,110 @@ export function GalleryRow({
     isSmallViewport && isCompleteList ? 'horizontal' : 'vertical';
 
   return (
-    <div className='gallery__row'>
-      <div className='row__header'>
-        <h3>{t(`categories.${category}`)}</h3>
-        {/* Remove the link to show all when all items
+    <>
+      <div className='gallery__row flow'>
+        <div className='row__header'>
+          <h3 className="[ text-400 md:text-500 ] [ weight-normal leading-flat ]">{t(`categories.${category}`)}</h3>
+          {/* Remove the link to show all when all items
          in the list are already there */}
-        {!isCompleteList && (
-          <Link href={`/portfolio?filter=${category}`}>
-            <a>{t('buttonText')}</a>
-          </Link>
-        )}
+          {!isCompleteList && (
+            <Link href={`/portfolio?filter=${category}`}>
+              <a className="[ text-300 ] [ no-deco weight-bold ]">{t('buttonText')}</a>
+            </Link>
+          )}
+        </div>
+        <div className='row__content'>
+          {itemList.map(({ category, name, src }) => (
+            <GalleryItem
+              category={t(`categories.${category}`)}
+              name={name}
+              src={src}
+              key={name}
+              orientation={orientation}
+            />
+          ))}
+        </div>
+        {isCarousel && (<div className='carousel__scroll'>
+          <button><span className="visually-hidden">Scroll to 1st</span></button>
+          <button><span className="visually-hidden">Scroll to 2nd</span></button>
+          <button><span className="visually-hidden">Scroll to last</span></button>
+        </div>)}
       </div>
-      <div className='row__content'>
-        {itemList.map(({ category, name, src }) => (
-          <GalleryItem
-            category={t(`categories.${category}`)}
-            name={name}
-            src={src}
-            key={name}
-            orientation={orientation}
-          />
-        ))}
-      </div>
-      {isCarousel && <div className='carousel__scroll'>Carousel</div>}
-    </div>
+      <style jsx>{`
+        .gallery__row > * {
+          --flow-space: 1rem;
+        }
+
+        .row__header {
+          align-items: center;
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .row__header a {
+          color: inherit;
+        }
+
+        .row__content {
+          display: flex;
+        }
+
+        .carousel__scroll {
+          display: flex;
+          justify-content: center;
+        }
+
+        .carousel__scroll > button {
+          background-color: hsl(var(--theme-color-hg));
+          border: 0;
+          border-radius: 50%;
+          height: 8px;
+          padding: 0;
+          width: 8px;
+        }
+
+        .carousel__scroll > * + * {
+          margin-left: 8px;
+        }
+
+        @media (min-width: 50em) {
+          .gallery__row > *{
+          --flow-space: 2rem;
+         }
+
+          .row__content {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: repeat(auto-fill, 12rem);
+            grid-gap: 1rem;
+          }
+        }
+
+        @media (min-width: 65em) {
+          .row__content {
+            --auto-grid-min-size: 310px;
+          }
+        }
+      `}</style>
+
+      <style jsx>{`
+        .row__content {
+          flex-direction: ${isCarousel ? 'row' : 'column'};
+          overflow: ${isCarousel ? 'auto' : 'unset'};
+          scroll-snap-type: ${isCarousel ? 'inline mandatory' : ''};
+        }
+
+        .row__content > :global(*) {
+          flex: ${isCarousel ? '0 0 66vw' : ''};
+          max-width: ${isCarousel ? '20rem' : 'unset'};
+          scroll-snap-align: center;
+        }
+
+        .row__content > :global(* + *) {
+          margin-left: ${isCarousel ? '1rem' : 0};
+        }
+      `}</style>
+    </>
   );
 }
 

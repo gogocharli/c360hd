@@ -247,7 +247,7 @@ export default function Portfolio() {
           }
 
           .search__wrapper, :global(.gallery) {
-            grid-column: 4 / span 10;
+            grid-column: 4 / span 9;
             margin-top: 0;
           }
 
