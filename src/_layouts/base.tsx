@@ -28,7 +28,9 @@ export default function Layout({
           crossOrigin='anonymous'
         />
       </Head>
-      <Header />
+      <div className='div'>
+        <Header />
+      </div>
       <main
         id='main-content'
         tabIndex={-1}
@@ -37,10 +39,14 @@ export default function Layout({
         {children}
       </main>
       <Footer />
-
       <style jsx>{`
         main {
           --flow-space: 4.5rem;
+          flex: 1 0 auto;
+        }
+
+        footer {
+          flex-shrink: 0;
         }
 
         @media (min-width: 50em) {

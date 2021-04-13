@@ -59,6 +59,12 @@ body {
   @include apply-utility('font', 'poppins');
 }
 
+body > div {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 a:not([class]) {
   color: hsl(var(--theme-color-fg));
   text-decoration-color: currentColor;
