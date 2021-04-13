@@ -16,7 +16,7 @@ export function Gallery({ search }: { search: string }) {
   const [state, dispatch] = useReducer(
     categoryReducer,
     { search: '', filter, items: initalItems },
-    initCategory
+    initCategory,
   );
 
   useEffect(() => {
@@ -44,20 +44,29 @@ export function Gallery({ search }: { search: string }) {
   return (
     <>
       <div className='gallery flow'>
-        {hasResults ? isIdle ? <InitialRows items={state.items} /> : <GalleryRow category={state.filter} itemList={state.items} all /> : (
+        {hasResults ? (
+          isIdle ? (
+            <InitialRows items={state.items} />
+          ) : (
+            <GalleryRow category={state.filter} itemList={state.items} all />
+          )
+        ) : (
           <div className='error'>
             <Image
               src='/images/magnifier-img.png'
               alt=''
               width={48}
               height={48}
-              className="blend"
+              className='blend'
             />
-            <p className="align-center measure-short">{t('search.noResults')}</p>
+            <p className='align-center measure-short'>
+              {t('search.noResults')}
+            </p>
           </div>
         )}
-        <Button href="/portfolio?filter=all">
-          {t('buttonText')}
+        {/* Return to the idle state when every client is listed */}
+        <Button href='/portfolio?filter=all'>
+          {state.filter == 'all' ? t('sort') : t('buttonText')}
         </Button>
       </div>
       <style jsx>{`

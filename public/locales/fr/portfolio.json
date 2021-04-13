@@ -21,5 +21,6 @@
     "placeholder": "Recherchez un client…",
     "noResults": "Désolé, aucun correspondance avec le terme recherché. Veuillez entrer un autre terme."
   },
-  "buttonText": "Tout Montrer"
+  "buttonText": "Tout Montrer",
+  "sort": "Trier par Catégorie"
 }

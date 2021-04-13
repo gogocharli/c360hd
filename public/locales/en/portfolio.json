@@ -21,5 +21,6 @@
     "placeholder": "Cherchez un client…",
     "noResults": "Sorry, we found no match for your search. Please look for something else."
   },
-  "buttonText": "Show All"
+  "buttonText": "Show All",
+  "sort": "Sort by Category"
 }
