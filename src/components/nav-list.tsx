@@ -68,9 +68,14 @@ export function NavList({ reduced = false }) {
                 </Link>
               </li>
               <li>
-                <Link href='/careers'>
-                  <a className='xs:text-200 text-300'>{t('links.careers')}</a>
-                </Link>
+                <a
+                  className='xs:text-200 text-300'
+                  href='https://solutions.omniumconcept.com'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  {t('links.careers')}
+                </a>
               </li>
             </ul>
           </div>
@@ -201,14 +206,14 @@ export function NavList({ reduced = false }) {
 }
 
 export function FootLinks({ noLogo = false }: { noLogo?: boolean }) {
-  const { pathname, locale } = useRouter();
+  const { asPath, locale } = useRouter();
   const { t } = useTranslation('common');
 
   return (
     <div className='[ footer-links ] [ flow ]'>
       <div className='buttons'>
         <Button
-          href={pathname}
+          href={asPath}
           locale={locale == 'en' ? 'fr' : 'en'}
           className='lang-switch'
           type='secondary'
