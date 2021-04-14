@@ -7,6 +7,7 @@ import { NavList, FootLinks } from '@components/nav-list';
 import Symbol from '@components/logos/symbol-c360.svg';
 import MenuIcon from '@components/glyph-bars.svg';
 import { useTranslation } from 'next-i18next';
+import { Button } from '@components/button';
 
 export function Header() {
   const isSmallViewPort = useMediaQuery('(max-width: 32em)');
@@ -27,9 +28,9 @@ export function Header() {
 
   return (
     <>
-      <Link href='#main-content'>
-        <a className='[ skip-link ] [ button ]'>{t('skip-link')}</a>
-      </Link>
+      <Button href='#main-content' className='[ skip-link ] [ button ]'>
+        {t('links.skip-link')}
+      </Button>
       <header role='banner' className='[ site-head ] [ wrapper ]'>
         <Link href='/'>
           <a className='site-head__brand' aria-label='Home – C360HD'>
@@ -96,14 +97,17 @@ export function Header() {
         )}
       </header>
       <style jsx>{`
-        .skip-link {
+        :global(.skip-link) {
+          --default-bg: var(--theme-color-hg);
+          --default-color: var(--theme-color-fg);
+
           position: absolute;
           top: 1.25rem;
           left: 1.25rem;
           z-index: 99; // Always keep on top
         }
 
-        .skip-link:not(:focus) {
+        :global(.skip-link:not(:focus)) {
           // Visually hide when not focused
           border: 0;
           clip: rect(0 0 0 0);

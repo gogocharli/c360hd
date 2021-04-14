@@ -39,11 +39,15 @@ export function Product({ name }: { name: 'classic' | 'special' }) {
             transform: translateY(0);
           }
 
-          33% {
+          25% {
             transform: translateY(-5%);
           }
 
-          66% {
+          50% {
+            transform: translateY(0);
+          }
+
+          75% {
             transform: translateY(5%);
           }
 
@@ -57,11 +61,15 @@ export function Product({ name }: { name: 'classic' | 'special' }) {
             transform: scaleX(-1) translateY(0);
           }
 
-          33% {
+          25% {
             transform: scaleX(-1) translateY(5%);
           }
 
-          66% {
+          50% {
+            transform: scaleX(-1) translateY(0);
+          }
+
+          75% {
             transform: scaleX(-1) translateY(-5%);
           }
 
@@ -170,16 +178,16 @@ export function Product({ name }: { name: 'classic' | 'special' }) {
         article::before,
         article::after {
           content: ${name == 'special'
-          ? 'url("/images/star-32w-img.png")'
-          : ''};
+            ? 'url("/images/star-32w-img.png")'
+            : ''};
         }
 
         @media (min-width: 65em) {
           article::before,
           article::after {
             content: ${name == 'special'
-          ? 'url("/images/star-48w-img.png")'
-          : ''};
+              ? 'url("/images/star-48w-img.png")'
+              : ''};
           }
         }
       `}</style>

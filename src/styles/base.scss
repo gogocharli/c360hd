@@ -70,6 +70,10 @@ a:not([class]) {
   text-decoration-color: currentColor;
 }
 
+:focus {
+  box-shadow: 0px 0px 8px 4px #0870ee88;
+}
+
 h1,
 h2,
 h3,
@@ -93,6 +97,7 @@ footer {
 
 main:focus {
   outline: none;
+  box-shadow: unset;
 }
 
 ::selection {

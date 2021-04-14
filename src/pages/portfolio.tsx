@@ -71,10 +71,14 @@ export default function Portfolio() {
         <section className='hero wrapper'>
           <div>
             <div className='hero__content'>
-              <p className="[ subtitle ] [ text-100 lg:text-300 ] [ upper tracking-loose ]">{t('hero.subtitle')}</p>
-              <h1 className="[ title ] [ text-600 lg:text-700 ] [ leading-flat tracking-tight lg:tracking-flat measure-micro ]">{t('hero.title')}</h1>
+              <p className='[ subtitle ] [ text-100 lg:text-300 ] [ upper tracking-loose ]'>
+                {t('hero.subtitle')}
+              </p>
+              <h1 className='[ title ] [ text-600 lg:text-700 ] [ leading-flat tracking-tight lg:tracking-flat measure-micro ]'>
+                {t('hero.title')}
+              </h1>
             </div>
-            <div className="hero__image blend">
+            <div className='hero__image blend'>
               <Image
                 src='/images/chair-img.png'
                 alt='Man rocking on a chair'
@@ -122,7 +126,7 @@ export default function Portfolio() {
 
         .hero__content p {
           color: hsl(var(--color-dark-highlight));
-          margin-left: .5ch;
+          margin-left: 0.5ch;
         }
 
         .hero__image {
@@ -180,6 +184,7 @@ export default function Portfolio() {
           font-size: 1rem;
           padding: 1.5rem 0.75rem 1.5rem 3.25rem;
           width: 100%;
+          -webkit-appearance: none;
         }
 
         input::placeholder {
@@ -203,7 +208,7 @@ export default function Portfolio() {
         @media (min-width: 50em) {
           .hero > div {
             background-color: hsl(var(--color-dark-main));
-            border-radius: .5rem;
+            border-radius: 0.5rem;
             color: hsl(var(--color-light-main));
             display: grid;
             grid-template-columns: var(--grid-lg);
@@ -226,7 +231,7 @@ export default function Portfolio() {
             grid-column: 8 / span 5;
             justify-self: center;
             width: 14.4rem;
-         }
+          }
         }
 
         @media (min-width: 65em) {
@@ -247,7 +252,8 @@ export default function Portfolio() {
             position: sticky;
           }
 
-          .search__wrapper, :global(.gallery) {
+          .search__wrapper,
+          :global(.gallery) {
             grid-column: 4 / span 10;
             margin-top: 0;
           }

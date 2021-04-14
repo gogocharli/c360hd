@@ -90,8 +90,13 @@ export default function Pricing() {
           }
 
           .links {
-            flex-direction: row;
+            flex-flow: row wrap;
             justify-content: center;
+          }
+
+          .links > * {
+            margin-bottom: 1rem;
+            flex-shrink: 0;
           }
 
           a:last-child {
