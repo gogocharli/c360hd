@@ -8,14 +8,14 @@ export function Browser() {
 
   return (
     <>
-      <div id='browser' className='browser'>
+      <div id='browser' className='browser' aria-hidden='true'>
         <div className='browser__wrapper'>
           <div className='browser__content'>
             {screen === 'results' ? (
               <>
                 <LoadingBars />
                 <Listing />
-                <video loop preload='metadata' width={917}>
+                <video loop preload='metadata' width={917} tabIndex={-1}>
                   <source
                     src='/browser/morency-coiffure.webm'
                     type='video/webm'

@@ -31,9 +31,9 @@ export function NavList({ reduced = false }) {
       ) : (
         <>
           <div className='[ category ] [ flow ss02 ]'>
-            <p className='weight-bold leading-flat xs:text-300 text-450'>
+            <h4 className='weight-bold leading-flat xs:text-300 text-450'>
               {t('categories.products')}
-            </p>
+            </h4>
             <ul className='[ nav__list ] [ flow ]'>
               <li>
                 <Link href='/contact'>
@@ -53,9 +53,9 @@ export function NavList({ reduced = false }) {
             </ul>
           </div>
           <div className='[ category ] [ flow ss02 ]'>
-            <p className='weight-bold leading-flat xs:text-300 text-450'>
+            <h4 className='weight-bold leading-flat xs:text-300 text-450'>
               {t('categories.company')}
-            </p>
+            </h4>
             <ul className='[ nav__list ] [ flow ]'>
               <li>
                 <Link href='/about'>
@@ -80,9 +80,9 @@ export function NavList({ reduced = false }) {
             </ul>
           </div>
           <div className='[ category ] [ flow ss02 ]'>
-            <p className='weight-bold leading-flat xs:text-300 text-450'>
+            <h4 className='weight-bold leading-flat xs:text-300 text-450'>
               {t('categories.legal')}
-            </p>
+            </h4>
             <ul className='[ nav__list ] [ flow ]'>
               <li>
                 <Link href='/legal'>
@@ -118,7 +118,7 @@ export function NavList({ reduced = false }) {
           line-height: 1;
         }
 
-        p {
+        h4 {
           opacity: 60%;
         }
 
@@ -231,7 +231,10 @@ export function FootLinks({ noLogo = false }: { noLogo?: boolean }) {
       </div>
       {!noLogo && (
         <Link href='/' passHref>
-          <a className='site-foot__brand'>
+          <a
+            className='site-foot__brand'
+            aria-label={`${t('links.home')} - C360HD`}
+          >
             <Logo height={72} />
           </a>
         </Link>
