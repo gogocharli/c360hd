@@ -4,7 +4,11 @@ import { ErrorMessage } from '@hookform/error-message';
 import { Button } from '@components/button';
 
 export function ContactForm() {
-  const { register, handleSubmit, errors } = useForm<FormInputs>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormInputs>({ mode: 'onSubmit', reValidateMode: 'onChange' });
   const { t } = useTranslation('contact');
 
   function onSubmit(data: FormInputs) {
@@ -33,7 +37,7 @@ export function ContactForm() {
               type='text'
               name='company'
               id='company'
-              ref={register({
+              {...register('company', {
                 required: `${t('form.company.error.required')}`,
               })}
             />
@@ -47,7 +51,7 @@ export function ContactForm() {
               type='text'
               name='fullName'
               id='fullName'
-              ref={register({
+              {...register('fullName', {
                 required: `${t('form.fullName.error.required')}`,
               })}
             />
@@ -64,7 +68,9 @@ export function ContactForm() {
               autoComplete='tel'
               name='phone'
               id='phone'
-              ref={register({ required: `${t('form.phone.error.required')}` })}
+              {...register('phone', {
+                required: `${t('form.phone.error.required')}`,
+              })}
             />
             <ErrorMessage errors={errors} name='phone' as={<ErrorText />} />
           </div>
@@ -77,7 +83,9 @@ export function ContactForm() {
               autoComplete='email'
               name='email'
               id='email'
-              ref={register({ required: `${t('form.email.error.required')}` })}
+              {...register('email', {
+                required: `${t('form.email.error.required')}`,
+              })}
             />
             <ErrorMessage errors={errors} name='email' as={<ErrorText />} />
           </div>
@@ -89,7 +97,7 @@ export function ContactForm() {
               name='subject'
               id='subject'
               defaultValue='info'
-              ref={register}
+              {...register}
             >
               <option value='payment'>{t('form.subject.options.0')}</option>
               <option value='tours'>{t('form.subject.options.1')}</option>
@@ -105,7 +113,7 @@ export function ContactForm() {
               id='message'
               cols={30}
               rows={10}
-              ref={register({
+              {...register('message', {
                 required: `${t('form.message.error.required')}`,
                 minLength: {
                   value: 20,
@@ -200,7 +208,9 @@ export function ContactForm() {
 function ErrorText({ children }: { children?: React.ReactNode }) {
   return (
     <>
-      <span className='field__error text-100'>&#9888;{children}&#9888;</span>
+      <span className='[ field__error ] [ text-100 ]'>
+        &#9888; {children} &#9888;
+      </span>
       <style jsx>{`
         span {
           display: block;

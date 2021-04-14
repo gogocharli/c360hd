@@ -1,5 +1,5 @@
 dependencies:
-  '@hookform/error-message': 0.0.5_8275b571c0cbbfd61669262328baf3de
+  '@hookform/error-message': 0.0.5_44af796fcc7ed284e5883aa4e23008f4
   '@reach/accordion': 0.13.2_react-dom@17.0.1+react@17.0.1
   airtable: 0.10.1
   change-case: 4.1.2
@@ -16,7 +16,7 @@ dependencies:
   postmark: 2.7.3
   react: 17.0.1
   react-dom: 17.0.1_react@17.0.1
-  react-hook-form: 6.15.5_react@17.0.1
+  react-hook-form: 7.1.0_react@17.0.1
   remark: 13.0.0
   remark-html: 13.0.1
   twilio: 3.57.0
@@ -1086,11 +1086,11 @@ packages:
     dev: false
     resolution:
       integrity: sha512-CAEbWH7OIur6jEOzaai83jq3FmKmv4PmX1JYfs9IrYcGEVI/lyL1EXJGCj7eFVJ0bg5QR8LMxBlEtA+xKiLpFw==
-  /@hookform/error-message/0.0.5_8275b571c0cbbfd61669262328baf3de:
+  /@hookform/error-message/0.0.5_44af796fcc7ed284e5883aa4e23008f4:
     dependencies:
       react: 17.0.1
       react-dom: 17.0.1_react@17.0.1
-      react-hook-form: 6.15.5_react@17.0.1
+      react-hook-form: 7.1.0_react@17.0.1
     dev: false
     peerDependencies:
       react: '>=16.8.0'
@@ -5924,14 +5924,14 @@ packages:
       react: 17.0.1
     resolution:
       integrity: sha512-6eV150oJZ9U2t9svnsspTMrWNyHc6chX0KzDeAOXftRa8bNeOKTTfCJ7KorIwenkHd2xqVTBTCZd79yk/lx/Ug==
-  /react-hook-form/6.15.5_react@17.0.1:
+  /react-hook-form/7.1.0_react@17.0.1:
     dependencies:
       react: 17.0.1
     dev: false
     peerDependencies:
       react: ^16.8.0 || ^17
     resolution:
-      integrity: sha512-so2jEPYKdVk1olMo+HQ9D9n1hVzaPPFO4wsjgSeZ964R7q7CHsYRbVF0PGBi83FcycA5482WHflasdwLIUVENg==
+      integrity: sha512-mfkW5P9oUp/ebEuyV15UAULK93xS8IMpyc5SYLEp4ShQIOgJq2mTB/N0o8tX1YjBkLFjzi0nIin+kR1t928B2A==
   /react-i18next/11.8.9_i18next@19.9.2+react@17.0.1:
     dependencies:
       '@babel/runtime': 7.13.10
@@ -7605,7 +7605,7 @@ specifiers:
   postmark: ^2.7.3
   react: ^17.0.1
   react-dom: ^17.0.1
-  react-hook-form: ^6.15.5
+  react-hook-form: ^7.1.0
   remark: ^13.0.0
   remark-html: ^13.0.1
   sass: ^1.32.8

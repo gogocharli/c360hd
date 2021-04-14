@@ -38,7 +38,7 @@
     "postmark": "^2.7.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-hook-form": "^6.15.5",
+    "react-hook-form": "^7.1.0",
     "remark": "^13.0.0",
     "remark-html": "^13.0.1",
     "twilio": "^3.57.0"
