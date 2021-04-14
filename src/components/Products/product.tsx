@@ -29,7 +29,7 @@ export function Product({ name }: { name: 'classic' | 'special' }) {
             </p>
           )}
         </div>
-        <Button href='/pricing' type='secondary'>
+        <Button href='/checkout' type='secondary'>
           {t('btnText')}
         </Button>
       </article>
