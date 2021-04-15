@@ -15,6 +15,32 @@ import {
 import { ErrorMessage } from '@hookform/error-message';
 import { Button } from '@components/button';
 
+// Programmatically add those
+
+const CANADIAN_PROVINCES = ['AB', 'BC', 'MB', 'NS', 'ON', 'QC', 'YT'] as const;
+type CanadianProvince = typeof CANADIAN_PROVINCES[number];
+interface businessInfo {
+  businessName: string;
+  decisionMaker: string;
+  streetNumber: string;
+  streetName: string;
+  province: CanadianProvince;
+  postalCode: string;
+  primaryPhone: string;
+  mobilePhone: string;
+  email: string;
+}
+
+interface productInfo {
+  productName: 'classic' | 'special';
+  date: string;
+  time: string;
+  salesRep: string;
+  addInfo: string;
+}
+
+type FormInputs = businessInfo & productInfo;
+
 export default function Checkout() {
   const [formStep, setFormStep] = useState(0);
 
@@ -22,7 +48,27 @@ export default function Checkout() {
     console.log(data);
   }
 
-  const methods = useForm<FormInputs>();
+  const methods = useForm<FormInputs>({
+    defaultValues: {
+      businessName: '',
+      decisionMaker: '',
+      streetNumber: '',
+      streetName: '',
+      province: 'QC',
+      postalCode: '',
+      primaryPhone: '',
+      mobilePhone: '',
+      email: '',
+      date: '',
+      time: '',
+      salesRep: '',
+      addInfo: '',
+    },
+    mode: 'onBlur',
+  });
+
+  // Use the form state to validate the page's inputs
+
   const { control } = methods;
   return (
     <BaseLayout pageMeta={{ title: 'Checkout' }}>
@@ -36,13 +82,27 @@ export default function Checkout() {
             {formStep == 3 && <h1>Checkout</h1>}
           </form>
         </FormProvider>
-        <Button onClick={() => setFormStep((s) => Math.min(s + 1, 3))}>
-          Next Step
-        </Button>
-        <Button onClick={() => setFormStep((s) => Math.max(s - 1, 0))}>
-          Previous Step
-        </Button>
+        <div className='buttons'>
+          <Button onClick={() => setFormStep((s) => Math.max(s - 1, 0))}>
+            Previous Step
+          </Button>
+          <Button onClick={() => setFormStep((s) => Math.min(s + 1, 3))}>
+            Next Step
+          </Button>
+        </div>
       </div>
+      <style jsx>{`
+        form {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .buttons {
+          display: flex;
+          justify-content: space-between;
+        }
+      `}</style>
     </BaseLayout>
   );
 }
@@ -69,7 +129,7 @@ function Timeline({ step }: { step: number }) {
         }
 
         [data-complete='true'] {
-          background-color: deeppink;
+          background-color: hsl(var(--theme-color-hg));
         }
       `}</style>
     </>
@@ -97,6 +157,61 @@ function ClientInfo() {
           {...register('decisionMaker', { required: true })}
         />
       </FormField>
+      <FormField name='streetNumber' label='Street Number'>
+        <input
+          type='text'
+          id='streetNumber'
+          {...register('streetNumber', { required: true })}
+        />
+      </FormField>
+      <FormField name='streetName' label='Street Name'>
+        <input
+          type='text'
+          id='streetName'
+          {...register('streetName', { required: true })}
+        />
+      </FormField>
+      <FormField name='province' label='Province'>
+        <select
+          id='province'
+          defaultValue='QC'
+          {...register('province', { required: true })}
+        >
+          {CANADIAN_PROVINCES.map((province) => (
+            <option value={province} key={province}>
+              {province}
+            </option>
+          ))}
+        </select>
+      </FormField>
+      <FormField name='postalCode' label='Postal Code'>
+        <input
+          type='text'
+          id='postalCode'
+          {...register('postalCode', { required: true })}
+        />
+      </FormField>
+      <FormField name='primaryPhone' label='Primary Phone'>
+        <input
+          type='text'
+          id='primaryPhone'
+          {...register('primaryPhone', { required: true })}
+        />
+      </FormField>
+      <FormField name='mobilePhone' label='Mobile Phone'>
+        <input
+          type='text'
+          id='mobilePhone'
+          {...register('mobilePhone', { required: true })}
+        />
+      </FormField>
+      <FormField name='email' label='E-mail'>
+        <input
+          type='text'
+          id='email'
+          {...register('email', { required: true })}
+        />
+      </FormField>
     </>
   );
 }
@@ -121,11 +236,26 @@ function OrderInfo() {
           <option value='special'>Special</option>
         </select>
       </FormField>
+      <FormField name='date' label='Date'>
+        <input
+          type='text'
+          id='date'
+          {...register('date', { required: true })}
+        />
+      </FormField>
       <FormField name='salesRep' label='Agent Name'>
         <input
           type='text'
           id='salesRep'
           {...register('salesRep', { required: true })}
+        />
+      </FormField>
+      <FormField name='addInfo' label='Additional Info'>
+        <textarea
+          id='addInfo'
+          cols={20}
+          rows={5}
+          {...register('addInfo', { required: true })}
         />
       </FormField>
     </>
@@ -155,38 +285,21 @@ function FormField({
   children: React.ReactNode;
 }) {
   return (
-    <div className='field'>
-      <label htmlFor={name} className={`field-label ${className}`}>
-        {label}
-      </label>
-      {children}
-    </div>
+    <>
+      <div className='field'>
+        <label htmlFor={name} className={`field-label ${className}`}>
+          {label}
+        </label>
+        {children}
+      </div>
+      <style jsx>{`
+        label {
+          display: block;
+        }
+      `}</style>
+    </>
   );
 }
-
-// Programmatically add those
-type CanadianProvince = 'QC' | 'ON' | 'AB' | 'BC' | 'MB' | 'NS' | 'YT';
-interface businessInfo {
-  businessName: string;
-  decisionMaker: string;
-  streetNumber: string;
-  streetName: string;
-  province: CanadianProvince;
-  postalCode: string;
-  primaryPhone: string;
-  mobilePhone: string;
-  email: string;
-}
-
-interface productInfo {
-  productName: 'classic' | 'special';
-  date: string;
-  time: string;
-  salesRep: string;
-  addInfo: string;
-}
-
-type FormInputs = businessInfo & productInfo;
 
 export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   return {

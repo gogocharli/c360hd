@@ -97,7 +97,7 @@ export function ContactForm() {
               name='subject'
               id='subject'
               defaultValue='info'
-              {...register}
+              {...register('subject')}
             >
               <option value='payment'>{t('form.subject.options.0')}</option>
               <option value='tours'>{t('form.subject.options.1')}</option>
