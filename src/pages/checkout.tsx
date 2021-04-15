@@ -83,12 +83,19 @@ export default function Checkout() {
           </form>
         </FormProvider>
         <div className='buttons'>
-          <Button onClick={() => setFormStep((s) => Math.max(s - 1, 0))}>
-            Previous Step
-          </Button>
-          <Button onClick={() => setFormStep((s) => Math.min(s + 1, 3))}>
-            Next Step
-          </Button>
+          {formStep > 0 && (
+            <Button
+              className='previous'
+              onClick={() => setFormStep((s) => s - 1)}
+            >
+              Previous Step
+            </Button>
+          )}
+          {formStep < 3 && (
+            <Button className='next' onClick={() => setFormStep((s) => s + 1)}>
+              Next Step
+            </Button>
+          )}
         </div>
       </div>
       <style jsx>{`
@@ -101,6 +108,14 @@ export default function Checkout() {
         .buttons {
           display: flex;
           justify-content: space-between;
+        }
+
+        .buttons > :global(.previous) {
+          margin-right: auto;
+        }
+
+        .buttons > :global(.next) {
+          margin-left: auto;
         }
       `}</style>
     </BaseLayout>
@@ -143,75 +158,59 @@ function ClientInfo() {
   const { register } = useFormContext<businessInfo>();
   return (
     <>
-      <FormField name='businessName' label='Company Name'>
-        <input
-          type='text'
-          id='businessName'
-          {...register('businessName', { required: true })}
-        />
+      <FormField
+        name='businessName'
+        label='Company Name'
+        {...register('businessName', { required: true })}
+      />
+      <FormField
+        name='decisionMaker'
+        label='Decision Maker'
+        {...register('decisionMaker', { required: true })}
+      />
+      <FormField
+        name='streetNumber'
+        label='Street Number'
+        {...register('streetNumber', { required: true })}
+      />
+      <FormField
+        name='streetName'
+        label='Street Name'
+        {...register('streetName', { required: true })}
+      />
+      <FormField
+        type='select'
+        name='province'
+        label='Province'
+        defaultValue='QC'
+        {...register('province', { required: true })}
+      >
+        {CANADIAN_PROVINCES.map((province) => (
+          <option value={province} key={province}>
+            {province}
+          </option>
+        ))}
       </FormField>
-      <FormField name='decisionMaker' label='Decision Maker'>
-        <input
-          type='text'
-          id='decisionMaker'
-          {...register('decisionMaker', { required: true })}
-        />
-      </FormField>
-      <FormField name='streetNumber' label='Street Number'>
-        <input
-          type='text'
-          id='streetNumber'
-          {...register('streetNumber', { required: true })}
-        />
-      </FormField>
-      <FormField name='streetName' label='Street Name'>
-        <input
-          type='text'
-          id='streetName'
-          {...register('streetName', { required: true })}
-        />
-      </FormField>
-      <FormField name='province' label='Province'>
-        <select
-          id='province'
-          defaultValue='QC'
-          {...register('province', { required: true })}
-        >
-          {CANADIAN_PROVINCES.map((province) => (
-            <option value={province} key={province}>
-              {province}
-            </option>
-          ))}
-        </select>
-      </FormField>
-      <FormField name='postalCode' label='Postal Code'>
-        <input
-          type='text'
-          id='postalCode'
-          {...register('postalCode', { required: true })}
-        />
-      </FormField>
-      <FormField name='primaryPhone' label='Primary Phone'>
-        <input
-          type='text'
-          id='primaryPhone'
-          {...register('primaryPhone', { required: true })}
-        />
-      </FormField>
-      <FormField name='mobilePhone' label='Mobile Phone'>
-        <input
-          type='text'
-          id='mobilePhone'
-          {...register('mobilePhone', { required: true })}
-        />
-      </FormField>
-      <FormField name='email' label='E-mail'>
-        <input
-          type='text'
-          id='email'
-          {...register('email', { required: true })}
-        />
-      </FormField>
+      <FormField
+        name='postalCode'
+        label='Postal Code'
+        {...register('postalCode', { required: true })}
+      />
+      <FormField
+        name='primaryPhone'
+        label='Primary Phone'
+        {...register('primaryPhone', { required: true })}
+      />
+      <FormField
+        name='mobilePhone'
+        label='Mobile Phone'
+        {...register('mobilePhone', { required: true })}
+      />
+      <FormField
+        name='email'
+        label='E-mail'
+        {...register('email', { required: true })}
+      />
     </>
   );
 }
@@ -226,38 +225,33 @@ function OrderInfo() {
   const { register } = useFormContext<productInfo>();
   return (
     <>
-      <FormField name='productName' label='Product Name'>
-        <select
-          id='productName'
-          {...register('productName', { required: true })}
-          defaultValue={product}
-        >
-          <option value='classic'>Classic</option>
-          <option value='special'>Special</option>
-        </select>
+      <FormField
+        type='select'
+        name='productName'
+        label='Product Name'
+        defaultValue={product as string}
+        {...register('productName', { required: true })}
+      >
+        <option value='classic'>Classic</option>
+        <option value='special'>Special</option>
       </FormField>
-      <FormField name='date' label='Date'>
-        <input
-          type='text'
-          id='date'
-          {...register('date', { required: true })}
-        />
-      </FormField>
-      <FormField name='salesRep' label='Agent Name'>
-        <input
-          type='text'
-          id='salesRep'
-          {...register('salesRep', { required: true })}
-        />
-      </FormField>
-      <FormField name='addInfo' label='Additional Info'>
-        <textarea
-          id='addInfo'
-          cols={20}
-          rows={5}
-          {...register('addInfo', { required: true })}
-        />
-      </FormField>
+      <FormField
+        type='date'
+        name='date'
+        label='Date'
+        {...register('date', { required: true })}
+      />
+      <FormField
+        name='salesRep'
+        label='Agent Name'
+        {...register('salesRep', { required: true })}
+      />
+      <FormField
+        type='textarea'
+        name='addInfo'
+        label='Additional Info'
+        {...register('addInfo', { required: true })}
+      />
     </>
   );
 }
@@ -274,23 +268,48 @@ function ReviewInfo({ control }: { control: Control<FormInputs> }) {
 }
 
 function FormField({
+  type = 'text',
   name,
   label,
+  defaultValue,
   className = '',
   children,
+  ...otherProps
 }: {
+  type?: InputType;
   name: string;
   label: string;
+  defaultValue?: string | number;
   className?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }) {
+  const { register } = useFormContext<FormInputs>();
   return (
     <>
       <div className='field'>
         <label htmlFor={name} className={`field-label ${className}`}>
           {label}
         </label>
-        {children}
+        {type == 'select' ? (
+          <select id={name} defaultValue={defaultValue} {...otherProps}>
+            {children}
+          </select>
+        ) : type == 'textarea' ? (
+          <textarea
+            id={name}
+            defaultValue={defaultValue}
+            cols={20}
+            rows={5}
+            {...otherProps}
+          />
+        ) : (
+          <input
+            type={type}
+            id={name}
+            defaultValue={defaultValue}
+            {...otherProps}
+          />
+        )}
       </div>
       <style jsx>{`
         label {
@@ -300,6 +319,8 @@ function FormField({
     </>
   );
 }
+
+type InputType = 'text' | 'date' | 'checkbox' | 'select' | 'textarea';
 
 export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   return {
