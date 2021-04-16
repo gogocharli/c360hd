@@ -11,6 +11,7 @@ import {
   useFormContext,
   useWatch,
   Control,
+  RegisterOptions,
 } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { Button } from '@components/button';
@@ -155,35 +156,17 @@ function Timeline({ step }: { step: number }) {
  * Client information such as name, address, and contact
  */
 function ClientInfo() {
-  const { register } = useFormContext<businessInfo>();
   return (
     <>
-      <FormField
-        name='businessName'
-        label='Company Name'
-        {...register('businessName', { required: true })}
-      />
-      <FormField
-        name='decisionMaker'
-        label='Decision Maker'
-        {...register('decisionMaker', { required: true })}
-      />
-      <FormField
-        name='streetNumber'
-        label='Street Number'
-        {...register('streetNumber', { required: true })}
-      />
-      <FormField
-        name='streetName'
-        label='Street Name'
-        {...register('streetName', { required: true })}
-      />
+      <FormField name='businessName' label='Company Name' />
+      <FormField name='decisionMaker' label='Decision Maker' />
+      <FormField name='streetNumber' label='Street Number' />
+      <FormField name='streetName' label='Street Name' />
       <FormField
         type='select'
         name='province'
         label='Province'
         defaultValue='QC'
-        {...register('province', { required: true })}
       >
         {CANADIAN_PROVINCES.map((province) => (
           <option value={province} key={province}>
@@ -191,26 +174,10 @@ function ClientInfo() {
           </option>
         ))}
       </FormField>
-      <FormField
-        name='postalCode'
-        label='Postal Code'
-        {...register('postalCode', { required: true })}
-      />
-      <FormField
-        name='primaryPhone'
-        label='Primary Phone'
-        {...register('primaryPhone', { required: true })}
-      />
-      <FormField
-        name='mobilePhone'
-        label='Mobile Phone'
-        {...register('mobilePhone', { required: true })}
-      />
-      <FormField
-        name='email'
-        label='E-mail'
-        {...register('email', { required: true })}
-      />
+      <FormField name='postalCode' label='Postal Code' />
+      <FormField name='primaryPhone' label='Primary Phone' />
+      <FormField name='mobilePhone' label='Mobile Phone' />
+      <FormField name='email' label='E-mail' />
     </>
   );
 }
@@ -222,7 +189,6 @@ function OrderInfo() {
   const {
     query: { product },
   } = useRouter();
-  const { register } = useFormContext<productInfo>();
   return (
     <>
       <FormField
@@ -230,28 +196,13 @@ function OrderInfo() {
         name='productName'
         label='Product Name'
         defaultValue={product as string}
-        {...register('productName', { required: true })}
       >
         <option value='classic'>Classic</option>
         <option value='special'>Special</option>
       </FormField>
-      <FormField
-        type='date'
-        name='date'
-        label='Date'
-        {...register('date', { required: true })}
-      />
-      <FormField
-        name='salesRep'
-        label='Agent Name'
-        {...register('salesRep', { required: true })}
-      />
-      <FormField
-        type='textarea'
-        name='addInfo'
-        label='Additional Info'
-        {...register('addInfo', { required: true })}
-      />
+      <FormField type='date' name='date' label='Date' />
+      <FormField name='salesRep' label='Agent Name' />
+      <FormField type='textarea' name='addInfo' label='Additional Info' />
     </>
   );
 }
@@ -272,13 +223,15 @@ function FormField({
   name,
   label,
   defaultValue,
+  validation = { required: true },
   className = '',
   children,
   ...otherProps
 }: {
   type?: InputType;
-  name: string;
+  name: keyof FormInputs;
   label: string;
+  validation?: RegisterOptions;
   defaultValue?: string | number;
   className?: string;
   children?: React.ReactNode;
@@ -291,7 +244,12 @@ function FormField({
           {label}
         </label>
         {type == 'select' ? (
-          <select id={name} defaultValue={defaultValue} {...otherProps}>
+          <select
+            id={name}
+            defaultValue={defaultValue}
+            {...register(name, validation)}
+            {...otherProps}
+          >
             {children}
           </select>
         ) : type == 'textarea' ? (
@@ -300,6 +258,7 @@ function FormField({
             defaultValue={defaultValue}
             cols={20}
             rows={5}
+            {...register(name, validation)}
             {...otherProps}
           />
         ) : (
@@ -307,6 +266,7 @@ function FormField({
             type={type}
             id={name}
             defaultValue={defaultValue}
+            {...register(name, validation)}
             {...otherProps}
           />
         )}
