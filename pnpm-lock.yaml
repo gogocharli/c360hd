@@ -5,6 +5,7 @@ dependencies:
   change-case: 4.1.2
   crypto-random-string: 3.3.1
   dotenv: 8.2.0
+  downshift: 6.1.2_react@17.0.1
   framer-motion: 4.1.3_react-dom@17.0.1+react@17.0.1
   full-icu: 1.3.1
   googleapis: 67.1.1
@@ -2523,6 +2524,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-Rd3se6QB+sO1TwqZjscQrurpEPIfO0/yYnSin6Q/rD3mOutHvUrCAhJub3r90uNb+SESBuE0QYoB90YdfatsRg==
+  /compute-scroll-into-view/1.0.17:
+    dev: false
+    resolution:
+      integrity: sha512-j4dx+Fb0URmzbwwMUrhqWM2BEWHdFGx+qZ9qqASHRPqvTYdqvWnHg0H1hIbcyLnvgnoNAVMlwkepyqM3DaIFUg==
   /concat-map/0.0.1:
     dev: true
     resolution:
@@ -2966,6 +2971,18 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
+  /downshift/6.1.2_react@17.0.1:
+    dependencies:
+      '@babel/runtime': 7.13.10
+      compute-scroll-into-view: 1.0.17
+      prop-types: 15.7.2
+      react: 17.0.1
+      react-is: 17.0.2
+    dev: false
+    peerDependencies:
+      react: '>=16.12.0'
+    resolution:
+      integrity: sha512-WnPoQ6miic4+uEzPEfqgeen0t5YREOUabMopU/Juo/UYDMZl0ZACkO6ykWCRg48dlEUmEt6zfaJlj1x7kEy78g==
   /ecc-jsbn/0.1.2:
     dependencies:
       jsbn: 0.1.1
@@ -5958,6 +5975,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-NAnt2iGDXohE5LI7uBnLnqvLQMtzhkiAOLXTmv+qnF9Ky7xAPcX8Up/xWIhxvLVGJvuLiNc4xQLtuqDRzb4fSA==
+  /react-is/17.0.2:
+    dev: false
+    resolution:
+      integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
   /react-refresh/0.8.3:
     dev: false
     engines:
@@ -7607,6 +7628,7 @@ specifiers:
   change-case: ^4.1.2
   crypto-random-string: ^3.3.1
   dotenv: ^8.2.0
+  downshift: ^6.1.2
   framer-motion: ^4.1.3
   full-icu: ^1.3.1
   googleapis: ^67.1.1

@@ -14,7 +14,6 @@ export default function Portfolio() {
   const router = useRouter();
   const { query } = router;
   const filterRef = useRef(query.filter ?? '');
-  const searchInputRef = useRef();
   const [searchQuery, setSearchQuery] = useState('');
 
   const { t } = useTranslation('portfolio');
@@ -34,6 +33,7 @@ export default function Portfolio() {
   }, [query]);
 
   // Debounce input before changing query
+  const searchInputRef = useRef();
   let scheduled = null;
   function handleSearchChange() {
     if (!scheduled) {

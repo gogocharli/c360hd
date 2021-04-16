@@ -1,19 +1,25 @@
 import React, { useEffect, useState, useRef } from 'react';
 import type { GetStaticProps } from 'next';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-
-import BaseLayout from '@layouts/base';
 import {
   useForm,
   FormProvider,
   useFormContext,
   useWatch,
   Control,
+  Controller,
   RegisterOptions,
 } from 'react-hook-form';
-import { ErrorMessage } from '@hookform/error-message';
+import usePlacesAutoComplete, {
+  getGeocode,
+  getZipCode,
+} from 'use-places-autocomplete';
+import { useCombobox } from 'downshift';
+
+import BaseLayout from '@layouts/base';
 import { Button } from '@components/button';
 
 // Programmatically add those
@@ -73,14 +79,22 @@ export default function Checkout() {
   const { control } = methods;
   return (
     <BaseLayout pageMeta={{ title: 'Checkout' }}>
+      <Head>
+        <script
+          async
+          src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&libraries=places`}
+          key='maps-api'
+        ></script>
+      </Head>
       <div className='wrapper'>
         <Timeline step={formStep} />
         <FormProvider {...methods}>
           <form action='post'>
             {formStep == 0 && <ClientInfo />}
-            {formStep == 1 && <OrderInfo />}
-            {formStep == 2 && <ReviewInfo control={control} />}
-            {formStep == 3 && <h1>Checkout</h1>}
+            {formStep == 1 && <ContactInfo />}
+            {formStep == 2 && <OrderInfo />}
+            {formStep == 3 && <ReviewInfo control={control} />}
+            {formStep == 4 && <h1>Checkout</h1>}
           </form>
         </FormProvider>
         <div className='buttons'>
@@ -92,7 +106,7 @@ export default function Checkout() {
               Previous Step
             </Button>
           )}
-          {formStep < 3 && (
+          {formStep < 4 && (
             <Button className='next' onClick={() => setFormStep((s) => s + 1)}>
               Next Step
             </Button>
@@ -160,7 +174,8 @@ function ClientInfo() {
     <>
       <FormField name='businessName' label='Company Name' />
       <FormField name='decisionMaker' label='Decision Maker' />
-      <FormField name='streetNumber' label='Street Number' />
+      <AddressAutoComplete />
+      {/* <FormField name='streetNumber' label='Street Number' />
       <FormField name='streetName' label='Street Name' />
       <FormField
         type='select'
@@ -173,7 +188,14 @@ function ClientInfo() {
             {province}
           </option>
         ))}
-      </FormField>
+      </FormField> */}
+    </>
+  );
+}
+
+function ContactInfo() {
+  return (
+    <>
       <FormField name='postalCode' label='Postal Code' />
       <FormField name='primaryPhone' label='Primary Phone' />
       <FormField name='mobilePhone' label='Mobile Phone' />
@@ -204,6 +226,99 @@ function OrderInfo() {
       <FormField name='salesRep' label='Agent Name' />
       <FormField type='textarea' name='addInfo' label='Additional Info' />
     </>
+  );
+}
+
+function AddressAutoComplete() {
+  const {
+    value,
+    setValue,
+    clearSuggestions,
+    suggestions: { status, data },
+  } = usePlacesAutoComplete({
+    requestOptions: {
+      componentRestrictions: {
+        country: 'ca',
+      },
+    },
+  });
+
+  const {
+    isOpen,
+    getComboboxProps,
+    getInputProps,
+    getItemProps,
+    getLabelProps,
+    getMenuProps,
+  } = useCombobox({
+    items: data,
+    inputId: 'address',
+    labelId: 'address-label',
+    onInputValueChange: ({ inputValue }) => debounceInput(inputValue),
+    onSelectedItemChange: ({ selectedItem }) => handleSelect(selectedItem),
+  });
+
+  let scheduled: null | string = null;
+  function debounceInput(inputValue: string) {
+    if (!scheduled) {
+      window.setTimeout(() => {
+        setValue(scheduled);
+        scheduled = null;
+      }, 300);
+    }
+    scheduled = inputValue;
+  }
+
+  function handleSelect({ description }) {
+    setValue(description, false);
+    clearSuggestions();
+
+    // Get latitude and longitude via utility functions
+    getGeocode({ address: description })
+      .then((results) => getZipCode(results[0], false))
+      .then((zipCode) => {
+        console.log('📍 Address: ', { description, zipCode });
+      })
+      .catch((error) => {
+        console.log('😱 Error: ', error);
+      });
+  }
+
+  function renderSuggestions() {
+    return data.map((suggestion) => {
+      const {
+        place_id,
+        structured_formatting: { main_text, secondary_text },
+      } = suggestion;
+
+      return (
+        <li key={place_id} {...getItemProps({ item: suggestion })}>
+          <strong>{main_text}</strong> <small>{secondary_text}</small>
+        </li>
+      );
+    });
+  }
+
+  // return (
+  //   <div className='field autocomplete'>
+  //     <label htmlFor='address'>Address</label>
+  //     <input
+  //       id='address'
+  //       value={value}
+  //       onChange={(e) => setValue(e.target.value)}
+  //     />
+  //     {status === 'OK' && <ul>{renderSuggestions()}</ul>}
+  //   </div>
+  // );
+
+  return (
+    <div className='field'>
+      <label {...getLabelProps()}>Address</label>
+      <div {...getComboboxProps()}>
+        <input {...getInputProps()} />
+      </div>
+      <ul {...getMenuProps()}>{isOpen && renderSuggestions()}</ul>
+    </div>
   );
 }
 
