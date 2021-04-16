@@ -20,8 +20,10 @@ dependencies:
   remark: 13.0.0
   remark-html: 13.0.1
   twilio: 3.57.0
+  use-places-autocomplete: 1.9.1_react@17.0.1
 devDependencies:
   '@types/airtable': 0.8.1
+  '@types/googlemaps': 3.43.3
   '@types/jest': 26.0.20
   '@types/luxon': 1.26.2
   '@types/node': 14.14.33
@@ -1573,6 +1575,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-kSjgDMZONiIfSH1Nxcr5JIRMwUetDki63FSQfpTCz8ogF3Ulqm8+mr5f78dUYs6vMiB6gBusQqfQmBvHZj/lwg==
+  /@types/googlemaps/3.43.3:
+    dev: true
+    resolution:
+      integrity: sha512-ZWNoz/O8MPEpiajvj7QiqCY8tTLFNqNZ/a+s+zTV58wFVNAvvqV4bdGfnsjTb5Cs4V6wEsLrX8XRhmnyYJ2Tdg==
   /@types/graceful-fs/4.1.5:
     dependencies:
       '@types/node': 14.14.33
@@ -7246,6 +7252,14 @@ packages:
     dev: false
     resolution:
       integrity: sha1-ODjpfPxgUh63PFJajlW/3Z4uKPE=
+  /use-places-autocomplete/1.9.1_react@17.0.1:
+    dependencies:
+      react: 17.0.1
+    dev: false
+    peerDependencies:
+      react: '>= 16.8.0'
+    resolution:
+      integrity: sha512-ZIkCob6qFBT5kP5wvtiDHV2Dw+DjlVSOj8RoM0XRkDB95PPQzICTjWHOhe4ClY0gO2Nq1bFG5K2WfIYYlIYtfg==
   /use-subscription/1.5.1_react@17.0.1:
     dependencies:
       object-assign: 4.1.1
@@ -7584,6 +7598,7 @@ specifiers:
   '@hookform/error-message': ^0.0.5
   '@reach/accordion': ^0.13.2
   '@types/airtable': ^0.8.1
+  '@types/googlemaps': ^3.43.3
   '@types/jest': ^26.0.20
   '@types/luxon': ^1.26.2
   '@types/node': ^14.14.33
@@ -7613,3 +7628,4 @@ specifiers:
   ts-jest: ^26.5.3
   twilio: ^3.57.0
   typescript: ^4.2.3
+  use-places-autocomplete: ^1.9.1
