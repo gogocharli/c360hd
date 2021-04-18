@@ -17,7 +17,7 @@ import usePlacesAutoComplete, {
   getGeocode,
   getZipCode,
 } from 'use-places-autocomplete';
-import { useCombobox } from 'downshift';
+import Downshift, { DownshiftProps } from 'downshift';
 
 import BaseLayout from '@layouts/base';
 import { Button } from '@components/button';
@@ -175,20 +175,6 @@ function ClientInfo() {
       <FormField name='businessName' label='Company Name' />
       <FormField name='decisionMaker' label='Decision Maker' />
       <AddressAutoComplete />
-      {/* <FormField name='streetNumber' label='Street Number' />
-      <FormField name='streetName' label='Street Name' />
-      <FormField
-        type='select'
-        name='province'
-        label='Province'
-        defaultValue='QC'
-      >
-        {CANADIAN_PROVINCES.map((province) => (
-          <option value={province} key={province}>
-            {province}
-          </option>
-        ))}
-      </FormField> */}
     </>
   );
 }
@@ -243,21 +229,6 @@ function AddressAutoComplete() {
     },
   });
 
-  const {
-    isOpen,
-    getComboboxProps,
-    getInputProps,
-    getItemProps,
-    getLabelProps,
-    getMenuProps,
-  } = useCombobox({
-    items: data,
-    inputId: 'address',
-    labelId: 'address-label',
-    onInputValueChange: ({ inputValue }) => debounceInput(inputValue),
-    onSelectedItemChange: ({ selectedItem }) => handleSelect(selectedItem),
-  });
-
   let scheduled: null | string = null;
   function debounceInput(inputValue: string) {
     if (!scheduled) {
@@ -269,56 +240,76 @@ function AddressAutoComplete() {
     scheduled = inputValue;
   }
 
-  function handleSelect({ description }) {
+  async function handleSelect({ description }, onChange) {
     setValue(description, false);
     clearSuggestions();
 
     // Get latitude and longitude via utility functions
-    getGeocode({ address: description })
+    const fullAddress = await getGeocode({ address: description })
       .then((results) => getZipCode(results[0], false))
       .then((zipCode) => {
-        console.log('📍 Address: ', { description, zipCode });
+        return `${description}, ${zipCode}`;
       })
       .catch((error) => {
         console.log('😱 Error: ', error);
+        return '';
       });
+
+    // Add the value to the react-hook-form store
+    onChange(fullAddress);
   }
-
-  function renderSuggestions() {
-    return data.map((suggestion) => {
-      const {
-        place_id,
-        structured_formatting: { main_text, secondary_text },
-      } = suggestion;
-
-      return (
-        <li key={place_id} {...getItemProps({ item: suggestion })}>
-          <strong>{main_text}</strong> <small>{secondary_text}</small>
-        </li>
-      );
-    });
-  }
-
-  // return (
-  //   <div className='field autocomplete'>
-  //     <label htmlFor='address'>Address</label>
-  //     <input
-  //       id='address'
-  //       value={value}
-  //       onChange={(e) => setValue(e.target.value)}
-  //     />
-  //     {status === 'OK' && <ul>{renderSuggestions()}</ul>}
-  //   </div>
-  // );
 
   return (
-    <div className='field'>
-      <label {...getLabelProps()}>Address</label>
-      <div {...getComboboxProps()}>
-        <input {...getInputProps()} />
-      </div>
-      <ul {...getMenuProps()}>{isOpen && renderSuggestions()}</ul>
-    </div>
+    <Controller
+      name='streetNumber'
+      render={({ field: { ref, ...rest } }) => (
+        <Downshift
+          initialInputValue={value}
+          onInputValueChange={(inputValue) => debounceInput(inputValue)}
+          itemToString={(item) => item?.description ?? ''}
+          labelId='address-label'
+          {...rest}
+          onChange={(item) => handleSelect(item, rest.onChange)}
+        >
+          {({
+            getInputProps,
+            getItemProps,
+            getLabelProps,
+            getMenuProps,
+            isOpen,
+          }) => (
+            <div className='field autoComplete'>
+              <label
+                {...getLabelProps({ htmlFor: 'address', id: 'address-label' })}
+              >
+                Address
+              </label>
+              <input
+                {...getInputProps({ id: 'address' })}
+                placeholder='Enter an address'
+              />
+              <ul {...getMenuProps({ id: 'address-menu' })}>
+                {isOpen
+                  ? data.map((item, index) => {
+                      const {
+                        place_id,
+                        structured_formatting: { main_text, secondary_text },
+                      } = item;
+
+                      return (
+                        <li {...getItemProps({ item, index, key: place_id })}>
+                          <strong>{main_text}</strong>{' '}
+                          <small>{secondary_text}</small>
+                        </li>
+                      );
+                    })
+                  : null}
+              </ul>
+            </div>
+          )}
+        </Downshift>
+      )}
+    />
   );
 }
 
