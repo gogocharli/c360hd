@@ -9,6 +9,7 @@ import Layout from '@layouts/checkout';
 import { Button } from '@components/button';
 import { AddressAutoComplete } from '@components/Form/auto-complete';
 import { FormField, FormInputs } from '@components/Form/form-field';
+import Arrow from '@components/icon-arrow-right.svg';
 
 import { form } from '@components/Form/styles.module.scss';
 
@@ -58,7 +59,7 @@ export default function Checkout() {
           </div>
           <div className='form__wrapper'>
             <FormProvider {...methods}>
-              <form className={form} action='post'>
+              <form className={`${form}`} action='post'>
                 {formStep == 0 && <ClientInfo />}
                 {formStep == 1 && <ContactInfo />}
                 {formStep == 2 && <OrderInfo />}
@@ -72,7 +73,10 @@ export default function Checkout() {
                   className='previous'
                   onClick={() => setFormStep((s) => s - 1)}
                 >
-                  Previous Step
+                  <span className='visually-hidden'>Previous Step</span>
+                  <div className='icon'>
+                    <Arrow width={24} />
+                  </div>
                 </Button>
               )}
               {formStep < 4 && (
@@ -80,7 +84,10 @@ export default function Checkout() {
                   className='next'
                   onClick={() => setFormStep((s) => s + 1)}
                 >
-                  Next Step
+                  <span className='visually-hidden'>Next Step</span>
+                  <div className='icon'>
+                    <Arrow width={24} />
+                  </div>
                 </Button>
               )}
             </div>
@@ -127,6 +134,10 @@ export default function Checkout() {
           padding: 2.5rem 1rem;
         }
 
+        form > :global(* + *) {
+          margin-top: 1rem;
+        }
+
         .buttons {
           display: flex;
           justify-content: space-between;
@@ -137,8 +148,21 @@ export default function Checkout() {
           --default-color: var(--color-dark-main);
         }
 
+        :global(.button > .icon) {
+          height: 1.5rem;
+          margin-left: 0;
+        }
+
+        :global(.button > .icon path) {
+          fill: currentColor;
+        }
+
         .buttons > :global(.previous) {
           margin-right: auto;
+        }
+
+        .buttons > :global(.previous > .icon) {
+          transform: rotate(0.5turn);
         }
 
         .buttons > :global(.next) {
