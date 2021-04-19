@@ -2,6 +2,7 @@ import { useTranslation } from 'next-i18next';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { Button } from '@components/button';
+import { ErrorText } from '@components/Form/error-text';
 
 export function ContactForm() {
   const {
@@ -199,21 +200,6 @@ export function ContactForm() {
           cursor: pointer;
           margin-left: auto;
           margin-right: auto;
-        }
-      `}</style>
-    </>
-  );
-}
-
-function ErrorText({ children }: { children?: React.ReactNode }) {
-  return (
-    <>
-      <span className='[ field__error ] [ text-100 ]'>
-        &#9888; {children} &#9888;
-      </span>
-      <style jsx>{`
-        span {
-          display: block;
         }
       `}</style>
     </>
