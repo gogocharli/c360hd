@@ -1,5 +1,5 @@
 import { useFormContext, RegisterOptions } from 'react-hook-form';
-
+import formStyles from './styles.module.scss';
 export interface businessInfo {
   businessName: string;
   decisionMaker: string;
@@ -40,7 +40,7 @@ export function FormField({
   const { register } = useFormContext<FormInputs>();
   return (
     <>
-      <div className='field'>
+      <div className={formStyles.field}>
         <label htmlFor={name} className={`field-label ${className}`}>
           {label}
         </label>
@@ -72,11 +72,7 @@ export function FormField({
           />
         )}
       </div>
-      <style jsx>{`
-        label {
-          display: block;
-        }
-      `}</style>
+      <style jsx>{``}</style>
     </>
   );
 }
