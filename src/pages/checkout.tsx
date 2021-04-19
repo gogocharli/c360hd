@@ -10,6 +10,7 @@ import { Button } from '@components/button';
 import { AddressAutoComplete } from '@components/Form/auto-complete';
 import { FormField, FormInputs } from '@components/Form/form-field';
 import Arrow from '@components/icon-arrow-right.svg';
+import Checkbox from '@components/icon-checkbox.svg';
 
 import { form } from '@components/Form/styles.module.scss';
 
@@ -42,11 +43,11 @@ export default function Checkout() {
   const { control } = methods;
   return (
     <Layout pageMeta={{ title: 'Checkout' }}>
-      <div className='wrapper'>
+      <div className='multi-form  wrapper flow'>
         <Timeline step={formStep} />
         <section className='content'>
           <div className='[ info ] [ flow align-center ]'>
-            <h1 className='[ text-600 ] [ tracking-tight leading-flat ]'>
+            <h1 className='[ text-600 ] [ tracking-tight leading-flat measure-micro ]'>
               Business Information
             </h1>
             <p className='text-300 measure-short'>
@@ -95,6 +96,10 @@ export default function Checkout() {
         </section>
       </div>
       <style jsx>{`
+        .multi-form {
+          --flow-space: 3rem;
+        }
+
         .content {
           --border-radius: 8px;
         }
@@ -115,6 +120,7 @@ export default function Checkout() {
         .info .count {
           background-color: hsl(220 35% 44%);
           border-radius: 2em;
+          letter-spacing: -0.1em;
           line-height: 1;
           padding: 1rem 1.5rem;
           margin-top: calc(var(--flow-space) * 2);
@@ -136,6 +142,17 @@ export default function Checkout() {
 
         form > :global(* + *) {
           margin-top: 1rem;
+        }
+
+        :global(form) {
+          align-items: start;
+          margin-left: auto;
+          margin-right: auto;
+          max-width: 28rem;
+        }
+
+        :global(form > div) {
+          width: 100%;
         }
 
         .buttons {
@@ -168,6 +185,26 @@ export default function Checkout() {
         .buttons > :global(.next) {
           margin-left: auto;
         }
+
+        @media (min-width: 65em) {
+          .content {
+            display: grid;
+            grid-template-columns: var(--grid-lg);
+            grid-column-gap: 1rem;
+          }
+
+          .info {
+            display: flex;
+            flex-direction: column;
+            grid-column: 1 / span 5;
+            place-content: center;
+          }
+
+          .form__wrapper {
+            grid-column: 6 / 14;
+            margin-top: 0;
+          }
+        }
       `}</style>
     </Layout>
   );
@@ -178,29 +215,81 @@ function Timeline({ step }: { step: number }) {
     <section>
       <div>
         <ol className='timeline'>
-          <li data-complete={step > 0}>Business Info</li>
-          <li data-complete={step > 1}>Contact Info</li>
-          <li data-complete={step > 2}>Order Info</li>
-          <li data-complete={step > 3}>Review Order</li>
-          <li data-complete={step > 4}>Checkout</li>
+          <li data-complete={step > 0} data-current={step == 0}>
+            <span>Business Info</span>
+            <span className='icon'>{step > 0 && <Checkbox />}</span>
+          </li>
+          <li data-complete={step > 1} data-current={step == 1}>
+            <span>Contact Info</span>
+            <span className='icon'>{step > 1 && <Checkbox />}</span>
+          </li>
+          <li data-complete={step > 2} data-current={step == 2}>
+            <span>Order Info</span>
+            <span className='icon'>{step > 2 && <Checkbox />}</span>
+          </li>
+          <li data-complete={step > 3} data-current={step == 3}>
+            <span>Review Order</span>
+            <span className='icon'>{step > 3 && <Checkbox />}</span>
+          </li>
+          <li data-complete={step > 4} data-current={step == 4}>
+            Checkout
+          </li>
         </ol>
       </div>
 
       <style jsx>{`
+        section {
+          overflow-x: hidden;
+        }
+
         div {
-          overflow: hidden;
+          border-radius: 0.5rem;
+          overflow-x: auto;
         }
 
         ol {
           display: flex;
+          height: 4rem;
+          width: 66.5rem;
         }
 
-        li + li {
-          margin-left: 2rem;
+        li {
+          align-items: center;
+          color: hsl(var(--theme-color-accent));
+          display: flex;
+          flex: 1 0 20%;
+          font-weight: 600;
+          justify-content: center;
+          line-height: 1.2;
+          opacity: 0.4;
+        }
+
+        .icon {
+          margin-left: 0.5rem;
+          height: 1.5rem;
+        }
+
+        .icon > :global(svg path) {
+          stroke: currentColor;
+        }
+
+        [data-current='true'] {
+          background-color: hsl(var(--theme-color-accent));
+          color: hsl(var(--theme-color-bg));
         }
 
         [data-complete='true'] {
-          background-color: hsl(var(--theme-color-hg));
+        }
+
+        [data-current='true'],
+        [data-complete='true'] {
+          opacity: 1;
+        }
+
+        @media (min-width: 65em) {
+          ol {
+            width: 86.875rem;
+          }
         }
       `}</style>
     </section>
