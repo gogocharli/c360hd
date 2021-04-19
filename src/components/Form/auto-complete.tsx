@@ -71,7 +71,10 @@ export function AddressAutoComplete() {
               isOpen,
               highlightedIndex,
             }) => (
-              <div className={`${formStyles.field} autoComplete`}>
+              <div
+                className={`${formStyles.field} autocomplete`}
+                data-isOpen={isOpen}
+              >
                 <label
                   {...getLabelProps({
                     htmlFor: 'address',
@@ -110,17 +113,24 @@ export function AddressAutoComplete() {
         )}
       />
       <style jsx>{`
-        // input:focus ~ ul {
-        //   box-shadow: 0px 0px 8px 4px var(--focus-color);
-        // }
-
         input ::placeholder {
           opacity: 0;
         }
 
+        input:focus {
+          box-shadow: none;
+          appearance: none;
+          outline: 0;
+        }
+
+        input:focus,
+        input:focus ~ ul {
+          border-color: #0870ee;
+        }
+
         ul {
           border: 1px solid hsl(var(--border-color));
-          border-top-color: transparent;
+          border-style: none solid solid;
           border-radius: 0 0 0.5rem 0.5rem;
           margin-top: -1px;
         }
@@ -128,6 +138,10 @@ export function AddressAutoComplete() {
         li {
           padding-left: 1rem;
           padding-right: 1rem;
+        }
+
+        .autocomplete[data-isopen='true'] input {
+          border-radius: 4px 4px 0 0;
         }
 
         .selected {
