@@ -9,7 +9,7 @@ import config from '../../config.js';
 
 // Depend on the number of available photographers on the field
 const MAX_CONCURRENT_ORDERS = config.maxOrders;
-const MAX_DAILY_ORDERS = MAX_CONCURRENT_ORDERS * 7;
+const MAX_DAILY_ORDERS = MAX_CONCURRENT_ORDERS * 5;
 const OPENING_HOURS = config.openingHours;
 
 /**
@@ -42,7 +42,7 @@ async function checkSchedule(date: string, time: string) {
       // Get the other filled hours of the day
       // If the hour has been sheduled, don't include it in the available hours
       let freeHours = OPENING_HOURS.filter(
-        (hour) => !ordersOnSameDate.includes(hour)
+        (hour) => !ordersOnSameDate.includes(hour),
       );
 
       if (freeHours.length < 3) {
@@ -65,7 +65,7 @@ async function checkSchedule(date: string, time: string) {
       return {
         isFree: false,
         reason: `Schedule conflict. How about the following hours instead ${closestHours.join(
-          ', '
+          ', ',
         )}`,
       };
     }
