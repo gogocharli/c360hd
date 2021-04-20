@@ -73,7 +73,7 @@ export function AddressAutoComplete() {
             }) => (
               <div
                 className={`${formStyles.field} autocomplete`}
-                data-isOpen={isOpen}
+                data-isopen={isOpen}
               >
                 <label
                   {...getLabelProps({
