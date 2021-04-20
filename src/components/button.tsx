@@ -4,7 +4,36 @@ import { useRouter } from 'next/router';
 
 type ButtonType = HTMLAnchorElement | HTMLButtonElement;
 
-// TODO refactor this with a render prop
+export function Button({
+  href,
+  locale,
+  type,
+  className,
+  children,
+  scroll,
+}: {
+  href: string;
+  locale?: string;
+  type?: 'primary' | 'secondary';
+  className?: string;
+  children: React.ReactNode;
+  scroll?: boolean;
+}): JSX.Element;
+
+export function Button({
+  onClick,
+  type,
+  form,
+  className,
+  children,
+}: {
+  onClick?: Function;
+  type?: 'primary' | 'secondary';
+  form?: boolean;
+  className?: string;
+  children: React.ReactNode;
+}): JSX.Element;
+
 export function Button({
   href,
   locale,
