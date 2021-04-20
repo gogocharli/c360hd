@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import type { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 
+import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useForm, FormProvider, useWatch, Control } from 'react-hook-form';
 
@@ -56,29 +57,29 @@ export default function Checkout() {
       businessName: '',
       decisionMaker: '',
       address: '',
-      primaryPhone: '',
-      mobilePhone: '',
+      primaryNumber: '',
+      secondaryNumber: '',
       email: '',
       date: '',
       time: '',
-      salesRep: '',
+      repId: '',
       addInfo: '',
     },
     mode: 'onBlur',
   });
   const { control } = methods;
+  const { t } = useTranslation('checkout');
   return (
     <Layout pageMeta={{ title: 'Checkout' }}>
-      <div className='multi-form  wrapper flow'>
+      <div className='multi-form wrapper flow'>
         <Timeline step={formStep} />
         <section className='content'>
           <div className='[ info ] [ flow align-center ]'>
             <h1 className='[ text-600 ] [ tracking-tight leading-flat measure-micro ]'>
-              Business Information
+              {t(`steps.${formStep}.title`)}
             </h1>
             <p className='text-300 measure-short'>
-              Tell us more about you and your business so we can communicate
-              better with you about each step of the process.
+              {t(`steps.${formStep}.desc`)}
             </p>
             <p className='[ count ] [ weight-bold text-300 ] '>
               {formStep + 1} / 5
@@ -91,7 +92,7 @@ export default function Checkout() {
                 {formStep == 1 && <ContactInfo />}
                 {formStep == 2 && <OrderInfo product={product as string} />}
                 {formStep == 3 && <ReviewInfo control={control} />}
-                {formStep == 4 && <h1>Checkout</h1>}
+                {formStep == 4 && <h2>Checkout Content</h2>}
               </form>
             </FormProvider>
             <div className='buttons'>
@@ -100,7 +101,9 @@ export default function Checkout() {
                   className='previous'
                   onClick={() => navigate('previous')}
                 >
-                  <span className='visually-hidden'>Previous Step</span>
+                  <span className='visually-hidden'>
+                    {t('buttons.previous')}
+                  </span>
                   <div className='icon'>
                     <Arrow width={24} />
                   </div>
@@ -108,7 +111,7 @@ export default function Checkout() {
               )}
               {formStep < 4 && (
                 <Button className='next' onClick={() => navigate('next')}>
-                  <span className='visually-hidden'>Next Step</span>
+                  <span className='visually-hidden'>{t('buttons.next')}</span>
                   <div className='icon'>
                     <Arrow width={24} />
                   </div>
@@ -237,21 +240,32 @@ export default function Checkout() {
  * Client information such as name, address, and contact
  */
 function ClientInfo() {
+  const { t } = useTranslation('checkout');
   return (
     <>
-      <FormField name='businessName' label='Company Name' />
-      <FormField name='decisionMaker' label='Decision Maker' />
+      <FormField name='businessName' label={`${t('form.businessName.name')}`} />
+      <FormField
+        name='decisionMaker'
+        label={`${t('form.decisionMaker.name')}`}
+      />
       <AddressAutoComplete />
     </>
   );
 }
 
 function ContactInfo() {
+  const { t } = useTranslation('checkout');
   return (
     <>
-      <FormField name='primaryPhone' label='Primary Phone' />
-      <FormField name='mobilePhone' label='Mobile Phone' />
-      <FormField name='email' label='E-mail' />
+      <FormField
+        name='primaryNumber'
+        label={`${t('form.primaryNumber.name')}`}
+      />
+      <FormField
+        name='secondaryNumber'
+        label={`${t('form.secondaryNumber.name')}`}
+      />
+      <FormField name='email' label={`${t('form.email.name')}`} />
     </>
   );
 }
@@ -260,20 +274,30 @@ function ContactInfo() {
  * Form step for information related to the order
  */
 function OrderInfo({ product }: { product: string }) {
+  const { t } = useTranslation('checkout');
   return (
     <>
       <FormField
         type='select'
         name='productName'
-        label='Product Name'
+        label={`${t('form.product.name')}`}
         defaultValue={product ?? 'classic'}
       >
         <option value='classic'>Classic</option>
         <option value='special'>Special</option>
       </FormField>
-      <FormField type='date' name='date' label='Date' />
-      <FormField name='salesRep' label='Agent Name' />
-      <FormField type='textarea' name='addInfo' label='Additional Info' />
+      <FormField type='date' name='date' label={`${t('form.date.name')}`} />
+      <FormField
+        name='repId'
+        label={`${t('form.repId.name')}`}
+        validation={{ required: false }}
+      />
+      <FormField
+        type='textarea'
+        name='addInfo'
+        label={`${t('form.addInfo.name')}`}
+        validation={{ required: false }}
+      />
     </>
   );
 }
@@ -296,7 +320,7 @@ function ReviewInfo({ control }: { control: Control<FormInputs> }) {
 export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common', 'site'])),
+      ...(await serverSideTranslations(locale, ['common', 'site', 'checkout'])),
     },
   };
 };

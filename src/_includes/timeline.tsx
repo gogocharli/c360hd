@@ -1,7 +1,9 @@
 import Link from 'next/link';
+import { useTranslation } from 'next-i18next';
 import Checkbox from '@components/icon-checkbox.svg';
 
 export function Timeline({ step }: { step: number }) {
+  const { t } = useTranslation('checkout');
   return (
     <section>
       <div>
@@ -9,7 +11,7 @@ export function Timeline({ step }: { step: number }) {
           <li data-complete={step > 0} data-current={step == 0}>
             <Link href='#business'>
               <a className='timeline__link'>
-                <span>Business Info</span>
+                <span>{t('timeline.0')}</span>
                 <span className='icon'>{step > 0 && <Checkbox />}</span>
               </a>
             </Link>
@@ -17,7 +19,7 @@ export function Timeline({ step }: { step: number }) {
           <li data-complete={step > 1} data-current={step == 1}>
             <Link href='#contact'>
               <a className='timeline__link'>
-                <span>Contact Info</span>
+                <span>{t('timeline.1')}</span>
                 <span className='icon'>{step > 1 && <Checkbox />}</span>
               </a>
             </Link>
@@ -25,7 +27,7 @@ export function Timeline({ step }: { step: number }) {
           <li data-complete={step > 2} data-current={step == 2}>
             <Link href='#order'>
               <a className='timeline__link'>
-                <span>Order Info</span>
+                <span>{t('timeline.2')}</span>
                 <span className='icon'>{step > 2 && <Checkbox />}</span>
               </a>
             </Link>
@@ -33,7 +35,7 @@ export function Timeline({ step }: { step: number }) {
           <li data-complete={step > 3} data-current={step == 3}>
             <Link href='#review'>
               <a className='timeline__link'>
-                <span>Review Order</span>
+                <span>{t('timeline.3')}</span>
                 <span className='icon'>{step > 3 && <Checkbox />}</span>
               </a>
             </Link>
@@ -41,7 +43,7 @@ export function Timeline({ step }: { step: number }) {
           <li data-complete={step > 4} data-current={step == 4}>
             <Link href='#checkout'>
               <a className='timeline__link'>
-                <span>Checkout</span>
+                <span>{t('timeline.4')}</span>
                 <span className='icon'>{step > 3 && <Checkbox />}</span>
               </a>
             </Link>

@@ -1,0 +1,78 @@
+{
+  "timeline": ["Compagnie", "Contacts", "Commande", "Verification", "Paiement"],
+  "step": "Etape",
+  "steps": [
+    {
+      "title": "Information Génerale",
+      "desc": "Dites nous en plus à propos de vous et votre compagnie afin que nous puissions mieux communiquer avec vous durant chaque étape du processus."
+    },
+    {
+      "title": "Contact",
+      "desc": "Votre courriel consitituera la méthode de communication de préférence. Vos numéros de téléphones nous permettrons de vous rappeller de votre date de rendez-vous."
+    },
+    {
+      "title": "Infos de la commande",
+      "desc": "Veuillez sélectioner une date pour votre prise de vue ainsi que toute information dont nous aurons besoin afin de satisfaire votre commande."
+    },
+    {
+      "title": "Vérification des infos",
+      "desc": "Bientôt fini! Veillez à verifier que toute information entrée jusqu'à présent est correcte."
+    },
+    {
+      "title": "Paiement",
+      "desc": ""
+    }
+  ],
+  "buttons": {
+    "next": "Prochaine étape",
+    "previous": "Etape précedente"
+  },
+  "form": {
+    "businessName": {
+      "name": "Compagnie",
+      "error": {
+        "required": "Veuillez entrer le nom de votre compagnie"
+      }
+    },
+    "decisionMaker": {
+      "name": "Nom et Prénom",
+      "error": {
+        "required": "Veuillez entrer votre nom et prénom"
+      }
+    },
+    "address": {
+      "name": "Addresse",
+      "error": "Veuillez entrer l'addresse de votre compagnie"
+    },
+    "primaryNumber": {
+      "name": "Numéro de Tel Principal",
+      "error": "Veuillez fournir un numéro de tel valide"
+    },
+    "secondaryNumber": {
+      "name": "Numéro de Tel Mobile",
+      "error": "Veuillez fournir un numéro de tel valide"
+    },
+    "email": {
+      "name": "E-mail",
+      "error": {
+        "required": "Veuillez entrer une addresse courriel"
+      }
+    },
+    "product": {
+      "name": "Nom du produit",
+      "options": ["Classique", "Spécial"]
+    },
+    "date": {
+      "name": "Date et Heure",
+      "error": {
+        "required": "Veuillez choisir une date pour votre rendez-vous"
+      }
+    },
+    "repId": {
+      "name": "Numéro du Représentant de Ventes (Optionel)"
+    },
+    "addInfo": {
+      "name": "Information additionelle (Optionel)"
+    }
+  }
+}

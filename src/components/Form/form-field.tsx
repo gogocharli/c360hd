@@ -4,8 +4,8 @@ export interface businessInfo {
   businessName: string;
   decisionMaker: string;
   address: string;
-  primaryPhone: string;
-  mobilePhone: string;
+  primaryNumber: string;
+  secondaryNumber: string;
   email: string;
 }
 
@@ -13,7 +13,7 @@ export interface productInfo {
   productName: 'classic' | 'special';
   date: string;
   time: string;
-  salesRep: string;
+  repId: string;
   addInfo: string;
 }
 

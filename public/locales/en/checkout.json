@@ -1,0 +1,84 @@
+{
+  "timeline": [
+    "Business Info",
+    "Contact Info",
+    "Order Info",
+    "Review Order",
+    "Checkout"
+  ],
+  "step": "Step",
+  "steps": [
+    {
+      "title": "Business Information",
+      "desc": "Tell us more about you and your business so we can communicate better with you about each step of the process."
+    },
+    {
+      "title": "Contact Information",
+      "desc": "Your email will be our primary method of communication with you. Your phone number will help us remind you of your appointment in no time."
+    },
+    {
+      "title": "Order Information",
+      "desc": "Please select a date for your shooting as well as any information which we might need in order to fulfill your order."
+    },
+    {
+      "title": "Review Order",
+      "desc": "Almost there! Make sure the information you’ve entered so far is correct."
+    },
+    {
+      "title": "Payment",
+      "desc": ""
+    }
+  ],
+  "buttons": {
+    "next": "Next Step",
+    "previous": "Previous Step"
+  },
+  "form": {
+    "businessName": {
+      "name": "Business Name",
+      "error": {
+        "required": "Please enter the name of your business"
+      }
+    },
+    "decisionMaker": {
+      "name": "Decision Maker's name",
+      "error": {
+        "required": "Please enter your full name"
+      }
+    },
+    "address": {
+      "name": "Address",
+      "error": "Veuillez entrer l'addresse de votre compagnie"
+    },
+    "primaryNumber": {
+      "name": "Business phone number",
+      "error": "Please provide a phone number"
+    },
+    "secondaryNumber": {
+      "name": "Mobile phone number",
+      "error": "Please provide a phone number"
+    },
+    "email": {
+      "name": "E-mail",
+      "error": {
+        "required": "Please provide an e-mail address"
+      }
+    },
+    "product": {
+      "name": "Product Name",
+      "options": ["Classic", "Special"]
+    },
+    "date": {
+      "name": "Date and Time",
+      "error": {
+        "required": "Please choose an appointment date and time"
+      }
+    },
+    "repId": {
+      "name": "Sales Agent Number (Optional)"
+    },
+    "addInfo": {
+      "name": "Additional Info (Optional)"
+    }
+  }
+}
