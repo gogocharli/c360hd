@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 
@@ -10,16 +10,45 @@ import { Button } from '@components/button';
 import { AddressAutoComplete } from '@components/Form/auto-complete';
 import { FormField, FormInputs } from '@components/Form/form-field';
 import Arrow from '@components/icon-arrow-right.svg';
-import Checkbox from '@components/icon-checkbox.svg';
 
 import { form } from '@components/Form/styles.module.scss';
+import { Timeline } from '@includes/timeline';
 
-// Programmatically add those
+const paths = ['business', 'contact', 'order', 'review', 'checkout'];
+
 export default function Checkout() {
   const [formStep, setFormStep] = useState(0);
+  const router = useRouter();
+  const {
+    asPath,
+    query: { product },
+  } = router;
 
   function onSubmit(data: any) {
     console.log(data);
+  }
+
+  // Use the pathname's hash to render the right part of the form
+  useEffect(() => {
+    const hash = new window.URL(window.location.href).hash.slice(1);
+
+    // The URL object includes the query in the hash
+    // In order not to use a regex, we just stap to the first form page
+    // in case it exists
+    if (paths.includes(hash)) {
+      setFormStep(paths.indexOf(hash));
+    } else {
+      setFormStep(0);
+    }
+  }, [asPath]);
+
+  /**
+   * Select section and navigate using the current step
+   */
+  function navigate(direction: 'previous' | 'next') {
+    const hash =
+      direction == 'previous' ? paths[formStep - 1] : paths[formStep + 1];
+    router.push(`#${hash}`, null, { shallow: true });
   }
 
   const methods = useForm<FormInputs>({
@@ -37,9 +66,6 @@ export default function Checkout() {
     },
     mode: 'onBlur',
   });
-
-  // Use the form state to validate the page's inputs
-
   const { control } = methods;
   return (
     <Layout pageMeta={{ title: 'Checkout' }}>
@@ -63,7 +89,7 @@ export default function Checkout() {
               <form className={`${form}`} action='post'>
                 {formStep == 0 && <ClientInfo />}
                 {formStep == 1 && <ContactInfo />}
-                {formStep == 2 && <OrderInfo />}
+                {formStep == 2 && <OrderInfo product={product as string} />}
                 {formStep == 3 && <ReviewInfo control={control} />}
                 {formStep == 4 && <h1>Checkout</h1>}
               </form>
@@ -72,7 +98,7 @@ export default function Checkout() {
               {formStep > 0 && (
                 <Button
                   className='previous'
-                  onClick={() => setFormStep((s) => s - 1)}
+                  onClick={() => navigate('previous')}
                 >
                   <span className='visually-hidden'>Previous Step</span>
                   <div className='icon'>
@@ -81,10 +107,7 @@ export default function Checkout() {
                 </Button>
               )}
               {formStep < 4 && (
-                <Button
-                  className='next'
-                  onClick={() => setFormStep((s) => s + 1)}
-                >
+                <Button className='next' onClick={() => navigate('next')}>
                   <span className='visually-hidden'>Next Step</span>
                   <div className='icon'>
                     <Arrow width={24} />
@@ -210,92 +233,6 @@ export default function Checkout() {
   );
 }
 
-function Timeline({ step }: { step: number }) {
-  return (
-    <section>
-      <div>
-        <ol className='timeline'>
-          <li data-complete={step > 0} data-current={step == 0}>
-            <span>Business Info</span>
-            <span className='icon'>{step > 0 && <Checkbox />}</span>
-          </li>
-          <li data-complete={step > 1} data-current={step == 1}>
-            <span>Contact Info</span>
-            <span className='icon'>{step > 1 && <Checkbox />}</span>
-          </li>
-          <li data-complete={step > 2} data-current={step == 2}>
-            <span>Order Info</span>
-            <span className='icon'>{step > 2 && <Checkbox />}</span>
-          </li>
-          <li data-complete={step > 3} data-current={step == 3}>
-            <span>Review Order</span>
-            <span className='icon'>{step > 3 && <Checkbox />}</span>
-          </li>
-          <li data-complete={step > 4} data-current={step == 4}>
-            Checkout
-          </li>
-        </ol>
-      </div>
-
-      <style jsx>{`
-        section {
-          overflow-x: hidden;
-        }
-
-        div {
-          border-radius: 0.5rem;
-          overflow-x: auto;
-        }
-
-        ol {
-          display: flex;
-          height: 4rem;
-          width: 66.5rem;
-        }
-
-        li {
-          align-items: center;
-          color: hsl(var(--theme-color-accent));
-          display: flex;
-          flex: 1 0 20%;
-          font-weight: 600;
-          justify-content: center;
-          line-height: 1.2;
-          opacity: 0.4;
-        }
-
-        .icon {
-          margin-left: 0.5rem;
-          height: 1.5rem;
-        }
-
-        .icon > :global(svg path) {
-          stroke: currentColor;
-        }
-
-        [data-current='true'] {
-          background-color: hsl(var(--theme-color-accent));
-          color: hsl(var(--theme-color-bg));
-        }
-
-        [data-complete='true'] {
-        }
-
-        [data-current='true'],
-        [data-complete='true'] {
-          opacity: 1;
-        }
-
-        @media (min-width: 65em) {
-          ol {
-            width: 86.875rem;
-          }
-        }
-      `}</style>
-    </section>
-  );
-}
-
 /**
  * Client information such as name, address, and contact
  */
@@ -322,17 +259,14 @@ function ContactInfo() {
 /**
  * Form step for information related to the order
  */
-function OrderInfo() {
-  const {
-    query: { product },
-  } = useRouter();
+function OrderInfo({ product }: { product: string }) {
   return (
     <>
       <FormField
         type='select'
         name='productName'
         label='Product Name'
-        defaultValue={(product as string) ?? ''}
+        defaultValue={product ?? 'classic'}
       >
         <option value='classic'>Classic</option>
         <option value='special'>Special</option>
