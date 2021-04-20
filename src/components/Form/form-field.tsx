@@ -10,9 +10,8 @@ export interface businessInfo {
 }
 
 export interface productInfo {
-  productName: 'classic' | 'special';
+  product: 'classic' | 'special';
   date: string;
-  time: string;
   repId: string;
   addInfo: string;
 }

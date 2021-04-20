@@ -61,7 +61,6 @@ export default function Checkout() {
       secondaryNumber: '',
       email: '',
       date: '',
-      time: '',
       repId: '',
       addInfo: '',
     },
@@ -232,6 +231,11 @@ export default function Checkout() {
           }
         }
       `}</style>
+      <style jsx>{`
+        :global(form) {
+          max-width: ${formStep == 3 ? '40rem' : '28rem'};
+        }
+      `}</style>
     </Layout>
   );
 }
@@ -279,7 +283,7 @@ function OrderInfo({ product }: { product: string }) {
     <>
       <FormField
         type='select'
-        name='productName'
+        name='product'
         label={`${t('form.product.name')}`}
         defaultValue={product ?? 'classic'}
       >
@@ -309,11 +313,37 @@ function ReviewInfo({ control }: { control: Control<FormInputs> }) {
   const fields = useWatch({
     control,
   });
+  const { t } = useTranslation('checkout');
 
   return (
-    <div style={{ overflowX: 'hidden' }}>
-      <pre style={{ color: 'blue' }}>{JSON.stringify(fields, null, 2)}</pre>
-    </div>
+    <>
+      <ul className='flow'>
+        {Object.entries(fields).map(([field, value]) => (
+          <li key='field'>
+            <span className='weight-bold'>{t(`form.${field}.name`)}:</span>
+            <span>{value || '—'}</span>
+          </li>
+        ))}
+      </ul>
+      <style jsx>{`
+        ul {
+          --flow-space: 1rem;
+
+          color: hsl(var(--color-dark-main));
+          font-feature-settings: 'ss02' off;
+          font-size: 1rem;
+          width: 100%;
+        }
+
+        li {
+          display: flex;
+        }
+
+        span {
+          flex-basis: 50%;
+        }
+      `}</style>
+    </>
   );
 }
 
