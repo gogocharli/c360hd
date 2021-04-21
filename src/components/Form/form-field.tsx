@@ -1,5 +1,7 @@
 import { useFormContext, RegisterOptions } from 'react-hook-form';
+import { ErrorMessage } from '@hookform/error-message';
 import formStyles from './styles.module.scss';
+import { ErrorText } from './error-text';
 export interface businessInfo {
   businessName: string;
   decisionMaker: string;
@@ -23,7 +25,7 @@ export function FormField({
   name,
   label,
   defaultValue,
-  validation = { required: true },
+  rules = { required: true },
   className = '',
   children,
   ...otherProps
@@ -31,12 +33,15 @@ export function FormField({
   type?: InputType;
   name: keyof FormInputs;
   label: string;
-  validation?: RegisterOptions;
+  rules?: RegisterOptions;
   defaultValue?: string | number;
   className?: string;
   children?: React.ReactNode;
 }) {
-  const { register } = useFormContext<FormInputs>();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<FormInputs>();
   return (
     <>
       <div className={formStyles.field}>
@@ -47,7 +52,7 @@ export function FormField({
           <select
             id={name}
             defaultValue={defaultValue}
-            {...register(name, validation)}
+            {...register(name, rules)}
             {...otherProps}
           >
             {children}
@@ -58,7 +63,7 @@ export function FormField({
             defaultValue={defaultValue}
             cols={20}
             rows={5}
-            {...register(name, validation)}
+            {...register(name, rules)}
             {...otherProps}
           />
         ) : (
@@ -66,12 +71,12 @@ export function FormField({
             type={type}
             id={name}
             defaultValue={defaultValue}
-            {...register(name, validation)}
+            {...register(name, rules)}
             {...otherProps}
           />
         )}
+        <ErrorMessage errors={errors} name={name} as={<ErrorText />} />
       </div>
-      <style jsx>{``}</style>
     </>
   );
 }

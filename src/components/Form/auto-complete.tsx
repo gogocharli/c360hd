@@ -56,6 +56,7 @@ export function AddressAutoComplete() {
     <>
       <Controller
         name='address'
+        rules={{ required: `${t('form.address.error.required')}` }}
         render={({ field: { ref, ...rest } }) => (
           <Downshift
             initialInputValue={value}

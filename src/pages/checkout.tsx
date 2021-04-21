@@ -243,14 +243,19 @@ export default function Checkout() {
 /**
  * Client information such as name, address, and contact
  */
-function ClientInfo() {
+function BusinessInfo() {
   const { t } = useTranslation('checkout');
   return (
     <>
-      <FormField name='businessName' label={`${t('form.businessName.name')}`} />
+      <FormField
+        name='businessName'
+        label={`${t('form.businessName.name')}`}
+        rules={{ required: `${t('form.businessName.error.required')}` }}
+      />
       <FormField
         name='decisionMaker'
         label={`${t('form.decisionMaker.name')}`}
+        rules={{ required: `${t('form.decisionMaker.error.required')}` }}
       />
       <AddressAutoComplete />
     </>
@@ -264,12 +269,18 @@ function ContactInfo() {
       <FormField
         name='primaryNumber'
         label={`${t('form.primaryNumber.name')}`}
+        rules={{ required: `${t('form.primaryNumber.error.required')}` }}
       />
       <FormField
         name='secondaryNumber'
         label={`${t('form.secondaryNumber.name')}`}
+        rules={{ required: `${t('form.secondaryNumber.error.required')}` }}
       />
-      <FormField name='email' label={`${t('form.email.name')}`} />
+      <FormField
+        name='email'
+        label={`${t('form.email.name')}`}
+        rules={{ required: `${t('form.email.error.required')}` }}
+      />
     </>
   );
 }
@@ -294,13 +305,13 @@ function OrderInfo({ product }: { product: string }) {
       <FormField
         name='repId'
         label={`${t('form.repId.name')}`}
-        validation={{ required: false }}
+        rules={{ required: false }}
       />
       <FormField
         type='textarea'
         name='addInfo'
         label={`${t('form.addInfo.name')}`}
-        validation={{ required: false }}
+        rules={{ required: false }}
       />
     </>
   );
@@ -319,7 +330,7 @@ function ReviewInfo({ control }: { control: Control<FormInputs> }) {
     <>
       <ul className='flow'>
         {Object.entries(fields).map(([field, value]) => (
-          <li key='field'>
+          <li key={field}>
             <span className='weight-bold'>{t(`form.${field}.name`)}:</span>
             <span>{value || '—'}</span>
           </li>
