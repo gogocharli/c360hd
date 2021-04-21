@@ -7,7 +7,6 @@ export default function Layout({
   children,
   pageMeta,
   className = '',
-  theme = 'dark',
 }: {
   children: React.ReactNode;
   pageMeta?: { title?: string; desc?: string };
@@ -35,17 +34,17 @@ export default function Layout({
         tabIndex={-1}
         className={`[ ${className} ] [ flow ]`}
       >
+        <script
+          type='text/javascript'
+          src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&libraries=places`}
+        />
         {children}
       </main>
-      <script
-        async
-        defer
-        src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&libraries=places&callback=initMap`}
-      ></script>
       <style jsx>{`
         main {
           --flow-space: 4.5rem;
           flex: 1 0 auto;
+          margin-top: 3rem;
         }
 
         @media (min-width: 50em) {
@@ -58,16 +57,6 @@ export default function Layout({
           main {
             --flow-space: 8.75rem;
           }
-        }
-      `}</style>
-
-      <style jsx global>{`
-        :root {
-          --theme-color-bg: var(--color-${theme}-main);
-          --theme-color-fg: var(
-            --color-${theme == 'dark' ? 'light' : 'dark'}-main
-          );
-          --theme-color-hg: var(--color-${theme}-highlight);
         }
       `}</style>
     </>
