@@ -11,7 +11,6 @@ export default function Layout({
   children: React.ReactNode;
   pageMeta?: { title?: string; desc?: string };
   className?: string;
-  theme?: 'light' | 'dark';
 }) {
   const { t } = useTranslation('site');
   return (

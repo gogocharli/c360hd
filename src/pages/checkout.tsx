@@ -48,10 +48,10 @@ export default function Checkout() {
       primaryNumber: '',
       secondaryNumber: '',
       email: '',
-      product: defaultProduct === 'special' ? 'special' : 'classic',
+      product: defaultProduct == 'special' ? 'special' : 'classic',
       date: '',
       repId: '',
-      addInfo: '',
+      lang: router.locale == 'fr' ? 'fr' : 'en',
     },
     mode: 'onBlur',
   });
@@ -100,7 +100,7 @@ export default function Checkout() {
                 {formStep == 1 && <ContactInfo />}
                 {formStep == 2 && <OrderInfo />}
                 {formStep == 3 && <ReviewInfo control={control} />}
-                {formStep == 4 && <h2>Checkout Content</h2>}
+                {formStep == 4 && <Payment />}
               </form>
             </FormProvider>
             <div className='buttons'>
@@ -282,16 +282,19 @@ function ContactInfo() {
   return (
     <>
       <FormField
+        type='phone'
         name='primaryNumber'
         label={`${t('form.primaryNumber.name')}`}
         rules={{ required: `${t('form.primaryNumber.error.required')}` }}
       />
       <FormField
+        type='phone'
         name='secondaryNumber'
         label={`${t('form.secondaryNumber.name')}`}
         rules={{ required: `${t('form.secondaryNumber.error.required')}` }}
       />
       <FormField
+        type='email'
         name='email'
         label={`${t('form.email.name')}`}
         rules={{ required: `${t('form.email.error.required')}` }}
@@ -322,11 +325,15 @@ function OrderInfo() {
         rules={{ required: false }}
       />
       <FormField
-        type='textarea'
-        name='addInfo'
-        label={`${t('form.addInfo.name')}`}
+        type='fieldset'
+        name='lang'
+        label={`${t('form.lang.name')}`}
         rules={{ required: false }}
-      />
+        options={[
+          { name: 'English', value: 'en' },
+          { name: 'Français', value: 'fr' },
+        ]}
+      ></FormField>
     </>
   );
 }
@@ -343,12 +350,18 @@ function ReviewInfo({ control }: { control: Control<FormInputs> }) {
   return (
     <>
       <ul className='flow'>
-        {Object.entries(fields).map(([field, value]) => (
-          <li key={field}>
-            <span className='weight-bold'>{t(`form.${field}.name`)}:</span>
-            <span>{value || '—'}</span>
-          </li>
-        ))}
+        {Object.entries(fields).map(([field, value]) => {
+          if (field == 'lang') {
+            value = value == 'fr' ? 'Français' : 'English';
+          }
+
+          return (
+            <li key={field}>
+              <span className='weight-bold'>{t(`form.${field}.name`)}:</span>
+              <span>{value || '—'}</span>
+            </li>
+          );
+        })}
       </ul>
       <style jsx>{`
         ul {

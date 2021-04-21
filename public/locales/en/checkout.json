@@ -48,15 +48,21 @@
     },
     "address": {
       "name": "Address",
-      "error": "Veuillez entrer l'addresse de votre compagnie"
+      "error": {
+        "required": "Veuillez entrer l'addresse de votre compagnie"
+      }
     },
     "primaryNumber": {
       "name": "Business phone number",
-      "error": "Please provide a phone number"
+      "error": {
+        "required": "Please provide a phone number"
+      }
     },
     "secondaryNumber": {
       "name": "Mobile phone number",
-      "error": "Please provide a phone number"
+      "error": {
+        "required": "Please provide a phone number"
+      }
     },
     "email": {
       "name": "E-mail",
@@ -76,6 +82,9 @@
     },
     "repId": {
       "name": "Sales Agent Number (Optional)"
+    },
+    "lang": {
+      "name": "Preferred Language"
     },
     "addInfo": {
       "name": "Additional Info (Optional)"

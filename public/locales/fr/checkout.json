@@ -42,15 +42,21 @@
     },
     "address": {
       "name": "Addresse",
-      "error": "Veuillez entrer l'addresse de votre compagnie"
+      "error": {
+        "required": "Veuillez entrer l'addresse de votre compagnie"
+      }
     },
     "primaryNumber": {
       "name": "Numéro de Tel Principal",
-      "error": "Veuillez fournir un numéro de tel valide"
+      "error": {
+        "required": "Veuillez fournir un numéro de tel valide"
+      }
     },
     "secondaryNumber": {
       "name": "Numéro de Tel Mobile",
-      "error": "Veuillez fournir un numéro de tel valide"
+      "error": {
+        "required": "Veuillez fournir un numéro de tel valide"
+      }
     },
     "email": {
       "name": "E-mail",
@@ -70,6 +76,9 @@
     },
     "repId": {
       "name": "Numéro du Représentant de Ventes (Optionel)"
+    },
+    "lang": {
+      "name": "Langue de Prédilection"
     },
     "addInfo": {
       "name": "Information additionelle (Optionel)"

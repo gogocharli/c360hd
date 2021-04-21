@@ -15,7 +15,7 @@ export interface productInfo {
   product: 'classic' | 'special';
   date: string;
   repId: string;
-  addInfo: string;
+  lang: 'en' | 'fr';
 }
 
 export type FormInputs = businessInfo & productInfo;
@@ -28,7 +28,7 @@ export function FormField({
   rules = { required: true },
   className = '',
   children,
-  ...otherProps
+  options,
 }: {
   type?: InputType;
   name: keyof FormInputs;
@@ -36,6 +36,7 @@ export function FormField({
   rules?: RegisterOptions;
   defaultValue?: string | number;
   className?: string;
+  options?: { name: string; value: string | number }[];
   children?: React.ReactNode;
 }) {
   const {
@@ -45,15 +46,16 @@ export function FormField({
   return (
     <>
       <div className={formStyles.field}>
-        <label htmlFor={name} className={`field-label ${className}`}>
-          {label}
-        </label>
+        {type !== 'fieldset' && (
+          <label htmlFor={name} className={`field-label ${className}`}>
+            {label}
+          </label>
+        )}
         {type == 'select' ? (
           <select
             id={name}
             defaultValue={defaultValue}
             {...register(name, rules)}
-            {...otherProps}
           >
             {children}
           </select>
@@ -64,7 +66,35 @@ export function FormField({
             cols={20}
             rows={5}
             {...register(name, rules)}
-            {...otherProps}
+          />
+        ) : type == 'fieldset' ? (
+          <fieldset>
+            <legend>{label}</legend>
+            {options.map((opt) => (
+              <div>
+                <label
+                  htmlFor={opt.name}
+                  className={`field-label ${className}`}
+                >
+                  {opt.name}
+                </label>
+                <input
+                  type='radio'
+                  id={opt.name}
+                  {...register(name, rules)}
+                  value={opt.value}
+                />
+              </div>
+            ))}
+          </fieldset>
+        ) : type == 'phone' ? (
+          <input
+            type={type}
+            id={name}
+            defaultValue={defaultValue}
+            {...register(name, rules)}
+            inputMode='numeric'
+            pattern='[0-9]*'
           />
         ) : (
           <input
@@ -72,7 +102,6 @@ export function FormField({
             id={name}
             defaultValue={defaultValue}
             {...register(name, rules)}
-            {...otherProps}
           />
         )}
         <ErrorMessage errors={errors} name={name} as={<ErrorText />} />
@@ -81,4 +110,12 @@ export function FormField({
   );
 }
 
-type InputType = 'text' | 'date' | 'checkbox' | 'select' | 'textarea';
+type InputType =
+  | 'text'
+  | 'phone'
+  | 'email'
+  | 'date'
+  | 'checkbox'
+  | 'select'
+  | 'textarea'
+  | 'fieldset';
