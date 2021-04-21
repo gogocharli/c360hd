@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import type { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 
@@ -18,13 +18,10 @@ import { Timeline } from '@includes/timeline';
 const paths = ['business', 'contact', 'order', 'review', 'checkout'];
 
 export default function Checkout() {
-  const [formStep, setFormStep] = useState(0);
   const router = useRouter();
-  const {
-    asPath,
-    query: { product },
-  } = router;
-
+  const { asPath, query } = router;
+  const [formStep, setFormStep] = useState(0);
+  const [defaultProduct] = useState(() => (query.product as string) ?? '');
   function onSubmit(data: any) {
     console.log(data);
   }
@@ -43,15 +40,6 @@ export default function Checkout() {
     }
   }, [asPath]);
 
-  /**
-   * Select section and navigate using the current step
-   */
-  function navigate(direction: 'previous' | 'next') {
-    const hash =
-      direction == 'previous' ? paths[formStep - 1] : paths[formStep + 1];
-    router.push(`#${hash}`, null, { shallow: true });
-  }
-
   const methods = useForm<FormInputs>({
     defaultValues: {
       businessName: '',
@@ -60,13 +48,34 @@ export default function Checkout() {
       primaryNumber: '',
       secondaryNumber: '',
       email: '',
+      product: defaultProduct === 'special' ? 'special' : 'classic',
       date: '',
       repId: '',
       addInfo: '',
     },
     mode: 'onBlur',
   });
-  const { control } = methods;
+  const {
+    control,
+    formState: { errors },
+  } = methods;
+
+  /**
+   * Select section and navigate using the current step
+   */
+  function navigate(direction: 'previous' | 'next') {
+    const hash =
+      direction == 'previous' ? paths[formStep - 1] : paths[formStep + 1];
+
+    if (direction == 'next' && !currentStepIsValid) return;
+
+    router.push(`#${hash}`, null, { shallow: true });
+  }
+
+  function currentStepIsValid() {
+    return Object.keys(errors).length == 0;
+  }
+
   const { t } = useTranslation('checkout');
   return (
     <Layout pageMeta={{ title: 'Checkout' }}>
@@ -87,9 +96,9 @@ export default function Checkout() {
           <div className='form__wrapper'>
             <FormProvider {...methods}>
               <form className={`${form}`} action='post'>
-                {formStep == 0 && <ClientInfo />}
+                {formStep == 0 && <BusinessInfo />}
                 {formStep == 1 && <ContactInfo />}
-                {formStep == 2 && <OrderInfo product={product as string} />}
+                {formStep == 2 && <OrderInfo />}
                 {formStep == 3 && <ReviewInfo control={control} />}
                 {formStep == 4 && <h2>Checkout Content</h2>}
               </form>
@@ -109,7 +118,12 @@ export default function Checkout() {
                 </Button>
               )}
               {formStep < 4 && (
-                <Button className='next' onClick={() => navigate('next')}>
+                <Button
+                  className='next'
+                  onClick={() => {
+                    currentStepIsValid() && navigate('next');
+                  }}
+                >
                   <span className='visually-hidden'>{t('buttons.next')}</span>
                   <div className='icon'>
                     <Arrow width={24} />
@@ -183,7 +197,8 @@ export default function Checkout() {
         .buttons {
           display: flex;
           justify-content: space-between;
-          margin-top: 2.5rem;
+          margin: 2.5rem auto 0;
+          max-width: 80%;
         }
 
         :global(.button) {
@@ -288,7 +303,7 @@ function ContactInfo() {
 /**
  * Form step for information related to the order
  */
-function OrderInfo({ product }: { product: string }) {
+function OrderInfo() {
   const { t } = useTranslation('checkout');
   return (
     <>
@@ -296,7 +311,6 @@ function OrderInfo({ product }: { product: string }) {
         type='select'
         name='product'
         label={`${t('form.product.name')}`}
-        defaultValue={product ?? 'classic'}
       >
         <option value='classic'>Classic</option>
         <option value='special'>Special</option>
