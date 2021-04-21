@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import { Controller } from 'react-hook-form';
 import usePlacesAutoComplete, {
   getGeocode,
@@ -7,6 +8,7 @@ import Downshift from 'downshift';
 import formStyles from './styles.module.scss';
 
 export function AddressAutoComplete() {
+  const { t } = useTranslation('checkout');
   const {
     value,
     setValue,
@@ -81,7 +83,7 @@ export function AddressAutoComplete() {
                     id: 'address-label',
                   })}
                 >
-                  Address
+                  {t('form.address.name')}
                 </label>
                 <input
                   {...getInputProps({ id: 'address' })}
