@@ -1,7 +1,10 @@
-import { useFormContext, RegisterOptions } from 'react-hook-form';
+import { useFormContext, RegisterOptions, Controller } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import formStyles from './styles.module.scss';
 import { ErrorText } from './error-text';
+import Datepicker from 'react-datepicker';
+import { DateTime } from 'luxon';
+import 'react-datepicker/dist/react-datepicker.css';
+import formStyles from './styles.module.scss';
 export interface businessInfo {
   businessName: string;
   decisionMaker: string;
@@ -13,7 +16,7 @@ export interface businessInfo {
 
 export interface productInfo {
   product: 'classic' | 'special';
-  date: string;
+  date: Date;
   repId: string;
   lang: 'en' | 'fr';
 }
@@ -96,6 +99,40 @@ export function FormField({
             inputMode='numeric'
             pattern='[0-9]*'
           />
+        ) : type == 'date' ? (
+          <Controller
+            name={name}
+            render={({ field }) => (
+              <Datepicker
+                {...field}
+                selected={field.value}
+                showTimeSelect
+                dateFormat='d MMMM, yy h:mm aa'
+                filterDate={(date) => {
+                  const today = DateTime.now();
+                  const selectedDay = DateTime.fromJSDate(date, {
+                    zone: 'America/Toronto',
+                  });
+
+                  /* 
+                    This doesn't exactly work as you'd expect
+                    you can only know whether the exact time is not now.
+                    Calculating it properly would require knowing the exact
+                    number of the date in the year and even that would cause problems.
+                    I'll write it later but for now this is good enough.
+                  */
+                  const isNotToday = selectedDay.toMillis() > today.toMillis();
+                  const selectedWeekDay = selectedDay.weekday;
+                  return selectedWeekDay < 6 && isNotToday;
+                }}
+                filterTime={(time) => {
+                  // is between 9 and 5
+                  const hour = DateTime.fromJSDate(time).hour;
+                  return hour >= 9 && hour <= 17;
+                }}
+              />
+            )}
+          />
         ) : (
           <input
             type={type}
@@ -109,6 +146,11 @@ export function FormField({
     </>
   );
 }
+
+export const TOMORROW = DateTime.now()
+  .set({ hour: 8, minute: 30 })
+  .plus({ days: 1 })
+  .toJSDate();
 
 type InputType =
   | 'text'

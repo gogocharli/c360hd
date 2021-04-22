@@ -67,7 +67,12 @@ export function OrderInfo() {
         <option value='classic'>Classic</option>
         <option value='special'>Special</option>
       </FormField>
-      <FormField type='date' name='date' label={`${t('form.date.name')}`} />
+      <FormField
+        type='date'
+        name='date'
+        label={`${t('form.date.name')}`}
+        rules={{ required: `${t('form.date.error.required')}` }}
+      />
       <FormField
         name='repId'
         label={`${t('form.repId.name')}`}
@@ -90,7 +95,13 @@ export function OrderInfo() {
 /**
  * Allow users to review their information before submitting
  */
-export function ReviewInfo({ control }: { control: Control<FormInputs> }) {
+export function ReviewInfo({
+  control,
+  locale,
+}: {
+  control: Control<FormInputs>;
+  locale: string;
+}) {
   const fields = useWatch({
     control,
   });
@@ -102,6 +113,13 @@ export function ReviewInfo({ control }: { control: Control<FormInputs> }) {
         {Object.entries(fields).map(([field, value]) => {
           if (field == 'lang') {
             value = value == 'fr' ? 'Français' : 'English';
+          }
+
+          if (field == 'date') {
+            value = new Intl.DateTimeFormat(locale, {
+              dateStyle: 'full',
+              timeStyle: 'short',
+            }).format(value as Date);
           }
 
           return (

@@ -8,7 +8,7 @@ import { useForm, FormProvider } from 'react-hook-form';
 
 import Layout from '@layouts/checkout';
 import { Button } from '@components/button';
-import { FormInputs } from '@components/Form/form-field';
+import { FormInputs, TOMORROW } from '@components/Form/form-field';
 import Arrow from '@components/icon-arrow-right.svg';
 
 import { form } from '@components/Form/styles.module.scss';
@@ -55,7 +55,7 @@ export default function Checkout() {
       secondaryNumber: '',
       email: '',
       product: defaultProduct == 'special' ? 'special' : 'classic',
-      date: '',
+      date: TOMORROW,
       repId: '',
       lang: router.locale == 'fr' ? 'fr' : 'en',
     },
@@ -105,7 +105,9 @@ export default function Checkout() {
                 {formStep == 0 && <BusinessInfo />}
                 {formStep == 1 && <ContactInfo />}
                 {formStep == 2 && <OrderInfo />}
-                {formStep == 3 && <ReviewInfo control={control} />}
+                {formStep == 3 && (
+                  <ReviewInfo control={control} locale={router.locale} />
+                )}
                 {formStep == 4 && <Payment />}
               </form>
             </FormProvider>
