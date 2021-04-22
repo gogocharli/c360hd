@@ -10,6 +10,7 @@ import formStyles from './styles.module.scss';
 export function AddressAutoComplete() {
   const { t } = useTranslation('checkout');
   const {
+    ready,
     value,
     setValue,
     clearSuggestions,
@@ -89,6 +90,7 @@ export function AddressAutoComplete() {
                 <input
                   {...getInputProps({ id: 'address' })}
                   placeholder='Enter an address'
+                  disabled={!ready}
                 />
                 <ul {...getMenuProps({ id: 'address-menu' })}>
                   {isOpen

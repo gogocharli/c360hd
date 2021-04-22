@@ -3,12 +3,16 @@ import { useTranslation } from 'next-i18next';
 import { AddressAutoComplete } from '@components/Form/auto-complete';
 import { FormField, FormInputs } from '@components/Form/form-field';
 import { Control, useWatch } from 'react-hook-form';
+import { useScript } from 'hooks/useScript';
 
 /**
  * Client information such as name, address, and contact
  */
 export function BusinessInfo() {
   const { t } = useTranslation('checkout');
+  const status = useScript(
+    `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&libraries=places`,
+  );
   return (
     <>
       <FormField
@@ -21,7 +25,7 @@ export function BusinessInfo() {
         label={`${t('form.decisionMaker.name')}`}
         rules={{ required: `${t('form.decisionMaker.error.required')}` }}
       />
-      <AddressAutoComplete />
+      {status == 'ready' && <AddressAutoComplete />}
     </>
   );
 }
