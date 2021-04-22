@@ -30,6 +30,7 @@ devDependencies:
   '@types/luxon': 1.26.2
   '@types/node': 14.14.33
   '@types/react': 17.0.3
+  '@types/react-datepicker': 3.1.8
   gorko: 0.2.3
   jest: 26.6.3
   sass: 1.32.8
@@ -1677,6 +1678,14 @@ packages:
     dev: false
     resolution:
       integrity: sha512-1HcDas8SEj4z1Wc696tH56G8OlRaH/sqZOynNNB+HF0WOeXPaxTtbYzJY2oEfiUxjSKjhCKr+MvR7dCHcEelug==
+  /@types/react-datepicker/3.1.8:
+    dependencies:
+      '@types/react': 17.0.3
+      date-fns: 2.21.1
+      popper.js: 1.16.1
+    dev: true
+    resolution:
+      integrity: sha512-RFEg7++xhosMq02i2lsuaUPEbZGn66U3dxtvw9LU/ZRqLkBGr9Ft2LTz6vbeYYVtaBdOr0NcQatOLnlfUaS8kw==
   /@types/react/17.0.3:
     dependencies:
       '@types/prop-types': 15.7.3
@@ -2804,7 +2813,6 @@ packages:
     resolution:
       integrity: sha512-X5eWTSXO/BJmpdIKCRuKUgSCgAN0OwliVK3yPKbwIWU1Tdw5BRajxlzMidvh+gwko9AfQ9zIj52pzF91Q3YAvQ==
   /date-fns/2.21.1:
-    dev: false
     engines:
       node: '>=0.11'
     resolution:
@@ -5808,7 +5816,6 @@ packages:
       integrity: sha512-Lr2rq8OP0j8D7CO2/6eO17ALeFCxjx1hfTGbMg+TLqFj+KZSGOoj6gRBVTzDINGqo6LQrORQSSSDaCL5OrB3bw==
   /popper.js/1.16.1:
     deprecated: You can find the new Popper v2 at @popperjs/core, this package is dedicated to the legacy v1
-    dev: false
     resolution:
       integrity: sha512-Wb4p1J4zyFTbM+u6WuO4XstYx4Ky9Cewe4DWrel7B0w6VVICvPwdOpotjzcf6eD8TsckVnIMNONQyPIUFOUbCQ==
   /posix-character-classes/0.1.1:
@@ -7743,6 +7750,7 @@ specifiers:
   '@types/luxon': ^1.26.2
   '@types/node': ^14.14.33
   '@types/react': ^17.0.3
+  '@types/react-datepicker': ^3.1.8
   airtable: ^0.10.1
   change-case: ^4.1.2
   crypto-random-string: ^3.3.1
