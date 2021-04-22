@@ -102,6 +102,7 @@ export function FormField({
         ) : type == 'date' ? (
           <Controller
             name={name}
+            rules={rules}
             render={({ field }) => (
               <Datepicker
                 {...field}

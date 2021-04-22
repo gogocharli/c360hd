@@ -12,10 +12,9 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     case 'POST': {
     }
     case 'GET': {
-      const orderDateTime = query.dateTime as string[];
-      const [date, time] = orderDateTime;
+      const dateTime = query.dateTime as string;
 
-      return checkSchedule(formatDate(date), formatTime(time)).then(
+      return checkSchedule(formatDate(dateTime), formatTime(dateTime)).then(
         fulfill,
         reject,
       );

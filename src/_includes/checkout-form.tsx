@@ -2,7 +2,7 @@ import { useTranslation } from 'next-i18next';
 
 import { AddressAutoComplete } from '@components/Form/auto-complete';
 import { FormField, FormInputs } from '@components/Form/form-field';
-import { Control, useWatch } from 'react-hook-form';
+import { Control, useWatch, ValidateResult } from 'react-hook-form';
 import { useScript } from 'hooks/useScript';
 
 /**
@@ -75,7 +75,9 @@ export function OrderInfo() {
         type='date'
         name='date'
         label={`${t('form.date.name')}`}
-        rules={{ required: `${t('form.date.error.required')}` }}
+        rules={{
+          validate: scheduleIsFree,
+        }}
       />
       <FormField
         name='repId'
@@ -162,4 +164,26 @@ export function Payment() {
       <h2>Pay Up</h2>
     </>
   );
+}
+
+// TODO make this more robust. The request failing isn't handled well
+const scheduleIsFree = async (date: Date): Promise<ValidateResult> => {
+  const isoDate = date.toISOString();
+  try {
+    const res = await window.fetch(`/api/events?dateTime=${isoDate}`);
+    const { isFree, reason } = (await res.json()) as ScheduleResponse;
+
+    if (isFree == false) {
+      return reason;
+    }
+    return isFree;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+};
+
+interface ScheduleResponse {
+  isFree: boolean;
+  reason: string | null;
 }
