@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { Header } from '@includes/header';
-
+import { Footer } from '@includes/footer';
 import { useTranslation } from 'next-i18next';
 
 export default function Layout({
@@ -39,6 +39,7 @@ export default function Layout({
         />
         {children}
       </main>
+      <Footer />
       <style jsx>{`
         main {
           --flow-space: 4.5rem;
