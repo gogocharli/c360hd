@@ -1,19 +1,25 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useForm, FormProvider, useWatch, Control } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 
 import Layout from '@layouts/checkout';
 import { Button } from '@components/button';
-import { AddressAutoComplete } from '@components/Form/auto-complete';
-import { FormField, FormInputs } from '@components/Form/form-field';
+import { FormInputs } from '@components/Form/form-field';
 import Arrow from '@components/icon-arrow-right.svg';
 
 import { form } from '@components/Form/styles.module.scss';
 import { Timeline } from '@includes/timeline';
+import {
+  BusinessInfo,
+  ContactInfo,
+  OrderInfo,
+  Payment,
+  ReviewInfo,
+} from '@includes/checkout-form';
 
 const paths = ['business', 'contact', 'order', 'review', 'checkout'];
 
@@ -252,136 +258,6 @@ export default function Checkout() {
         }
       `}</style>
     </Layout>
-  );
-}
-
-/**
- * Client information such as name, address, and contact
- */
-function BusinessInfo() {
-  const { t } = useTranslation('checkout');
-  return (
-    <>
-      <FormField
-        name='businessName'
-        label={`${t('form.businessName.name')}`}
-        rules={{ required: `${t('form.businessName.error.required')}` }}
-      />
-      <FormField
-        name='decisionMaker'
-        label={`${t('form.decisionMaker.name')}`}
-        rules={{ required: `${t('form.decisionMaker.error.required')}` }}
-      />
-      <AddressAutoComplete />
-    </>
-  );
-}
-
-function ContactInfo() {
-  const { t } = useTranslation('checkout');
-  return (
-    <>
-      <FormField
-        type='phone'
-        name='primaryNumber'
-        label={`${t('form.primaryNumber.name')}`}
-        rules={{ required: `${t('form.primaryNumber.error.required')}` }}
-      />
-      <FormField
-        type='phone'
-        name='secondaryNumber'
-        label={`${t('form.secondaryNumber.name')}`}
-        rules={{ required: `${t('form.secondaryNumber.error.required')}` }}
-      />
-      <FormField
-        type='email'
-        name='email'
-        label={`${t('form.email.name')}`}
-        rules={{ required: `${t('form.email.error.required')}` }}
-      />
-    </>
-  );
-}
-
-/**
- * Form step for information related to the order
- */
-function OrderInfo() {
-  const { t } = useTranslation('checkout');
-  return (
-    <>
-      <FormField
-        type='select'
-        name='product'
-        label={`${t('form.product.name')}`}
-      >
-        <option value='classic'>Classic</option>
-        <option value='special'>Special</option>
-      </FormField>
-      <FormField type='date' name='date' label={`${t('form.date.name')}`} />
-      <FormField
-        name='repId'
-        label={`${t('form.repId.name')}`}
-        rules={{ required: false }}
-      />
-      <FormField
-        type='fieldset'
-        name='lang'
-        label={`${t('form.lang.name')}`}
-        rules={{ required: false }}
-        options={[
-          { name: 'English', value: 'en' },
-          { name: 'Français', value: 'fr' },
-        ]}
-      ></FormField>
-    </>
-  );
-}
-
-/**
- * Allow users to review their information before submitting
- */
-function ReviewInfo({ control }: { control: Control<FormInputs> }) {
-  const fields = useWatch({
-    control,
-  });
-  const { t } = useTranslation('checkout');
-
-  return (
-    <>
-      <ul className='flow'>
-        {Object.entries(fields).map(([field, value]) => {
-          if (field == 'lang') {
-            value = value == 'fr' ? 'Français' : 'English';
-          }
-
-          return (
-            <li key={field}>
-              <span className='weight-bold'>{t(`form.${field}.name`)}:</span>
-              <span>{value || '—'}</span>
-            </li>
-          );
-        })}
-      </ul>
-      <style jsx>{`
-        ul {
-          --flow-space: 1rem;
-
-          color: hsl(var(--color-dark-main));
-          font-feature-settings: 'ss02' off;
-          font-size: 1rem;
-          width: 100%;
-        }
-
-        li {
-          display: flex;
-        }
-
-        span {
-          flex-basis: 50%;
-        }
-      `}</style>
-    </>
   );
 }
 
