@@ -4,6 +4,7 @@ import { AddressAutoComplete } from '@components/Form/auto-complete';
 import { FormField, FormInputs } from '@components/Form/form-field';
 import { Control, useWatch, ValidateResult } from 'react-hook-form';
 import { useScript } from 'hooks/useScript';
+import { StripeCheckout } from '@components/stripe-checkout';
 
 /**
  * Client information such as name, address, and contact
@@ -158,10 +159,13 @@ export function ReviewInfo({
   );
 }
 
-export function Payment() {
+export function Payment({ control }: { control: Control<FormInputs> }) {
+  const { email, businessName: name, primaryNumber: phone } = useWatch({
+    control,
+  });
   return (
     <>
-      <h2>Pay Up</h2>
+      <StripeCheckout customerInfo={{ email, name, phone }} />
     </>
   );
 }

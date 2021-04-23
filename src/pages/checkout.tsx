@@ -5,6 +5,8 @@ import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useForm, FormProvider } from 'react-hook-form';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
 
 import Layout from '@layouts/checkout';
 import { Button } from '@components/button';
@@ -21,6 +23,9 @@ import {
   ReviewInfo,
 } from '@includes/checkout-form';
 
+const stripePromise = loadStripe(
+  'pk_test_51HIOFKE48JsbnRWLf04ZqFaLFG5LsnFyQvqTMpVb9ISarAnQslJAHFyzWqPTC39CvDy87NxQ9OzKWPiiyZjISzEZ00ZmkndixV',
+);
 const paths = ['business', 'contact', 'order', 'review', 'checkout'];
 
 export default function Checkout() {
@@ -85,63 +90,81 @@ export default function Checkout() {
   const { t } = useTranslation('checkout');
   return (
     <Layout pageMeta={{ title: 'Checkout' }}>
-      <div className='multi-form wrapper flow'>
-        <Timeline step={formStep} />
-        <section className='content'>
-          <div className='[ info ] [ flow align-center ]'>
-            <h1 className='[ text-600 ] [ tracking-tight leading-flat measure-micro ]'>
-              {t(`steps.${formStep}.title`)}
-            </h1>
-            <p className='text-300 measure-short'>
-              {t(`steps.${formStep}.desc`)}
-            </p>
-            <p className='[ count ] [ weight-bold text-300 ] '>
-              {formStep + 1} / 5
-            </p>
-          </div>
-          <div className='form__wrapper'>
-            <FormProvider {...methods}>
-              <form className={`${form}`} action='post'>
-                {formStep == 0 && <BusinessInfo />}
-                {formStep == 1 && <ContactInfo />}
-                {formStep == 2 && <OrderInfo />}
-                {formStep == 3 && (
-                  <ReviewInfo control={control} locale={router.locale} />
-                )}
-                {formStep == 4 && <Payment />}
-              </form>
-            </FormProvider>
-            <div className='buttons'>
-              {formStep > 0 && (
-                <Button
-                  className='previous'
-                  onClick={() => navigate('previous')}
-                >
-                  <span className='visually-hidden'>
-                    {t('buttons.previous')}
-                  </span>
-                  <div className='icon'>
-                    <Arrow width={24} />
-                  </div>
-                </Button>
-              )}
-              {formStep < 4 && (
-                <Button
-                  className='next'
-                  onClick={() => {
-                    currentStepIsValid() && navigate('next');
-                  }}
-                >
-                  <span className='visually-hidden'>{t('buttons.next')}</span>
-                  <div className='icon'>
-                    <Arrow width={24} />
-                  </div>
-                </Button>
-              )}
+      <Elements
+        stripe={stripePromise}
+        options={{
+          fonts: [{ cssSrc: 'https://use.typekit.net/jst8wwr.css' }],
+          locale: router.locale as 'en' | 'fr',
+        }}
+      >
+        <div className='multi-form wrapper flow'>
+          <Timeline step={formStep} />
+          <section className='content'>
+            <div className='[ info ] [ flow align-center ]'>
+              <h1 className='[ text-600 ] [ tracking-tight leading-flat measure-micro ]'>
+                {t(`steps.${formStep}.title`)}
+              </h1>
+              <p className='text-300 measure-short'>
+                {t(`steps.${formStep}.desc`)}
+              </p>
+              <p className='[ count ] [ weight-bold text-300 ] '>
+                {formStep + 1} / 5
+              </p>
             </div>
-          </div>
-        </section>
-      </div>
+            <div className='form__wrapper'>
+              <FormProvider {...methods}>
+                {formStep < 4 && (
+                  <form className={`${form}`} action='post'>
+                    {formStep == 0 && <BusinessInfo />}
+                    {formStep == 1 && <ContactInfo />}
+                    {formStep == 2 && <OrderInfo />}
+                    {formStep == 3 && (
+                      <ReviewInfo control={control} locale={router.locale} />
+                    )}
+                  </form>
+                )}
+                {formStep == 4 && <Payment control={control} />}
+              </FormProvider>
+              <div className='buttons'>
+                {formStep > 0 && (
+                  <Button
+                    className='previous'
+                    onClick={() => navigate('previous')}
+                  >
+                    <span className='visually-hidden'>
+                      {t('buttons.previous')}
+                    </span>
+                    <div className='icon'>
+                      <Arrow width={24} />
+                    </div>
+                  </Button>
+                )}
+                {formStep < 4 ? (
+                  <Button
+                    className='next'
+                    onClick={() => {
+                      currentStepIsValid() && navigate('next');
+                    }}
+                  >
+                    <span className='visually-hidden'>{t('buttons.next')}</span>
+                    <div className='icon'>
+                      <Arrow width={24} />
+                    </div>
+                  </Button>
+                ) : (
+                  <Button
+                    type='secondary'
+                    form='stripe-checkout'
+                    className='stripe-checkout-button'
+                  >
+                    Confirm Order
+                  </Button>
+                )}
+              </div>
+            </div>
+          </section>
+        </div>
+      </Elements>
       <style jsx>{`
         .multi-form {
           --flow-space: 3rem;
@@ -154,7 +177,7 @@ export default function Checkout() {
         .info {
           --flow-space: 1rem;
 
-          background-color: hsl(var(--theme-color-hg));
+          background-color: hsl(var(--theme-color-tint));
           border-radius: var(--border-radius);
           padding: 2.5rem 0.5rem;
         }
@@ -182,6 +205,7 @@ export default function Checkout() {
 
           background-color: hsl(var(--theme-color-bg));
           border-radius: var(--border-radius);
+          color: hsl(var(--theme-color-fg));
           flex-direction: column;
           margin-top: 1.5rem;
           padding: 2.5rem 1rem;
@@ -232,6 +256,13 @@ export default function Checkout() {
 
         .buttons > :global(.next) {
           margin-left: auto;
+        }
+
+        .buttons > :global(.stripe-checkout-button) {
+          --default-bg: var(--color-light-highlight);
+          --default-color: var(--color-dark-main);
+          --hover-bg: var(--color-dark-main);
+          --hover-color: var(--color-light-main);
         }
 
         @media (min-width: 65em) {
