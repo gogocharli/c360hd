@@ -23,6 +23,8 @@
   "dependencies": {
     "@hookform/error-message": "^0.0.5",
     "@reach/accordion": "^0.13.2",
+    "@stripe/react-stripe-js": "^1.4.0",
+    "@stripe/stripe-js": "^1.13.2",
     "airtable": "^0.10.1",
     "change-case": "^4.1.2",
     "crypto-random-string": "^3.3.1",
@@ -43,6 +45,7 @@
     "react-hook-form": "^7.1.0",
     "remark": "^13.0.0",
     "remark-html": "^13.0.1",
+    "stripe": "^8.145.0",
     "twilio": "^3.57.0",
     "use-places-autocomplete": "^1.9.1"
   },

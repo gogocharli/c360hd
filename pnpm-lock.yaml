@@ -1,6 +1,8 @@
 dependencies:
   '@hookform/error-message': 0.0.5_44af796fcc7ed284e5883aa4e23008f4
   '@reach/accordion': 0.13.2_react-dom@17.0.1+react@17.0.1
+  '@stripe/react-stripe-js': 1.4.0_828e9ee36f05ffe437b2c5bfe7b073fc
+  '@stripe/stripe-js': 1.13.2
   airtable: 0.10.1
   change-case: 4.1.2
   crypto-random-string: 3.3.1
@@ -21,6 +23,7 @@ dependencies:
   react-hook-form: 7.1.0_react@17.0.1
   remark: 13.0.0
   remark-html: 13.0.1
+  stripe: 8.145.0
   twilio: 3.57.0
   use-places-autocomplete: 1.9.1_react@17.0.1
 devDependencies:
@@ -1440,6 +1443,23 @@ packages:
     dev: true
     resolution:
       integrity: sha512-MZPUxrmFubI36XS1DI3qmI0YdN1gks62JtFZvxR67ljjSNCeK6U08Zx4msEWOXuofgqUt6zPHSi1H9fbjR/NRA==
+  /@stripe/react-stripe-js/1.4.0_828e9ee36f05ffe437b2c5bfe7b073fc:
+    dependencies:
+      '@stripe/stripe-js': 1.13.2
+      prop-types: 15.7.2
+      react: 17.0.1
+      react-dom: 17.0.1_react@17.0.1
+    dev: false
+    peerDependencies:
+      '@stripe/stripe-js': ^1.13.0
+      react: ^16.8.0 || ^17.0.0
+      react-dom: ^16.8.0 || ^17.0.0
+    resolution:
+      integrity: sha512-Pz5QmG8PgJ3pi8gOWxlngk+ns63p2L1Ds192fn55ykZNRKfGz3G6sfssUVThHn/NAt2Hp1eCEsy/hvlKnXJI6g==
+  /@stripe/stripe-js/1.13.2:
+    dev: false
+    resolution:
+      integrity: sha512-fycUk7ECukNc31lD5apcrUgdRC1BfiIacs+CpacoCjOgo3ablolnWCvDQWMmVWtODYa8bBv2dlBla+Edc5OvZg==
   /@svgr/babel-plugin-add-jsx-attribute/5.4.0:
     dev: false
     engines:
@@ -1659,6 +1679,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-Lt+wj8NVPx0zUmUwumiVXapmaLUcAk3yPuHCFVXras9k5VT9TdhJqKqGVUQCD60OTMCl0qxJ57OiTL0Mic3Iag==
+  /@types/node/14.14.41:
+    dev: false
+    resolution:
+      integrity: sha512-dueRKfaJL4RTtSa7bWeTK1M+VH+Gns73oCgzvYfHZywRCoPSd8EkXBL0mZ9unPTveBn+D9phZBaxuzpwjWkW0g==
   /@types/normalize-package-data/2.4.0:
     dev: true
     resolution:
@@ -5500,6 +5524,10 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-fn2Fi3gb18mRpBupde04EnVOmYw=
+  /object-inspect/1.10.2:
+    dev: false
+    resolution:
+      integrity: sha512-gz58rdPpadwztRrPjZE9DZLOABUpTGdcANUgOwBFO1C+HZZhePoP83M65WGDmbpwFYJSWqavbl4SgDn4k8RYTA==
   /object-inspect/1.9.0:
     dev: false
     resolution:
@@ -5951,6 +5979,14 @@ packages:
     dev: false
     resolution:
       integrity: sha1-dbjbAlWhpa+C9Yw/Oqoe/sfQ0TQ=
+  /qs/6.10.1:
+    dependencies:
+      side-channel: 1.0.4
+    dev: false
+    engines:
+      node: '>=0.6'
+    resolution:
+      integrity: sha512-M528Hph6wsSVOBiYUnGf+K/7w0hNshs/duGsNXPUCLH5XAqjEtiPGwNONLV0tBH8NoGb0mvD5JubnUTrujKDTg==
   /qs/6.5.2:
     dev: true
     engines:
@@ -6563,6 +6599,14 @@ packages:
     optional: true
     resolution:
       integrity: sha512-vFwSUfQvqybiICwZY5+DAWIPLKsWO31Q91JSKl3UYv+K5c2QRPzn0qzec6QPu1Qc9eHYItiP3NdJqNVqetYAww==
+  /side-channel/1.0.4:
+    dependencies:
+      call-bind: 1.0.2
+      get-intrinsic: 1.1.1
+      object-inspect: 1.10.2
+    dev: false
+    resolution:
+      integrity: sha512-q5XPytqFEIKHkGdiMIrY10mvLRvnQh42/+GoBlFW3b2LXLE2xxJpZFdm94we0BaoV3RwJyGqg5wS7epxTv0Zvw==
   /signal-exit/3.0.3:
     dev: true
     resolution:
@@ -6873,6 +6917,15 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-BrpvfNAE3dcvq7ll3xVumzjKjZQ5tI1sEUIKr3Uoks0XUl45St3FlatVqef9prk4jRDzhW6WZg+3bk93y6pLjA==
+  /stripe/8.145.0:
+    dependencies:
+      '@types/node': 14.14.41
+      qs: 6.10.1
+    dev: false
+    engines:
+      node: ^8.1 || >=10.*
+    resolution:
+      integrity: sha512-znLtEdO/ZT9mKUWechzcDQNWySt0e1RxyOOx+GZXFq6pspPhsse9MIehXEd+QdYnf8kvSAg041Txdgq+1yZqOg==
   /style-value-types/4.1.4:
     dependencies:
       hey-listen: 1.0.8
@@ -7744,6 +7797,8 @@ packages:
 specifiers:
   '@hookform/error-message': ^0.0.5
   '@reach/accordion': ^0.13.2
+  '@stripe/react-stripe-js': ^1.4.0
+  '@stripe/stripe-js': ^1.13.2
   '@types/airtable': ^0.8.1
   '@types/googlemaps': ^3.43.3
   '@types/jest': ^26.0.20
@@ -7774,6 +7829,7 @@ specifiers:
   remark: ^13.0.0
   remark-html: ^13.0.1
   sass: ^1.32.8
+  stripe: ^8.145.0
   svgo: ^2.2.2
   ts-jest: ^26.5.3
   twilio: ^3.57.0
