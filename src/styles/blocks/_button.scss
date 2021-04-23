@@ -64,7 +64,7 @@
 
   // Variant for secondary buttons (eg. forms)
   &[data-variant='secondary'] {
-    --default-bg: var(--theme-color-hg);
+    --default-bg: var(--theme-color-tint);
     --hover-bg: var(--theme-color-accent);
     --hover-color: var(--theme-color-bg);
     --default-color: var(--theme-color-fg);

@@ -3,7 +3,10 @@
 
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+
+  & > * + * {
+    margin-top: 1rem;
+  }
 }
 
 .field {
@@ -13,7 +16,7 @@
 
   label,
   legend {
-    color: hsl(var(--color-dark-highlight));
+    color: hsl(var(--color-dark-tint));
     font-size: 1rem;
     font-feature-settings: 'ss02' off;
     line-height: 1;
