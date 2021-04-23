@@ -29,7 +29,7 @@ export function Button({
 }: {
   onClick?: Function;
   type?: 'primary' | 'secondary';
-  form?: boolean;
+  form?: boolean | string;
   className?: string;
   children: React.ReactNode;
 }): JSX.Element;
@@ -47,7 +47,7 @@ export function Button({
   href?: string;
   locale?: string;
   type?: 'primary' | 'secondary';
-  form?: boolean;
+  form?: boolean | string;
   onClick?: any;
   className?: string;
   children: React.ReactNode;
@@ -71,6 +71,7 @@ export function Button({
     target.style.setProperty('--hover-translate', translate);
   }
 
+  const formName = typeof form == 'string' ? { form } : {};
   const { locale: routerLocale } = useRouter();
   return (
     <>
@@ -95,6 +96,7 @@ export function Button({
           onClick={onClick}
           type={form ? 'submit' : 'button'}
           ref={buttonRef as LegacyRef<HTMLButtonElement>}
+          {...formName}
         >
           {children}
         </button>
