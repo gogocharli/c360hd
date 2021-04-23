@@ -34,6 +34,7 @@ devDependencies:
   '@types/node': 14.14.33
   '@types/react': 17.0.3
   '@types/react-datepicker': 3.1.8
+  '@types/stripe-v3': 3.1.23
   gorko: 0.2.3
   jest: 26.6.3
   sass: 1.32.8
@@ -1724,6 +1725,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-RJJrrySY7A8havqpGObOB4W92QXKJo63/jFLLgpvOtsGUqbQZ9Sbgl35KMm1DjC6j7AvmmU2bIno+3IyEaemaw==
+  /@types/stripe-v3/3.1.23:
+    dev: true
+    resolution:
+      integrity: sha512-fqCnai832M6o6qH6A+Dqk1I/SXAzx629bknbrDigyvkuAPGZGrjkLCMxfnrtWswHXNPjj/TtuGf4lQnDXc815w==
   /@types/unist/2.0.3:
     dev: false
     resolution:
@@ -7806,6 +7811,7 @@ specifiers:
   '@types/node': ^14.14.33
   '@types/react': ^17.0.3
   '@types/react-datepicker': ^3.1.8
+  '@types/stripe-v3': ^3.1.23
   airtable: ^0.10.1
   change-case: ^4.1.2
   crypto-random-string: ^3.3.1

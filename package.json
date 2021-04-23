@@ -57,6 +57,7 @@
     "@types/node": "^14.14.33",
     "@types/react": "^17.0.3",
     "@types/react-datepicker": "^3.1.8",
+    "@types/stripe-v3": "^3.1.23",
     "gorko": "^0.2.3",
     "jest": "^26.6.3",
     "sass": "^1.32.8",
