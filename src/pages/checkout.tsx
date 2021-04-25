@@ -20,8 +20,9 @@ import {
   ContactInfo,
   OrderInfo,
   Payment,
-  ReviewInfo,
-} from '@includes/checkout-form';
+  ReviewOrder,
+} from '@components/Checkout';
+import { StepInfo } from '@components/Checkout/step-info';
 
 const stripePromise = loadStripe(
   'pk_test_51HIOFKE48JsbnRWLf04ZqFaLFG5LsnFyQvqTMpVb9ISarAnQslJAHFyzWqPTC39CvDy87NxQ9OzKWPiiyZjISzEZ00ZmkndixV',
@@ -90,81 +91,72 @@ export default function Checkout() {
   const { t } = useTranslation('checkout');
   return (
     <Layout pageMeta={{ title: 'Checkout' }}>
-      <Elements
-        stripe={stripePromise}
-        options={{
-          fonts: [{ cssSrc: 'https://use.typekit.net/jst8wwr.css' }],
-          locale: router.locale as 'en' | 'fr',
-        }}
-      >
-        <div className='multi-form wrapper flow'>
-          <Timeline step={formStep} />
-          <section className='content'>
-            <div className='[ info ] [ flow align-center ]'>
-              <h1 className='[ text-600 ] [ tracking-tight leading-flat measure-micro ]'>
-                {t(`steps.${formStep}.title`)}
-              </h1>
-              <p className='text-300 measure-short'>
-                {t(`steps.${formStep}.desc`)}
-              </p>
-              <p className='[ count ] [ weight-bold text-300 ] '>
-                {formStep + 1} / 5
-              </p>
-            </div>
-            <div className='form__wrapper'>
-              <FormProvider {...methods}>
-                {formStep < 4 && (
-                  <form className={`${form}`} action='post'>
-                    {formStep == 0 && <BusinessInfo />}
-                    {formStep == 1 && <ContactInfo />}
-                    {formStep == 2 && <OrderInfo />}
-                    {formStep == 3 && (
-                      <ReviewInfo control={control} locale={router.locale} />
-                    )}
-                  </form>
-                )}
+      <div className='multi-form wrapper flow'>
+        <Timeline step={formStep} />
+        <section className='content'>
+          <StepInfo step={formStep} />
+          <div className='form__wrapper'>
+            <FormProvider {...methods}>
+              {formStep < 4 && (
+                <form className={`${form}`} action='post'>
+                  {formStep == 0 && <BusinessInfo />}
+                  {formStep == 1 && <ContactInfo />}
+                  {formStep == 2 && <OrderInfo />}
+                  {formStep == 3 && (
+                    <ReviewOrder control={control} locale={router.locale} />
+                  )}
+                </form>
+              )}
+              <Elements
+                stripe={stripePromise}
+                options={{
+                  fonts: [{ cssSrc: 'https://use.typekit.net/jst8wwr.css' }],
+                  locale: router.locale as 'en' | 'fr',
+                }}
+              >
                 {formStep == 4 && <Payment control={control} />}
-              </FormProvider>
-              <div className='buttons'>
-                {formStep > 0 && (
-                  <Button
-                    className='previous'
-                    onClick={() => navigate('previous')}
-                  >
-                    <span className='visually-hidden'>
-                      {t('buttons.previous')}
-                    </span>
-                    <div className='icon'>
-                      <Arrow width={24} />
-                    </div>
-                  </Button>
-                )}
-                {formStep < 4 ? (
-                  <Button
-                    className='next'
-                    onClick={() => {
-                      currentStepIsValid() && navigate('next');
-                    }}
-                  >
-                    <span className='visually-hidden'>{t('buttons.next')}</span>
-                    <div className='icon'>
-                      <Arrow width={24} />
-                    </div>
-                  </Button>
-                ) : (
-                  <Button
-                    type='secondary'
-                    form='stripe-checkout'
-                    className='stripe-checkout-button'
-                  >
-                    Confirm Order
-                  </Button>
-                )}
-              </div>
+              </Elements>
+            </FormProvider>
+            <div className='buttons'>
+              {formStep > 0 && (
+                <Button
+                  className='previous'
+                  onClick={() => navigate('previous')}
+                >
+                  <span className='visually-hidden'>
+                    {t('buttons.previous')}
+                  </span>
+                  <div className='icon'>
+                    <Arrow width={24} />
+                  </div>
+                </Button>
+              )}
+              {formStep < 4 ? (
+                <Button
+                  className='next'
+                  onClick={() => {
+                    currentStepIsValid() && navigate('next');
+                  }}
+                >
+                  <span className='visually-hidden'>{t('buttons.next')}</span>
+                  <div className='icon'>
+                    <Arrow width={24} />
+                  </div>
+                </Button>
+              ) : (
+                <Button
+                  type='secondary'
+                  form='stripe-checkout'
+                  className='stripe-checkout-button'
+                >
+                  Confirm Order
+                </Button>
+              )}
             </div>
-          </section>
-        </div>
-      </Elements>
+          </div>
+        </section>
+      </div>
+
       <style jsx>{`
         .multi-form {
           --flow-space: 3rem;
@@ -172,29 +164,6 @@ export default function Checkout() {
 
         .content {
           --border-radius: 8px;
-        }
-
-        .info {
-          --flow-space: 1rem;
-
-          background-color: hsl(var(--theme-color-tint));
-          border-radius: var(--border-radius);
-          padding: 2.5rem 0.5rem;
-        }
-
-        .info > * {
-          margin-left: auto;
-          margin-right: auto;
-        }
-
-        .info .count {
-          background-color: hsl(220 35% 44%);
-          border-radius: 2em;
-          letter-spacing: -0.1em;
-          line-height: 1;
-          padding: 1rem 1.5rem;
-          margin-top: calc(var(--flow-space) * 2);
-          width: fit-content;
         }
 
         .form__wrapper {
@@ -270,13 +239,6 @@ export default function Checkout() {
             display: grid;
             grid-template-columns: var(--grid-lg);
             grid-column-gap: 1rem;
-          }
-
-          .info {
-            display: flex;
-            flex-direction: column;
-            grid-column: 1 / span 5;
-            place-content: center;
           }
 
           .form__wrapper {

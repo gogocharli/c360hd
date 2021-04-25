@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import {
   useElements,
   useStripe,
@@ -6,7 +6,7 @@ import {
   CardExpiryElement,
   CardCvcElement,
 } from '@stripe/react-stripe-js';
-import formStyles from './Form/styles.module.scss';
+import formStyles from '../Form/styles.module.scss';
 
 const baseStyles = {
   style: {
@@ -25,13 +25,13 @@ const baseStyles = {
 
 export function StripeCheckout({
   customerInfo,
+  onSuccess: setSucceeded,
 }: {
   customerInfo: { email: string; name: string; phone: string };
+  onSuccess: Dispatch<SetStateAction<boolean>>;
 }) {
-  const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
-  const [processing, setProcessing] = useState(true);
-  // const [disabled, setDisabled] = useState(true);
+  const [processing, setProcessing] = useState(false);
   const [clientSecret, setClientSecret] = useState('');
 
   const stripe = useStripe();
@@ -108,15 +108,21 @@ export function StripeCheckout({
           </label>
         </div>
       </div>
+      {processing && (
+        <div className='stripe-card-loading'>
+          <h2>Processing</h2>
+        </div>
+      )}
       {error && (
         <div className='stripe-card-error' role='alert'>
           {error}
         </div>
       )}
-      {succeeded && (
-        <div className='stripe-card-success'>Payment Successful</div>
-      )}
       <style jsx>{`
+        form {
+          position: relative;
+        }
+
         label > :global(*:last-child) {
           margin-top: 1rem;
           padding: 1rem;
@@ -134,6 +140,10 @@ export function StripeCheckout({
 
         .extra-info > :last-child {
           margin-left: 0.5rem;
+        }
+
+        .stripe-card-loading {
+          position: absolute;
         }
       `}</style>
     </form>
