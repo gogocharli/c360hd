@@ -22,6 +22,7 @@ export default function Layout({
         <link
           rel='stylesheet'
           href='https://use.typekit.net/jst8wwr.css'
+          integrity='sha384-I8PbINmcRPDTNMreuYNkhAckWfcVDFDlNu7byvNRHSydSJqY1c0YlnTFgrb18kyo'
           crossOrigin='anonymous'
         />
       </Head>
