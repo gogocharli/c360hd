@@ -28,6 +28,11 @@ const stripePromise = loadStripe(
   'pk_test_51HIOFKE48JsbnRWLf04ZqFaLFG5LsnFyQvqTMpVb9ISarAnQslJAHFyzWqPTC39CvDy87NxQ9OzKWPiiyZjISzEZ00ZmkndixV',
 );
 const paths = ['business', 'contact', 'order', 'review', 'checkout'];
+const stepInputs = [
+  ['businessName', 'decisionMaker', 'address'],
+  ['primaryNumber', 'secondaryNumber', 'email'],
+  ['date'],
+];
 
 export default function Checkout() {
   const router = useRouter();
@@ -68,7 +73,7 @@ export default function Checkout() {
     mode: 'onBlur',
   });
   const {
-    control,
+    getValues,
     formState: { errors },
   } = methods;
 
@@ -96,27 +101,30 @@ export default function Checkout() {
         <section className='content'>
           <StepInfo step={formStep} />
           <div className='form__wrapper'>
-            <FormProvider {...methods}>
-              {formStep < 4 && (
-                <form className={`${form}`} action='post'>
-                  {formStep == 0 && <BusinessInfo />}
-                  {formStep == 1 && <ContactInfo />}
-                  {formStep == 2 && <OrderInfo />}
-                  {formStep == 3 && (
-                    <ReviewOrder control={control} locale={router.locale} />
-                  )}
-                </form>
-              )}
-              <Elements
-                stripe={stripePromise}
-                options={{
-                  fonts: [{ cssSrc: 'https://use.typekit.net/jst8wwr.css' }],
-                  locale: router.locale as 'en' | 'fr',
-                }}
-              >
-                {formStep == 4 && <Payment control={control} />}
-              </Elements>
-            </FormProvider>
+            <Elements
+              stripe={stripePromise}
+              options={{
+                fonts: [{ cssSrc: 'https://use.typekit.net/jst8wwr.css' }],
+                locale: router.locale as 'en' | 'fr',
+              }}
+            >
+              <FormProvider {...methods}>
+                {formStep < 4 && (
+                  <form className={`${form}`} action='post'>
+                    {formStep == 0 && <BusinessInfo />}
+                    {formStep == 1 && <ContactInfo />}
+                    {formStep == 2 && <OrderInfo />}
+                    {formStep == 3 && (
+                      <ReviewOrder
+                        locale={router.locale}
+                        getValues={getValues}
+                      />
+                    )}
+                  </form>
+                )}
+                {formStep == 4 && <Payment getValues={getValues} />}
+              </FormProvider>
+            </Elements>
             <div className='buttons'>
               {formStep > 0 && (
                 <Button

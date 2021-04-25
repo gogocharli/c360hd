@@ -1,12 +1,14 @@
 import { useState } from 'react';
+import { UseFormGetValues } from 'react-hook-form';
 import { FormInputs } from '../Form/form-field';
-import { Control, useWatch } from 'react-hook-form';
 import { StripeCheckout } from './stripe-checkout';
 
-export function Payment({ control }: { control: Control<FormInputs> }) {
-  const { email, businessName: name, primaryNumber: phone } = useWatch({
-    control,
-  });
+export function Payment({
+  getValues,
+}: {
+  getValues: UseFormGetValues<FormInputs>;
+}) {
+  const { email, businessName: name, primaryNumber: phone } = getValues();
   const [succeeded, setSucceeded] = useState(false);
   return (
     <>

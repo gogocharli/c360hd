@@ -1,20 +1,18 @@
 import { useTranslation } from 'next-i18next';
 import { FormInputs } from '@components/Form/form-field';
-import { Control, useWatch } from 'react-hook-form';
+import { UseFormGetValues } from 'react-hook-form';
 
 /**
  * Allow users to review their information before submitting
  */
 export function ReviewOrder({
-  control,
   locale,
+  getValues,
 }: {
-  control: Control<FormInputs>;
   locale: string;
+  getValues: UseFormGetValues<FormInputs>;
 }) {
-  const fields = useWatch({
-    control,
-  });
+  const fields = getValues();
   const { t } = useTranslation('checkout');
 
   return (
