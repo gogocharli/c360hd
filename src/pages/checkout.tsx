@@ -39,24 +39,6 @@ export default function Checkout() {
   const { asPath, query } = router;
   const [formStep, setFormStep] = useState(0);
   const [defaultProduct] = useState(() => (query.product as string) ?? '');
-  function onSubmit(data: any) {
-    console.log(data);
-  }
-
-  // Use the pathname's hash to render the right part of the form
-  useEffect(() => {
-    const hash = new window.URL(window.location.href).hash.slice(1);
-
-    // The URL object includes the query in the hash
-    // In order not to use a regex, we just stap to the first form page
-    // in case it exists
-    if (paths.includes(hash)) {
-      setFormStep(paths.indexOf(hash));
-    } else {
-      setFormStep(0);
-    }
-  }, [asPath]);
-
   const methods = useForm<FormInputs>({
     defaultValues: {
       businessName: '',
@@ -75,8 +57,31 @@ export default function Checkout() {
   const {
     getValues,
     trigger,
+    setFocus,
     formState: { errors },
   } = methods;
+
+  function onSubmit(data: any) {
+    console.log(data);
+  }
+
+  // Use the pathname's hash to render the right part of the form
+  useEffect(() => {
+    const hash = new window.URL(window.location.href).hash.slice(1);
+
+    // The URL object includes the query in the hash
+    // In order not to use a regex, we just stap to the first form page
+    // in case it exists
+    if (paths.includes(hash)) {
+      setFormStep(paths.indexOf(hash));
+    } else {
+      setFormStep(0);
+    }
+  }, [asPath]);
+
+  useEffect(() => {
+    formStep < 4 && setFocus(stepInputs[formStep][0]);
+  }, [formStep, setFocus]);
 
   /**
    * Select section and navigate using the current step
