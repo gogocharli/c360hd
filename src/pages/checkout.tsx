@@ -28,7 +28,7 @@ const stripePromise = loadStripe(
   'pk_test_51HIOFKE48JsbnRWLf04ZqFaLFG5LsnFyQvqTMpVb9ISarAnQslJAHFyzWqPTC39CvDy87NxQ9OzKWPiiyZjISzEZ00ZmkndixV',
 );
 const paths = ['business', 'contact', 'order', 'review', 'checkout'];
-const stepInputs = [
+const stepInputs: Array<keyof FormInputs>[] = [
   ['businessName', 'decisionMaker', 'address'],
   ['primaryNumber', 'secondaryNumber', 'email'],
   ['date'],
@@ -70,26 +70,29 @@ export default function Checkout() {
       repId: '',
       lang: router.locale == 'fr' ? 'fr' : 'en',
     },
-    mode: 'onBlur',
+    mode: 'onSubmit',
   });
   const {
     getValues,
+    trigger,
     formState: { errors },
   } = methods;
 
   /**
    * Select section and navigate using the current step
    */
-  function navigate(direction: 'previous' | 'next') {
+  async function navigate(direction: 'previous' | 'next') {
     const hash =
       direction == 'previous' ? paths[formStep - 1] : paths[formStep + 1];
 
-    if (direction == 'next' && !currentStepIsValid) return;
+    const isValid = direction == 'next' ? await validateCurrentStep() : true;
 
-    router.push(`#${hash}`, null, { shallow: true });
+    isValid && router.push(`#${hash}`, null, { shallow: true });
   }
 
-  function currentStepIsValid() {
+  async function validateCurrentStep() {
+    const currentInputs = stepInputs[formStep];
+    await trigger(currentInputs);
     return Object.keys(errors).length == 0;
   }
 
@@ -143,7 +146,7 @@ export default function Checkout() {
                 <Button
                   className='next'
                   onClick={() => {
-                    currentStepIsValid() && navigate('next');
+                    navigate('next');
                   }}
                 >
                   <span className='visually-hidden'>{t('buttons.next')}</span>
