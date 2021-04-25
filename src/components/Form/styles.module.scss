@@ -54,6 +54,7 @@
 
   // Specific for the input not to overflow
   input[type='text'] {
+    width: 100%;
     max-width: 100%;
   }
 

@@ -31,7 +31,7 @@ const paths = ['business', 'contact', 'order', 'review', 'checkout'];
 const stepInputs: Array<keyof FormInputs>[] = [
   ['businessName', 'decisionMaker', 'address'],
   ['primaryNumber', 'secondaryNumber', 'email'],
-  ['date'],
+  ['product', 'date'],
 ];
 
 export default function Checkout() {
@@ -53,6 +53,7 @@ export default function Checkout() {
       lang: router.locale == 'fr' ? 'fr' : 'en',
     },
     mode: 'onSubmit',
+    reValidateMode: 'onBlur',
   });
   const {
     getValues,
@@ -80,7 +81,7 @@ export default function Checkout() {
   }, [asPath]);
 
   useEffect(() => {
-    formStep < 4 && setFocus(stepInputs[formStep][0]);
+    formStep < 3 && setFocus(stepInputs[formStep][0]);
   }, [formStep, setFocus]);
 
   /**

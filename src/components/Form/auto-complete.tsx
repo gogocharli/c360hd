@@ -87,50 +87,62 @@ export function AddressAutoComplete() {
                 >
                   {t('form.address.name')}
                 </label>
-                <input
-                  {...getInputProps({ id: 'address' })}
-                  placeholder='Enter an address'
-                  disabled={!ready}
-                />
-                <ul {...getMenuProps({ id: 'address-menu' })}>
-                  {isOpen
-                    ? data.map((item, index) => {
-                        const {
-                          place_id,
-                          structured_formatting: { main_text, secondary_text },
-                        } = item;
+                <div className='combobox'>
+                  <input
+                    {...getInputProps({ id: 'address' })}
+                    placeholder='Enter an address'
+                    disabled={!ready}
+                  />
+                  <ul {...getMenuProps({ id: 'address-menu' })}>
+                    {isOpen
+                      ? data.map((item, index) => {
+                          const {
+                            place_id,
+                            structured_formatting: {
+                              main_text,
+                              secondary_text,
+                            },
+                          } = item;
 
-                        return (
-                          <li
-                            className={highlightedIndex == index && 'selected'}
-                            {...getItemProps({ item, index, key: place_id })}
-                          >
-                            <strong>{main_text}</strong>{' '}
-                            <small>{secondary_text}</small>
-                          </li>
-                        );
-                      })
-                    : null}
-                </ul>
+                          return (
+                            <li
+                              className={
+                                highlightedIndex == index && 'selected'
+                              }
+                              {...getItemProps({ item, index, key: place_id })}
+                            >
+                              <strong>{main_text}</strong>{' '}
+                              <small>{secondary_text}</small>
+                            </li>
+                          );
+                        })
+                      : null}
+                  </ul>
+                </div>
               </div>
             )}
           </Downshift>
         )}
       />
       <style jsx>{`
+        .combobox {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .combobox:focus-within {
+          outline: 2px dashed hsl(var(--theme-color-accent));
+          outline-offset: 0.25em;
+        }
+
         input ::placeholder {
           opacity: 0;
         }
 
         input:focus {
-          box-shadow: none;
           appearance: none;
+          box-shadow: none;
           outline: 0;
-        }
-
-        input:focus,
-        input:focus ~ ul {
-          border-color: #0870ee;
         }
 
         ul {
