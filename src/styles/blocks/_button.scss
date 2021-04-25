@@ -35,6 +35,17 @@
     }
   }
 
+  &[disabled] {
+    cursor: not-allowed;
+    filter: grayscale(50%);
+
+    // Remove all interactions
+    color: hsl(var(--default-color)) !important;
+    &::after {
+      transform: none;
+    }
+  }
+
   &::before {
     background-color: hsl(var(--default-bg));
     border-radius: inherit;

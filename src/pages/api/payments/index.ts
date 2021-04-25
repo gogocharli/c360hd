@@ -31,7 +31,6 @@ async function createPayment({
   customerInfo: { name: string; email: string; phone: string };
 }): Promise<{ clientSecret: string }> {
   const customer = await stripe.customers.create(customerInfo);
-  console.log({ customerInfo, customer });
   const paymentIntent = await stripe.paymentIntents.create({
     amount: calculateOrderAmount(items),
     customer: customer.id,

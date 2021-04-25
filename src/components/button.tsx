@@ -24,12 +24,14 @@ export function Button({
   onClick,
   type,
   form,
+  disabled,
   className,
   children,
 }: {
   onClick?: Function;
   type?: 'primary' | 'secondary';
   form?: boolean | string;
+  disabled?: boolean;
   className?: string;
   children: React.ReactNode;
 }): JSX.Element;
@@ -41,8 +43,9 @@ export function Button({
   type = 'primary',
   form = false,
   className,
-  children,
+  disabled = false,
   scroll = true,
+  children,
 }: {
   href?: string;
   locale?: string;
@@ -50,8 +53,9 @@ export function Button({
   form?: boolean | string;
   onClick?: any;
   className?: string;
-  children: React.ReactNode;
+  disabled?: boolean;
   scroll?: boolean;
+  children: React.ReactNode;
 }) {
   const buttonRef = React.useRef<ButtonType>();
   const bgSize = -400;
@@ -96,6 +100,7 @@ export function Button({
           onClick={onClick}
           type={form ? 'submit' : 'button'}
           ref={buttonRef as LegacyRef<HTMLButtonElement>}
+          disabled={disabled}
           {...formName}
         >
           {children}
@@ -106,6 +111,10 @@ export function Button({
           align-items: center;
           display: flex;
           justify-content: space-between;
+        }
+
+        .button[type='submit'] {
+          cursor: pointer;
         }
 
         .button > :global(* + *) {
