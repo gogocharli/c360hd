@@ -1,6 +1,7 @@
 import type { NextApiResponse, NextApiRequest } from 'next';
 import { success, failure } from '../utils/request';
 import Stripe from 'stripe';
+import { capitalCase } from 'change-case';
 
 const stripe = new Stripe(
   'sk_test_51HIOFKE48JsbnRWLZzNitfxhDrsczqIaGPP6oDAkrfF9fxQ4SrcnA8uxiLZGRSm0PeakOe0RyHY4K4vBP7Dr1hZ500TJbn7JBS',
@@ -14,7 +15,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
   switch (method) {
     case 'POST': {
-      return createPayment(body).then(fulfill, reject);
+      const intent = query.intent as string;
+      return createPayment(intent, body).then(fulfill, reject);
     }
     case 'GET': {
       const product = query.product as string;
@@ -35,19 +37,23 @@ async function calculateOrderAmount(
   return price.unit_amount;
 }
 
-async function createPayment({
-  product,
-  customerInfo,
-}: {
-  product: string;
-  customerInfo: CustomerInfo;
-}): Promise<{ clientSecret: string }> {
+async function createPayment(
+  intent: string,
+  {
+    product,
+    customerInfo,
+  }: {
+    product: string;
+    customerInfo: CustomerInfo;
+  },
+): Promise<{ clientSecret: string }> {
   const customer = await stripe.customers.create(customerInfo);
   const paymentIntent = await stripe.paymentIntents.create({
     amount: await calculateOrderAmount(product, customerInfo.address.state),
     customer: customer.id,
     currency: 'cad',
     setup_future_usage: 'off_session',
+    description: `Google Streetview: ${capitalCase(intent)}`,
   });
   return {
     clientSecret: paymentIntent.client_secret,

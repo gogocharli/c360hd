@@ -8,6 +8,7 @@ import {
 } from '@stripe/react-stripe-js';
 import formStyles from '../Form/styles.module.scss';
 import { ErrorText } from '@components/Form/error-text';
+import { Address } from './payment';
 
 const baseStyles = {
   style: {
@@ -25,10 +26,19 @@ const baseStyles = {
 };
 
 export function StripeCheckout({
+  intent = 'deposit',
+  product,
   customerInfo,
   onSuccess: setSucceeded,
 }: {
-  customerInfo: { email: string; name: string; phone: string };
+  intent?: 'deposit' | 'final_payment';
+  product: 'special' | 'classic';
+  customerInfo: {
+    email: string;
+    name: string;
+    phone: string;
+    address: Address;
+  };
   onSuccess: Dispatch<SetStateAction<boolean>>;
 }) {
   const [error, setError] = useState(null);
@@ -40,12 +50,12 @@ export function StripeCheckout({
 
   useEffect(() => {
     window
-      .fetch('/api/payments', {
+      .fetch(`/api/payments?intent=${intent}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ items: ['a product'], customerInfo }),
+        body: JSON.stringify({ product, customerInfo }),
       })
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret));
