@@ -113,10 +113,6 @@ export function Button({
           justify-content: space-between;
         }
 
-        .button[type='submit'] {
-          cursor: pointer;
-        }
-
         .button > :global(* + *) {
           margin-left: 0.5rem;
         }

@@ -35,6 +35,10 @@
     }
   }
 
+  &[type='submit'] {
+    cursor: pointer;
+  }
+
   &[disabled] {
     cursor: not-allowed;
     filter: grayscale(50%);
