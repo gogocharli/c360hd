@@ -134,21 +134,21 @@ export default function Checkout() {
                 {formStep == 4 && <Payment />}
               </FormProvider>
             </Elements>
-            <div className='buttons'>
-              {formStep > 0 && (
-                <Button
-                  className='previous'
-                  onClick={() => navigate('previous')}
-                >
-                  <span className='visually-hidden'>
-                    {t('buttons.previous')}
-                  </span>
-                  <div className='icon'>
-                    <Arrow width={24} />
-                  </div>
-                </Button>
-              )}
-              {formStep < 4 && (
+            {formStep < 4 && (
+              <div className='buttons'>
+                {formStep > 0 && (
+                  <Button
+                    className='previous'
+                    onClick={() => navigate('previous')}
+                  >
+                    <span className='visually-hidden'>
+                      {t('buttons.previous')}
+                    </span>
+                    <div className='icon'>
+                      <Arrow width={24} />
+                    </div>
+                  </Button>
+                )}
                 <Button
                   className='next'
                   onClick={() => {
@@ -160,8 +160,8 @@ export default function Checkout() {
                     <Arrow width={24} />
                   </div>
                 </Button>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </section>
       </div>
@@ -186,7 +186,10 @@ export default function Checkout() {
           color: hsl(var(--theme-color-fg));
           flex-direction: column;
           margin-top: 1.5rem;
+          min-height: 25rem;
+          overflow: hidden;
           padding: 2.5rem 1rem;
+          position: relative;
         }
 
         form > :global(* + *) {

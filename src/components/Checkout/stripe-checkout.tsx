@@ -168,6 +168,9 @@ export function StripeCheckout({
 
         :global(.button.stripe-checkout-button) {
           --default-bg: var(--color-light-highlight);
+          --default-color: var(--color-dark-main);
+          --hover-bg: var(--color-dark-main);
+          --hover-color: var(--color-light-main);
 
           align-self: center;
         }
