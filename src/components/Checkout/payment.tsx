@@ -4,7 +4,7 @@ import { FormInputs } from '../Form/form-field';
 import { StripeCheckout } from './stripe-checkout';
 
 export function Payment() {
-  const { getValues, handleSubmit } = useFormContext<FormInputs>();
+  const { getValues, handleSubmit, reset } = useFormContext<FormInputs>();
   const {
     product,
     email,
@@ -12,39 +12,64 @@ export function Payment() {
     primaryNumber: phone,
     address,
   } = getValues();
-  const [paymentTime, setPaymentTime] = useState<PaymentTime>();
-  const [succeeded, setSucceeded] = useState(false);
+  const [paymentTime, setPaymentTime] = useState<PaymentTime>('idle');
+  const [isPaymentSuccess, setPaymentSuccess] = useState(false);
 
-  const onSubmit: SubmitHandler<FormInputs> = (data) => console.log(data);
+  const [orderNumber, setOrderNumber] = useState('');
+  const [isProcessing, setProcessing] = useState(false);
+  const [error, setError] = useState('');
+
+  const onSubmit: SubmitHandler<FormInputs> = (data) => {
+    // Send the form to /api/orders
+    // Set order number from return data
+    // If there's an error, show it to the user
+    setOrderNumber('');
+    console.log(data);
+    setOrderNumber('Order Number');
+  };
 
   useEffect(() => {
-    if (succeeded) handleSubmit(onSubmit)();
-  }, [succeeded]);
+    if (isPaymentSuccess) {
+      handleSubmit(onSubmit)();
+      setPaymentTime(null);
+    }
+  }, [isPaymentSuccess]);
 
   return (
     <>
-      {paymentTime == null ? (
+      {paymentTime == 'idle' ? (
         <div className='[ choose-payment ] [ text-550 weight-bold ]'>
-          <button className='later' onClick={() => setPaymentTime('later')}>
+          <button
+            className='later'
+            onClick={() => {
+              setPaymentTime('later');
+              setPaymentSuccess(true);
+            }}
+          >
             Pay Later
           </button>
           <button className='now' onClick={() => setPaymentTime('now')}>
             Pay Now
           </button>
         </div>
-      ) : paymentTime == 'now' ? (
-        <StripeCheckout
-          product={product}
-          customerInfo={{
-            email,
-            name,
-            phone,
-            address: createAdressObj(address),
-          }}
-          onSuccess={setSucceeded}
-        />
       ) : (
-        <h2 className=''>Submit Form</h2>
+        paymentTime == 'now' && (
+          <StripeCheckout
+            product={product}
+            customerInfo={{
+              email,
+              name,
+              phone,
+              address: createAdressObj(address),
+            }}
+            onSuccess={setPaymentSuccess}
+          />
+        )
+      )}
+
+      {/* The 'later' option bypasses payment and immediatley places the order */}
+      {(paymentTime == 'later' || isPaymentSuccess) && (
+        <OrderConfirmation orderNumber={orderNumber} />
       )}
 
       <style jsx>{`
@@ -96,6 +121,10 @@ export function Payment() {
   );
 }
 
+function OrderConfirmation({ orderNumber }: { orderNumber: string }) {
+  return <h2 className='align-center'>{orderNumber}</h2>;
+}
+
 function createAdressObj(address: string): Address {
   const [street, city, state, _country, postal_code] = address.split(',');
 
@@ -116,4 +145,4 @@ export interface Address {
   postal_code: string;
 }
 
-type PaymentTime = null | 'now' | 'later';
+type PaymentTime = null | 'now' | 'later' | 'idle';
