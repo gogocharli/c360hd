@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { google } from 'googleapis';
 
 import { createDateTime } from '../utils/date-time';
@@ -16,7 +17,7 @@ interface EventInfo {
  * @param {String} time
  * @param {{summary: string, description: string, location: string}} eventInfo The basic event information
  */
-async function addToCalendar(date: string, time: string, eventInfo: EventInfo) {
+async function addToCalendar(startTime: string, eventInfo: EventInfo) {
   // Authenticate with Google Oauth and initialize calendar access
   const OAuth2Client = new OAuth2({
     clientId: process.env.GOOGLE_CAL_ID,
@@ -29,11 +30,11 @@ async function addToCalendar(date: string, time: string, eventInfo: EventInfo) {
 
   const calendar = google.calendar({ version: 'v3', auth: OAuth2Client });
 
-  // Set the start and end time for the event
-  const dateTime = createDateTime(date, time);
-  const eventStartTime = dateTime.toISO();
+  const eventStartTime = startTime;
 
-  const eventEndTime = dateTime.plus({ hours: 1 }).toISO();
+  const eventEndTime = DateTime.fromISO(startTime)
+    .plus({ hours: 1, minutes: 30 })
+    .toISO();
 
   const event = {
     ...eventInfo,
@@ -55,6 +56,7 @@ async function addToCalendar(date: string, time: string, eventInfo: EventInfo) {
     });
   } catch (err) {
     console.log(err);
+    throw { errorMessage: err.message };
   }
 }
 

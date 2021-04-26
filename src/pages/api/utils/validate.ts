@@ -6,9 +6,10 @@
  */
 function validateInput(data) {
   for (let field of Object.keys(data)) {
-    if (field === 'secondaryNumber' || field === 'addInfo') {
+    if (field === 'addInfo') {
       continue;
-    } else if (!data[field]) {
+    }
+    if (!data[field]) {
       const errorMessage = `${field} is empty, make sure to fill the form completely.`;
       return { errorMessage };
     }

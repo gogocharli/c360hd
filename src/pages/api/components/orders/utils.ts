@@ -10,11 +10,11 @@ import {
 import { filterAgentInfo } from '../agents/utils';
 import { filterClientInfo } from '../clients/utils';
 
-async function getRepInfo(id: string) {
+async function getRepInfo(number: string) {
   const repsRecords = await RepsTable.all();
   const matchedRep = repsRecords
     .filter((rep) => {
-      return rep.fields['RepID'] === id;
+      return rep.fields['RepID'] === number;
     })
     .map((rep) => {
       return {
@@ -28,13 +28,13 @@ async function getRepInfo(id: string) {
 
 function createClientInfo(order) {
   return {
-    Client: order.company,
+    Client: order.businessName,
     Decider: order.decisionMaker,
     Address: order.address,
     'Primary Contact': order.primaryNumber,
     'Secondary Contact': order.secondaryNumber,
     Email: order.email,
-    Language: order.locale,
+    Language: order.lang.toUpperCase(),
   };
 }
 
@@ -43,8 +43,7 @@ function createOrderInfo(order, clientId: string, repInfo) {
     'Order Number': order.orderNumber,
     Date: order.date,
     Time: order.humanTime,
-    'Payment Method': order.payment,
-    'Product Name': order.photos,
+    'Product Name': order.product.toUpperCase(),
     'Rep ID': [repInfo.key],
     'Additional Info': order.addInfo,
     Clients: [clientId],
@@ -61,10 +60,10 @@ function createEmailTemplate(order, repInfo) {
       orderNumber: order.orderNumber,
       time: order.humanTime,
       date: order.date,
-      storeURL: `https://c360hd.com/${order.locale.toLowerCase()}-ca/store`,
+      storeURL: `https://c360hd.com/${order.lang.toLowerCase()}-ca/store`,
       repInfo,
     },
-    locale: order.locale,
+    locale: order.lang,
   };
 }
 
@@ -163,7 +162,7 @@ function getAgentFromOrder({ fields }: Airtable.Record<{}>): Promise<{}> {
   const [agentId] = fields['Rep ID'];
   const selectedFields = ['RepID', 'Name'];
   const agent = RepsTable.getRow(agentId).then(
-    filterAgentInfo({ selectedFields })
+    filterAgentInfo({ selectedFields }),
   );
   return agent;
 }
@@ -181,7 +180,7 @@ function getClientFromOrder({ fields }: Airtable.Record<{}>): Promise<{}> {
     'Email',
   ];
   const client = ClientsTable.getRow(clientId).then(
-    filterClientInfo({ selectedFields })
+    filterClientInfo({ selectedFields }),
   );
   return client;
 }

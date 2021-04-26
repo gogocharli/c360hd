@@ -12,8 +12,8 @@ interface Error {
 }
 
 function failure(res: NextApiResponse) {
-  return function ({ errorMessage, code = 400 }: Error) {
-    res.status(code).json(errorMessage);
+  return function ({ errorMessage = 'unknown error', code = 400 }: Error) {
+    res.status(code).json({ errorMessage });
   };
 }
 

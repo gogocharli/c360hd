@@ -1,3 +1,4 @@
+import { ErrorMessage } from '@hookform/error-message';
 import cryptoRandomString from 'crypto-random-string';
 
 import { formatDate, formatTime } from '../../utils/date-time';
@@ -19,6 +20,8 @@ import {
   translateOrderFields,
 } from './utils';
 
+const DEFAULT_REP = 'CYD-000';
+
 /**
  * Create a new order, associate it to a client and a sales agent
  * and setup confirmation emails after creating event in calendar.
@@ -33,10 +36,10 @@ export async function placeOrder(order) {
     throw { errorMessage: isInvalid.errorMessage };
   }
 
-  const { time } = order;
+  const { date: isoDateTime } = order;
 
-  order.date = formatDate(order.date); // 2020-09-24
-  let humanTime = formatTime(time); // 15h00
+  let humanTime = formatTime(isoDateTime); // 15h00
+  order.date = formatDate(isoDateTime); // 2020-09-24
   order.humanTime = humanTime;
 
   // Create a new distinguishable order number
@@ -48,10 +51,11 @@ export async function placeOrder(order) {
   try {
     const scheduleResponse = await checkSchedule(order.date, order.humanTime);
     if (scheduleResponse.isFree === true) {
-      const repInfo = await getRepInfo(order.repId);
+      const repInfo = await getRepInfo(order.repId || DEFAULT_REP);
 
       if (repInfo == undefined) {
         const errorMessage = 'Please verify your agent ID and try again';
+        console.log(errorMessage);
         throw { errorMessage };
       }
 
@@ -70,11 +74,11 @@ export async function placeOrder(order) {
         await clientEmail.send(mailContent);
 
         const eventInfo = {
-          summary: order.company,
+          summary: order.businessName,
           description: `${order.decisionMaker}\n${order.primaryNumber}`,
           location: order.address,
         };
-        await addToCalendar(order.date, time, eventInfo);
+        await addToCalendar(isoDateTime, eventInfo);
 
         const newOrder = filterOrderFields(createdOrder);
 
@@ -154,7 +158,7 @@ export async function searchOrder(query: string) {
 
     // Include only the aforementioned set of fields
     const orders = (await Promise.all(matchedOrdersList)).map(
-      filterOrderFields
+      filterOrderFields,
     );
 
     const ordersWithClientName = orders.map((order, index) => {

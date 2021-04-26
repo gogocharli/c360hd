@@ -19,13 +19,25 @@ export function Payment() {
   const [isProcessing, setProcessing] = useState(false);
   const [error, setError] = useState('');
 
-  const onSubmit: SubmitHandler<FormInputs> = (data) => {
+  const onSubmit: SubmitHandler<FormInputs> = async (formData) => {
     // Send the form to /api/orders
     // Set order number from return data
     // If there's an error, show it to the user
-    setOrderNumber('');
-    console.log(data);
-    setOrderNumber('Order Number');
+    try {
+      const formattedData = { ...formData, date: formData.date.toISOString() };
+      const { number: orderNumber } = await window
+        .fetch('/api/orders', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formattedData),
+        })
+        .then((res) => res.json());
+      setOrderNumber(orderNumber);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
