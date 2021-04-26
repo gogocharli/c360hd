@@ -1,13 +1,10 @@
-import { useState } from 'react';
-import { UseFormGetValues } from 'react-hook-form';
+import { useEffect, useState } from 'react';
+import { SubmitHandler, useFormContext } from 'react-hook-form';
 import { FormInputs } from '../Form/form-field';
 import { StripeCheckout } from './stripe-checkout';
 
-export function Payment({
-  getValues,
-}: {
-  getValues: UseFormGetValues<FormInputs>;
-}) {
+export function Payment() {
+  const { getValues, handleSubmit } = useFormContext<FormInputs>();
   const {
     product,
     email,
@@ -16,6 +13,13 @@ export function Payment({
     address,
   } = getValues();
   const [succeeded, setSucceeded] = useState(false);
+
+  const onSubmit: SubmitHandler<FormInputs> = (data) => console.log(data);
+
+  useEffect(() => {
+    if (succeeded) handleSubmit(onSubmit)();
+  }, [succeeded]);
+
   return (
     <>
       {succeeded ? (

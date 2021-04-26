@@ -131,7 +131,7 @@ export default function Checkout() {
                     )}
                   </form>
                 )}
-                {formStep == 4 && <Payment getValues={getValues} />}
+                {formStep == 4 && <Payment />}
               </FormProvider>
             </Elements>
             <div className='buttons'>
@@ -148,7 +148,7 @@ export default function Checkout() {
                   </div>
                 </Button>
               )}
-              {formStep < 4 ? (
+              {formStep < 4 && (
                 <Button
                   className='next'
                   onClick={() => {
@@ -159,14 +159,6 @@ export default function Checkout() {
                   <div className='icon'>
                     <Arrow width={24} />
                   </div>
-                </Button>
-              ) : (
-                <Button
-                  type='secondary'
-                  form='stripe-checkout'
-                  className='stripe-checkout-button'
-                >
-                  Confirm Order
                 </Button>
               )}
             </div>

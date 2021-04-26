@@ -7,6 +7,7 @@ import {
   CardCvcElement,
 } from '@stripe/react-stripe-js';
 import formStyles from '../Form/styles.module.scss';
+import { Button } from '@components/button';
 import { ErrorText } from '@components/Form/error-text';
 import { Address } from './payment';
 
@@ -42,7 +43,7 @@ export function StripeCheckout({
   onSuccess: Dispatch<SetStateAction<boolean>>;
 }) {
   const [error, setError] = useState(null);
-  const [processing, setProcessing] = useState(false);
+  const [isProcessing, setProcessing] = useState(false);
   const [clientSecret, setClientSecret] = useState('');
 
   const stripe = useStripe();
@@ -119,7 +120,7 @@ export function StripeCheckout({
           </label>
         </div>
       </div>
-      {processing && (
+      {isProcessing && (
         <div className='stripe-card-loading'>
           <h2>Processing</h2>
         </div>
@@ -129,6 +130,14 @@ export function StripeCheckout({
           <ErrorText>{error}</ErrorText>
         </div>
       )}
+      <Button
+        type='secondary'
+        form='stripe-checkout'
+        className='stripe-checkout-button'
+        disabled={isProcessing}
+      >
+        Confirm Order
+      </Button>
       <style jsx>{`
         form {
           position: relative;
@@ -155,6 +164,12 @@ export function StripeCheckout({
 
         .stripe-card-loading {
           position: absolute;
+        }
+
+        :global(.button.stripe-checkout-button) {
+          --default-bg: var(--color-light-highlight);
+
+          align-self: center;
         }
       `}</style>
     </form>
