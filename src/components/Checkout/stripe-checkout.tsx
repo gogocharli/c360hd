@@ -7,6 +7,7 @@ import {
   CardCvcElement,
 } from '@stripe/react-stripe-js';
 import formStyles from '../Form/styles.module.scss';
+import { ErrorText } from '@components/Form/error-text';
 
 const baseStyles = {
   style: {
@@ -115,7 +116,7 @@ export function StripeCheckout({
       )}
       {error && (
         <div className='stripe-card-error' role='alert'>
-          {error}
+          <ErrorText>{error}</ErrorText>
         </div>
       )}
       <style jsx>{`
