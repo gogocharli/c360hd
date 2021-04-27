@@ -47,7 +47,8 @@ function createOrderInfo(order, clientId: string, repInfo) {
     'Rep ID': [repInfo.key],
     'Additional Info': order.addInfo,
     Clients: [clientId],
-    Status: 'Pending',
+    Status: order.paid ? 'Confirmed' : 'Waiting Payment',
+    'Payment Method': 'Card',
   };
 }
 

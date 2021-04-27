@@ -19,6 +19,7 @@ export function Payment() {
   } = getValues();
   const [paymentTime, setPaymentTime] = useState<PaymentTime>('idle');
   const [isPaymentSuccess, setPaymentSuccess] = useState(false);
+  const [isPaymentBypassed, setPaymentBypassed] = useState(false);
   const [requestComplete, setRequestComplete] = useState(false);
 
   const [orderNumber, setOrderNumber] = useState('');
@@ -26,9 +27,13 @@ export function Payment() {
   const [errors, setErrors] = useState<string[]>([]);
 
   const onValidForm: SubmitHandler<FormInputs> = async (formData) => {
-    const formattedData = { ...formData, date: formData.date.toISOString() };
+    const formattedData = {
+      ...formData,
+      date: formData.date.toISOString(),
+      paid: isPaymentSuccess,
+    };
     try {
-      const data = await window
+      const order = await window
         .fetch('/api/orders', {
           method: 'POST',
           headers: {
@@ -38,16 +43,16 @@ export function Payment() {
         })
         .then((res) => res.json());
 
-      if (!data.orderNumber) throw data.errorMessage;
+      if (!order.number) throw order.errorMessage;
 
-      setOrderNumber(data.orderNumber);
+      setOrderNumber(order.number);
       setErrors([]);
-      setRequestComplete(true); // Avoid making the order when component refreshes
     } catch (err) {
       console.error(err);
       setErrors([err]);
     } finally {
       setProcessing(false);
+      setRequestComplete(true); // Avoid making the order when component refreshes
     }
   };
 
@@ -63,13 +68,20 @@ export function Payment() {
   useEffect(() => {
     if (requestComplete) return;
 
-    if (isPaymentSuccess) {
+    if (isPaymentSuccess || isPaymentBypassed) {
       setProcessing(true);
       setErrors([]);
       handleSubmit(onValidForm, onInvalidForm)();
       setPaymentTime(null);
     }
-  }, [isPaymentSuccess, requestComplete]);
+  }, [isPaymentSuccess, isPaymentBypassed, requestComplete]);
+
+  useEffect(() => {
+    // Clear the form when everything went well
+    if (requestComplete && errors.length == 0) {
+      reset({}, { keepDefaultValues: true });
+    }
+  }, [requestComplete, errors]);
 
   return (
     <>
@@ -78,8 +90,7 @@ export function Payment() {
           <button
             className='later'
             onClick={() => {
-              setPaymentTime('later');
-              setPaymentSuccess(true);
+              setPaymentBypassed(true);
             }}
           >
             Pay Later
@@ -103,11 +114,12 @@ export function Payment() {
         )
       )}
 
-      {/* The 'later' option bypasses payment and immediatley places the order */}
-      {(paymentTime == 'later' || isPaymentSuccess) && isProcessing ? (
+      {(isPaymentBypassed || isPaymentSuccess) && isProcessing ? (
         <h2>Processing</h2>
       ) : (
-        <OrderConfirmation orderNumber={orderNumber} errors={errors} />
+        paymentTime == null && (
+          <OrderConfirmation orderNumber={orderNumber} errors={errors} />
+        )
       )}
 
       <style jsx>{`
@@ -220,4 +232,4 @@ export interface Address {
   postal_code: string;
 }
 
-type PaymentTime = null | 'now' | 'later' | 'idle';
+type PaymentTime = null | 'now' | 'idle';

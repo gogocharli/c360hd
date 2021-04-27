@@ -140,6 +140,7 @@ export function StripeCheckout({
       </Button>
       <style jsx>{`
         form {
+          width: 100%;
           position: relative;
         }
 

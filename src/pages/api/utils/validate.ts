@@ -9,7 +9,7 @@ function validateInput(data) {
     if (field === 'addInfo' || field === 'repId') {
       continue;
     }
-    if (!data[field]) {
+    if (data[field] == null) {
       const errorMessage = `${field} is empty, make sure to fill the form completely.`;
       return { errorMessage };
     }
