@@ -85,7 +85,6 @@ export function StripeCheckout({
       setProcessing(false);
       setSucceeded(true);
     }
-    console.log('[PaymentMethod]', payload);
   }
 
   return (

@@ -1,4 +1,3 @@
-import { ErrorMessage } from '@hookform/error-message';
 import cryptoRandomString from 'crypto-random-string';
 
 import { formatDate, formatTime } from '../../utils/date-time';
@@ -107,18 +106,24 @@ export async function getAllOrders() {
 
 /**
  * Return an order from it's id.
- * @param id the order's id
+ * @param number the order's id
  */
-export async function getOrder(id: string) {
+export async function getOrder(number: string) {
+  const searchOptions = { field: 'Order Number', query: number };
   try {
-    const orderRecord = await OrdersTable.getRow(id);
+    const [orderRecord] = await OrdersTable.all({
+      filterField: searchOptions,
+    });
+
+    if (!orderRecord) throw 'No order found';
+
     const order = filterOrderFields(orderRecord);
     const completeOrder = await includeLinkedRecords(order, orderRecord);
 
     return completeOrder;
   } catch (error) {
     console.error(error);
-    const errorMessage = `Couldn't find order number "${id}"\n ${error.message}`;
+    const errorMessage = `Couldn't find order number "${number}"\n ${error.message}`;
     throw { errorMessage, code: 500 };
   }
 }

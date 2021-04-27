@@ -34,20 +34,25 @@ export async function createPayment(
     customerInfo: CustomerInfo;
   },
 ): Promise<{ clientSecret: string }> {
-  const customer = await stripe.customers.create(customerInfo);
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: await calculateOrderAmount({
-      product,
-      province: customerInfo.address.state,
-    }),
-    customer: customer.id,
-    currency: 'cad',
-    setup_future_usage: 'off_session',
-    description: `Google Streetview: ${capitalCase(intent)}`,
-  });
-  return {
-    clientSecret: paymentIntent.client_secret,
-  };
+  try {
+    const customer = await stripe.customers.create(customerInfo);
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: await calculateOrderAmount({
+        product,
+        province: customerInfo.address?.state ?? 'qc',
+      }),
+      customer: customer.id,
+      currency: 'cad',
+      setup_future_usage: 'off_session',
+      description: `Google Streetview: ${capitalCase(intent)}`,
+    });
+    return {
+      clientSecret: paymentIntent.client_secret,
+    };
+  } catch (error) {
+    console.error(error);
+    throw { errorMessage: error };
+  }
 }
 
 export async function getPrice({
@@ -88,7 +93,7 @@ export async function chargeCustomer({
     if (customer.deleted == true)
       throw 'The customer was deleted. Cannot process payment';
 
-    const province = customer.address.state;
+    const province = customer.address?.state;
 
     const paymentIntent = await stripe.paymentIntents.create({
       amount: await calculateOrderAmount({ product, province, type: 'final' }),
@@ -110,7 +115,7 @@ export async function chargeCustomer({
 async function calculateOrderAmount({
   product,
   province,
-  type,
+  type = 'deposit',
 }: PaymentAttributes): Promise<number> {
   const price = await getPrice({ product, province, type });
   return price.unit_amount;
