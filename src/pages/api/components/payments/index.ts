@@ -57,7 +57,10 @@ export async function getPrice({
 }: PaymentAttributes) {
   product = product.toLowerCase();
   province = province.toLowerCase();
-  province = province !== ('qc' || 'on') ? 'qc' : province;
+
+  if (province !== 'qc' && province !== 'on') {
+    province = 'qc';
+  }
 
   const { data: prices } = await stripe.prices.list({
     lookup_keys: [`${type}_${product}_${province}`],
@@ -68,11 +71,9 @@ export async function getPrice({
 export async function chargeCustomer({
   customerId,
   product,
-  province,
 }: {
   customerId: string;
   product: string;
-  province: string;
 }) {
   try {
     const {
@@ -81,6 +82,13 @@ export async function chargeCustomer({
       customer: customerId,
       type: 'card',
     });
+
+    const customer = await stripe.customers.retrieve(customerId);
+
+    if (customer.deleted == true)
+      throw 'The customer was deleted. Cannot process payment';
+
+    const province = customer.address.state;
 
     const paymentIntent = await stripe.paymentIntents.create({
       amount: await calculateOrderAmount({ product, province, type: 'final' }),

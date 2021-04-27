@@ -11,11 +11,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     case 'POST': {
       const customerId = query.payment as string;
       const product = query.product as string;
-      const province = query.province as string;
-      return chargeCustomer({ customerId, product, province }).then(
-        fulfill,
-        reject,
-      );
+      return chargeCustomer({ customerId, product }).then(fulfill, reject);
     }
     default: {
       return `Unsupported API Method: ${method}`;
