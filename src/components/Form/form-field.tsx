@@ -48,7 +48,9 @@ export function FormField({
   } = useFormContext<FormInputs>();
   return (
     <>
-      <div className={formStyles.field}>
+      <div
+        className={`${formStyles.field} ${type == 'date' && formStyles.date}`}
+      >
         {type !== 'fieldset' && (
           <label htmlFor={name} className={`field-label ${className}`}>
             {label}

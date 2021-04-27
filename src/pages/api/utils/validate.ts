@@ -6,7 +6,7 @@
  */
 function validateInput(data) {
   for (let field of Object.keys(data)) {
-    if (field === 'addInfo') {
+    if (field === 'addInfo' || field === 'repId') {
       continue;
     }
     if (!data[field]) {

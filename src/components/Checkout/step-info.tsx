@@ -28,7 +28,7 @@ export function StepInfo({ step }: { step: number }) {
         .info .count {
           background-color: hsl(220 35% 44%);
           border-radius: 2em;
-          letter-spacing: -0.1em;
+          letter-spacing: -0.05em;
           line-height: 1;
           padding: 1rem 1.5rem;
           margin-top: calc(var(--flow-space) * 2);

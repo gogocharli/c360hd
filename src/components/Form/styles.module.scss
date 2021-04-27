@@ -34,6 +34,19 @@
     justify-content: space-around;
   }
 
+  fieldset label {
+    margin-bottom: 0;
+  }
+
+  fieldset > * {
+    align-items: center;
+    display: flex;
+  }
+
+  fieldset label + input {
+    margin-left: 0.5rem;
+  }
+
   input:not([type='submit']),
   select,
   textarea {
@@ -47,7 +60,7 @@
     line-height: 1.2;
   }
 
-  input:not([type='submit']),
+  input:not([type='submit'], [type='radio']),
   textarea {
     padding: 0.75rem 1rem;
   }
@@ -63,4 +76,9 @@
     min-height: 3rem;
     padding-left: 0.5rem;
   }
+}
+
+.date {
+  /* Make the date input stay above the buttons */
+  z-index: 2;
 }

@@ -104,6 +104,7 @@ export function Payment() {
           cursor: pointer;
           flex: 1 1 50%;
           letter-spacing: 0.02em;
+          padding: 0;
           text-transform: uppercase;
         }
 
