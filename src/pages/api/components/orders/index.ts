@@ -89,7 +89,7 @@ export async function placeOrder(order) {
     }
   } catch (error) {
     console.error(error);
-    return { errorMessage: error, code: 500 };
+    throw { errorMessage: error, code: 500 };
   }
 }
 
@@ -104,7 +104,7 @@ export async function getAllOrders() {
   } catch (error) {
     console.error(error);
     const errorMessage = `Failed to retrieve orders\n ${error.message}`;
-    return { errorMessage, code: 500 };
+    throw { errorMessage, code: 500 };
   }
 }
 
@@ -122,7 +122,7 @@ export async function getOrder(id: string) {
   } catch (error) {
     console.error(error);
     const errorMessage = `Couldn't find order number "${id}"\n ${error.message}`;
-    return { errorMessage, code: 500 };
+    throw { errorMessage, code: 500 };
   }
 }
 
