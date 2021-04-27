@@ -24,3 +24,10 @@ declare module '*.json' {
   const content: string;
   export default content;
 }
+
+// @see https://github.com/vercel/next.js/issues/2177
+declare namespace NodeJS {
+  interface Process {
+    browser: boolean;
+  }
+}
