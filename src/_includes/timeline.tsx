@@ -86,6 +86,10 @@ export function Timeline({ step }: { step: number }) {
           text-decoration: none;
         }
 
+        a:focus {
+          outline-offset: -0.4em;
+        }
+
         .icon {
           margin-left: 0.5rem;
           height: 1.5rem;
@@ -100,15 +104,13 @@ export function Timeline({ step }: { step: number }) {
           color: hsl(var(--theme-color-bg));
         }
 
-        [data-complete='true'] {
+        [data-current='true'] > a:focus {
+          outline-color: hsl(Var(--color-dark-main));
         }
 
         [data-current='true'],
         [data-complete='true'] {
           opacity: 1;
-        }
-
-        @media (min-width: 65em) {
         }
       `}</style>
     </section>
