@@ -5,7 +5,6 @@ import {
   AccordionPanel,
 } from '@reach/accordion';
 import PlusIcon from './icon-plus.svg';
-import MinusIcon from './icon-minus.svg';
 
 function Menu({ children }: { children: React.ReactNode }) {
   return <Accordion collapsible>{children}</Accordion>;
