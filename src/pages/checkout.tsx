@@ -189,6 +189,7 @@ export default function Checkout() {
           min-height: 25rem;
           overflow: hidden;
           padding: 2.5rem 1rem;
+          place-content: center;
           position: relative;
         }
 
@@ -260,6 +261,11 @@ export default function Checkout() {
         }
       `}</style>
       <style jsx>{`
+        .form__wrapper {
+          /* Make sure to center content on the order confirmation page */
+          display: ${formStep == 4 ? 'flex' : 'block'};
+        }
+
         :global(form) {
           max-width: ${formStep == 3 ? '40rem' : '28rem'};
         }
