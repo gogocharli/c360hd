@@ -29,9 +29,11 @@
 
   fieldset {
     align-items: center;
+    border-radius: calc(var(--border-radius) / 2);
     border: 1px solid hsl(var(--border-color));
     display: flex;
     justify-content: space-around;
+    margin: 0;
   }
 
   fieldset label {
