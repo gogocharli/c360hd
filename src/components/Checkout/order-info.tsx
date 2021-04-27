@@ -39,7 +39,7 @@ export function OrderInfo() {
           { name: 'English', value: 'en' },
           { name: 'Français', value: 'fr' },
         ]}
-      ></FormField>
+      />
     </>
   );
 }
