@@ -33,7 +33,7 @@ export async function placeOrder(order) {
   // Verify that required inputs aren't empty
   if (isInvalid) {
     console.error(isInvalid.errorMessage);
-    throw { errorMessage: isInvalid.errorMessage };
+    throw isInvalid.errorMessage;
   }
 
   const { date: isoDateTime } = order;
@@ -56,7 +56,7 @@ export async function placeOrder(order) {
       if (repInfo == undefined) {
         const errorMessage = 'Please verify your agent ID and try again';
         console.log(errorMessage);
-        throw { errorMessage };
+        throw errorMessage;
       }
 
       // Create order
@@ -85,11 +85,11 @@ export async function placeOrder(order) {
         return newOrder;
       }
     } else {
-      throw { errorMessage: scheduleResponse.reason };
+      throw scheduleResponse.reason;
     }
   } catch (error) {
     console.error(error);
-    throw { errorMessage: error.message, code: 500 };
+    return { errorMessage: error, code: 500 };
   }
 }
 
