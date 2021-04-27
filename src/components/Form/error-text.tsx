@@ -11,7 +11,7 @@ export function ErrorText({ children }: { children?: React.ReactNode }) {
           color: hsl(var(--color-light-main));
           display: block;
           margin-top: 0.5rem;
-          padding-block: 0.25em;
+          padding: 0.25em 1em;
         }
       `}</style>
     </>
