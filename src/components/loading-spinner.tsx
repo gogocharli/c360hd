@@ -22,7 +22,7 @@ export function Spinner() {
               y2='58.695'
               gradientUnits='userSpaceOnUse'
             >
-              <stop stop-color='#6EE5F7' />
+              <stop stopColor='#6EE5F7' />
               <stop offset='.067' stop-color='#6DE4F7' />
               <stop offset='.133' stop-color='#6AE1F7' />
               <stop offset='.2' stop-color='#65DBF7' />
