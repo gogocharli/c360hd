@@ -40,7 +40,7 @@ async function searchAgent(query: string) {
     return matchedAgents;
   } catch (error) {
     console.error(error);
-    const errorMessage = `Couldn't find agent named ${query} \n ${error.message}`;
+    const errorMessage = `Couldn't find agent number ${query} \n ${error.message}`;
     throw { errorMessage };
   }
 }

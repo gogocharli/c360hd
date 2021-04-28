@@ -6,7 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 
-import { getOrder } from '../api/components/orders';
+import { getOrderFromNumber } from '../api/components/orders';
 import Layout from '@layouts/checkout';
 import { StripeCheckout } from '@components/Checkout/stripe-checkout';
 import { Address } from '@components/Checkout/payment';
@@ -15,12 +15,12 @@ const stripePromise = loadStripe(
   'pk_test_51HIOFKE48JsbnRWLf04ZqFaLFG5LsnFyQvqTMpVb9ISarAnQslJAHFyzWqPTC39CvDy87NxQ9OzKWPiiyZjISzEZ00ZmkndixV',
 );
 export default function Checkout({
-  id,
+  order,
   product,
   locale,
   customerInfo,
 }: {
-  id: string;
+  order: { id: string; number: string };
   product: 'special' | 'classic';
   locale: 'en' | 'fr';
   customerInfo: {
@@ -32,50 +32,68 @@ export default function Checkout({
 }) {
   const [isPaymentSuccess, setPaymentSuccess] = useState(false);
 
-  useEffect(() => console.log(isPaymentSuccess), [isPaymentSuccess]);
+  useEffect(() => {
+    if (isPaymentSuccess) {
+      window.fetch(`/api/orders/${order.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status: 'Confirmed', Deposit: true }),
+      });
+    }
+  }, [isPaymentSuccess]);
+
+  const isOrder = Boolean(order.id);
+
+  const { t } = useTranslation('checkout');
   return (
     <Layout pageMeta={{ title: 'Checkout' }}>
       <div className='wrapper'>
-        <section className='intro flow'>
-          {isPaymentSuccess ? (
-            <>
-              <h1 className='[ text-600 md:text-700 ] [ leading-flat tracking-tight md:tracking-flat measure-micro ]'>
-                The transaction was successful.
-              </h1>
-              <p className='measure-compact'>
-                You'll recieve your receipt shortly. Thanks for doing business
-                with us.
-              </p>
-            </>
-          ) : (
-            <>
-              <h1 className='[ text-600 md:text-700 ] [ leading-flat tracking-tight md:tracking-flat measure-micro ]'>
-                Welcome, {customerInfo.name}.
-              </h1>
-              <p className='measure-compact'>
-                Here you'll be able to make the payment for order{' '}
-                <span>{id}</span>.
-              </p>{' '}
-            </>
-          )}
-        </section>
-        {!isPaymentSuccess && (
-          <section className='content'>
-            <Elements
-              stripe={stripePromise}
-              options={{
-                fonts: [{ cssSrc: 'https://use.typekit.net/jst8wwr.css' }],
-                locale: locale,
-              }}
-            >
-              <StripeCheckout
-                customerInfo={customerInfo}
-                product={product as 'special' | 'classic'}
-                intent='deposit'
-                onSuccess={() => setPaymentSuccess(true)}
-              />
-            </Elements>
-          </section>
+        {isOrder ? (
+          <>
+            <section className='intro flow'>
+              {isPaymentSuccess ? (
+                <>
+                  <h1 className='[ text-600 md:text-700 ] [ leading-flat tracking-tight md:tracking-flat measure-micro ]'>
+                    {t('clientPayment.success.title')}
+                  </h1>
+                  <p className='measure-compact'>
+                    {t('clientPayment.success.desc')}
+                  </p>
+                </>
+              ) : (
+                <>
+                  <h1 className='[ text-600 md:text-700 ] [ leading-flat tracking-tight md:tracking-flat measure-micro ]'>
+                    {t('clientPayment.idle.title', { name: customerInfo.name })}
+                  </h1>
+                  <p className='measure-compact'>
+                    {t('clientPayment.idle.desc', { order: order.number })}
+                  </p>
+                </>
+              )}
+            </section>
+            {!isPaymentSuccess && (
+              <section className='content'>
+                <Elements
+                  stripe={stripePromise}
+                  options={{
+                    fonts: [{ cssSrc: 'https://use.typekit.net/jst8wwr.css' }],
+                    locale: locale,
+                  }}
+                >
+                  <StripeCheckout
+                    customerInfo={customerInfo}
+                    product={product as 'special' | 'classic'}
+                    intent='deposit'
+                    onSuccess={() => setPaymentSuccess(true)}
+                  />
+                </Elements>
+              </section>
+            )}
+          </>
+        ) : (
+          <h1>Order Not Found</h1>
         )}
       </div>
       <style jsx>{`
@@ -121,19 +139,22 @@ export const getServerSideProps: GetServerSideProps = async ({
   params,
 }) => {
   const { id: orderNumber } = params;
-  let customer = await getOrder(orderNumber as string).catch((err) =>
+  let order = await getOrderFromNumber(orderNumber as string).catch((err) =>
     console.log(err),
   );
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common', 'site', 'checkout'])),
       locale,
-      id: orderNumber as string,
-      product: customer?.productName?.toLowerCase() ?? 'classic',
+      order: {
+        id: order?.id ?? '',
+        number: orderNumber as string,
+      },
+      product: order?.productName?.toLowerCase() ?? 'classic',
       customerInfo: {
-        name: customer?.Client?.name ?? '',
-        email: customer?.Client?.email ?? '',
-        phone: customer?.Client?.primaryContact ?? '',
+        name: order?.Client?.name ?? '',
+        email: order?.Client?.email ?? '',
+        phone: order?.Client?.primaryContact ?? '',
         address: null,
       },
     },
