@@ -77,7 +77,28 @@ export function Header() {
                   >
                     <div className='[ menu__wrapper ] [ flow ]'>
                       <nav className='[ nav ] [ menu__nav ]'>
-                        <NavList />
+                        <ul className='[ nav__list ] [ flow ]'>
+                          <li>
+                            <Link href='/contact'>
+                              <a>Questions</a>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link href='/portfolio'>
+                              <a>Exemples</a>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link href='/pricing'>
+                              <a>Our Options</a>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link href='/terms'>
+                              <a>Terms &amp; Services</a>
+                            </Link>
+                          </li>
+                        </ul>
                       </nav>
                       <FootLinks noLogo />
                     </div>
@@ -148,8 +169,8 @@ export function Header() {
         }
 
         :global(.menu) {
-          --theme-color-bg: var(--color-dark-main);
-          --theme-color-fg: var(--color-light-main);
+          --theme-color-bg: var(--color-accent-sky);
+          --theme-color-fg: var(--color-dark-main);
           --theme-color-hg: var(--color-dark-highlight);
 
           background-color: hsl(var(--theme-color-bg));
@@ -169,10 +190,21 @@ export function Header() {
           z-index: 10;
         }
 
+        :global(.menu .button) {
+          --default-bg: var(--color-dark-main);
+          --default-color: var(--color-light-main);
+          --hover-bg: var(--color-light-main);
+          --hover-color: var(--color-dark-main);
+        }
+
         :global(.menu__wrapper) {
           --flow-space: 2rem;
           flex: 0;
-          margin-top: -5rem;
+        }
+
+        :global(.menu__wrapper > nav) {
+          margin-bottom: 4rem;
+          margin-top: -4rem;
         }
 
         :global(.menu-toggle) {
@@ -195,16 +227,29 @@ export function Header() {
         }
 
         :global(.menu-toggle[aria-expanded='true']) {
-          background-color: hsl(var(--theme-color-bg));
+          background-color: hsl(var(--theme-color-fg));
         }
 
         :global(.menu-toggle[aria-expanded='true'] rect) {
-          fill: hsl(var(--theme-color-fg));
+          fill: hsl(var(--color-accent-sky));
         }
 
         .nav__list {
-          display: flex;
           align-items: center;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .nav__list li {
+          --flow-space: 2rem;
+        }
+
+        .nav__list a {
+          color: hsl(var(--theme-color-fg));
+          font-size: 2rem;
+          font-weight: 600;
+          line-height: 1;
+          text-decoration: none;
         }
 
         @media (min-width: 32em) {
