@@ -7,8 +7,9 @@ import {
   CardCvcElement,
 } from '@stripe/react-stripe-js';
 import formStyles from '../Form/styles.module.scss';
-import { Button } from '@components/button';
-import { ErrorText } from '@components/Form/error-text';
+import { Button } from '../button';
+import { ErrorText } from '../Form/error-text';
+import { Spinner } from '../loading-spinner';
 import { Address } from './payment';
 
 const baseStyles = {
@@ -121,7 +122,7 @@ export function StripeCheckout({
       </div>
       {isProcessing && (
         <div className='stripe-card-loading'>
-          <h2>Processing</h2>
+          <Spinner />
         </div>
       )}
       {error && (
@@ -135,7 +136,7 @@ export function StripeCheckout({
         className='stripe-checkout-button'
         disabled={isProcessing}
       >
-        Confirm Order
+        Pay Now
       </Button>
       <style jsx>{`
         form {
@@ -164,6 +165,12 @@ export function StripeCheckout({
 
         .stripe-card-loading {
           position: absolute;
+
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: 1000;
         }
 
         :global(.button.stripe-checkout-button) {

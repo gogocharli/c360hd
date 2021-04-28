@@ -7,6 +7,7 @@ import {
 import { FormInputs } from '../Form/form-field';
 import { ErrorText } from '../Form/error-text';
 import { StripeCheckout } from './stripe-checkout';
+import { Spinner } from '../loading-spinner';
 
 export function Payment() {
   const { getValues, handleSubmit, reset } = useFormContext<FormInputs>();
@@ -115,7 +116,9 @@ export function Payment() {
       )}
 
       {(isPaymentBypassed || isPaymentSuccess) && isProcessing ? (
-        <h2>Processing</h2>
+        <div className='form-submission-loading'>
+          <Spinner />
+        </div>
       ) : (
         paymentTime == null && (
           <OrderConfirmation orderNumber={orderNumber} errors={errors} />
@@ -160,6 +163,16 @@ export function Payment() {
 
         button.later {
           background-color: hsl(var(--color-light-main));
+        }
+
+        .form-submission-loading {
+          position: absolute;
+
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: 1000;
         }
 
         @media (min-width: 50em) {

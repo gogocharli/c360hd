@@ -30,40 +30,86 @@ export default function Checkout({
     address: Address;
   };
 }) {
-  const [isSuccess, setSuccess] = useState(false);
+  const [isPaymentSuccess, setPaymentSuccess] = useState(false);
 
-  console.log({ id, product, locale, customerInfo });
-
-  useEffect(() => console.log(isSuccess), [isSuccess]);
+  useEffect(() => console.log(isPaymentSuccess), [isPaymentSuccess]);
   return (
     <Layout pageMeta={{ title: 'Checkout' }}>
       <div className='wrapper'>
-        <h1>{customerInfo.name}</h1>
-        <section className='content'>
-          <Elements
-            stripe={stripePromise}
-            options={{
-              fonts: [{ cssSrc: 'https://use.typekit.net/jst8wwr.css' }],
-              locale: locale,
-            }}
-          >
-            <StripeCheckout
-              customerInfo={JSON.parse(JSON.stringify(customerInfo))}
-              product={product as 'special' | 'classic'}
-              intent='deposit'
-              onSuccess={() => setSuccess(true)}
-            />
-          </Elements>
+        <section className='intro flow'>
+          {isPaymentSuccess ? (
+            <>
+              <h1 className='[ text-600 md:text-700 ] [ leading-flat tracking-tight md:tracking-flat measure-micro ]'>
+                The transaction was successful.
+              </h1>
+              <p className='measure-compact'>
+                You'll recieve your receipt shortly. Thanks for doing business
+                with us.
+              </p>
+            </>
+          ) : (
+            <>
+              <h1 className='[ text-600 md:text-700 ] [ leading-flat tracking-tight md:tracking-flat measure-micro ]'>
+                Welcome, {customerInfo.name}.
+              </h1>
+              <p className='measure-compact'>
+                Here you'll be able to make the payment for order{' '}
+                <span>{id}</span>.
+              </p>{' '}
+            </>
+          )}
         </section>
+        {!isPaymentSuccess && (
+          <section className='content'>
+            <Elements
+              stripe={stripePromise}
+              options={{
+                fonts: [{ cssSrc: 'https://use.typekit.net/jst8wwr.css' }],
+                locale: locale,
+              }}
+            >
+              <StripeCheckout
+                customerInfo={customerInfo}
+                product={product as 'special' | 'classic'}
+                intent='deposit'
+                onSuccess={() => setPaymentSuccess(true)}
+              />
+            </Elements>
+          </section>
+        )}
       </div>
       <style jsx>{`
-        section {
+        .content {
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .intro {
+          --flow-space: 1rem;
+        }
+
+        .content {
           --theme-color-fg: var(--color-dark-main);
           --theme-color-bg: var(--color-light-main);
           --theme-color-hg: var(--color-light-hg);
 
           background-color: hsl(var(--theme-color-bg));
+          border-radius: 0.5rem;
           color: hsl(var(--theme-color-fg));
+          margin-top: 2rem;
+          max-width: 33rem;
+          padding: 3rem 2rem;
+        }
+
+        @media (min-width: 50em) {
+          .intro {
+            text-align: center;
+          }
+
+          .intro > * {
+            margin-left: auto;
+            margin-right: auto;
+          }
         }
       `}</style>
     </Layout>
