@@ -26,9 +26,32 @@
     },
     {
       "title": "Payment",
-      "desc": ""
+      "desc": "Select how when you will pay for your current order and conclude the process. When paying later, we will send you instructions on how to finalize the payment."
     }
   ],
+  "payment": {
+    "now": "Pay Now",
+    "later": "Pay Later",
+    "card": {
+      "number": "Card Number",
+      "exp": "Expiration Date"
+    },
+    "success": {
+      "title": "Order Successful",
+      "desc": "Here’s your order number. We’ve sent you an email with more details. Thank you for doing business with us."
+    },
+    "error": "Failed to submit your order"
+  },
+  "clientPayment": {
+    "idle": {
+      "title": "Welcome, {{name}}.",
+      "desc": "Here you'll be able to make the payment for order {{order}}."
+    },
+    "success": {
+      "title": "The transaction was successful.",
+      "desc": "You'll recieve your receipt shortly. Thanks again for doing business with us."
+    }
+  },
   "buttons": {
     "next": "Next Step",
     "previous": "Previous Step"

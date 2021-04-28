@@ -4,6 +4,7 @@ import {
   SubmitHandler,
   useFormContext,
 } from 'react-hook-form';
+import { useTranslation } from 'next-i18next';
 import { FormInputs } from '../Form/form-field';
 import { ErrorText } from '../Form/error-text';
 import { StripeCheckout } from './stripe-checkout';
@@ -84,6 +85,7 @@ export function Payment() {
     }
   }, [requestComplete, errors]);
 
+  const { t } = useTranslation('checkout');
   return (
     <>
       {paymentTime == 'idle' ? (
@@ -94,10 +96,10 @@ export function Payment() {
               setPaymentBypassed(true);
             }}
           >
-            Pay Later
+            {t('payment.later')}
           </button>
           <button className='now' onClick={() => setPaymentTime('now')}>
-            Pay Now
+            {t('payment.now')}
           </button>
         </div>
       ) : (
@@ -192,11 +194,12 @@ function OrderConfirmation({
   orderNumber: string;
   errors: any;
 }) {
+  const { t } = useTranslation('checkout');
   return (
     <>
       <div className='order flow'>
         <h2 className='[ status ] [ text-450 weight-normal leading-flat ]'>
-          {errors.length > 0 ? 'Order Failed' : 'Order Successful'}
+          {errors.length > 0 ? t('payment.error') : t('payment.success.title')}
         </h2>
         {orderNumber && (
           <p className='[ number ] [ text-700 md:text-800 ] [ weight-bold tracking-tight leading-flat ]'>
@@ -206,8 +209,7 @@ function OrderConfirmation({
         <p className='[ details ] [ text-300 measure-short ]'>
           {errors.length > 0
             ? errors.map((err) => <ErrorText key={err} children={err} />)
-            : `Here’s your order number. We’ve sent you an email with more details.
-          Thanks for doing business with us.`}
+            : t('payment.success.desc')}
         </p>
       </div>
       <style jsx>{`

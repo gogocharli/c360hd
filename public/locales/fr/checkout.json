@@ -20,9 +20,32 @@
     },
     {
       "title": "Paiement",
-      "desc": ""
+      "desc": "Choisissez comment vous voulez effectuer le paiement pour la commande. En cas de paiement différé nous vous enverrons les instructions afin de le finaliser."
     }
   ],
+  "payment": {
+    "now": "Payer Maintenant",
+    "later": "Payer Après",
+    "card": {
+      "number": "Numéro de Carte",
+      "exp": "Date d'Expiration"
+    },
+    "success": {
+      "title": "Commande Réussie",
+      "desc": "Voici le numéro de votre commande. Vous recevrez un courriel avec plus de détails. Merci de nous avoir choisi."
+    },
+    "error": "Erreur d'envoi de la commande"
+  },
+  "clientPayment": {
+    "idle": {
+      "title": "Bienvenue, {{name}}.",
+      "desc": "Veuillez utilisez ce formulaire pour payer la commande {{order}}."
+    },
+    "success": {
+      "title": "La transaction a été approuvée.",
+      "desc": "Vous recevrez un votre reçu par courriel dans les plus brefs délais. Merci d'avoir fait affaire avec nous."
+    }
+  },
   "buttons": {
     "next": "Prochaine étape",
     "previous": "Etape précedente"

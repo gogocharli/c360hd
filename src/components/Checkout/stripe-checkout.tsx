@@ -11,6 +11,7 @@ import { Button } from '../button';
 import { ErrorText } from '../Form/error-text';
 import { Spinner } from '../loading-spinner';
 import { Address } from './payment';
+import { useTranslation } from 'next-i18next';
 
 const baseStyles = {
   style: {
@@ -88,6 +89,7 @@ export function StripeCheckout({
     }
   }
 
+  const { t } = useTranslation('checkout');
   return (
     <form
       id='stripe-checkout'
@@ -96,7 +98,7 @@ export function StripeCheckout({
     >
       <div className={formStyles.field}>
         <label>
-          Card Number
+          {t('payment.card.number')}
           <CardNumberElement
             id='stripe-card-number'
             options={{ ...baseStyles }}
@@ -112,7 +114,7 @@ export function StripeCheckout({
         </div>
         <div className={formStyles.field}>
           <label>
-            Expiration Date
+            {t('payment.card.exp')}
             <CardExpiryElement
               id='stripe-card-exp'
               options={{ ...baseStyles }}
