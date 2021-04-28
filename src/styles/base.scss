@@ -28,6 +28,8 @@
   --selection-fg: var(--theme-color-fg);
   --selection-bg: var(--theme-color-hg);
   --focus-color: #0870ee;
+  --transition-duration: 350ms;
+  --transition-curve: cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 :root {
@@ -52,6 +54,7 @@ body {
   overflow-x: hidden;
   position: relative;
   scroll-behavior: smooth;
+  transition: all var(--transition-duration) var(--transition-curve);
 
   /* Most of the text is dark on light which means the text will be bolder */
   -webkit-font-smoothing: antialiased;

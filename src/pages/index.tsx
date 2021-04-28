@@ -11,14 +11,70 @@ import { Features } from '@components/features';
 import { Button } from '@components/button';
 import Arrow from '@components/icon-arrow-right.svg';
 import { Browser } from '@components/Browser/browser';
+import { useEffect, useRef } from 'react';
 
 export default function Home() {
   const { t } = useTranslation('home');
 
+  useEffect(() => {
+    let observer = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.target) observer.disconnect();
+
+          if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+            bodyEl.style.setProperty(
+              '--theme-color-bg',
+              'var(--color-light-main)',
+            );
+
+            bodyEl.style.setProperty(
+              '--theme-color-fg',
+              'var(--color-dark-main)',
+            );
+
+            bodyEl.style.setProperty(
+              '--theme-color-hg',
+              'var(--color-light-highlight)',
+            );
+
+            bodyEl.style.setProperty(
+              '--theme-color-tint',
+              'var(--color-light-tint)',
+            );
+          } else {
+            bodyEl.style.setProperty('--theme-color-bg', `inherit`);
+            bodyEl.style.setProperty('--theme-color-fg', `inherit`);
+            bodyEl.style.setProperty('--theme-color-hg', `inherit`);
+            bodyEl.style.setProperty('--theme-color-tint', `inherit`);
+          }
+        });
+      },
+      {
+        threshold: [0.25, 0.5, 0.75],
+      },
+    );
+
+    let bodyEl = document.querySelector('body');
+    let targetEl = document.querySelector('#index-hero');
+    observer.observe(targetEl);
+
+    return () => {
+      observer.unobserve(targetEl);
+      // Reset the values to the ones from their respective pages
+      bodyEl.style.setProperty('--theme-color-bg', `inherit`);
+      bodyEl.style.setProperty('--theme-color-fg', `inherit`);
+      bodyEl.style.setProperty('--theme-color-hg', `inherit`);
+      bodyEl.style.setProperty('--theme-color-tint', `inherit`);
+
+      console.log('unobserved');
+    };
+  }, []);
+
   return (
     <>
       <BaseLayout className='home'>
-        <section className='[ hero ] [ flow align-center ]'>
+        <section id='index-hero' className='[ hero ] [ flow align-center ]'>
           <div className='[ hero__content ] [ flow ]'>
             <h1 className='[ title ] [ text-600 md:text-700 lg:text-800 weight-bold ] [ leading-flat tracking-tight measure-micro ]'>
               {t('hero.title')}
@@ -157,6 +213,7 @@ export default function Home() {
 
           background-color: hsl(var(--theme-color-bg));
           color: hsl(var(--theme-color-fg));
+          transition: all var(--transition-duration) var(--transition-curve);
         }
 
         .hero__content {
@@ -464,11 +521,6 @@ export default function Home() {
 
       <style jsx global>{`
         :root {
-          --theme-color-bg: var(--color-light-main);
-          --theme-color-fg: var(--color-dark-main);
-          --theme-color-hg: var(--color-light-highlight);
-          --theme-color-tint: var(--color-light-tint);
-
           background-color: hsl(var(--theme-color-bg));
           color: hsl(var(--theme-color-fg));
         }
