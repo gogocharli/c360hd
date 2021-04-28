@@ -98,7 +98,10 @@
       }
     },
     "repId": {
-      "name": "Numéro du Représentant de Ventes (Optionel)"
+      "name": "Numéro du Représentant de Ventes (Optionel)",
+      "error": {
+        "notFound": "Ce numéro d'agent n'existe pas. Veuillez vérifiez sa validité ou laissez la case vide."
+      }
     },
     "lang": {
       "name": "Langue de Prédilection"

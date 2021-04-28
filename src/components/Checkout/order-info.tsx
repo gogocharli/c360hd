@@ -28,7 +28,10 @@ export function OrderInfo() {
       <FormField
         name='repId'
         label={`${t('form.repId.name')}`}
-        rules={{ required: false }}
+        rules={{
+          required: false,
+          validate: agentExists(`${t('form.repId.error.notFound')}`),
+        }}
       />
       <FormField
         type='fieldset'
@@ -60,6 +63,24 @@ const scheduleIsFree = async (date: Date): Promise<ValidateResult> => {
     return false;
   }
 };
+
+const agentExists = (error: string) =>
+  async function (agentNumber: string): Promise<ValidateResult> {
+    try {
+      const data = await (
+        await window.fetch(`/api/agents?search=${agentNumber}`)
+      ).json();
+
+      if (data.errorMessage) {
+        return error;
+      }
+
+      return true;
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
+  };
 
 interface ScheduleResponse {
   isFree: boolean;

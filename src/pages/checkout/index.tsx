@@ -31,7 +31,7 @@ const paths = ['business', 'contact', 'order', 'review', 'checkout'];
 const stepInputs: Array<keyof FormInputs>[] = [
   ['businessName', 'decisionMaker', 'address'],
   ['primaryNumber', 'secondaryNumber', 'email'],
-  ['product', 'date'],
+  ['product', 'date', 'repId'],
 ];
 
 export default function Checkout() {

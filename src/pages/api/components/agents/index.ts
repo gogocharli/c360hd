@@ -28,12 +28,16 @@ async function createAgent(agentDetails: {}) {
 }
 
 async function searchAgent(query: string) {
-  const searchOptions = { field: 'Name', query };
+  const searchOptions = { field: 'RepID', query };
 
   try {
     const matchedAgentsRecords = await RepsTable.all({
       filterField: searchOptions,
     });
+
+    if (matchedAgentsRecords.length == 0) {
+      throw { message: 'No agent found' };
+    }
 
     const matchedAgents = matchedAgentsRecords.map(filterAgentFields);
 

@@ -104,7 +104,10 @@
       }
     },
     "repId": {
-      "name": "Sales Agent Number (Optional)"
+      "name": "Sales Agent Number (Optional)",
+      "error": {
+        "notFound": "Agent Number was not found. Please verify it is correct or leave empty."
+      }
     },
     "lang": {
       "name": "Preferred Language"
