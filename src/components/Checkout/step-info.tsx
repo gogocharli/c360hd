@@ -14,6 +14,8 @@ export function StepInfo({ step }: { step: number }) {
       <style jsx>{`
         .info {
           --flow-space: 1rem;
+          --selection-bg: var(--color-light-highlight);
+          --selection-fg: var(--color-dark-main);
 
           background-color: hsl(var(--theme-color-tint));
           border-radius: var(--border-radius);

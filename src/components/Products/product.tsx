@@ -80,7 +80,8 @@ export function Product({ name }: { name: 'classic' | 'special' }) {
 
         article {
           --flow-space: 2.5rem;
-          --color-selection: var(--color-light-highlight);
+          --selection-fg: var(--color-light-main);
+          --selection-bg: var(--color-dark-main);
 
           align-items: center;
           animation-play-state: paused;

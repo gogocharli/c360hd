@@ -25,7 +25,8 @@
   --theme-color-hg: var(--color-dark-highlight);
   --theme-color-tint: var(--color-dark-tint);
   --theme-color-accent: var(--color-accent-sky);
-  --color-selection: var(--theme-color-hg);
+  --selection-fg: var(--theme-color-fg);
+  --selection-bg: var(--theme-color-hg);
   --focus-color: #0870ee;
 }
 
@@ -103,7 +104,8 @@ main:focus {
 }
 
 ::selection {
-  background: hsla(var(--color-selection) / 0.99);
+  color: hsl(var(--selection-fg));
+  background: hsla(var(--selection-bg) / 0.99);
 }
 
 [class*='text-400'] {

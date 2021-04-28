@@ -192,6 +192,8 @@ export default function Portfolio() {
         }
 
         .search__wrapper {
+          --selection-bg: var(--color-dark-main);
+          --selection-fg: var(--color-light-main);
           position: relative;
         }
 

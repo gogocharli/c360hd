@@ -34,7 +34,7 @@ export function JourneyHighlights() {
         }
 
         li {
-          --color-selection: var(--color-light-highlight);
+          --selection-bg: var(--color-light-highlight);
 
           border-radius: 0.75rem;
           box-shadow: var(--card-shadow-main);

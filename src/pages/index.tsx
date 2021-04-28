@@ -235,7 +235,7 @@ export default function Home() {
         }
 
         .realisations {
-          --color-selection: var(--color-light-highlight);
+          --selection-bg: var(--color-light-highlight);
           --theme-color-bg: var(--color-light-main);
           --theme-color-fg: var(--color-dark-main);
 

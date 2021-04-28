@@ -26,6 +26,10 @@ export function Footer() {
           --flow-space: 3rem;
         }
 
+        footer :global(.button) {
+          --default-bg: var(--color-dark-tint);
+        }
+
         @media (min-width: 40em) {
           footer {
             margin-top: 5.5rem;
