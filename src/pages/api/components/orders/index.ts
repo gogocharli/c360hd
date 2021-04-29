@@ -114,7 +114,6 @@ export async function getOrder(number: string) {
     const [orderRecord] = await OrdersTable.all({
       filterField: searchOptions,
     });
-
     if (!orderRecord) throw 'No order found';
 
     const order = filterOrderFields(orderRecord);
@@ -125,28 +124,6 @@ export async function getOrder(number: string) {
     console.error(error);
     const errorMessage = `Couldn't find order number "${number}"\n ${error.message}`;
     throw { errorMessage, code: 500 };
-  }
-}
-
-export async function getOrderFromNumber(number: string) {
-  const searchOptions = { field: 'Order Number', query: number };
-  try {
-    const matches = await OrdersTable.all({
-      filterField: searchOptions,
-    });
-
-    if (matches.length == 0) throw 'No order found';
-
-    const [orderRecord] = matches;
-
-    const order = filterOrderFields(orderRecord);
-    const completeOrder = await includeLinkedRecords(order, orderRecord);
-
-    return completeOrder;
-  } catch (error) {
-    console.error(error);
-    const errorMessage = `Couldn't find order number "${number}"\n ${error.message}`;
-    return { errorMessage };
   }
 }
 
