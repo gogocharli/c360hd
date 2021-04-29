@@ -7,5 +7,5 @@ module.exports = withSvgr({
   sassOptions: {
     includePaths: [path.join(__dirname, 'node_modules/gorko')],
   },
-  target: 'experiemental-serverless-trace',
+  target: 'experimental-serverless-trace',
 });
