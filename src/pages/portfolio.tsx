@@ -9,8 +9,27 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import BaseLayout from '@layouts/base';
 import { AccordionMenu, AccordionItem } from '@components/Accordion/accordion';
 import { Gallery } from '@components/Gallery/gallery';
+import { getFeaturedClients } from './api/components/clients';
+import { GalleryListItem } from '@components/Gallery/gallery-item';
+import { fallbackItems } from '@components/Gallery/gallery-items';
 
-export default function Portfolio() {
+const categoryList = [
+  'resto',
+  'fashion',
+  'convenience',
+  'beauty',
+  'art',
+  'health',
+  'furniture',
+  'recent',
+  'other',
+];
+
+export default function Portfolio({
+  featuredClients,
+}: {
+  featuredClients: GalleryListItem[];
+}) {
   const router = useRouter();
   const { query } = router;
   const filterRef = useRef(query.filter ?? '');
@@ -52,17 +71,6 @@ export default function Portfolio() {
       });
     };
   }
-
-  const categoryList = [
-    'resto',
-    'fashion',
-    'convenience',
-    'beauty',
-    'art',
-    'nursery',
-    'recent',
-    'other',
-  ];
 
   const pageMeta = { title: t('pageTitle'), desc: t('pageDesc') };
   return (
@@ -116,7 +124,7 @@ export default function Portfolio() {
               onChange={handleSearchChange}
             />
           </div>
-          <Gallery search={searchQuery} />
+          <Gallery featuredClients={featuredClients} search={searchQuery} />
         </article>
       </BaseLayout>
       <style jsx>{`
@@ -270,6 +278,17 @@ export default function Portfolio() {
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
+  const featuredClientsData = await getFeaturedClients();
+  const featuredClients = featuredClientsData.map(
+    ({ name, category, zipCode, created, cover }) => ({
+      category: category.toLowerCase(),
+      created,
+      name,
+      src: cover?.[0]?.thumbnails.large.url ?? '', // 1024 x 512 base image
+      zipCode,
+    }),
+  );
+
   return {
     props: {
       ...(await serverSideTranslations(locale, [
@@ -277,6 +296,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
         'site',
         'portfolio',
       ])),
+      featuredClients: featuredClients || fallbackItems,
     },
   };
 };

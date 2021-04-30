@@ -1,30 +1,64 @@
-export const initalItems = [
-  { category: 'fashion', name: 'Espace Flo', src: 'espace-flo-img' },
+export const fallbackItems = [
+  {
+    category: 'fashion',
+    created: '',
+    name: 'Espace Flo',
+    src: '',
+    zipCode: '',
+  },
   {
     category: 'resto',
+    created: '',
     name: 'Superfood St-Laurent',
-    src: 'superfood-st-laurent-img',
+    src: '',
+    zipCode: '',
   },
-  { category: 'fashion', name: 'Excel Plus', src: 'excel-plus-img' },
   {
     category: 'fashion',
+    created: '',
+    name: 'Excel Plus',
+    src: '',
+    zipCode: '',
+  },
+  {
+    category: 'fashion',
+    created: '',
     name: 'Air Clothes St-Denis',
-    src: 'air-clothes-st-denis-img',
+    src: '',
+    zipCode: '',
   },
   {
     category: 'fashion',
+    created: '',
     name: 'Felix Brown Shoes',
-    src: 'felix-brown-shoes-img',
+    src: '',
+    zipCode: '',
   },
   {
     category: 'nursery',
+    created: '',
     name: 'Garderie Le Rucher',
-    src: 'garderie-le-rucher-img',
+    src: '',
+    zipCode: '',
   },
   {
     category: 'nursery',
+    created: '',
     name: 'Centre Educatif',
-    src: 'centre-educatif-img',
+    src: '',
+    zipCode: '',
   },
-  { category: 'nursery', name: 'Bébés en Vrac', src: 'bebes-en-vrac-img' },
+  {
+    category: 'nursery',
+    created: '',
+    name: 'Bébés en Vrac',
+    src: '',
+    zipCode: '',
+  },
 ];
+
+/* 
+  I want a list of items which will have the same format as above
+  The idea is to have a select list of companies from which I can pull
+  the data from in the database
+*/

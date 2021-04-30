@@ -2,24 +2,33 @@ import Image from 'next/image';
 
 export function GalleryItem({
   name,
+  created,
   category,
   src,
+  zipCode,
   orientation = 'vertical',
 }: {
-  name: string;
   category: string;
+  created: string;
+  name: string;
   src: string;
+  zipCode: string;
   orientation?: 'horizontal' | 'vertical';
 }) {
   return (
     <>
       <button className='gallery__item'>
         <div className='img-wrapper'>
-          <Image src={`/gallery/${src}.jpg`} alt='' width={96} height={96} />
+          <Image
+            src={src || '/gallery/excel-plus-img.jpg'}
+            alt=''
+            width={96}
+            height={96}
+          />
         </div>
         <div className='text'>
-          <h4 className="[ text-300 md:text-400 ] [ weight-medium ]">{name}</h4>
-          <p className="text-100">{category}</p>
+          <h4 className='[ text-300 md:text-400 ] [ weight-medium ]'>{name}</h4>
+          <p className='text-100'>{category}</p>
         </div>
       </button>
       <style jsx>{`
@@ -29,8 +38,9 @@ export function GalleryItem({
           padding: 0;
 
           align-items: center;
-          border-radius: .5rem;
-          box-shadow:-10px 10px 20px rgba(203, 218, 230, 0.2), 10px -10px 20px rgba(216, 238, 238, 0.1);
+          border-radius: 0.5rem;
+          box-shadow: -10px 10px 20px rgba(203, 218, 230, 0.2),
+            10px -10px 20px rgba(216, 238, 238, 0.1);
           display: flex;
         }
 
@@ -44,9 +54,8 @@ export function GalleryItem({
         }
 
         .img-wrapper {
-          border-radius: 100%;
+          clip-path: circle();
           height: 64px;
-          overflow: hidden;
           width: 64px;
         }
 
@@ -56,13 +65,13 @@ export function GalleryItem({
             aspect-ratio: 1;
           }
         }
-        
+
         @media (min-width: 50em) {
           .img-wrapper {
             width: 96px;
             height: 96px;
           }
-  
+
           @supports (aspect-ratio: 1) {
             .img-wrapper {
               height: unset;
@@ -72,13 +81,15 @@ export function GalleryItem({
 
           h4 {
             line-height: 1.2;
-          } 
+          }
         }
-    `}</style>
+      `}</style>
       <style jsx>{`
         button {
           flex-direction: ${orientation == 'horizontal' ? 'row' : 'column'};
-          justify-content: ${orientation == 'horizontal' ? 'flex-start' : 'center'};
+          justify-content: ${orientation == 'horizontal'
+            ? 'flex-start'
+            : 'center'};
           padding: ${orientation == 'horizontal' ? '1.5rem 2rem' : '1rem 0'};
         }
 
@@ -93,8 +104,10 @@ export function GalleryItem({
 
 interface GalleryListItem {
   category: string;
+  created: string;
   name: string;
   src: string;
+  zipCode: string;
 }
 
 export type { GalleryListItem };

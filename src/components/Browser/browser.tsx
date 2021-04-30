@@ -4,7 +4,7 @@ import { LoadingBars } from './loading-bars';
 import { SearchScreen } from './search-screen';
 
 export function Browser() {
-  const [screen, setScreen] = useState('results');
+  const [screen, setScreen] = useState<'idle' | 'query' | 'results'>('idle');
 
   return (
     <>

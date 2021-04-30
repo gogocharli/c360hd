@@ -4,18 +4,24 @@ import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 
 import { GalleryRow, InitialRows } from './gallery-row';
-import { initalItems } from './gallery-items';
 import { categoryReducer, initCategory } from './reducer';
 import { Button } from '@components/button';
+import type { GalleryListItem } from './gallery-item';
 
-export function Gallery({ search }: { search: string }) {
+export function Gallery({
+  search,
+  featuredClients,
+}: {
+  search: string;
+  featuredClients: GalleryListItem[];
+}) {
   const { t } = useTranslation('portfolio');
-  const {
-    query: { filter },
-  } = useRouter();
+  const { query } = useRouter();
+  const filter = query.filter as string;
+
   const [state, dispatch] = useReducer(
     categoryReducer,
-    { search: '', filter, items: initalItems },
+    { search: '', filter, initialItems: featuredClients },
     initCategory,
   );
 

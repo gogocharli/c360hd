@@ -1,5 +1,4 @@
 import type { GalleryListItem } from './gallery-item';
-import { initalItems } from './gallery-items';
 
 type GalleryAction =
   | { type: 'reset' }
@@ -9,28 +8,33 @@ type GalleryAction =
 interface GalleryState {
   search: string;
   filter: string;
-  items: GalleryListItem[] | undefined;
+  items?: GalleryListItem[] | undefined;
+  initialItems: GalleryListItem[];
 }
 
 function categoryReducer(
   state: GalleryState,
-  action: GalleryAction
+  action: GalleryAction,
 ): GalleryState {
   switch (action.type) {
     case 'reset': {
+      const { initialItems } = state;
       return {
         search: '',
         filter: '',
-        items: initalItems,
+        items: initialItems,
+        initialItems,
       };
     }
     case 'filter': {
       const { filter: newFilter } = action;
-      const newList = initalItems.filter(
-        filterByCategory(newFilter)
+      const { initialItems } = state;
+      const newList = initialItems.filter(
+        filterByCategory(newFilter),
       ) as GalleryListItem[];
 
       return {
+        ...state,
         search: '',
         filter: newFilter,
         items: newList,
@@ -38,7 +42,7 @@ function categoryReducer(
     }
     case 'search': {
       const { query } = action;
-      const { items, filter, search } = state;
+      const { items, filter, search, initialItems } = state;
 
       /*
         Search through the current items if there's any
@@ -51,13 +55,13 @@ function categoryReducer(
         items.length > 0
           ? items
           : query.length < search.length
-          ? initalItems.filter(filterByCategory(filter || 'all'))
+          ? initialItems.filter(filterByCategory(filter || 'all'))
           : [];
 
       // Get items which match the search query
       // TODO change from linear search to hash function indexing
       const newList = itemList.filter((item) =>
-        item.name.toLowerCase().includes(query)
+        item.name.toLowerCase().includes(query),
       );
       return {
         ...state,
@@ -68,7 +72,7 @@ function categoryReducer(
     default:
       throw new Error(
         // @ts-ignore
-        `Invalid action type "${action.type}" in categoryReducer`
+        `Invalid action type "${action.type}" in categoryReducer`,
       );
   }
 }
@@ -76,12 +80,15 @@ function categoryReducer(
 function initCategory({
   filter = '',
   search = '',
-  items: initalItems,
+  initialItems,
 }: GalleryState): GalleryState {
   return {
     search,
     filter,
-    items: filter ? initalItems.filter(filterByCategory(filter)) : initalItems,
+    items: filter
+      ? initialItems.filter(filterByCategory(filter))
+      : initialItems,
+    initialItems: initialItems,
   };
 }
 
