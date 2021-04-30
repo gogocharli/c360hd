@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import type { GetServerSideProps } from 'next';
+import type { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 
 import { useTranslation } from 'next-i18next';
@@ -171,9 +171,7 @@ export default function Checkout() {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({
-  locale = 'en',
-}) => {
+export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common', 'site', 'checkout'])),
