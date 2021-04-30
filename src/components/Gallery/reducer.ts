@@ -52,11 +52,9 @@ function categoryReducer(
         any more matches so no need to repopulate the list
        */
       const itemList =
-        items.length > 0
-          ? items
-          : query.length < search.length
+        query.length < search.length
           ? initialItems.filter(filterByCategory(filter || 'all'))
-          : [];
+          : items;
 
       // Get items which match the search query
       // TODO change from linear search to hash function indexing
