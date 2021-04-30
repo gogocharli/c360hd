@@ -41,6 +41,14 @@ function filterClientInfo(filterOpts?: recordFilterOpts) {
  */
 const filterClientFields = filterClientInfo();
 
+function filterFeaturedClientInfo(filterOpts?: recordFilterOpts) {
+  return filterRecordInfo({
+    selectedFields: ['Name', 'Category', 'Zip Code', 'Created', 'Cover'],
+  });
+}
+
+const filterFeaturedClientFields = filterFeaturedClientInfo();
+
 /**
  * Alias the names of the API consumer requests to the DB Schema
  */
@@ -92,6 +100,7 @@ export {
   defaultClientFields,
   filterClientInfo,
   filterClientFields,
+  filterFeaturedClientFields,
   translateClientRequest,
   translateClientFields,
   createOnboardingTemplate,

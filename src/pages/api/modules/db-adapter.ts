@@ -66,10 +66,12 @@ const LinksTable = new DatabaseAdapter('Links');
 const ClientsTable = new DatabaseAdapter('Clients');
 const OrdersTable = new DatabaseAdapter('Orders');
 const RepsTable = new DatabaseAdapter('Reps');
+const FeaturedTable = new DatabaseAdapter('Featured');
 export {
   DatabaseAdapter as default,
   LinksTable,
   ClientsTable,
   OrdersTable,
   RepsTable,
+  FeaturedTable,
 };

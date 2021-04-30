@@ -2,12 +2,14 @@ import {
   ClientsTable,
   LinksTable,
   OrdersTable,
+  FeaturedTable,
 } from '../../modules/db-adapter';
 import {
   createDeliveryTemplate,
   createOnboardingTemplate,
   createReminderTemplate,
   filterClientFields,
+  filterFeaturedClientFields,
   translateClientFields,
 } from './utils';
 import { deliveryEmail, onboardingEmail } from '../../modules/email';
@@ -45,7 +47,7 @@ enum Intent {
 // - Photos and link to the edited photos
 async function notifyClient(
   clientId,
-  notificationOpts: { format: Format; type: Intent }
+  notificationOpts: { format: Format; type: Intent },
 ) {
   const { format = Format.email, type = Intent.onboarding } = notificationOpts;
 
@@ -105,6 +107,20 @@ async function getAllClients() {
   }
 }
 
+async function getFeaturedClients(): Promise<Array<any>> {
+  try {
+    const featuredClientRecords = await FeaturedTable.all();
+    const featuredClients = featuredClientRecords.map(
+      filterFeaturedClientFields,
+    );
+    return featuredClients;
+  } catch (error) {
+    console.error(error);
+    const errorMessage = `Couldn't retrieve featured clients \n ${error.message}`;
+    throw { errorMessage, code: 500 };
+  }
+}
+
 async function getClient(clientId) {
   try {
     const clientRecord = await ClientsTable.getRow(clientId);
@@ -145,6 +161,7 @@ export {
   createClient,
   notifyClient,
   getAllClients,
+  getFeaturedClients,
   getClient,
   updateClient,
   deleteClients,
