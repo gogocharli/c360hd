@@ -1,4 +1,8 @@
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
+import { useState } from 'react';
+
+const MapModal = dynamic(import('./gallery-modal'));
 
 export function GalleryItem({
   client,
@@ -7,10 +11,16 @@ export function GalleryItem({
   client: GalleryListItem;
   orientation?: 'horizontal' | 'vertical';
 }) {
+  const [isExpanded, setExpanded] = useState(false);
   const { src, name, category } = client;
+  const close = () => setExpanded(false);
   return (
     <>
-      <button className='gallery__item'>
+      <button
+        className='gallery__item'
+        onClick={() => setExpanded((state) => !state)}
+        aria-expanded={isExpanded}
+      >
         <div className='img-wrapper'>
           <Image
             src={src || '/gallery/excel-plus-img.jpg'}
@@ -24,6 +34,7 @@ export function GalleryItem({
           <p className='text-100'>{category}</p>
         </div>
       </button>
+      {isExpanded && <MapModal zipCode={client.zipCode} close={close} />}
       <style jsx>{`
         button {
           background: 0;
