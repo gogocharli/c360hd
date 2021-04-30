@@ -1,20 +1,13 @@
 import Image from 'next/image';
 
 export function GalleryItem({
-  name,
-  created,
-  category,
-  src,
-  zipCode,
+  client,
   orientation = 'vertical',
 }: {
-  category: string;
-  created: string;
-  name: string;
-  src: string;
-  zipCode: string;
+  client: GalleryListItem;
   orientation?: 'horizontal' | 'vertical';
 }) {
+  const { src, name, category } = client;
   return (
     <>
       <button className='gallery__item'>

@@ -99,4 +99,6 @@ function filterByCategory(filter: string) {
   };
 }
 
+function sortByRecency(createdOn: string) {}
+
 export { categoryReducer, initCategory };

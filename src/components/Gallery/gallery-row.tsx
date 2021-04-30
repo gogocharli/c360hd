@@ -10,7 +10,7 @@ export function GalleryRow({
   all = false,
 }: {
   category: string;
-  itemList: { category: string; name: string; src: string }[];
+  itemList: GalleryListItem[];
   all?: boolean;
 }) {
   const { t } = useTranslation('portfolio');
@@ -25,31 +25,45 @@ export function GalleryRow({
     <>
       <div className='gallery__row flow'>
         <div className='row__header'>
-          <h3 className="[ text-400 md:text-500 ] [ weight-normal leading-flat ]">{t(`categories.${category}`)}</h3>
+          <h3 className='[ text-400 md:text-500 ] [ weight-normal leading-flat ]'>
+            {t(`categories.${category}`)}
+          </h3>
           {/* Remove the link to show all when all items
          in the list are already there */}
           {!isCompleteList && (
             <Link href={`/portfolio?filter=${category}`} scroll={false}>
-              <a className="[ text-300 ] [ no-deco weight-bold ]">{t('buttonText')}</a>
+              <a className='[ text-300 ] [ no-deco weight-bold ]'>
+                {t('buttonText')}
+              </a>
             </Link>
           )}
         </div>
         <div className='row__content'>
-          {itemList.map(({ category, name, src }) => (
+          {itemList.map(({ name, category, ...props }) => (
             <GalleryItem
-              category={t(`categories.${category}`)}
-              name={name}
-              src={src}
+              client={{
+                name,
+                category: `${t(`categories.${category}`)}`,
+                ...props,
+              }}
               key={name}
               orientation={orientation}
             />
           ))}
         </div>
-        {isCarousel && (<div className='carousel__scroll'>
-          <button><span className="visually-hidden">Scroll to 1st</span></button>
-          <button><span className="visually-hidden">Scroll to 2nd</span></button>
-          <button><span className="visually-hidden">Scroll to last</span></button>
-        </div>)}
+        {isCarousel && (
+          <div className='carousel__scroll'>
+            <button>
+              <span className='visually-hidden'>Scroll to 1st</span>
+            </button>
+            <button>
+              <span className='visually-hidden'>Scroll to 2nd</span>
+            </button>
+            <button>
+              <span className='visually-hidden'>Scroll to last</span>
+            </button>
+          </div>
+        )}
       </div>
       <style jsx>{`
         .gallery__row > * {
@@ -89,9 +103,9 @@ export function GalleryRow({
         }
 
         @media (min-width: 50em) {
-          .gallery__row > *{
-          --flow-space: 2rem;
-         }
+          .gallery__row > * {
+            --flow-space: 2rem;
+          }
 
           .row__content {
             display: grid;

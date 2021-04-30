@@ -10,13 +10,13 @@
     "all": "Tous nos clients",
     "resto": "Restauration",
     "fashion": "Mode",
-    "convenience": "Supermarchés",
-    "beauty": "Salons de beauté",
+    "convenience": "Supermarché",
+    "beauty": "Salon de beauté",
     "art": "Gallerie artistique",
     "nursery": "Santé",
     "furniture": "Ameublement",
     "recent": "Récent",
-    "other": "Autres"
+    "other": "Autre"
   },
   "search": {
     "placeholder": "Recherchez un client…",
