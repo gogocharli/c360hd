@@ -33,10 +33,10 @@ export function Header() {
       </Button>
       <header role='banner' className='[ site-head ] [ wrapper ]'>
         <Link href='/'>
-          <a
-            className='site-head__brand'
-            aria-label={`${t('links.home')} - C360HD`}
-          >
+          <a className='site-head__brand'>
+            <span className='visually-hidden'>{`${t(
+              'links.home',
+            )} - C360HD`}</span>
             <Symbol />
           </a>
         </Link>
