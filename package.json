@@ -23,6 +23,7 @@
   "dependencies": {
     "@hookform/error-message": "^0.0.5",
     "@next/env": "^10.2.0",
+    "@radix-ui/react-dialog": "^0.0.15",
     "@reach/accordion": "^0.13.2",
     "@stripe/react-stripe-js": "^1.4.0",
     "@stripe/stripe-js": "^1.13.2",
