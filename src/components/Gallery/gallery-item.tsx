@@ -1,8 +1,5 @@
 import Image from 'next/image';
-import dynamic from 'next/dynamic';
-import { useState } from 'react';
-
-const MapModal = dynamic(import('./gallery-modal'));
+import * as Dialog from '@radix-ui/react-dialog';
 
 export function GalleryItem({
   client,
@@ -11,32 +8,34 @@ export function GalleryItem({
   client: GalleryListItem;
   orientation?: 'horizontal' | 'vertical';
 }) {
-  const [isExpanded, setExpanded] = useState(false);
   const { src, name, category } = client;
-  const close = () => setExpanded(false);
+
   return (
     <>
-      <button
-        className='gallery__item'
-        onClick={() => setExpanded((state) => !state)}
-        aria-expanded={isExpanded}
-      >
-        <div className='img-wrapper'>
-          <Image
-            src={src || '/gallery/excel-plus-img.jpg'}
-            alt=''
-            width={96}
-            height={96}
-          />
-        </div>
-        <div className='text'>
-          <h4 className='[ text-300 md:text-400 ] [ weight-medium ]'>{name}</h4>
-          <p className='text-100'>{category}</p>
-        </div>
-      </button>
-      {isExpanded && <MapModal address={client.address} close={close} />}
+      <Dialog.Root>
+        <Dialog.Trigger className='gallery__item'>
+          <div className='img-wrapper'>
+            <Image
+              src={src || '/gallery/excel-plus-img.jpg'}
+              alt=''
+              width={96}
+              height={96}
+            />
+          </div>
+          <div className='text'>
+            <h4 className='[ text-300 md:text-400 ] [ weight-medium ]'>
+              {name}
+            </h4>
+            <p className='text-100'>{category}</p>
+          </div>
+        </Dialog.Trigger>
+        <Dialog.Overlay className='modal-overlay' />
+        <Dialog.Content className='gallery__modal'>
+          <StreetViewModal address={client.address} />
+        </Dialog.Content>
+      </Dialog.Root>
       <style jsx>{`
-        button {
+        :global(.gallery__item) {
           background: 0;
           border: 0;
           padding: 0;
@@ -70,6 +69,28 @@ export function GalleryItem({
           }
         }
 
+        :global(.gallery__modal) {
+          // Aspect ratio 16/9
+          height: 0;
+          width: 80vw;
+          overflow: hidden;
+          position: fixed;
+          padding-top: 56.25%;
+
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+        }
+
+        :global(.modal-overlay) {
+          background-color: hsl(var(--color-dark-main) / 70%);
+          position: fixed;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+        }
+
         @media (min-width: 50em) {
           .img-wrapper {
             width: 96px;
@@ -89,7 +110,7 @@ export function GalleryItem({
         }
       `}</style>
       <style jsx>{`
-        button {
+        :global(.gallery__item) {
           flex-direction: ${orientation == 'horizontal' ? 'row' : 'column'};
           justify-content: ${orientation == 'horizontal'
             ? 'flex-start'
@@ -100,6 +121,35 @@ export function GalleryItem({
         .text {
           margin: ${orientation == 'horizontal' ? '0 0 0 1rem' : '1rem 0 0 0'};
           text-align: ${orientation == 'horizontal' ? 'left' : 'center'};
+        }
+      `}</style>
+    </>
+  );
+}
+
+function StreetViewModal({ address }: { address: string | GeoCode }) {
+  /**
+   * The address can either be a string or a lat, lng tuple. The maps api expects either in a string
+   * format so we create the url based on which of the types was provided at build time.
+   */
+  address =
+    typeof address == 'object' ? `${address.lat}, ${address.lng}` : address;
+  const mapsUrl = new URL(
+    `https://www.google.com/maps/embed/v1/streetview?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&location=${address}`,
+  ).href;
+
+  return (
+    <>
+      <iframe src={mapsUrl} loading='lazy' allowFullScreen />
+      <style jsx>{`
+        iframe {
+          border: 0;
+          border-radius: 0.5rem;
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 100%;
         }
       `}</style>
     </>
