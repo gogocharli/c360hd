@@ -10,7 +10,7 @@ import BaseLayout from '@layouts/base';
 import { AccordionMenu, AccordionItem } from '@components/Accordion/accordion';
 import { Gallery } from '@components/Gallery/gallery';
 import { getFeaturedClients } from './api/components/clients';
-import { GalleryListItem } from '@components/Gallery/gallery-item';
+import { GalleryListItem, GeoCode } from '@components/Gallery/gallery-item';
 import { fallbackItems } from '@components/Gallery/gallery-items';
 
 const categoryList = [
@@ -289,6 +289,10 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
     }),
   );
 
+  const featuredClientsWithGeo = await Promise.all(
+    featuredClients.map(retrieveGeoLocation),
+  );
+
   return {
     props: {
       ...(await serverSideTranslations(locale, [
@@ -296,7 +300,23 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
         'site',
         'portfolio',
       ])),
-      featuredClients: featuredClients || fallbackItems,
+      featuredClients: featuredClientsWithGeo || fallbackItems,
     },
   };
 };
+
+async function retrieveGeoLocation(client: any): Promise<GalleryListItem> {
+  const url = new URL(
+    `https://maps.googleapis.com/maps/api/geocode/json?address=${client.address}&key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`,
+  );
+  const data = await fetch(url.href).then((res) => {
+    if (res.ok) return res.json();
+
+    throw res;
+  });
+  const geoCode: GeoCode = data.results[0]?.geometry.location ?? {
+    lat: '',
+    lng: '',
+  };
+  return { ...client, address: geoCode };
+}

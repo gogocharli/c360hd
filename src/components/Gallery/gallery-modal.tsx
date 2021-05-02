@@ -1,21 +1,23 @@
-// import * as Dialog from '@radix-ui/react-dialog';
-import { useGeoLocation } from 'hooks/useGeoLocation';
+import type { GeoCode } from './gallery-item';
 
 export default function MapsModal({
   address,
   close,
 }: {
-  address: string;
+  address: GeoCode | string;
   close: Function;
 }) {
-  const { lat, lng } = useGeoLocation(address);
-
+  address =
+    typeof address == 'object' ? `${address.lat}, ${address.lng}` : address;
+  const mapsUrl = new URL(
+    `https://www.google.com/maps/embed/v1/streetview?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&location=${address}`,
+  ).href;
   return (
     <div>
       <iframe
         width={600}
         height={450}
-        src={`https://www.google.com/maps/embed/v1/streetview?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&location=${lat}, ${lng}`}
+        src={mapsUrl}
         loading='lazy'
         allowFullScreen
       />

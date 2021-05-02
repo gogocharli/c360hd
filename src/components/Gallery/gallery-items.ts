@@ -1,4 +1,4 @@
-import { GalleryListItem } from './gallery-item';
+import type { GalleryListItem } from './gallery-item';
 
 export const fallbackItems: GalleryListItem[] = [
   {

@@ -111,7 +111,11 @@ interface GalleryListItem {
   created: string;
   name: string;
   src: string;
-  address: string;
+  address: GeoCode | string;
 }
 
+export interface GeoCode {
+  lat: string;
+  lng: string;
+}
 export type { GalleryListItem };
