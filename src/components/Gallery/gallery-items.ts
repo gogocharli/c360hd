@@ -1,59 +1,61 @@
-export const fallbackItems = [
+import { GalleryListItem } from './gallery-item';
+
+export const fallbackItems: GalleryListItem[] = [
   {
     category: 'fashion',
     created: '',
     name: 'Espace Flo',
     src: '',
-    zipCode: '',
+    address: '',
   },
   {
     category: 'resto',
     created: '',
     name: 'Superfood St-Laurent',
     src: '',
-    zipCode: '',
+    address: '',
   },
   {
     category: 'fashion',
     created: '',
     name: 'Excel Plus',
     src: '',
-    zipCode: '',
+    address: '',
   },
   {
     category: 'fashion',
     created: '',
     name: 'Air Clothes St-Denis',
     src: '',
-    zipCode: '',
+    address: '',
   },
   {
     category: 'fashion',
     created: '',
     name: 'Felix Brown Shoes',
     src: '',
-    zipCode: '',
+    address: '',
   },
   {
     category: 'nursery',
     created: '',
     name: 'Garderie Le Rucher',
     src: '',
-    zipCode: '',
+    address: '',
   },
   {
     category: 'nursery',
     created: '',
     name: 'Centre Educatif',
     src: '',
-    zipCode: '',
+    address: '',
   },
   {
     category: 'nursery',
     created: '',
     name: 'Bébés en Vrac',
     src: '',
-    zipCode: '',
+    address: '',
   },
 ];
 

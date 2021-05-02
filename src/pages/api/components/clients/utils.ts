@@ -43,7 +43,7 @@ const filterClientFields = filterClientInfo();
 
 function filterFeaturedClientInfo(filterOpts?: recordFilterOpts) {
   return filterRecordInfo({
-    selectedFields: ['Name', 'Category', 'Zip Code', 'Created', 'Cover'],
+    selectedFields: ['Name', 'Category', 'Address', 'Created', 'Cover'],
   });
 }
 

@@ -280,12 +280,12 @@ export default function Portfolio({
 export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   const featuredClientsData = await getFeaturedClients();
   const featuredClients = featuredClientsData.map(
-    ({ name, category, zipCode, created, cover }) => ({
+    ({ name, category, address, created, cover }) => ({
       category: category.toLowerCase(),
       created,
       name,
       src: cover?.[0]?.thumbnails.large.url ?? '', // 1024 x 512 base image
-      zipCode,
+      address: address[0],
     }),
   );
 

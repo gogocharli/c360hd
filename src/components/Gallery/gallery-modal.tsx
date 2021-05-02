@@ -2,13 +2,13 @@
 import { useGeoLocation } from 'hooks/useGeoLocation';
 
 export default function MapsModal({
-  zipCode,
+  address,
   close,
 }: {
-  zipCode: string;
+  address: string;
   close: Function;
 }) {
-  const { lat, lng } = useGeoLocation(zipCode);
+  const { lat, lng } = useGeoLocation(address);
 
   return (
     <div>

@@ -34,7 +34,7 @@ export function GalleryItem({
           <p className='text-100'>{category}</p>
         </div>
       </button>
-      {isExpanded && <MapModal zipCode={client.zipCode} close={close} />}
+      {isExpanded && <MapModal address={client.address} close={close} />}
       <style jsx>{`
         button {
           background: 0;
@@ -111,7 +111,7 @@ interface GalleryListItem {
   created: string;
   name: string;
   src: string;
-  zipCode: string;
+  address: string;
 }
 
 export type { GalleryListItem };
