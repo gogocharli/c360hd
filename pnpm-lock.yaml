@@ -2,6 +2,7 @@ dependencies:
   '@hookform/error-message': 0.0.5_44af796fcc7ed284e5883aa4e23008f4
   '@next/env': 10.2.0
   '@radix-ui/react-dialog': 0.0.15_e342ee84aa4c58264377ee43e7695221
+  '@radix-ui/react-id': 0.0.5_react@17.0.1
   '@reach/accordion': 0.13.2_react-dom@17.0.1+react@17.0.1
   '@stripe/react-stripe-js': 1.4.0_828e9ee36f05ffe437b2c5bfe7b073fc
   '@stripe/stripe-js': 1.13.2
@@ -8138,6 +8139,7 @@ specifiers:
   '@hookform/error-message': ^0.0.5
   '@next/env': ^10.2.0
   '@radix-ui/react-dialog': ^0.0.15
+  '@radix-ui/react-id': ^0.0.5
   '@reach/accordion': ^0.13.2
   '@stripe/react-stripe-js': ^1.4.0
   '@stripe/stripe-js': ^1.13.2
