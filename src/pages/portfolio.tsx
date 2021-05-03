@@ -305,6 +305,9 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   };
 };
 
+/**
+ * Transform string address into a geolocation position
+ */
 async function retrieveGeoLocation(client: any): Promise<GalleryListItem> {
   const url = new URL(
     `https://maps.googleapis.com/maps/api/geocode/json?address=${client.address}&key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`,

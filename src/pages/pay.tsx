@@ -27,7 +27,7 @@ export default function Checkout() {
   });
   const [product, setProduct] = useState('classic');
   const [orderId, setOrderId] = useState<string>(null);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<RequestError>(null);
 
   /**
    * When the window loads, retrieve the order number from the url
@@ -36,9 +36,14 @@ export default function Checkout() {
   useEffect(() => {
     window
       .fetch(`/api/orders/${query.order}`)
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.ok) return res.json();
+        throw { type: 'Request', error: res };
+      })
       .then((order) => {
         if (!order.id) throw 'No order';
+
+        if (order.status == 'Confirmed') throw { type: 'Paid' };
 
         setCustomerInfo({
           name: order.Client?.name ?? '',
@@ -51,11 +56,12 @@ export default function Checkout() {
       })
       .catch((err) => {
         console.error(err);
-        setError(err);
+        setError({ error: err, type: err?.type, message: err?.message });
       });
   }, [query.order]);
 
   const isOrder = !!orderId;
+  const isPaid = Boolean(error?.type == 'Paid');
   useEffect(() => {
     if (isPaymentSuccess) {
       window.fetch(`/api/orders/${orderId}`, {
@@ -115,10 +121,14 @@ export default function Checkout() {
             )}
           </>
         ) : error ? (
-          <>
-            <h1>Order Not Found</h1>
-            <p>Make sure the order number is valid.</p>
-          </>
+          isPaid ? (
+            <h1>Order Paid</h1>
+          ) : (
+            <>
+              <h1>Order Not Found</h1>
+              <p>Make sure the order number is valid.</p>
+            </>
+          )
         ) : (
           <Spinner />
         )}
@@ -178,3 +188,9 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
     },
   };
 };
+
+interface RequestError {
+  type: string;
+  message: string;
+  error: any;
+}
