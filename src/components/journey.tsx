@@ -8,39 +8,78 @@ export function JourneyHighlights() {
 
   return (
     <>
-      <ul>
-        {studyList.map((key, index) => (
-          <li key={key}>
-            <div className='image'>
-              <Image
-                src={`/images/${key}-img.png`}
-                alt=''
-                width={310}
-                height={184}
-                layout='intrinsic'
-                objectFit='contain'
-                className='blend'
-              />
-            </div>
-            <p className='[ text-300 md:text-400 measure-compact ][ align-center ]'>
-              {t(`sections.0.content.${index}`)}
-            </p>
-          </li>
-        ))}
-      </ul>
+      <div className='scene'>
+        <ul>
+          {studyList.map((key, index) => (
+            <li key={key}>
+              <div className='image'>
+                <Image
+                  src={`/images/${key}-img.png`}
+                  alt=''
+                  width={310}
+                  height={184}
+                  layout='intrinsic'
+                  objectFit='contain'
+                  className='blend'
+                />
+              </div>
+              <p className='[ text-300 md:text-400 measure-compact ][ align-center ]'>
+                {t(`sections.0.content.${index}`)}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </div>
       <style jsx>{`
-        ul {
+        .scene {
+          --card-size-x: 343px;
+          --card-size-y: 330px;
+          background-color: hsl(var(--theme-color-bg));
+          border-radius: 0.75rem;
+          box-shadow: var(--card-shadow-focus);
+          height: var(--card-size-y);
+          overflow: hidden;
           margin-top: 1.5rem;
+          perspective: 1000px;
+          position: relative;
+        }
+
+        ul {
+          height: 100%;
+          left: 50%;
+          position: absolute;
+          transform: translateX(-50%);
+          transform-style: preserve-3d;
+          transition: transform var(--transition-duration)
+            var(--transition-curve);
+          width: var(--card-size-x);
         }
 
         li {
           --selection-bg: var(--color-light-highlight);
 
+          background-color: hsl(var(--theme-color-bg));
           border-radius: 0.75rem;
-          box-shadow: var(--card-shadow-main);
           display: flex;
           flex-direction: column;
           padding: 2rem;
+          position: absolute;
+        }
+
+        li:nth-child(1) {
+          transform: rotateY(0deg) translateZ(99px);
+        }
+
+        li:nth-child(2) {
+          transform: rotateY(120deg) translateZ(99px);
+        }
+
+        li:nth-child(3) {
+          transform: rotateY(240deg) translateZ(99px);
+        }
+
+        ul {
+          transform: translateX(-50%) translateZ(-99px) rotateY(0deg);
         }
 
         li > * {
@@ -52,13 +91,20 @@ export function JourneyHighlights() {
           padding: 1rem 0 0;
         }
 
-        li:focus {
+        li.featured {
           box-shadow: var(--card-shadow-focus);
         }
 
         @media (min-width: 50em) {
+          .scene {
+            --card-size-x: 686px;
+            --card-size-y: 234px;
+            margin: 2rem auto 0;
+            width: var(--card-size-x);
+          }
+
           ul {
-            margin-top: 2rem;
+            width: var(--card-size-x);
           }
 
           li {
@@ -67,6 +113,22 @@ export function JourneyHighlights() {
             margin: 0 auto;
             max-width: 80vw;
             padding: 0 1.5rem 0 0;
+          }
+
+          li:nth-child(1) {
+            transform: rotateX(0deg) translateZ(186.48px);
+          }
+
+          li:nth-child(2) {
+            transform: rotateX(120deg) translateZ(186.48px);
+          }
+
+          li:nth-child(3) {
+            transform: rotateX(240deg) translateZ(186.48px);
+          }
+
+          ul {
+            transform: translateX(-50%) translateZ(-186.48px) rotateX(0deg);
           }
 
           li p {
@@ -80,16 +142,40 @@ export function JourneyHighlights() {
         }
 
         @media (min-width: 65em) {
+          // Reset carousel styles
+          .scene {
+            border-radius: 0;
+            box-shadow: unset;
+            height: unset;
+            margin-top: 3.5rem;
+            overflow: auto;
+            width: unset;
+          }
+
+          ul {
+            position: static;
+            transform: unset;
+            width: unset;
+          }
+
+          li {
+            position: static;
+          }
+
+          ul li {
+            transform: unset;
+          }
+
           ul {
             display: flex;
             justify-content: space-between;
             margin-left: auto;
             margin-right: auto;
-            margin-top: 3.5rem;
             max-width: 80rem;
           }
 
           li {
+            box-shadow: var(--card-shadow-main);
             flex-direction: column;
             max-width: 26rem;
             padding: 0 0 2rem;
