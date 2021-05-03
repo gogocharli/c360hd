@@ -58,11 +58,11 @@ function createEmailTemplate(order, repInfo) {
     To: order.email,
     TemplateModel: {
       name: order.decisionMaker,
-      company: order.company,
+      company: order.businessName,
       orderNumber: order.orderNumber,
       time: order.humanTime,
       date: order.date,
-      storeURL: `https://c360hd.com/${order.lang.toLowerCase()}-ca/store`,
+      storeURL: `https://c360hd.com/pay?order=${order.orderNumber}`,
       repInfo,
     },
     locale: order.lang,
