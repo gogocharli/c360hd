@@ -57,6 +57,31 @@ export function HomeCarousel() {
           --flow-space: 1rem;
         }
 
+        /* Card stacking styles */
+        ul {
+          height: 40rem;
+          margin-top: 3rem;
+          position: relative;
+        }
+
+        li {
+          left: 50%;
+          position: absolute;
+        }
+
+        li:nth-child(1) {
+          transform: translateX(-50%) rotateZ(-3deg);
+        }
+
+        li:nth-child(2) {
+          transform: translateX(-50%) rotateZ(1deg);
+        }
+
+        li:nth-child(3) {
+          transform: translateX(-50%) rotateZ(2deg);
+        }
+        /* Card stacking styles end */
+
         .image {
           height: 224px;
           width: 240px;
@@ -67,6 +92,21 @@ export function HomeCarousel() {
         }
 
         @media (min-width: 50em) {
+          /* Card stacking styles */
+          ul {
+            height: unset;
+          }
+
+          li {
+            left: 0;
+            position: static;
+          }
+
+          ul li {
+            transform: unset;
+          }
+          /* Card stacking styles end */
+
           ul {
             flex-direction: row;
             overflow: auto;

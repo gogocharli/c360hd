@@ -148,7 +148,7 @@ export function JourneyHighlights() {
             box-shadow: unset;
             height: unset;
             margin-top: 3.5rem;
-            overflow: auto;
+            overflow: visible;
             width: unset;
           }
 
