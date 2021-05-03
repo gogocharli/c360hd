@@ -8,12 +8,21 @@ export function ContactForm() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormInputs>({ mode: 'onSubmit', reValidateMode: 'onChange' });
   const { t } = useTranslation('contact');
 
+  /* Submit form to netlify */
   function onSubmit(data: FormInputs) {
-    console.log(data);
+    window
+      .fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        // @ts-ignore
+        body: new URLSearchParams(data).toString(),
+      })
+      .then(() => reset(), console.log);
   }
 
   return (
