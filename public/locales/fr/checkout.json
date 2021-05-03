@@ -44,6 +44,10 @@
     "success": {
       "title": "La transaction a été approuvée.",
       "desc": "Vous recevrez un votre reçu par courriel dans les plus brefs délais. Merci d'avoir fait affaire avec nous."
+    },
+    "error": {
+      "paid": "Votre commande a déja été payée.",
+      "notFound": "Désolé. Nous n‘avons pas vu trouver cette commande."
     }
   },
   "buttons": {

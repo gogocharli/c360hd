@@ -50,6 +50,10 @@
     "success": {
       "title": "The transaction was successful.",
       "desc": "You'll recieve your receipt shortly. Thanks again for doing business with us."
+    },
+    "error": {
+      "paid": "Your order has been paid",
+      "notFound": "Sorry. We couldn‘t find an order with that number"
     }
   },
   "buttons": {
@@ -72,7 +76,7 @@
     "address": {
       "name": "Address",
       "error": {
-        "required": "Veuillez entrer l'addresse de votre compagnie"
+        "required": "Please provide your company’s address"
       }
     },
     "primaryNumber": {

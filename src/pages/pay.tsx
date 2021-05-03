@@ -121,14 +121,11 @@ export default function Checkout() {
             )}
           </>
         ) : error ? (
-          isPaid ? (
-            <h1>Order Paid</h1>
-          ) : (
-            <>
-              <h1>Order Not Found</h1>
-              <p>Make sure the order number is valid.</p>
-            </>
-          )
+          <h1>
+            {isPaid
+              ? t('clientPayment.error.paid')
+              : t('clientPayment.error.notFound')}
+          </h1>
         ) : (
           <Spinner />
         )}
