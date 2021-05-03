@@ -20,9 +20,9 @@ interface PaymentAttributes {
   type?: 'deposit' | 'final';
 }
 
-const STRIPE_SECRET_KEY =
-  'sk_test_51HIOFKE48JsbnRWLZzNitfxhDrsczqIaGPP6oDAkrfF9fxQ4SrcnA8uxiLZGRSm0PeakOe0RyHY4K4vBP7Dr1hZ500TJbn7JBS';
-const stripe = new Stripe(STRIPE_SECRET_KEY, { apiVersion: '2020-08-27' });
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: '2020-08-27',
+});
 
 export async function createPayment(
   intent: string,

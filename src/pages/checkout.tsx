@@ -25,7 +25,7 @@ import {
 import { StepInfo } from '@components/Checkout/step-info';
 
 const stripePromise = loadStripe(
-  'pk_test_51HIOFKE48JsbnRWLf04ZqFaLFG5LsnFyQvqTMpVb9ISarAnQslJAHFyzWqPTC39CvDy87NxQ9OzKWPiiyZjISzEZ00ZmkndixV',
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
 );
 
 const paths = ['business', 'contact', 'order', 'review', 'checkout'];

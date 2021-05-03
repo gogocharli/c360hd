@@ -12,7 +12,7 @@ import { StripeCheckout } from '@components/Checkout/stripe-checkout';
 import { Spinner } from '@components/loading-spinner';
 
 const stripePromise = loadStripe(
-  'pk_test_51HIOFKE48JsbnRWLf04ZqFaLFG5LsnFyQvqTMpVb9ISarAnQslJAHFyzWqPTC39CvDy87NxQ9OzKWPiiyZjISzEZ00ZmkndixV',
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
 );
 export default function Checkout() {
   const [isPaymentSuccess, setPaymentSuccess] = useState(false);
