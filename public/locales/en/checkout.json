@@ -1,4 +1,8 @@
 {
+  "pageMeta": {
+    "title": "Create your order",
+    "desc": "Fill in the information for your business and we will come to you."
+  },
   "timeline": [
     "Business Info",
     "Contact Info",
@@ -43,6 +47,10 @@
     "error": "Failed to submit your order"
   },
   "clientPayment": {
+    "pageMeta": {
+      "title": "Pay for your order",
+      "desc": "Finalize your payment and confirm your order"
+    },
     "idle": {
       "title": "Welcome, {{name}}.",
       "desc": "Here you'll be able to make the payment for order {{order}}."

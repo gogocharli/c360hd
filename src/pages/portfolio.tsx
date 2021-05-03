@@ -35,8 +35,6 @@ export default function Portfolio({
   const filterRef = useRef(query.filter ?? '');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const { t } = useTranslation('portfolio');
-
   useEffect(() => {
     // Whenever a new query is pushed to the router
     // Disable the filter if it was the same from the previous
@@ -72,7 +70,8 @@ export default function Portfolio({
     };
   }
 
-  const pageMeta = { title: t('pageTitle'), desc: t('pageDesc') };
+  const { t } = useTranslation('portfolio');
+  const pageMeta = { title: t('pageMeta.title'), desc: t('pageMeta.desc') };
   return (
     <>
       <BaseLayout pageMeta={pageMeta} theme='light' className='portfolio'>

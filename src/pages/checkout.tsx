@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import type { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 
@@ -27,6 +27,7 @@ import { StepInfo } from '@components/Checkout/step-info';
 const stripePromise = loadStripe(
   'pk_test_51HIOFKE48JsbnRWLf04ZqFaLFG5LsnFyQvqTMpVb9ISarAnQslJAHFyzWqPTC39CvDy87NxQ9OzKWPiiyZjISzEZ00ZmkndixV',
 );
+
 const paths = ['business', 'contact', 'order', 'review', 'checkout'];
 const stepInputs: Array<keyof FormInputs>[] = [
   ['businessName', 'decisionMaker', 'address'],
@@ -62,10 +63,6 @@ export default function Checkout() {
     formState: { errors },
   } = methods;
 
-  function onSubmit(data: any) {
-    console.log(data);
-  }
-
   // Use the pathname's hash to render the right part of the form
   useEffect(() => {
     const hash = new window.URL(window.location.href).hash.slice(1);
@@ -88,9 +85,11 @@ export default function Checkout() {
    * Select section and navigate using the current step
    */
   async function navigate(direction: 'previous' | 'next') {
+    // Retreive the hash to add to the url
     const hash =
       direction == 'previous' ? paths[formStep - 1] : paths[formStep + 1];
 
+    // Validate the required fields in the current step
     const isValid = direction == 'next' ? await validateCurrentStep() : true;
 
     isValid && router.push(`#${hash}`, null, { shallow: true });
@@ -103,8 +102,9 @@ export default function Checkout() {
   }
 
   const { t } = useTranslation('checkout');
+  const pageMeta = { title: t('pageMeta.title'), desc: t('pageMeta.desc') };
   return (
-    <Layout pageMeta={{ title: 'Checkout' }}>
+    <Layout pageMeta={pageMeta}>
       <div className='multi-form wrapper flow'>
         <Timeline step={formStep} />
         <section className='content'>

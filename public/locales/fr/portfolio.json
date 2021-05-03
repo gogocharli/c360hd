@@ -1,6 +1,8 @@
 {
-  "pageTitle": "Notre Portfolio",
-  "pageDesc": "",
+  "pageMeta": {
+    "title": "Our Portfolio",
+    "desc": "Explorez certain des tours virtuels que nous avons publiées pour des compagnies comme la votre."
+  },
   "hero": {
     "title": "Un avantage compétitif visuel.",
     "subtitle": "Nos réalisations"

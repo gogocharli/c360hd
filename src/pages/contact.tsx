@@ -8,10 +8,10 @@ import { ContactForm } from '@includes/contact-form';
 import IconPhone from '@components/icon-phone.svg';
 import IconMail from '@components/icon-mail.svg';
 
-export default function Pricing() {
+export default function Contact() {
   const { t } = useTranslation('contact');
   const { t: s } = useTranslation('site');
-  const pageMeta = { title: t('pageTitle') };
+  const pageMeta = { title: t('pageMeta.title'), desc: t('pageMeta.desc') };
 
   return (
     <BaseLayout pageMeta={pageMeta} className='contact'>

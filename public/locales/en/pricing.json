@@ -1,6 +1,8 @@
 {
-  "pageTitle": "Our offers",
-  "pageDesc": "",
+  "pageMeta": {
+    "title": "Our offers",
+    "desc": "Get the jump on your competition with Streetview listings"
+  },
   "hero": {
     "title": "Offers that care for your image",
     "subtitle": [

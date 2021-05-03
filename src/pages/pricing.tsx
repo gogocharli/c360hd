@@ -8,7 +8,7 @@ import { Product } from '@components/Products/product';
 
 export default function Pricing() {
   const { t } = useTranslation('pricing');
-  const pageMeta = { title: t('pageTitle') };
+  const pageMeta = { title: t('pageMeta.title'), desc: t('pageMeta.desc') };
 
   return (
     <>

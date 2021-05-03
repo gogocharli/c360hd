@@ -1,4 +1,8 @@
 {
+  "pageMeta": {
+    "title": "Passez votre commande",
+    "description": "Entrez les informations relatives à votre compagnie en un click et nos photographes se déplaceront vers vous."
+  },
   "timeline": ["Compagnie", "Contacts", "Commande", "Verification", "Paiement"],
   "step": "Etape",
   "steps": [
@@ -37,6 +41,10 @@
     "error": "Erreur d'envoi de la commande"
   },
   "clientPayment": {
+    "pageMeta": {
+      "title": "Payer pour votre commande",
+      "desc": "Finalisez votre paiement et confirmez votre commande"
+    },
     "idle": {
       "title": "Bienvenue, {{name}}.",
       "desc": "Veuillez utilisez ce formulaire pour payer la commande {{order}}."

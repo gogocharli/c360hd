@@ -1,6 +1,8 @@
 {
-  "pageTitle": "Contact Us",
-  "pageDesc": "",
+  "pageMeta": {
+    "title": "Contact Us",
+    "desc": "Pour toutes informations concernant nos activités et les images sur votre annonce"
+  },
   "hero": {
     "title": "Des questions? N'hésitez pas.",
     "subtitle": "Notre équipe de support technique est toujours prête à vous fournir les réponses concernant votre commande ou nos tariffications."

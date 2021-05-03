@@ -75,8 +75,12 @@ export default function Checkout() {
   }, [isPaymentSuccess]);
 
   const { t } = useTranslation('checkout');
+  const pageMeta = {
+    title: t('clientPayment.pageMeta.title'),
+    desc: t('clientPayment.pageMeta.desc'),
+  };
   return (
-    <Layout pageMeta={{ title: 'Checkout' }}>
+    <Layout pageMeta={pageMeta}>
       <div className='wrapper'>
         {isOrder ? (
           <>

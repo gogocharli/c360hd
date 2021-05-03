@@ -1,6 +1,8 @@
 {
-  "pageTitle": "Contact Us",
-  "pageDesc": "",
+  "pageMeta": {
+    "title": "Contact Us",
+    "desc": "For all information concerning our activities and images on your listing"
+  },
   "hero": {
     "title": "Questions? Don't hesitate.",
     "subtitle": "Our technical support team is always there to provide you with answers for all your questions related to our services."
