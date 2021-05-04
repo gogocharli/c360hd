@@ -3,6 +3,8 @@ import Image from 'next/image';
 
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 import BaseLayout from '../_layouts/base';
 import { JourneyHighlights } from '@components/journey';
@@ -14,39 +16,79 @@ import { Browser } from '@components/Browser/browser';
 import { useEffect } from 'react';
 
 export default function Home() {
-  const { t } = useTranslation('home');
-
+  useEffect(changeThemeOnScrollPosition, []);
   useEffect(() => {
-    let observer = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (!entry.target) observer.disconnect();
+    gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.defaults({
+      toggleActions: 'restart none reverse none',
+      markers: true,
+    });
 
-          if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
-            setTheme(bodyEl, 'light');
-          } else {
-            clearTheme(bodyEl);
-          }
-        });
+    gsap.set('#browser', { opacity: 0, yPercent: -30 });
+    gsap.set('.journey-step', { opacity: 0, yPercent: 30 });
+
+    gsap.to('#fake-browser', {
+      scrollTrigger: {
+        trigger: '#browser',
+        start: 'top 70%',
+        scrub: true,
+        end: 'top 30%',
       },
-      {
-        threshold: [0.25, 0.5, 0.75],
+      opacity: 0,
+      yPercent: 100,
+    });
+
+    gsap.to('#browser', {
+      scrollTrigger: {
+        trigger: '#browser',
+        start: 'top 60%',
+        scrub: true,
+        end: 'top 30%',
       },
-    );
+      opacity: 1,
+      yPercent: 0,
+    });
 
-    let bodyEl = document.querySelector('body');
-    let targetEl = document.querySelector('#index-hero');
-    observer.observe(targetEl);
+    const journeyTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#journey',
+        start: 'top 10%',
+        scrub: true,
+        pin: true,
+      },
+    });
 
-    return () => {
-      observer.unobserve(targetEl);
-      // Reset the values to the ones from their respective pages
-      clearTheme(bodyEl);
+    const journeyCards = gsap.utils.toArray('.journey-step') as HTMLElement[];
+    journeyTimeline
+      .to('.journey-step', {
+        yPercent: 0,
+        opacity: 1,
+        stagger: 0.1,
+      })
+      .to(journeyCards, {
+        onUpdate: function () {
+          const progress = this.ratio;
+          const clampedProgress = Math.floor(
+            progress * (journeyCards.length - 1),
+          );
 
-      console.info('Removed Observer');
-    };
+          journeyCards.forEach((c, i) => {
+            c.classList.remove('is-featured');
+            clampedProgress == i && c.classList.add('is-featured');
+          });
+        },
+      });
+    // .to(journeyCards[1], {
+    //   onStart: () => toggleFeatured(journeyCards[1]),
+    //   onComplete: () => toggleFeatured(journeyCards[1]),
+    // })
+    // .to(journeyCards[2], {
+    //   onStart: () => toggleFeatured(journeyCards[2]),
+    //   onComplete: () => toggleFeatured(journeyCards[2]),
+    // });
   }, []);
 
+  const { t } = useTranslation('home');
   return (
     <>
       <BaseLayout className='home'>
@@ -73,6 +115,7 @@ export default function Home() {
               <a href='#' className='button' tabIndex={-1}>
                 {t('hero.btnText')}
               </a>
+              <Browser id='fake-browser' />
             </div>
           </div>
         </section>
@@ -212,6 +255,10 @@ export default function Home() {
           --hover-bg: var(--color-light-highlight);
         }
 
+        .hero :global(.browser) {
+          display: none;
+        }
+
         .hero div[aria-hidden='true'] {
           display: none;
         }
@@ -300,6 +347,14 @@ export default function Home() {
         @media (min-width: 50em) {
           .hero__content {
             padding: 4.5rem 1.5rem;
+          }
+
+          .hero :global(.browser) {
+            bottom: 0;
+            display: block;
+            position: absolute;
+            right: 0;
+            transform: translate(50%, 50%);
           }
 
           .hero .title {
@@ -556,6 +611,36 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
     },
   };
 };
+
+function changeThemeOnScrollPosition() {
+  let observer = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.target) observer.disconnect();
+
+        if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+          setTheme(bodyEl, 'light');
+        } else {
+          clearTheme(bodyEl);
+        }
+      });
+    },
+    {
+      threshold: [0.25, 0.5, 0.75],
+    },
+  );
+
+  let bodyEl = document.querySelector('body');
+  let targetEl = document.querySelector('#index-hero');
+  observer.observe(targetEl);
+
+  return () => {
+    observer.unobserve(targetEl);
+    // Reset the values to the ones from their respective pages
+    clearTheme(bodyEl);
+    console.info('Removed Observer');
+  };
+}
 
 const styles = ['bg', 'fg', 'hg', 'tint'];
 const choices = { bg: 'main', fg: 'main', hg: 'highlight', tint: 'tint' };

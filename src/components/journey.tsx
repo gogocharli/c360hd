@@ -11,7 +11,7 @@ export function JourneyHighlights() {
       <div className='scene'>
         <ul>
           {studyList.map((key, index) => (
-            <li key={key}>
+            <li key={key} className='journey-step'>
               <div className='image'>
                 <Image
                   src={`/images/${key}-img.png`}
@@ -89,10 +89,6 @@ export function JourneyHighlights() {
 
         li p {
           padding: 1rem 0 0;
-        }
-
-        li.featured {
-          box-shadow: var(--card-shadow-focus);
         }
 
         @media (min-width: 50em) {
@@ -180,6 +176,13 @@ export function JourneyHighlights() {
             max-width: 26rem;
             padding: 0 0 2rem;
             flex-basis: 33%;
+            transform: all var(--transition-duration) var(--transition-curve);
+          }
+
+          li.is-featured {
+            box-shadow: var(--card-shadow-focus);
+            transform: scale(1.1);
+            z-index: 10;
           }
 
           li p {

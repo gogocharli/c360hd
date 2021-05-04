@@ -3,12 +3,12 @@ import { Listing } from './listing';
 import { LoadingBars } from './loading-bars';
 import { SearchScreen } from './search-screen';
 
-export function Browser() {
+export function Browser({ id = 'browser' }: { id?: string }) {
   const [screen, setScreen] = useState<'idle' | 'query' | 'results'>('idle');
 
   return (
     <>
-      <div id='browser' className='browser' aria-hidden='true'>
+      <div id={id} className='browser' aria-hidden='true'>
         <div className='browser__wrapper'>
           <div className='browser__content'>
             {screen === 'results' ? (
