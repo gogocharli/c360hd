@@ -11,7 +11,7 @@ import { Features } from '@components/features';
 import { Button } from '@components/button';
 import Arrow from '@components/icon-arrow-right.svg';
 import { Browser } from '@components/Browser/browser';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 export default function Home() {
   const { t } = useTranslation('home');
@@ -23,30 +23,9 @@ export default function Home() {
           if (!entry.target) observer.disconnect();
 
           if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
-            bodyEl.style.setProperty(
-              '--theme-color-bg',
-              'var(--color-light-main)',
-            );
-
-            bodyEl.style.setProperty(
-              '--theme-color-fg',
-              'var(--color-dark-main)',
-            );
-
-            bodyEl.style.setProperty(
-              '--theme-color-hg',
-              'var(--color-light-highlight)',
-            );
-
-            bodyEl.style.setProperty(
-              '--theme-color-tint',
-              'var(--color-light-tint)',
-            );
+            setTheme(bodyEl, 'light');
           } else {
-            bodyEl.style.setProperty('--theme-color-bg', `inherit`);
-            bodyEl.style.setProperty('--theme-color-fg', `inherit`);
-            bodyEl.style.setProperty('--theme-color-hg', `inherit`);
-            bodyEl.style.setProperty('--theme-color-tint', `inherit`);
+            clearTheme(bodyEl);
           }
         });
       },
@@ -62,12 +41,9 @@ export default function Home() {
     return () => {
       observer.unobserve(targetEl);
       // Reset the values to the ones from their respective pages
-      bodyEl.style.setProperty('--theme-color-bg', `inherit`);
-      bodyEl.style.setProperty('--theme-color-fg', `inherit`);
-      bodyEl.style.setProperty('--theme-color-hg', `inherit`);
-      bodyEl.style.setProperty('--theme-color-tint', `inherit`);
+      clearTheme(bodyEl);
 
-      console.log('unobserved');
+      console.info('Removed Observer');
     };
   }, []);
 
@@ -220,12 +196,20 @@ export default function Home() {
           display: flex;
           flex-direction: column;
           padding: 4.5rem 0.5rem;
+          transition: inherit;
         }
 
         .hero__content:first-of-type {
           /* Only this part of the page has a light theme */
           -webkit-font-smoothing: auto;
           -moz-osx-font-smoothing: auto;
+        }
+
+        .hero :global(.button) {
+          --default-color: var(--theme-color-bg);
+          --default-bg: var(--theme-color-fg);
+          --hover-color: var(--theme-color-fg);
+          --hover-bg: var(--color-light-highlight);
         }
 
         .hero div[aria-hidden='true'] {
@@ -531,13 +515,6 @@ export default function Home() {
           align-self: center;
         }
 
-        .hero a.button {
-          --default-color: var(--color-light-main);
-          --hover-color: var(--color-dark-main);
-          --default-bg: var(--color-dark-main);
-          --hover-bg: var(--color-light-highlight);
-        }
-
         .realisations a.button {
           --default-color: var(--color-light-main);
           --hover-color: var(--color-dark-main);
@@ -579,3 +556,24 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
     },
   };
 };
+
+const styles = ['bg', 'fg', 'hg', 'tint'];
+const choices = { bg: 'main', fg: 'main', hg: 'highlight', tint: 'tint' };
+function setTheme(element: HTMLElement, theme: 'light' | 'dark') {
+  styles.forEach((style) => {
+    let currentTheme: 'light' | 'dark' = theme;
+    // Revert colors for the foreground color
+    style === 'fg' && (currentTheme = theme == 'dark' ? 'light' : 'dark');
+
+    element.style.setProperty(
+      `--theme-color-${style}`,
+      `var(--color-${currentTheme}-${choices[style]})`,
+    );
+  });
+}
+
+function clearTheme(element: HTMLElement) {
+  styles.forEach((style) =>
+    element.style.setProperty(`--theme-color-${style}`, 'inherit'),
+  );
+}
