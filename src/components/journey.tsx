@@ -155,7 +155,7 @@ export function JourneyHighlights() {
           }
 
           li {
-            position: static;
+            position: relative;
           }
 
           ul li {
@@ -176,13 +176,33 @@ export function JourneyHighlights() {
             max-width: 26rem;
             padding: 0 0 2rem;
             flex-basis: 33%;
-            transform: all var(--transition-duration) var(--transition-curve);
+          }
+
+          li::before {
+            --transition-duration: 700ms;
+
+            border-radius: inherit;
+            box-shadow: var(--card-shadow-focus);
+            background-color: inherit;
+            content: '';
+            opacity: 0;
+            position: absolute;
+            transition: opacity var(--transition-duration)
+              var(--transition-curve);
+            z-index: -1;
+
+            bottom: 0;
+            left: 0;
+            right: 0;
+            top: 0;
           }
 
           li.is-featured {
-            box-shadow: var(--card-shadow-focus);
-            transform: scale(1.1);
             z-index: 10;
+          }
+
+          li.is-featured::before {
+            opacity: 1;
           }
 
           li p {

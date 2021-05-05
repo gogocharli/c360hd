@@ -27,26 +27,32 @@ export default function Home() {
     gsap.set('#browser', { opacity: 0, yPercent: -30 });
     gsap.set('.journey-step', { opacity: 0, yPercent: 30 });
 
+    const browserMoveOpts = {
+      trigger: '#browser',
+      start: 'top 70%',
+      scrub: true,
+      end: 'top 30%',
+    };
+
     gsap.to('#fake-browser', {
-      scrollTrigger: {
-        trigger: '#browser',
-        start: 'top 70%',
-        scrub: true,
-        end: 'top 30%',
-      },
+      scrollTrigger: browserMoveOpts,
       opacity: 0,
-      yPercent: 100,
+      y: 500,
     });
 
     gsap.to('#browser', {
       scrollTrigger: {
-        trigger: '#browser',
+        ...browserMoveOpts,
         start: 'top 60%',
-        scrub: true,
-        end: 'top 30%',
       },
       opacity: 1,
       yPercent: 0,
+    });
+
+    gsap.to('.hero__content > *', {
+      scrollTrigger: browserMoveOpts,
+      opacity: 0,
+      yPercent: -30,
     });
 
     const journeyTimeline = gsap.timeline({
@@ -68,24 +74,19 @@ export default function Home() {
       .to(journeyCards, {
         onUpdate: function () {
           const progress = this.ratio;
+          // Getting an integer depending on the current progress
           const clampedProgress = Math.floor(
             progress * (journeyCards.length - 1),
           );
 
           journeyCards.forEach((c, i) => {
+            // Remove the class on the last selected element
+            // Add to the one to be featured
             c.classList.remove('is-featured');
             clampedProgress == i && c.classList.add('is-featured');
           });
         },
       });
-    // .to(journeyCards[1], {
-    //   onStart: () => toggleFeatured(journeyCards[1]),
-    //   onComplete: () => toggleFeatured(journeyCards[1]),
-    // })
-    // .to(journeyCards[2], {
-    //   onStart: () => toggleFeatured(journeyCards[2]),
-    //   onComplete: () => toggleFeatured(journeyCards[2]),
-    // });
   }, []);
 
   const { t } = useTranslation('home');
@@ -554,6 +555,10 @@ export default function Home() {
           .basics .image {
             height: 9rem;
             width: 9rem;
+          }
+
+          .hero :global(.browser) {
+            transform: translate(-10%, 50%);
           }
         }
       `}</style>
