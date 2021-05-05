@@ -3,31 +3,40 @@ import { Listing } from './listing';
 import { LoadingBars } from './loading-bars';
 import { SearchScreen } from './search-screen';
 
-export function Browser({ id = 'browser' }: { id?: string }) {
-  const [screen, setScreen] = useState<'idle' | 'query' | 'results'>('idle');
+export const browserScreens = ['idle', 'query', 'results', 'video'] as const;
+export type BrowserState = typeof browserScreens[number];
 
+export function Browser({
+  screen = 'idle',
+  fake = false,
+}: {
+  fake?: boolean;
+  screen: BrowserState;
+}) {
   return (
     <>
-      <div id={id} className='browser' aria-hidden='true'>
+      <div
+        id={fake ? 'fake-browser' : 'browser'}
+        className='browser'
+        aria-hidden='true'
+      >
         <div className='browser__wrapper'>
           <div className='browser__content'>
             {screen === 'results' ? (
               <>
                 <LoadingBars />
                 <Listing />
-                <video loop preload='metadata' width={917} tabIndex={-1}>
-                  <source
-                    src='/browser/morency-coiffure.webm'
-                    type='video/webm'
-                  />
-                  <source
-                    src='/browser/morency-coiffure.mp4'
-                    type='video/mp4'
-                  />
-                </video>
               </>
             ) : screen === 'query' ? (
               <SearchScreen query />
+            ) : screen === 'video' ? (
+              <video loop preload='metadata' width={917} tabIndex={-1}>
+                <source
+                  src='/browser/morency-coiffure.webm'
+                  type='video/webm'
+                />
+                <source src='/browser/morency-coiffure.mp4' type='video/mp4' />
+              </video>
             ) : (
               <SearchScreen />
             )}

@@ -3,6 +3,7 @@ import Image from 'next/image';
 
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
@@ -12,10 +13,15 @@ import { HomeCarousel } from '@components/carousel';
 import { Features } from '@components/features';
 import { Button } from '@components/button';
 import Arrow from '@components/icon-arrow-right.svg';
-import { Browser } from '@components/Browser/browser';
-import { useEffect } from 'react';
+import {
+  Browser,
+  BrowserState,
+  browserScreens,
+} from '@components/Browser/browser';
 
 export default function Home() {
+  const [browserScreen, setBrowserScreen] = useState<BrowserState>('idle');
+
   useEffect(changeThemeOnScrollPosition, []);
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -79,6 +85,13 @@ export default function Home() {
             progress * (journeyCards.length - 1),
           );
 
+          // Only set the screen state when it's not equal to the current
+          // computed to avoid unnecessary re-renders
+          const computedScreen = browserScreens[clampedProgress + 1];
+          if (computedScreen != browserScreen) {
+            setBrowserScreen(computedScreen);
+          }
+
           journeyCards.forEach((c, i) => {
             // Remove the class on the last selected element
             // Add to the one to be featured
@@ -116,7 +129,7 @@ export default function Home() {
               <a href='#' className='button' tabIndex={-1}>
                 {t('hero.btnText')}
               </a>
-              <Browser id='fake-browser' />
+              <Browser fake screen='idle' />
             </div>
           </div>
         </section>
@@ -124,7 +137,7 @@ export default function Home() {
           <h2 className='[ text-550 md:text-600 ] [ align-center measure-compact leading-flat md:tracking-tight ]'>
             {t('sections.0.title')}
           </h2>
-          <Browser />
+          <Browser screen={browserScreen} />
           <JourneyHighlights />
         </article>
         <article id='basics' className='basics'>
@@ -556,11 +569,13 @@ export default function Home() {
             height: 9rem;
             width: 9rem;
           }
-
-          .hero :global(.browser) {
-            transform: translate(-10%, 50%);
-          }
         }
+
+        // @media (min-width: 120em) {
+        //   .hero :global(.browser) {
+        //     transform: translate(-10%, 50%);
+        //   }
+        // }
       `}</style>
 
       <style jsx global>{`
