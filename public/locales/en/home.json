@@ -2,6 +2,7 @@
   "hero": {
     "title": "The missing pi_ce of your online presence",
     "subtitle": "Extend the reach of your business by inviting your clients inside your",
+    "businessType": "business, restaurant, office, clinic, gallery, gym, bank, store",
     "btnText": "Get Started"
   },
   "sections": [
