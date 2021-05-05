@@ -1,7 +1,7 @@
-import { motion, AnimatePresence, AnimationProps } from 'framer-motion';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { useTranslation } from 'next-i18next';
 
-const resultsVariants: AnimationProps['variants'] = {
+const resultsVariants: Variants = {
   open: {
     y: 0,
     opacity: 1,
@@ -18,9 +18,9 @@ const resultsVariants: AnimationProps['variants'] = {
   },
 };
 
-const searchVariants: AnimationProps['variants'] = {
+const searchVariants: Variants = {
   open: {
-    transition: { delay: 2, staggerChildren: 0.05, delayChildren: 0.2 },
+    transition: { staggerChildren: 0.05, delayChildren: 1 },
   },
   close: {
     transition: { staggerChildren: 0.05, staggerDirection: -1 },
@@ -153,7 +153,7 @@ export function SearchScreen({ query = false }) {
         }
 
         :global(.search__wrapper::before) {
-          animation: selection 1s var(--transition-curve) 1500ms;
+          animation: selection 1s var(--transition-curve) 2000ms;
           animation-fill-mode: forwards;
           background-color: #cce9ff;
           content: '';

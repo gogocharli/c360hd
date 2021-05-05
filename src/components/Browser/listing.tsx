@@ -1,12 +1,19 @@
 import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
+import { motion, Variants } from 'framer-motion';
 
 export function Listing() {
   const { t } = useTranslation('home');
   return (
     <>
-      <div className='listing'>
-        <div className='images'>
+      <motion.div
+        className='listing'
+        variants={listingVariants}
+        initial='close'
+        animate='open'
+        exit='exit'
+      >
+        <motion.div className='images' variants={itemVariants}>
           <div className='photos' data-content='See photos'>
             <Image
               src='/browser/morency-center-img.jpg'
@@ -23,27 +30,32 @@ export function Listing() {
               alt='Morency Salon'
             />
           </div>
-        </div>
-        <div className='title'>
-          <div className='name'>Morency Coiffure</div>
-          <div className='actions'>
+        </motion.div>
+        <motion.div className='title' variants={itemVariants}>
+          <motion.div className='name' variants={itemVariants}>
+            Morency Coiffure
+          </motion.div>
+          <motion.div className='actions' variants={itemVariants}>
             <p className='btn weight-bold'>Directions</p>
             <p className='btn weight-bold'>{t('browser.listing.save')}</p>
-          </div>
-          <div className='ratings'>
+          </motion.div>
+          <motion.div className='ratings' variants={itemVariants}>
             <p>
               4.5 <img src='/browser/glyph-rating.svg' alt='' />
               <span className='text-light'>
                 17 {t('browser.listing.reviews')}
               </span>
             </p>
-          </div>
-          <div className='description text-light'>
+          </motion.div>
+          <motion.div
+            className='description text-light'
+            variants={itemVariants}
+          >
             <p>{t('browser.listing.description')}</p>
-          </div>
-        </div>
-        <div className='extra'>
-          <div className='info flow'>
+          </motion.div>
+        </motion.div>
+        <motion.div className='extra' variants={itemVariants}>
+          <motion.div className='info flow' variants={itemVariants}>
             <p>
               <span className='weight-bold'>
                 {t('browser.listing.address')} :
@@ -65,30 +77,30 @@ export function Listing() {
             <p className='suggestions text-light'>
               {t('browser.listing.edit')}
             </p>
-          </div>
-          <div className='share'>
+          </motion.div>
+          <motion.div className='share' variants={itemVariants}>
             <p>
               <span className='weight-bold'>
                 {t('browser.listing.share.0')}
               </span>{' '}
               {t('browser.listing.share.1')}
             </p>
-          </div>
-          <div className='questions'>
-            <div>
+          </motion.div>
+          <motion.div className='questions' variants={itemVariants}>
+            <motion.div variants={itemVariants}>
               <p className='questions__title weight-bold'>
                 {t('browser.listing.questions.0')}
               </p>
               <p className='text-light'>{t('browser.listing.questions.1')}</p>
-            </div>
+            </motion.div>
             <p className='btn weight-bold'>
               {t('browser.listing.questions.2')}
             </p>
-          </div>
-        </div>
-      </div>
+          </motion.div>
+        </motion.div>
+      </motion.div>
       <style jsx>{`
-        .listing {
+        :global(.listing) {
           border-radius: 4px;
           box-shadow: -30px 30px 76px rgba(203, 218, 230, 0.5),
             30px -30px 80px rgba(216, 238, 238, 0.4);
@@ -103,20 +115,20 @@ export function Listing() {
           overflow: hidden;
         }
 
-        .images {
+        :global(.images) {
           display: flex;
           flex-basis: 30%;
         }
 
-        .images > * {
+        :global(.images > *) {
           position: relative;
         }
 
-        .photos {
+        :global(.photos) {
           flex-basis: 48.5%;
         }
 
-        .photos::after {
+        :global(.photos::after) {
           background-image: linear-gradient(
             to bottom,
             rgba(0, 23, 55, 0.6),
@@ -130,11 +142,11 @@ export function Listing() {
           right: 0;
         }
 
-        .map {
+        :global(.map) {
           flex-basis: 51.5%;
         }
 
-        .map::after {
+        :global(.map::after) {
           content: url('/browser/glyph-expand.svg');
           position: absolute;
           right: 6.25%;
@@ -142,13 +154,11 @@ export function Listing() {
           width: 15.26%;
         }
 
-        .title,
-        .info,
-        .share {
+        :global(.title, .info, .share) {
           box-shadow: var(--browser-border-shadow);
         }
 
-        .title {
+        :global(.title) {
           display: flex;
           flex-direction: column;
           flex-basis: 26.2%;
@@ -156,59 +166,59 @@ export function Listing() {
           padding-left: 5.29%;
         }
 
-        .title > * + * {
+        :global(.title > * + *) {
           margin-top: 1em;
         }
 
-        .name {
+        :global(.name) {
           font-size: 2.25em;
         }
 
-        .actions {
+        :global(.actions) {
           display: flex;
         }
 
-        .actions p {
+        :global(.actions p) {
           width: 22.36%;
         }
 
-        .ratings img {
+        :global(.ratings img) {
           display: inline-block;
           height: clamp(3px, calc(0.5vw + 0.1rem), 8px);
           vertical-align: bottom;
         }
 
-        .info {
+        :global(.info) {
           --flow-space: 1em;
           padding-bottom: 1em;
         }
 
-        .suggestions {
+        :global(.suggestions) {
           margin-top: 2em;
         }
 
-        .share {
+        :global(.share) {
           padding: 1em 0;
         }
 
-        .questions {
+        :global(.questions) {
           align-items: center;
           display: flex;
           margin-top: 2em;
         }
 
-        .questions__title {
+        :global(.questions__title) {
           font-size: 1.5em;
           margin-bottom: 0.5em;
         }
 
-        .questions .btn {
+        :global(.questions .btn) {
           margin-left: 13.5%;
           padding-left: 0.5em;
           padding-right: 0.5em;
         }
 
-        .extra {
+        :global(.extra) {
           flex-grow: 1;
           padding: 2.641% 5.281% 0;
         }
@@ -232,7 +242,7 @@ export function Listing() {
         }
 
         @media (min-width: 50em) {
-          .listing {
+          :global(.listing) {
             border-radius: 8px;
           }
         }
@@ -240,3 +250,55 @@ export function Listing() {
     </>
   );
 }
+
+const listingVariants: Variants = {
+  open: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      delay: 0.5,
+      staggerChildren: 0.1,
+      delayChildren: 0.5,
+    },
+  },
+  close: {
+    x: 500,
+    opacity: 0,
+    transition: {
+      x: { stiffness: 1000 },
+      staggerChildren: 0.05,
+      staggerDirection: -1,
+    },
+  },
+  exit: {
+    opacity: 0,
+    x: 500,
+    transition: {
+      duration: 0.5,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  open: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      y: {
+        stiffness: 1000,
+        velocity: -50,
+      },
+      staggerChildren: 0.05,
+      delayChilren: 0.5,
+    },
+  },
+  close: {
+    y: '40%',
+    opacity: 0,
+    transition: {
+      y: { stiffness: 1000 },
+      staggerChildren: 0.05,
+    },
+  },
+};
