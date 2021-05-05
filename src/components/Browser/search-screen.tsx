@@ -20,7 +20,7 @@ const resultsVariants: AnimationProps['variants'] = {
 
 const searchVariants: AnimationProps['variants'] = {
   open: {
-    transition: { staggerChildren: 0.05, delayChildren: 0.2 },
+    transition: { delay: 2, staggerChildren: 0.05, delayChildren: 0.2 },
   },
   close: {
     transition: { staggerChildren: 0.05, staggerDirection: -1 },
@@ -30,19 +30,55 @@ const searchVariants: AnimationProps['variants'] = {
 export function SearchScreen({ query = false }) {
   const { t } = useTranslation('home');
   const isDefault = query === false;
+  const queryText = t('browser.query');
 
   return (
     <>
       <img src='/images/logo-google-img.png' alt='' className='logo' />
       <motion.div
+        layout
+        style={{
+          borderRadius: query ? 8 : 20,
+          height: query ? '52.6%' : '11.22%',
+        }}
         className='search__wrapper'
         variants={searchVariants}
         initial='close'
-        animate='open'
+        animate={query && 'open'}
       >
         <div className='search row'>
           <img src='/glyphs/glyph-search.svg' alt='' className='icon' />
-          <span>{t('browser.query')}</span>
+          {query && (
+            <motion.p
+              className='query-text'
+              variants={{
+                open: {
+                  transition: {
+                    staggerChildren: 0.05,
+                    delayChildren: 0.2,
+                    duration: 1,
+                  },
+                },
+                close: {
+                  transition: { staggerChildren: 0.05 },
+                },
+              }}
+              initial='close'
+              animate='open'
+            >
+              {queryText.split('').map((s, i) => (
+                <motion.span
+                  variants={{
+                    open: { display: 'inline' },
+                    close: { display: 'none' },
+                  }}
+                  key={`${s}-${i}`}
+                >
+                  {s}
+                </motion.span>
+              ))}
+            </motion.p>
+          )}
         </div>
         <AnimatePresence>
           {query && (
@@ -58,7 +94,7 @@ export function SearchScreen({ query = false }) {
                     className='icon'
                     loading='lazy'
                   />
-                  <span>{t('browser.results.0')}</span>
+                  <span className='row__text'>{t('browser.results.0')}</span>
                 </div>
                 <p>{t('browser.remove')}</p>
               </motion.div>
@@ -74,7 +110,9 @@ export function SearchScreen({ query = false }) {
                     className='icon'
                     loading='lazy'
                   />
-                  <span>{t(`browser.results.${i + 1}`)}</span>
+                  <span className='row__text'>
+                    {t(`browser.results.${i + 1}`)}
+                  </span>
                 </motion.div>
               ))}
             </>
@@ -115,7 +153,7 @@ export function SearchScreen({ query = false }) {
         }
 
         :global(.search__wrapper::before) {
-          animation: selection 1s var(--transition-curve) 800ms;
+          animation: selection 1s var(--transition-curve) 1500ms;
           animation-fill-mode: forwards;
           background-color: #cce9ff;
           content: '';
@@ -138,7 +176,7 @@ export function SearchScreen({ query = false }) {
           z-index: 2;
         }
 
-        :global(.row span) {
+        :global(.row__text, .query-text) {
           margin-left: 2.05%;
         }
 
@@ -175,11 +213,6 @@ export function SearchScreen({ query = false }) {
       `}</style>
 
       <style jsx>{`
-        :global(.search__wrapper) {
-          height: ${isDefault ? 11.22 : 52.6}%;
-          border-radius: ${isDefault ? 20 : 8}px;
-        }
-
         :global(.row) {
           height: ${isDefault ? 100 : 14.3}%;
         }

@@ -27,7 +27,7 @@ export default function Home() {
     gsap.registerPlugin(ScrollTrigger);
     ScrollTrigger.defaults({
       toggleActions: 'restart none reverse none',
-      markers: true,
+      // markers: true,
     });
 
     gsap.set('#browser', { opacity: 0, yPercent: -30 });
@@ -65,6 +65,7 @@ export default function Home() {
       scrollTrigger: {
         trigger: '#journey',
         start: 'top 10%',
+        end: '+=2000',
         scrub: true,
         pin: true,
       },

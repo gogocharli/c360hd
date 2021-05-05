@@ -78,7 +78,6 @@ export function Browser({
               <motion.div
                 initial={{
                   opacity: 0,
-                  y: screen == 'idle' ? '100%' : 0,
                 }}
                 animate={{
                   opacity: 1,
