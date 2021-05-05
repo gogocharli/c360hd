@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Listing } from './listing';
 import { LoadingBars } from './loading-bars';
 import { SearchScreen } from './search-screen';
@@ -21,26 +21,82 @@ export function Browser({
         aria-hidden='true'
       >
         <div className='browser__wrapper'>
-          <div className='browser__content'>
+          <AnimatePresence exitBeforeEnter>
             {screen === 'results' ? (
               <>
-                <LoadingBars />
-                <Listing />
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    transitionDuration: '300ms',
+                  }}
+                  exit={{
+                    opacity: 0,
+                  }}
+                  className='browser__content results'
+                  key='results'
+                >
+                  <LoadingBars />
+                  <Listing />
+                </motion.div>
               </>
-            ) : screen === 'query' ? (
-              <SearchScreen query />
             ) : screen === 'video' ? (
-              <video loop preload='metadata' width={917} tabIndex={-1}>
-                <source
-                  src='/browser/morency-coiffure.webm'
-                  type='video/webm'
-                />
-                <source src='/browser/morency-coiffure.mp4' type='video/mp4' />
-              </video>
+              <motion.div
+                initial={{
+                  opacity: 0,
+                }}
+                animate={{
+                  opacity: 1,
+                  transitionDuration: '300ms',
+                }}
+                exit={{
+                  opacity: 0,
+                }}
+                className='browser__content'
+                key='video'
+              >
+                <video
+                  loop
+                  preload='metadata'
+                  width={917}
+                  tabIndex={-1}
+                  autoPlay
+                >
+                  <source
+                    src='/browser/morency-coiffure.webm'
+                    type='video/webm'
+                  />
+                  <source
+                    src='/browser/morency-coiffure.mp4'
+                    type='video/mp4'
+                  />
+                </video>
+              </motion.div>
             ) : (
-              <SearchScreen />
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  y: screen == 'idle' ? '100%' : 0,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  transitionDuration: '300ms',
+                  transition: { staggerChildren: 0.05, delayChildren: 0.2 },
+                }}
+                exit={{
+                  opacity: 0,
+                  transition: { staggerChildren: 0.05, staggerDirection: -1 },
+                }}
+                className='browser__content'
+                key='search'
+              >
+                <SearchScreen query={screen == 'query'} />
+              </motion.div>
             )}
-          </div>
+          </AnimatePresence>
         </div>
       </div>
       <style jsx>{`
@@ -71,7 +127,7 @@ export function Browser({
           padding: 58% 0 0; // Conserve aspect ratio
         }
 
-        .browser__content {
+        :global(.browser__content) {
           --menu-size: 10.5%;
 
           align-items: center;
@@ -89,6 +145,11 @@ export function Browser({
           width: 100%;
         }
 
+        :global(.browser__content.results) {
+          flex-direction: row;
+          justify-content: space-between;
+        }
+
         video {
           border-bottom: 2px solid hsl(var(--color-dark-highlight));
           position: absolute;
@@ -98,7 +159,7 @@ export function Browser({
         }
 
         @media (min-width: 50em) {
-          .browser__content {
+          :global(.browser__content) {
             --menu-size: 48px;
           }
         }
@@ -108,15 +169,9 @@ export function Browser({
             margin-top: 2.5rem;
           }
 
-          .browser__content {
+          :global(.browser__content) {
             --menu-size: 56px;
           }
-        }
-      `}</style>
-      <style jsx>{`
-        .browser__content {
-          flex-direction: ${screen === 'results' ? 'row' : 'column'};
-          justify-content: ${screen === 'results' ? 'space-between' : 'center'};
         }
       `}</style>
     </>

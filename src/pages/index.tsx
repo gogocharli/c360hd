@@ -80,6 +80,10 @@ export default function Home() {
       .to(journeyCards, {
         onUpdate: function () {
           const progress = this.ratio;
+
+          // Reset to idle screen when animation ends
+          if (progress < 0.01) return setBrowserScreen('idle');
+
           // Getting an integer depending on the current progress
           const clampedProgress = Math.floor(
             progress * (journeyCards.length - 1),
