@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -19,6 +19,7 @@ import {
   BrowserState,
   browserScreens,
 } from '@components/Browser/browser';
+import { useInterval } from '../hooks/useInterval';
 
 export default function Home() {
   const [browserScreen, setBrowserScreen] = useState<BrowserState>('idle');
@@ -41,7 +42,6 @@ export default function Home() {
       scrub: true,
       end: 'top 30%',
     };
-
     gsap.to('#fake-browser', {
       scrollTrigger: browserMoveOpts,
       opacity: 0,
@@ -122,6 +122,7 @@ export default function Home() {
     () => setBusiness((c) => (c < businessTypes.length - 1 ? c + 1 : 0)),
     5000,
   );
+
   return (
     <>
       <BaseLayout className='home'>
@@ -154,12 +155,25 @@ export default function Home() {
                 {t('hero.title')}
               </h1>
               <p className='[ subtitle ] [ text-400 measure-short leading-loose ]'>
-                <span>{t('hero.subtitle')}</span>
+                <span>{t('hero.subtitle')}</span>{' '}
+                <AnimatePresence exitBeforeEnter>
+                  <motion.span
+                    className='type'
+                    key={businessTypes[business]}
+                    initial={{ opacity: 0, y: '-5%' }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: '5' }}
+                  >
+                    {businessTypes[business]}
+                  </motion.span>
+                </AnimatePresence>
               </p>
               <a href='#' className='button' tabIndex={-1}>
                 {t('hero.btnText')}
               </a>
-              <Browser fake screen='idle' />
+              <div className='browser-wrapper'>
+                <Browser fake screen='idle' />
+              </div>
             </div>
           </div>
         </section>
@@ -299,7 +313,7 @@ export default function Home() {
           --hover-bg: var(--color-light-highlight);
         }
 
-        .hero :global(.browser) {
+        .hero :global(.browser-wrapper) {
           display: none;
         }
 
@@ -397,7 +411,7 @@ export default function Home() {
             padding: 4.5rem 1.5rem;
           }
 
-          .hero :global(.browser) {
+          .hero :global(.browser-wrapper) {
             bottom: 0;
             display: block;
             position: absolute;
@@ -715,24 +729,4 @@ function clearTheme(element: HTMLElement) {
   styles.forEach((style) =>
     element.style.setProperty(`--theme-color-${style}`, 'inherit'),
   );
-}
-
-function useInterval(callback: Function, delay: number) {
-  const savedCallback = useRef<Function>(null);
-
-  // Remember the latest callback.
-  useEffect(() => {
-    savedCallback.current = callback;
-  }, [callback]);
-
-  // Set up the interval.
-  useEffect(() => {
-    function tick() {
-      savedCallback.current();
-    }
-    if (delay !== null) {
-      let id = setInterval(tick, delay);
-      return () => clearInterval(id);
-    }
-  }, [delay]);
 }
