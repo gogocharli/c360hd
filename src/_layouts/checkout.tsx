@@ -1,7 +1,8 @@
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
+import { useTranslation } from 'next-i18next';
+
 import { Header } from '@includes/header';
 import { Footer } from '@includes/footer';
-import { useTranslation } from 'next-i18next';
 
 export default function Layout({
   children,
@@ -15,17 +16,35 @@ export default function Layout({
   const { t } = useTranslation('site');
   return (
     <>
-      <Head>
-        <link rel='icon' href='favicon.svg' type='image/svg' key='icon' />
-        <meta name='description' content={pageMeta?.desc ?? t('siteDesc')} />
-        <title>{(pageMeta?.title ?? t('siteTitle')) + ' | C360HD'}</title>
-        <link
-          rel='stylesheet'
-          href='https://use.typekit.net/jst8wwr.css'
-          integrity='sha384-I8PbINmcRPDTNMreuYNkhAckWfcVDFDlNu7byvNRHSydSJqY1c0YlnTFgrb18kyo'
-          crossOrigin='anonymous'
-        />
-      </Head>
+      <NextSeo
+        title={(pageMeta?.title || t('siteTitle')) + ' | C360HD'}
+        description={pageMeta?.desc || t('siteDesc')}
+        openGraph={{
+          url: 'https://c360hd.com/',
+          title: `${(pageMeta?.title || t('siteTitle')) + ' | C360HD'}`,
+          description: `${pageMeta?.desc || t('siteDesc')}`,
+          images: [
+            {
+              url: 'https://c360hd.com/social.jpg',
+              width: 1000,
+              height: 500,
+              alt: 'C360HD - Bring more clients to your door',
+            },
+          ],
+          site_name: 'C360HD',
+        }}
+        twitter={{
+          site: '@c360hd',
+          cardType: 'summary_large_image',
+        }}
+        additionalLinkTags={[
+          {
+            rel: 'icon',
+            type: 'image/svg',
+            href: 'https://c360hd.com/favicon.svg',
+          },
+        ]}
+      />
       <div className='div'>
         <Header />
       </div>

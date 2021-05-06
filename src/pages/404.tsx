@@ -5,7 +5,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import BaseLayout from '@layouts/base';
 import { Button } from '@components/button';
 
-export default function () {
+export default function NotFound() {
   const { t } = useTranslation('404');
   const pageMeta = { title: t('pageMeta.title'), desc: t('pageMeta.desc') };
 
