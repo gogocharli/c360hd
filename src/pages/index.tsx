@@ -88,12 +88,14 @@ export default function Home() {
             let direction = index % 2 == 0 ? 1 : -1;
             return position * direction;
           },
-          opacity: (index) => (index > 0 ? 0 : 1),
+          opacity: 0,
         });
         gsap.to(carouselCards, {
           xPercent: -50,
           opacity: 1,
           rotate: (index) => {
+            if (index == 0) return index;
+
             let angle = Math.random() * index + 1;
             angle = index % 2 == 0 ? angle * -1 : angle;
             return angle;
@@ -265,7 +267,7 @@ export default function Home() {
           ease: 'linear',
           scrollTrigger: {
             trigger: '#basics',
-            start: 'top top',
+            start: 'top 20px',
             pin: true,
             scrub: 1,
             snap: 0.5,
@@ -523,6 +525,7 @@ export default function Home() {
         .basics .title {
           margin-top: 0.5rem;
           max-width: 15ch;
+          padding-left: 0 !important; //gsap bug??
         }
 
         .basics .subtitle {
@@ -798,11 +801,11 @@ export default function Home() {
           }
         }
 
-        // @media (min-width: 120em) {
-        //   .hero :global(.browser) {
-        //     transform: translate(-10%, 50%);
-        //   }
-        // }
+        @media (min-width: 120em) {
+          .hero :global(.browser) {
+            transform: translate(-10%, 50%);
+          }
+        }
       `}</style>
 
       <style jsx global>{`

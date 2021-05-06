@@ -130,6 +130,27 @@ export function NavList({ reduced = false }) {
           --flow-space: 1.5rem;
         }
 
+        .category a {
+          position: relative;
+        }
+
+        .category a::before {
+          background-color: hsl(var(--color-light-main));
+          border-radius: 50%;
+          content: '';
+          opacity: 0;
+          position: absolute;
+          height: 0.5em;
+          transform: translate(-200%, 100%) scale(0.5);
+          transition: all var(--transition-duration) var(--transition-curve);
+          width: 0.5em;
+        }
+
+        .category a:hover::before {
+          opacity: 1;
+          transform: translate(-200%, 100%) scale(1);
+        }
+
         .nav__list > li {
           --flow-space: 1rem;
         }

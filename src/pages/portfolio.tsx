@@ -36,9 +36,16 @@ export default function Portfolio({
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
+    const { filter } = query;
+
+    // Remove the styling for buttons which do not match the filter
+    document.querySelectorAll('.filter').forEach((el) => {
+      if (el.classList.contains(`${filter}`)) return;
+      el.classList.remove('is-current');
+    });
+
     // Whenever a new query is pushed to the router
     // Disable the filter if it was the same from the previous
-    const { filter } = query;
     if (filterRef.current === filter) {
       router.push(`/portfolio`, undefined, {
         shallow: true,
@@ -67,6 +74,8 @@ export default function Portfolio({
       router.push(`/portfolio?filter=${category}`, undefined, {
         shallow: true,
       });
+
+      document.querySelector(`.${category}`).classList.add('is-current');
     };
   }
 
@@ -105,9 +114,9 @@ export default function Portfolio({
                 <button
                   key={category}
                   onClick={filterCategory(category)}
-                  className='filter'
+                  className={`filter ${category}`}
                 >
-                  {t(`categories.${category}`)}
+                  <span>{t(`categories.${category}`)}</span>
                 </button>
               ))}
             </AccordionItem>
@@ -212,6 +221,32 @@ export default function Portfolio({
           position: absolute;
           top: 24px;
           width: 1.5rem;
+        }
+
+        :global(.accordion__content button, .accordion__content button > span) {
+          transition: all var(--transition-duration) var(--transition-curve);
+        }
+
+        :global(.accordion__content button:hover) {
+          background-color: hsl(var(--color-dark-tint));
+          transition-duration: 200ms;
+        }
+
+        :global(.accordion__content button.is-current) {
+          background-color: hsl(var(--color-dark-tint));
+          transition-duration: 200ms;
+        }
+
+        :global(.accordion__content button > span) {
+          display: inline-block;
+        }
+
+        :global(.accordion__content button:hover > span) {
+          transform: translateX(8px);
+        }
+
+        :global(.accordion__content button.is-current > span) {
+          transform: translateX(8px);
         }
 
         @media (min-width: 50em) {
