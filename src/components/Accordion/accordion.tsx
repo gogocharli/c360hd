@@ -4,11 +4,17 @@ import {
   AccordionButton,
   AccordionPanel,
 } from '@reach/accordion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import PlusIcon from './icon-plus.svg';
+import MinusIcon from './icon-minus.svg';
 
 function Menu({ children }: { children: React.ReactNode }) {
   return <Accordion collapsible>{children}</Accordion>;
 }
+
+const MotionIconPlus = motion(PlusIcon);
+const MotionIconMinus = motion(MinusIcon);
 
 function Item({
   children,
@@ -17,20 +23,54 @@ function Item({
   children: React.ReactNode;
   item: { value: string; title: string };
 }) {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <>
       <AccordionItem className='accordion__item'>
         <h3 className='text-300 md:text-400 weight-normal'>
-          <AccordionButton className='accordion__button'>
+          <AccordionButton
+            className='accordion__button'
+            onClick={() => setIsOpen((s) => !s)}
+          >
             {item.title}
             <div className='accordion__icon' aria-hidden='true'>
-              <PlusIcon className='icon__open' width={24} />
-              {/* <MinusIcon className='icon__close' width={24} /> */}
+              <AnimatePresence>
+                {isOpen ? (
+                  <MotionIconMinus
+                    initial={{ rotateX: 180 }}
+                    animate={{ rotateX: 0 }}
+                    exit={{ rotateX: -180 }}
+                    className='icon__close'
+                    width={24}
+                  />
+                ) : (
+                  <MotionIconPlus
+                    initial={{ rotateX: 180 }}
+                    animate={{ rotateX: 0 }}
+                    exit={{ rotateX: -180 }}
+                    className='icon__open'
+                    width={24}
+                  />
+                )}
+              </AnimatePresence>
             </div>
           </AccordionButton>
         </h3>
         <AccordionPanel>
-          <div className='accordion__content'>{children}</div>
+          <AnimatePresence>
+            {isOpen && (
+              <motion.div
+                layout
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ type: 'tween', duration: 0.5, ease: 'easeInOut' }}
+                className='accordion__content'
+              >
+                {children}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </AccordionPanel>
       </AccordionItem>
       <style jsx>{`

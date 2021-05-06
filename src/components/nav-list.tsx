@@ -135,7 +135,7 @@ export function NavList({ reduced = false }) {
         }
 
         .category a::before {
-          background-color: hsl(var(--color-light-main));
+          background-color: hsl(var(--color-accent-sky));
           border-radius: 50%;
           content: '';
           opacity: 0;
