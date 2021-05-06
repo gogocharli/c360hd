@@ -26,8 +26,8 @@ export function Questions() {
           {t('heading')}
         </h2>
         <AccordionMenu>
-          {menuItems.map(({ content, ...item }) => (
-            <AccordionItem item={item} key={item.value}>
+          {menuItems.map(({ content, ...item }, i) => (
+            <AccordionItem item={item} key={item.value} index={i}>
               <p
                 dangerouslySetInnerHTML={{
                   __html: content,

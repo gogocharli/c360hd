@@ -109,6 +109,7 @@ export default function Portfolio({
           <AccordionMenu>
             <AccordionItem
               item={{ value: 'filter', title: `${t('categories.title')}` }}
+              index={0}
             >
               {categoryList.map((category) => (
                 <button

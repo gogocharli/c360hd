@@ -3,8 +3,9 @@ import {
   AccordionItem,
   AccordionButton,
   AccordionPanel,
+  useAccordionContext,
 } from '@reach/accordion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import PlusIcon from './icon-plus.svg';
 import MinusIcon from './icon-minus.svg';
@@ -19,14 +20,22 @@ const MotionIconMinus = motion(MinusIcon);
 function Item({
   children,
   item,
+  index,
 }: {
   children: React.ReactNode;
   item: { value: string; title: string };
+  index: number;
 }) {
+  const { openPanels } = useAccordionContext();
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    index == openPanels[0] ? setIsOpen(true) : setIsOpen(false);
+  }, [openPanels]);
+
   return (
     <>
-      <AccordionItem className='accordion__item'>
+      <AccordionItem className='accordion__item' data-selected={isOpen}>
         <h3 className='text-300 md:text-400 weight-normal'>
           <AccordionButton
             className='accordion__button'
@@ -75,12 +84,23 @@ function Item({
       </AccordionItem>
       <style jsx>{`
         :global(.accordion__item) {
+          --default-shadow: 0px 0px 5px rgba(39, 61, 99, 0.8),
+            0px 0px 5px rgba(39, 61, 99, 0.6);
+          --focus-shadow: 0px 0px 5px 5px rgba(194, 228, 255, 0.2),
+            0px 0px 5px rgba(39, 61, 99, 0.6);
+
           border-radius: 0.5rem;
           box-shadow: 0px 0px 5px rgba(39, 61, 99, 0.8),
             0px 0px 5px rgba(39, 61, 99, 0.6);
           color: hsl(var(--color-light-main));
           padding: 0.75rem 0.5rem;
           text-align: left;
+          transition: box-shadow var(--transition-duration)
+            var(--transition-curve);
+        }
+
+        :global(.accordion__item[data-selected='true']) {
+          box-shadow: var(--focus-shadow);
         }
 
         h3 {
