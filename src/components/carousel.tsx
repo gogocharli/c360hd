@@ -8,9 +8,9 @@ export function HomeCarousel() {
   return (
     <>
       <div>
-        <ul>
+        <ul className='panel__container'>
           {slidesList.map((key, index) => (
-            <li key={key}>
+            <li className='panel' key={key}>
               <div className='image'>
                 <Image
                   src={`/images/${key}-img.png`}
@@ -37,6 +37,7 @@ export function HomeCarousel() {
           display: flex;
           flex-direction: column;
           padding: 0 1rem;
+          overflow: hidden;
         }
 
         li {
@@ -63,24 +64,6 @@ export function HomeCarousel() {
           margin-top: 3rem;
           position: relative;
         }
-
-        li {
-          left: 50%;
-          position: absolute;
-        }
-
-        li:nth-child(1) {
-          transform: translateX(-50%) rotateZ(-3deg);
-        }
-
-        li:nth-child(2) {
-          transform: translateX(-50%) rotateZ(1deg);
-        }
-
-        li:nth-child(3) {
-          transform: translateX(-50%) rotateZ(2deg);
-        }
-        /* Card stacking styles end */
 
         .image {
           height: 224px;
@@ -109,7 +92,7 @@ export function HomeCarousel() {
 
           ul {
             flex-direction: row;
-            overflow: auto;
+            overflow-x: hidden;
             margin-top: 5rem;
             scroll-snap-type: inline mandatory;
             width: 100vw;
@@ -163,6 +146,7 @@ export function HomeCarousel() {
         @media (min-width: 65em) {
           // TODO Take care of clipping
           ul {
+            border-radius: 0.4em;
             margin-left: auto;
             margin-right: auto;
             max-width: 90rem;

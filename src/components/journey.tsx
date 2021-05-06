@@ -8,7 +8,7 @@ export function JourneyHighlights() {
 
   return (
     <>
-      <div className='scene'>
+      <div className='scene' data-scene='0'>
         <ul>
           {studyList.map((key, index) => (
             <li key={key} className='journey-step'>
@@ -45,6 +45,7 @@ export function JourneyHighlights() {
         }
 
         ul {
+          --transition-duration: 500ms;
           height: 100%;
           left: 50%;
           position: absolute;
@@ -78,8 +79,16 @@ export function JourneyHighlights() {
           transform: rotateY(240deg) translateZ(99px);
         }
 
-        ul {
+        .scene[data-scene='0'] ul {
           transform: translateX(-50%) translateZ(-99px) rotateY(0deg);
+        }
+
+        .scene[data-scene='1'] ul {
+          transform: translateX(-50%) translateZ(-99px) rotateY(120deg);
+        }
+
+        .scene[data-scene='2'] ul {
+          transform: translateX(-50%) translateZ(-99px) rotateY(240deg);
         }
 
         li > * {
@@ -123,8 +132,16 @@ export function JourneyHighlights() {
             transform: rotateX(240deg) translateZ(186.48px);
           }
 
-          ul {
+          .scene[data-scene='0'] ul {
             transform: translateX(-50%) translateZ(-186.48px) rotateX(0deg);
+          }
+
+          .scene[data-scene='1'] ul {
+            transform: translateX(-50%) translateZ(-186.48px) rotateX(120deg);
+          }
+
+          .scene[data-scene='2'] ul {
+            transform: translateX(-50%) translateZ(-186.48px) rotateX(240deg);
           }
 
           li p {
@@ -148,7 +165,8 @@ export function JourneyHighlights() {
             width: unset;
           }
 
-          ul {
+          ul,
+          .scene[data-scene] ul {
             position: static;
             transform: unset;
             width: unset;
