@@ -1,8 +1,20 @@
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import Checkbox from '@components/icon-checkbox.svg';
+import { useEffect } from 'react';
 
 export function Timeline({ step }: { step: number }) {
+  useEffect(() => {
+    const timeline = document.querySelector('.timeline');
+    const current = timeline.children[step] as HTMLOListElement;
+    const { x } = current.getBoundingClientRect();
+
+    timeline.parentElement.scrollTo({
+      left: x,
+      behavior: 'smooth',
+    });
+  }, [step]);
+
   const { t } = useTranslation('checkout');
   return (
     <section>
@@ -59,6 +71,7 @@ export function Timeline({ step }: { step: number }) {
         div {
           border-radius: 0.5rem;
           overflow-x: auto;
+          scroll-snap-type: inline mandatory;
         }
 
         ol {
@@ -75,6 +88,7 @@ export function Timeline({ step }: { step: number }) {
           font-weight: 600;
           line-height: 1.2;
           opacity: 0.4;
+          scroll-snap-align: start;
         }
 
         a {
