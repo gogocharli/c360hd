@@ -5,10 +5,12 @@ import { useEffect } from 'react';
 
 export function Timeline({ step }: { step: number }) {
   useEffect(() => {
+    // Scroll to the timeline element when the component overflows
     const timeline = document.querySelector('.timeline');
     const current = timeline.children[step] as HTMLOListElement;
     const { x } = current.getBoundingClientRect();
 
+    // The unordered list's parent is the one to scroll
     timeline.parentElement.scrollTo({
       left: x,
       behavior: 'smooth',
