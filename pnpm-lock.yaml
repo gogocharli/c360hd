@@ -21,6 +21,7 @@ dependencies:
   next: 10.0.8_fd4746d779b7788c1039af659b76c744
   next-i18next: 8.1.0_next@10.0.8+react@17.0.1
   next-plugin-svgr: 1.0.0
+  next-seo: 4.24.0_1141c2bd4bfc8c67c9acee132514ecba
   postmark: 2.7.3
   react: 17.0.1
   react-datepicker: 3.8.0_react-dom@17.0.1+react@17.0.1
@@ -5560,6 +5561,18 @@ packages:
     dev: false
     resolution:
       integrity: sha512-R6yOhD9BSup8oVtnkffkPwPQlnyl98gYDPtbWCzJ3mYBVQOP4KTU7dwcAimuVNMAE2+ToW0Bpu2xeM8CJ0O98Q==
+  /next-seo/4.24.0_1141c2bd4bfc8c67c9acee132514ecba:
+    dependencies:
+      next: 10.0.8_fd4746d779b7788c1039af659b76c744
+      react: 17.0.1
+      react-dom: 17.0.1_react@17.0.1
+    dev: false
+    peerDependencies:
+      next: ^8.1.1-canary.54 || ^9.0.0 || ^10.0.0
+      react: ^16.0.0 || ^17.0.0
+      react-dom: ^16.0.0 || ^17.0.0
+    resolution:
+      integrity: sha512-9VQXfXAelhE+hAWzJ4azigQaW3FPX0kU0eYKFQXKsQjgY7AWtukjRGXls0oSIk8khhDJwmCt46EwsO9n5DDW6Q==
   /next/10.0.8_fd4746d779b7788c1039af659b76c744:
     dependencies:
       '@babel/runtime': 7.12.5
@@ -8173,6 +8186,7 @@ specifiers:
   next: ^10.0.8
   next-i18next: ^8.1.0
   next-plugin-svgr: ^1.0.0
+  next-seo: ^4.24.0
   postmark: ^2.7.3
   react: ^17.0.1
   react-datepicker: ^3.8.0
