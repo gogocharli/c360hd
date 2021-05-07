@@ -92,7 +92,7 @@ export function HomeCarousel() {
 
           ul {
             flex-direction: row;
-            overflow-x: hidden;
+            overflow-x: scroll;
             margin-top: 5rem;
             scroll-snap-type: inline mandatory;
             width: 100vw;
