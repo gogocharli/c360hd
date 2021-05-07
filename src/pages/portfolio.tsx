@@ -38,14 +38,21 @@ export default function Portfolio({
   useEffect(() => {
     const { filter } = query;
 
-    // Remove the styling for buttons which do not match the filter
+    /* Remove the styling for buttons which do not match the filter
+      This doesn't work when the categories panel is not open.
+    Reason being it doesn't exist in the DOM yet
+    Putting the class depending on the query would work but causes
+    jank and unnecessary re-renders */
     document.querySelectorAll('.filter').forEach((el) => {
-      if (el.classList.contains(`${filter}`)) return;
+      if (el.classList.contains(`${filter}`)) {
+        el.classList.add('is-current');
+        return;
+      }
       el.classList.remove('is-current');
     });
 
-    // Whenever a new query is pushed to the router
-    // Disable the filter if it was the same from the previous
+    /* Whenever a new query is pushed to the router
+    Disable the filter if it was the same from the previous */
     if (filterRef.current === filter) {
       router.push(`/portfolio`, undefined, {
         shallow: true,
@@ -74,8 +81,6 @@ export default function Portfolio({
       router.push(`/portfolio?filter=${category}`, undefined, {
         shallow: true,
       });
-
-      document.querySelector(`.${category}`).classList.add('is-current');
     };
   }
 

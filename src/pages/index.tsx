@@ -589,6 +589,10 @@ export default function Home() {
           padding: 2rem 2.5rem;
         }
 
+        .realisations :global(a:focus) {
+          outline-color: hsl(var(--color-dark-main));
+        }
+
         .realisations .content p {
           margin-top: 1rem;
         }
