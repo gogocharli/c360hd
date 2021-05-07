@@ -29,9 +29,12 @@ function categoryReducer(
     case 'filter': {
       const { filter: newFilter } = action;
       const { initialItems } = state;
-      const newList = initialItems.filter(
-        filterByCategory(newFilter),
-      ) as GalleryListItem[];
+      const newList =
+        newFilter == 'recent'
+          ? initialItems.sort(sortByRecency)
+          : (initialItems.filter(
+              filterByCategory(newFilter),
+            ) as GalleryListItem[]);
 
       return {
         ...state,
@@ -99,6 +102,10 @@ function filterByCategory(filter: string) {
   };
 }
 
-function sortByRecency(createdOn: string) {}
+function sortByRecency(a: GalleryListItem, b: GalleryListItem) {
+  if (a.created < b.created) return -1;
+  if (a.created > b.created) return 1;
+  return 0;
+}
 
 export { categoryReducer, initCategory };
