@@ -331,9 +331,9 @@ export default function Home() {
           </div>
           <div aria-hidden='true'>
             <div className='[ hero__content ] [ flow ]'>
-              <h1 className='[ title ] [ text-600 md:text-700 lg:text-800 weight-bold ] [ leading-flat tracking-tight measure-micro ]'>
+              <h2 className='[ title ] [ text-600 md:text-700 lg:text-800 weight-bold ] [ leading-flat tracking-tight measure-micro ]'>
                 {t('hero.title')}
-              </h1>
+              </h2>
               <p className='[ subtitle ] [ text-400 measure-short leading-loose ]'>
                 <span>{t('hero.subtitle')}</span>{' '}
                 <AnimatePresence exitBeforeEnter>
@@ -593,14 +593,6 @@ export default function Home() {
             padding: 4.5rem 1.5rem;
           }
 
-          .hero :global(.browser-wrapper) {
-            bottom: 0;
-            display: block;
-            position: absolute;
-            right: 0;
-            transform: translate(50%, 50%);
-          }
-
           .hero .title {
             max-width: 16ch;
           }
@@ -735,6 +727,14 @@ export default function Home() {
             pointer-events: none;
             position: relative;
             z-index: 10;
+          }
+
+          .hero :global(.browser-wrapper) {
+            bottom: 0;
+            display: block;
+            position: absolute;
+            right: 0;
+            transform: translate(50%, 50%);
           }
 
           .hero__content {

@@ -1,9 +1,9 @@
 {
   "hero": {
     "title": "The missing pi_ce of your online presence",
-    "subtitle": "Extend the reach of your business by inviting your clients inside your",
+    "subtitle": "Extend the reach of your business by inviting your clients on a virtual tour inside your",
     "businessType": "business, restaurant, office, clinic, gallery, gym, bank, store",
-    "btnText": "Get Started"
+    "btnText": "Book your photoshoot"
   },
   "sections": [
     {
@@ -17,25 +17,25 @@
     {
       "title": "Your listing is the true abc of online presence",
       "subtitle": "The keyword is not the key word",
-      "desc": "Clients turn to search engines and social networks during the exploration phase and then look on Google Maps at the crucial moment before decision making.",
+      "desc": "Clients turn to search engines and social networks during the exploration phase, then look on Google Maps before making an informed decision about your company.",
       "content": [
         {
           "title": "Improve your reputation faster",
-          "desc": "Most buyers are more reticient at purchasing from local stores which profile is incomplete or lack photos of the establishment."
+          "desc": "Buyers can be hesitant at purchasing from local stores that have an incomplete profile or lack updated photos of the establishment."
         },
         {
           "title": "Capitalize on local buyers' intent",
-          "desc": "Display valuable and up to date information about you is provided to local buyers when looking to purchase in their area."
+          "desc": "Display valuable and up to date information for buyers when looking to purchase your products and or services near them."
         },
         {
           "title": "Generate customer interest easily",
-          "desc": "Before turning to local buying, 9 out of 10 customers will start on a search engine. 7 of them think that its primardial for opening hours to be easily discoverable."
+          "desc": "Before turning to local buying, 9 out of 10 customers will start on a search engine. 7 of them are looking for opening hours to be easily found."
         }
       ]
     },
     {
-      "title": "Become {{- open}}more{{- close}} close to your clients",
-      "btnText": "Book a shooting",
+      "title": "Become {{- open}}more{{- close}} attractive to buyers",
+      "btnText": "Book your photoshoot",
       "more": "More",
       "content": [
         {
@@ -48,7 +48,7 @@
         },
         {
           "title": "trust",
-          "desc": "Profit of the expertise from a canadian agency certified by Google for its virtual imagery."
+          "desc": "C360HD is a Canadian agency certified by Google for its virtual imagery."
         }
       ]
     },
