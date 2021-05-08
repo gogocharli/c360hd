@@ -7,15 +7,10 @@ import {
 } from '@reach/accordion';
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import PlusIcon from './icon-plus.svg';
-import MinusIcon from './icon-minus.svg';
 
 function Menu({ children }: { children: React.ReactNode }) {
   return <Accordion collapsible>{children}</Accordion>;
 }
-
-const MotionIconPlus = motion(PlusIcon);
-const MotionIconMinus = motion(MinusIcon);
 
 function Item({
   children,
@@ -45,21 +40,37 @@ function Item({
             <div className='accordion__icon' aria-hidden='true'>
               <AnimatePresence>
                 {isOpen ? (
-                  <MotionIconMinus
+                  <motion.svg
+                    width={24}
+                    height={24}
+                    fill='none'
+                    xmlns='http://www.w3.org/2000/svg'
                     initial={{ rotateX: 180 }}
                     animate={{ rotateX: 0 }}
                     exit={{ rotateX: -180 }}
                     className='icon__close'
-                    width={24}
-                  />
+                  >
+                    <path
+                      d='M5 10.957l-.002 2.114 14 .011L19 10.97l-14-.012z'
+                      fill='#E8F5FF'
+                    />
+                  </motion.svg>
                 ) : (
-                  <MotionIconPlus
+                  <motion.svg
+                    width={24}
+                    height={24}
+                    fill='none'
+                    xmlns='http://www.w3.org/2000/svg'
                     initial={{ rotateX: 180 }}
                     animate={{ rotateX: 0 }}
                     exit={{ rotateX: -180 }}
                     className='icon__open'
-                    width={24}
-                  />
+                  >
+                    <path
+                      d='m18.493 14.082-5.847-.005-.005 5.93-2.333-.002.005-5.93-5.82-.004.002-2.114 5.82.005.005-5.957 2.333.002-.005 5.957 5.847.004-.002 2.114z'
+                      fill='#E8F5FF'
+                    />
+                  </motion.svg>
                 )}
               </AnimatePresence>
             </div>
