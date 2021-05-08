@@ -4,6 +4,9 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { browserScreens, BrowserState } from '@components/Browser/browser';
 import type { Dispatch, SetStateAction } from 'react';
 
+const elementsToFadeIn =
+  '#basics content > *, #basics .image, .panel__container, .features h2, .features li > *, .features a, #realisations content > *, #realisations a, .icon-stack > *';
+
 export function animateSectionsOnScroll(
   browserScreen: BrowserState,
   setBrowserScreen: Dispatch<SetStateAction<BrowserState>>,
@@ -197,7 +200,7 @@ export function animateSectionsOnScroll(
         const journeyTimeline = gsap.timeline({
           scrollTrigger: {
             trigger: '#journey',
-            start: '105% bottom',
+            start: '140px top',
             end: '+=2000',
             scrub: true,
             pin: true,
@@ -261,6 +264,24 @@ export function animateSectionsOnScroll(
           // Revert non-scrolltrigger related tweens
           gsap.set('#browser', { opacity: 1, yPercent: 0 });
           gsap.set('.journey-step', { opacity: 1, yPercent: 0 });
+        };
+      },
+      all: () => {
+        gsap.set(elementsToFadeIn, { y: 10, opacity: 0 });
+        ScrollTrigger.batch(elementsToFadeIn, {
+          interval: 0.1,
+          batchMax: 3,
+          onEnter: (elements) =>
+            gsap.to(elements, {
+              opacity: 1,
+              y: 0,
+              stagger: 0.15,
+              overwrite: true,
+            }),
+        });
+
+        () => {
+          gsap.set(elementsToFadeIn, { y: 0, opacity: 1 });
         };
       },
     });

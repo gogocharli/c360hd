@@ -66,6 +66,7 @@ export function HomeCarousel() {
         }
 
         .image {
+          background-color: hsl(var(--theme-color-accent));
           height: 224px;
           width: 240px;
         }
