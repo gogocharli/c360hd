@@ -84,9 +84,7 @@ export default function Home() {
               <a href='#' className='button' tabIndex={-1}>
                 {t('hero.btnText')}
               </a>
-              <div className='browser-wrapper'>
-                <Browser fake screen='idle' />
-              </div>
+              <Browser fake screen='idle' />
             </div>
           </div>
         </section>
@@ -226,7 +224,7 @@ export default function Home() {
           --hover-bg: var(--color-light-highlight);
         }
 
-        .hero :global(.browser-wrapper) {
+        .hero :global(.hero__content .browser) {
           display: none;
         }
 
@@ -464,7 +462,7 @@ export default function Home() {
             z-index: 10;
           }
 
-          .hero :global(.browser-wrapper) {
+          .hero :global(.hero__content .browser) {
             bottom: 0;
             display: block;
             position: absolute;

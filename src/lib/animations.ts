@@ -197,7 +197,7 @@ export function animateSectionsOnScroll(
         const journeyTimeline = gsap.timeline({
           scrollTrigger: {
             trigger: '#journey',
-            start: 'bottom bottom',
+            start: '105% bottom',
             end: '+=2000',
             scrub: true,
             pin: true,
