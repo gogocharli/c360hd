@@ -62,6 +62,7 @@ export default function Layout({
         main {
           --flow-space: 4.5rem;
           flex: 1 0 auto;
+          overflow-x: hidden;
         }
 
         footer {

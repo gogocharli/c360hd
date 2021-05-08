@@ -160,7 +160,7 @@ export function JourneyHighlights() {
             border-radius: 0;
             box-shadow: unset;
             height: unset;
-            margin-top: 3.5rem;
+            margin-top: 1.5rem;
             overflow: visible;
             width: unset;
           }

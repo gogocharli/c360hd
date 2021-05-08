@@ -113,7 +113,7 @@ export function Browser({
           margin: 1.5rem auto 0;
           overflow: hidden;
           position: relative;
-          width: min(91.5vw, 917px);
+          width: min(91.5vw, 800px);
           z-index: 5;
         }
 

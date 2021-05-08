@@ -2,7 +2,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 import { browserScreens, BrowserState } from '@components/Browser/browser';
-import { Dispatch, SetStateAction } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 
 export function animateSectionsOnScroll(
   browserScreen: BrowserState,
@@ -17,12 +17,12 @@ export function animateSectionsOnScroll(
 
     gsap.set('.panel__container', { overflowX: 'hidden' });
     ScrollTrigger.matchMedia({
-      '(max-width: 50em)': function () {
+      '(max-width: 50em) and (prefers-reduced-motion: no-preference)': function () {
         const journeyTimeline = gsap.timeline({
           scrollTrigger: {
             trigger: '#journey',
-            start: 'top 10%',
-            end: '+=500',
+            start: 'top top',
+            end: '+=1000',
             scrub: true,
             pin: true,
           },
@@ -87,13 +87,10 @@ export function animateSectionsOnScroll(
           stagger: 0.5,
           ease: 'var(--transition-curve)',
           scrollTrigger: {
-            trigger: '#basics',
-            start: 'bottom bottom',
+            trigger: carouselContainer,
+            start: 'top 5px',
             scrub: 0.5,
             pin: true,
-            end: () =>
-              '+=' +
-              carouselContainer.offsetHeight * (carouselCards.length - 1),
           },
         });
 
@@ -106,7 +103,7 @@ export function animateSectionsOnScroll(
           });
         };
       },
-      '(min-width: 50em) and (max-width: 65em)': function () {
+      '(min-width: 50em) and (max-width: 65em) and (prefers-reduced-motion: no-preference)': function () {
         const journeyTimeline = gsap.timeline({
           scrollTrigger: {
             trigger: '#journey',
@@ -157,15 +154,16 @@ export function animateSectionsOnScroll(
           ease: 'linear',
           scrollTrigger: {
             trigger: '#basics',
-            start: 'top 40%',
-            scrub: 0.5,
+            start: 'top 10px',
+            scrub: true,
+            pin: true,
             snap: 0.5,
-            end: () => '+=' + carouselContainer.offsetWidth,
+            end: () => '+=' + (carouselContainer.offsetWidth + 60),
           },
         });
       },
 
-      '(min-width: 65em)': function () {
+      '(min-width: 65em) and (prefers-reduced-motion: no-preference)': function () {
         const browserMoveOpts = {
           trigger: '#browser',
           start: 'top 70%',
@@ -199,7 +197,7 @@ export function animateSectionsOnScroll(
         const journeyTimeline = gsap.timeline({
           scrollTrigger: {
             trigger: '#journey',
-            start: 'top top',
+            start: 'bottom bottom',
             end: '+=2000',
             scrub: true,
             pin: true,
@@ -251,7 +249,7 @@ export function animateSectionsOnScroll(
           ease: 'linear',
           scrollTrigger: {
             trigger: '#basics',
-            start: 'top 20px',
+            start: 'bottom bottom',
             pin: true,
             scrub: 1,
             snap: 0.5,

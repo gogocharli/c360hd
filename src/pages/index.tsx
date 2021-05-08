@@ -247,7 +247,6 @@ export default function Home() {
 
         .basics {
           padding-top: 2rem;
-          padding-bottom: 2rem;
           position: relative;
         }
 
@@ -289,7 +288,6 @@ export default function Home() {
         .features {
           --flow-space: 3.5rem;
 
-          padding-top: 2rem;
           padding-bottom: 2rem;
         }
 
