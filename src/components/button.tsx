@@ -1,4 +1,4 @@
-import React, { LegacyRef, MouseEvent } from 'react';
+import React, { MouseEvent } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -57,7 +57,6 @@ export function Button({
   scroll?: boolean;
   children: React.ReactNode;
 }) {
-  const buttonRef = React.useRef<ButtonType>();
   const bgSize = -400;
 
   /**
@@ -65,7 +64,7 @@ export function Button({
    * for the pseudo-element to foloow mouse on enter and leave
    */
   function transformOnHover(e: MouseEvent<ButtonType>) {
-    const target = buttonRef.current;
+    const target = e.currentTarget;
     const { x, y } = target.getBoundingClientRect();
     const offsetX = e.clientX - x;
     const offsetY = e.clientY - y;
@@ -86,7 +85,6 @@ export function Button({
             data-variant={type}
             onMouseEnter={transformOnHover}
             onMouseLeave={transformOnHover}
-            ref={buttonRef as LegacyRef<HTMLAnchorElement>}
           >
             {children}
           </a>
@@ -99,7 +97,6 @@ export function Button({
           onMouseLeave={transformOnHover}
           onClick={onClick}
           type={form ? 'submit' : 'button'}
-          ref={buttonRef as LegacyRef<HTMLButtonElement>}
           disabled={disabled}
           {...formName}
         >
