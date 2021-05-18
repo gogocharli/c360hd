@@ -1,3 +1,4 @@
+import { Tables } from '../api.types';
 import * as Queries from '../utils/queries';
 
 /**
@@ -8,11 +9,11 @@ import * as Queries from '../utils/queries';
  *
  * @see https://en.wikipedia.org/wiki/Adapter_pattern
  */
-class DatabaseAdapter {
-  private table: string;
+class DatabaseAdapter<T extends Tables> {
+  private table: Tables;
   private Queries;
 
-  constructor(table: string) {
+  constructor(table: Tables) {
     this.table = table;
     this.Queries = Queries;
   }
@@ -22,7 +23,7 @@ class DatabaseAdapter {
    * @param id string
    */
   getRow(id: string) {
-    return Queries.getRecordById(this.table, id);
+    return Queries.getRecordById<T>(this.table, id);
   }
 
   /**
@@ -31,7 +32,7 @@ class DatabaseAdapter {
    * @param fields string[]
    */
   all(query?: Queries.FilterOptions) {
-    return Queries.getAllFromTable(this.table, query);
+    return Queries.getAllFromTable<T>(this.table, query);
   }
 
   /**
@@ -39,7 +40,7 @@ class DatabaseAdapter {
    * @param updates {{id: string, fields: any}}[]
    */
   updateRow(updates: { id: string; fields: any }[]) {
-    return Queries.updateFields(this.table, updates);
+    return Queries.updateFields<T>(this.table, updates);
   }
 
   /**
@@ -47,11 +48,11 @@ class DatabaseAdapter {
    * @param info any
    */
   createRow(info = {}) {
-    return Queries.writeToTable(this.table, info);
+    return Queries.writeToTable<T>(this.table, info);
   }
 
   deleteRow(...ids: string[]) {
-    return Queries.deleteField(this.table, ...ids);
+    return Queries.deleteField<T>(this.table, ...ids);
   }
 
   /**
@@ -62,11 +63,12 @@ class DatabaseAdapter {
   }
 }
 
-const LinksTable = new DatabaseAdapter('Links');
-const ClientsTable = new DatabaseAdapter('Clients');
-const OrdersTable = new DatabaseAdapter('Orders');
-const RepsTable = new DatabaseAdapter('Reps');
-const FeaturedTable = new DatabaseAdapter('Featured');
+const LinksTable = new DatabaseAdapter<'Links'>('Links');
+const ClientsTable = new DatabaseAdapter<'Clients'>('Clients');
+const OrdersTable = new DatabaseAdapter<'Orders'>('Orders');
+const RepsTable = new DatabaseAdapter<'Reps'>('Reps');
+const FeaturedTable = new DatabaseAdapter<'Featured'>('Featured');
+
 export {
   DatabaseAdapter as default,
   LinksTable,

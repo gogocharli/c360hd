@@ -5,10 +5,16 @@
  */
 
 import Airtable from 'airtable';
+import type Record from 'airtable/lib/record';
+import type { Fields, Tables } from '../api.types';
 
 const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
-  'appxpI4tUKTnWtKys'
+  'appxpI4tUKTnWtKys',
 );
+
+interface RecordWithFields<T extends keyof Fields> extends Record {
+  fields: Fields[T];
+}
 
 export interface FilterOptions {
   fields?: string[];
@@ -28,9 +34,11 @@ interface SelectOptions {
  *
  * @param {string} table The table to select from
  * @param  {FilterOptions} queries Filter to be applied to the records
- * @returns {Promise<[]>} An array of record objects
  */
-export async function getAllFromTable(table: string, queries?: FilterOptions) {
+export async function getAllFromTable<T extends Tables>(
+  table: Tables,
+  queries?: FilterOptions,
+): Promise<RecordWithFields<T>[]> {
   const fields = queries?.fields;
   const filterField = queries?.filterField;
   const filterByFormula = filterField
@@ -54,18 +62,23 @@ export async function getAllFromTable(table: string, queries?: FilterOptions) {
  * @param {string} table The table to select from
  * @param {string} id The unique key of the record
  */
-export async function getRecordById(table: string, id: string) {
+export async function getRecordById<T extends Tables>(
+  table: Tables,
+  id: string,
+): Promise<RecordWithFields<T>> {
   const match = await base(table).find(id);
   return match;
 }
 
 /**
- *
+ * Writes to the table and returns the new record
  * @param {String} table The table to write to
  * @param {*} info The information to write to the table
- * @returns {Promise<[]>} An array of record objects
  */
-export async function writeToTable(table: string, info = {}) {
+export async function writeToTable<T extends Tables>(
+  table: Tables,
+  info = {},
+): Promise<RecordWithFields<T>> {
   const createdRecord = await base(table).create(info);
   return createdRecord;
 }
@@ -76,11 +89,17 @@ export async function writeToTable(table: string, info = {}) {
  * @param {string} table
  * @param {{id: string, fields: *}[]} updates
  */
-export async function updateFields(table: string, updates: any[]) {
+export async function updateFields<T extends Tables>(
+  table: Tables,
+  updates: any[],
+): Promise<RecordWithFields<T>[]> {
   const updatedRecord = await base(table).update(updates);
   return updatedRecord;
 }
 
-export async function deleteField(table: string, ...recordIds: string[]) {
+export async function deleteField<T extends Tables>(
+  table: Tables,
+  ...recordIds: string[]
+): Promise<RecordWithFields<T>[]> {
   return await base(table).destroy(recordIds);
 }
