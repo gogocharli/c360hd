@@ -6,7 +6,7 @@
 
 import Airtable from 'airtable';
 import type Record from 'airtable/lib/record';
-import type { Fields, Tables } from '../api.types';
+import type { Fields, Tables } from '@srcTypes/api.types';
 
 const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
   'appxpI4tUKTnWtKys',

@@ -1,16 +1,26 @@
+import { OrderStatus } from './../../api.types';
+import { Products } from './../../../../../@types/api.types';
+import type { Fields, Order } from '@srcTypes/api.types';
 import { camelCase, capitalCase } from 'change-case';
 import { ClientsTable, OrdersTable, RepsTable } from '../../modules/db-adapter';
 import {
   filterRecordInfo,
   recordFilterOpts,
   RecordMap,
+  ReducerFn,
   requestTranslateOpts,
   translateRequest,
 } from '../../utils/filter-record';
 import { filterAgentInfo } from '../agents/utils';
 import { filterClientInfo } from '../clients/utils';
 
-async function getRepInfo(number: string) {
+interface RepInfo {
+  key: string;
+  name: string;
+  phoneNumber: string;
+}
+
+async function getRepInfo(number: string): Promise<RepInfo> {
   const repsRecords = await RepsTable.all();
   const matchedRep = repsRecords
     .filter((rep) => {
@@ -20,13 +30,13 @@ async function getRepInfo(number: string) {
       return {
         key: rep.id,
         name: rep.fields['Name'],
-        phoneNumber: rep.fields['Number'],
+        phoneNumber: rep.fields['Primary Contact'],
       };
     });
   return matchedRep[0];
 }
 
-function createClientInfo(order) {
+function createClientInfo(order: Order) {
   return {
     Client: order.businessName,
     Decider: order.decisionMaker,
@@ -38,7 +48,7 @@ function createClientInfo(order) {
   };
 }
 
-function createOrderInfo(order, clientId: string, repInfo) {
+function createOrderInfo(order: Order, clientId: string, repInfo: RepInfo) {
   return {
     'Order Number': order.orderNumber,
     Date: order.date,
@@ -53,7 +63,7 @@ function createOrderInfo(order, clientId: string, repInfo) {
   };
 }
 
-function createEmailTemplate(order, repInfo) {
+function createEmailTemplate(order: Order, repInfo: RepInfo) {
   return {
     To: order.email,
     TemplateModel: {
@@ -72,30 +82,49 @@ function createEmailTemplate(order, repInfo) {
 interface orderDateTime {
   Date: string;
   Time: string;
-  appointment?: {};
+  appointment?: { date: string; time: string };
+}
+
+interface OrderResponse {
+  id: string;
+  number: string;
+  date?: string;
+  time?: string;
+  appointment: {
+    date?: string;
+    time?: string;
+  };
+  productName: Products;
+  status: OrderStatus;
 }
 
 /**
  * Aggregates order date and time into a single object
- *
- * @param fields
- * @param apiReturnValues
- * @see 'functions/utils/filter-record'
  */
-function reduceOrderResponse(fields: {}, apiReturnValues: RecordMap) {
-  return function <T extends orderDateTime>(obj: T, oldPropName: string) {
-    const newPropName =
-      apiReturnValues?.[oldPropName] ?? camelCase(oldPropName);
+const reduceOrderResponse: ReducerFn<Fields['Orders'], OrderResponse> = (
+  fields,
+  apiReturnValues,
+) => {
+  return function (
+    obj,
+    oldPropName,
+  ): Partial<Omit<OrderResponse, 'date' | 'time'>> {
+    const newPropName = (apiReturnValues?.[oldPropName] ??
+      camelCase(oldPropName)) as keyof OrderResponse;
 
-    if (['Date', 'Time'].includes(oldPropName)) {
+    if (
+      (oldPropName == 'Date' || oldPropName == 'Time') &&
+      (newPropName == 'date' || newPropName == 'time')
+    ) {
       obj.appointment = obj.appointment ? obj.appointment : {};
       obj.appointment[newPropName] = fields[oldPropName];
     } else {
       obj[newPropName] = fields[oldPropName];
     }
+
     return obj;
   };
-}
+};
 
 function reduceOrderRequest(fields: {}, apiReturnValues: RecordMap) {
   return function <T extends orderDateTime>(obj: T, oldPropName: string) {
@@ -133,7 +162,9 @@ const defaultOrderFields = [
  * Alias the names of the api return values and filter the selected fields
  * @param filterOpts
  */
-function filterOrderInfo(filterOpts?: recordFilterOpts) {
+function filterOrderInfo(
+  filterOpts?: recordFilterOpts<Fields['Orders'], OrderResponse>,
+) {
   return filterRecordInfo({
     aliasMap: orderAliasMap,
     reducerFn: reduceOrderResponse,
@@ -194,7 +225,10 @@ function fetchLinkedRecords(orderRecord: Airtable.Record<{}>) {
   return Promise.all([clientPromise, agentPromise]);
 }
 
-async function includeLinkedRecords(order, orderRecord: Airtable.Record<{}>) {
+async function includeLinkedRecords(
+  order: Order,
+  orderRecord: Airtable.Record<{}>,
+) {
   const [Client, Agent] = await fetchLinkedRecords(orderRecord);
   return { ...order, Client, Agent };
 }

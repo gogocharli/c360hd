@@ -1,13 +1,28 @@
 import { camelCase, capitalCase } from 'change-case';
 
+export type RecordMap<T, S> = Record<keyof T, keyof Partial<S>>;
+export type ReducerFn<T, S> = (
+  fields: T,
+  apiReturnValues: RecordMap<T, S>,
+) => (obj: Partial<S>, oldPropName: keyof T) => Partial<S>;
+
+export interface recordFilterOpts<T, S> {
+  selectedFields: Array<keyof T>;
+  aliasMap?: RecordMap<T, S>;
+  reducerFn?: ReducerFn<T, S>;
+}
+
+export interface requestTranslateOpts<T, S> {
+  aliasMap?: RecordMap<T, S>;
+  reducerFn?: ReducerFn<T, S>;
+}
+
 /**
  * Transforms the data returned from a record as a simple object
  * with better names for the API consumers
- *
- * @param filterOpts
  */
-function filterRecordInfo(filterOpts: recordFilterOpts) {
-  return function ({ id, fields: initialFields }: Airtable.Record<{}>) {
+function filterRecordInfo<T, S>(filterOpts: recordFilterOpts<T, S>) {
+  return function ({ id, fields: initialFields }: Airtable.Record<T>) {
     const {
       aliasMap,
       selectedFields,
@@ -15,9 +30,9 @@ function filterRecordInfo(filterOpts: recordFilterOpts) {
     } = filterOpts;
 
     // use the provided reducer over the default
-    const fieldReducer = reducerFn(initialFields, aliasMap);
+    const fieldReducer = reducerFn<T, S>(initialFields, aliasMap);
 
-    const newFields = selectedFields.reduce(fieldReducer, {});
+    const newFields = selectedFields.reduce<Partial<S>>(fieldReducer, {});
 
     return {
       id,
@@ -33,12 +48,23 @@ function filterRecordInfo(filterOpts: recordFilterOpts) {
  * @param fields
  * @param aliasMap
  */
-function defaultRecordReducer(fields: {}, aliasMap?: RecordMap) {
-  return function (obj: {}, oldPropName: string) {
-    const newPropName = aliasMap?.[oldPropName] ?? camelCase(oldPropName);
+
+// const defaultRecordReducer = <T , S>(fields: T, aliasMap<T>) => {
+//   return function (obj: any, oldPropName: string) {
+//     const newPropName = aliasMap?.[oldPropName] ?? camelCase(oldPropName);
+
+//     obj[newPropName] = fields[oldPropName];
+//     return obj;
+//   };
+// }
+
+function defaultRecordReducer<T, S>(fields: T, aliasMap?: RecordMap<T, S>) {
+  return function (obj: any, oldPropName: keyof T) {
+    const newPropName = (aliasMap?.[oldPropName] ??
+      camelCase(oldPropName as string)) as keyof S;
 
     obj[newPropName] = fields[oldPropName];
-    return obj;
+    return obj as Partial<S>;
   };
 }
 
@@ -70,7 +96,7 @@ function reverseMap(aliasMap: RecordMap): RecordMap {
   const keys = Object.keys(aliasMap);
   const reversedMap = keys.reduce(function (
     obj: {},
-    oldKey: string
+    oldKey: string,
   ): RecordMap {
     const newKey = aliasMap[oldKey];
     obj[newKey] = oldKey;
@@ -78,23 +104,6 @@ function reverseMap(aliasMap: RecordMap): RecordMap {
   },
   {});
   return reversedMap;
-}
-
-export type RecordMap = Record<string, string>;
-type ReducerFn = (
-  fields: {},
-  apiReturnValues: RecordMap
-) => (obj: {}, oldPropName: string) => {};
-
-export interface recordFilterOpts {
-  selectedFields: string[];
-  aliasMap?: RecordMap;
-  reducerFn?: ReducerFn;
-}
-
-export interface requestTranslateOpts {
-  aliasMap?: RecordMap;
-  reducerFn?: ReducerFn;
 }
 
 export { filterRecordInfo, translateRequest };

@@ -1,3 +1,4 @@
+import { Order } from '@srcTypes/api.types';
 import type { NextApiResponse, NextApiRequest } from 'next';
 import { getAllOrders, placeOrder, searchOrder } from '../components/orders';
 import { success, failure } from '../utils/request';
@@ -9,7 +10,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
   switch (method) {
     case 'POST': {
-      return placeOrder(body).then(fulfill, reject);
+      return placeOrder(body as Order).then(fulfill, reject);
     }
     case 'GET': {
       const searchQuery = query?.search as string;

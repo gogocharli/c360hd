@@ -5,7 +5,8 @@
       "@components/*": ["components/*"],
       "@includes/*": ["_includes/*"],
       "@layouts/*": ["_layouts/*"],
-      "@styles/*": ["styles/*"]
+      "@styles/*": ["styles/*"],
+      "@srcTypes/*": ["../@types/*"]
     },
     "target": "es2015",
     "allowJs": true,

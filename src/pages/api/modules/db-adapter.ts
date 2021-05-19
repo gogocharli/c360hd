@@ -1,4 +1,4 @@
-import { Tables } from '../api.types';
+import { Tables } from '@srcTypes/api.types';
 import * as Queries from '../utils/queries';
 
 /**

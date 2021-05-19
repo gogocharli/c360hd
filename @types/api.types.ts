@@ -78,3 +78,22 @@ type Thumbnails = {
   full: string;
 };
 export type Tables = 'Links' | 'Clients' | 'Orders' | 'Reps' | 'Featured';
+export type Products = 'CLASSIC' | 'SPECIAL';
+
+export interface Order {
+  businessName: string;
+  decisionMaker: string;
+  address: string;
+  email: string;
+  primaryNumber: string;
+  secondaryNumber: string;
+  product: Products;
+  addInfo?: string;
+  lang: 'en' | 'fr';
+  date: string;
+  time: string;
+  paid: boolean;
+  repId: string;
+  orderNumber?: string;
+  humanTime?: string;
+}

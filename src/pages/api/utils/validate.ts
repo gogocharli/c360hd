@@ -1,11 +1,11 @@
+import type { Order } from '@srcTypes/api.types';
+type field = keyof Order;
 /**
  * Validates all fields from the form
- *
- * @param {*} data The form Data
- * @returns {{errorMessage: String} | null}
  */
-function validateInput(data) {
-  for (let field of Object.keys(data)) {
+function validateInput(data: Order) {
+  const fields = Object.keys(data) as field[];
+  for (let field of fields) {
     if (field === 'addInfo' || field === 'repId') {
       continue;
     }
