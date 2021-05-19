@@ -14,7 +14,7 @@ export interface recordFilterOpts<T, S> {
 
 export interface requestTranslateOpts<T, S> {
   aliasMap?: RecordMap<T, S>;
-  reducerFn?: ReducerFn<T, S>;
+  reducerFn?: ReducerFn<S, T>;
 }
 
 /**
@@ -43,21 +43,8 @@ function filterRecordInfo<T, S>(filterOpts: recordFilterOpts<T, S>) {
 
 /**
  * Match the props in the DB to better names for the API consumers.
- * Turns prop to camelCase if alias is not provided
- *
- * @param fields
- * @param aliasMap
+ * Turns prop to camelCase when no alias is provided
  */
-
-// const defaultRecordReducer = <T , S>(fields: T, aliasMap<T>) => {
-//   return function (obj: any, oldPropName: string) {
-//     const newPropName = aliasMap?.[oldPropName] ?? camelCase(oldPropName);
-
-//     obj[newPropName] = fields[oldPropName];
-//     return obj;
-//   };
-// }
-
 function defaultRecordReducer<T, S>(fields: T, aliasMap?: RecordMap<T, S>) {
   return function (obj: any, oldPropName: keyof T) {
     const newPropName = (aliasMap?.[oldPropName] ??
@@ -68,42 +55,45 @@ function defaultRecordReducer<T, S>(fields: T, aliasMap?: RecordMap<T, S>) {
   };
 }
 
-function translateRequest(translateOpts: requestTranslateOpts) {
-  const { aliasMap, reducerFn = defaultRequestReducer } = translateOpts;
-
-  // This allow us to have a single alias map for both requests and responses
-  const reversedMap = reverseMap?.(aliasMap);
-
-  return function (requestBody) {
-    const reducer = reducerFn(requestBody, reversedMap);
-
-    const requestKeys = Object.keys(requestBody);
-    const fields = requestKeys.reduce(reducer, {});
-    return fields;
-  };
-}
-
-function defaultRequestReducer(fields: {}, aliasMap?: RecordMap) {
-  return function (obj: {}, oldPropName: string) {
-    const newPropName = aliasMap?.[oldPropName] ?? capitalCase(oldPropName);
+/**
+ * Match the properties in the API requests to those in the DB.
+ * Turns prop to CapitalCase when no alias is provided
+ */
+function defaultRequestReducer<T, S>(fields: T, aliasMap?: RecordMap<T, S>) {
+  return function (obj: any, oldPropName: keyof T) {
+    const newPropName = (aliasMap?.[oldPropName] ??
+      capitalCase(oldPropName as string)) as keyof S;
 
     obj[newPropName] = fields[oldPropName];
     return obj;
   };
 }
 
-function reverseMap(aliasMap: RecordMap): RecordMap {
-  const keys = Object.keys(aliasMap);
-  const reversedMap = keys.reduce(function (
-    obj: {},
-    oldKey: string,
-  ): RecordMap {
+function translateRequest<T, S>(translateOpts: requestTranslateOpts<T, S>) {
+  const { aliasMap, reducerFn = defaultRequestReducer } = translateOpts;
+
+  // This allow us to have a single alias map for both requests and responses
+  const reversedMap = reverseMap?.(aliasMap);
+
+  return function (requestBody: S) {
+    const reducer = reducerFn(requestBody, reversedMap);
+
+    const requestKeys = Object.keys(requestBody) as Array<keyof S>;
+    const fields = requestKeys.reduce<Partial<T>>(reducer, {});
+    return fields;
+  };
+}
+
+function reverseMap<T, S>(aliasMap: RecordMap<T, S>) {
+  const keys = Object.keys(aliasMap) as Array<keyof T>;
+
+  const reversedMap = keys.reduce(function (obj: any, oldKey: keyof T) {
     const newKey = aliasMap[oldKey];
     obj[newKey] = oldKey;
     return obj;
-  },
-  {});
-  return reversedMap;
+  }, {});
+
+  return reversedMap as RecordMap<S, T>;
 }
 
 export { filterRecordInfo, translateRequest };
