@@ -8,7 +8,9 @@ export type OrderStatus =
   | 'Done'
   | 'Cancelled'
   | 'Waiting Payment';
-
+export type Tables = 'Links' | 'Clients' | 'Orders' | 'Reps' | 'Featured';
+export type Products = 'CLASSIC' | 'SPECIAL';
+export type Language = 'EN' | 'FR';
 export interface Fields {
   Links: {
     Name: number;
@@ -26,7 +28,7 @@ export interface Fields {
     Email: string;
     Order: string[];
     Time: string;
-    Language: 'EN' | 'FR';
+    Language: Language;
     Featured: string[];
   };
   Orders: {
@@ -36,6 +38,7 @@ export interface Fields {
     'Payment Method': PaymentMethod;
     'Product Name': string;
     'Rep ID': string[];
+    Clients: string[];
     'Additional Info': string;
     Status: OrderStatus;
     Deposit: boolean;
@@ -77,8 +80,6 @@ type Thumbnails = {
   large: string;
   full: string;
 };
-export type Tables = 'Links' | 'Clients' | 'Orders' | 'Reps' | 'Featured';
-export type Products = 'CLASSIC' | 'SPECIAL';
 
 export interface Order {
   businessName: string;

@@ -1,4 +1,5 @@
 import type { Order } from '@srcTypes/api.types';
+import type { OrderResponse } from './utils';
 import cryptoRandomString from 'crypto-random-string';
 
 import { formatDate, formatTime } from '../../utils/date-time';
@@ -146,16 +147,14 @@ export async function searchOrder(query: string) {
       .map((client) => client.fields['Order'])
       .map(OrdersTable.getRow.bind(OrdersTable));
 
-    const fieldsToInclude = [
-      'Order Number',
-      'Date',
-      'Time',
-      'Product Name',
-      'Status',
-    ];
-
     const filterOrderFields = filterOrderInfo({
-      selectedFields: fieldsToInclude,
+      selectedFields: [
+        'Order Number',
+        'Date',
+        'Time',
+        'Product Name',
+        'Status',
+      ],
     });
 
     // Include only the aforementioned set of fields
@@ -203,10 +202,8 @@ export async function cancelOrder(id: string): Promise<void> {
 
 /**
  * Update fields for a specified order.
- * @param id
- * @param changes key value pairs of changes to be made
  */
-export async function updateOrder(id: string, changes: Partial<Order>) {
+export async function updateOrder(id: string, changes: OrderResponse) {
   try {
     const update = { id, fields: translateOrderFields(changes) };
 

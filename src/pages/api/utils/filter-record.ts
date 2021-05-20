@@ -1,6 +1,6 @@
 import { camelCase, capitalCase } from 'change-case';
 
-export type RecordMap<T, S> = Record<keyof T, keyof Partial<S>>;
+export type RecordMap<T, S> = Partial<Record<keyof T, keyof S>>;
 export type ReducerFn<T, S> = (
   fields: T,
   apiReturnValues: RecordMap<T, S>,
@@ -41,6 +41,21 @@ function filterRecordInfo<T, S>(filterOpts: recordFilterOpts<T, S>) {
   };
 }
 
+function translateRequest<T, S>(translateOpts: requestTranslateOpts<T, S>) {
+  const { aliasMap, reducerFn = defaultRequestReducer } = translateOpts;
+
+  // This allow us to have a single alias map for both requests and responses
+  const reversedMap = reverseMap?.(aliasMap);
+
+  return function (requestBody: S) {
+    const reducer = reducerFn(requestBody, reversedMap);
+
+    const requestKeys = Object.keys(requestBody) as Array<keyof S>;
+    const fields = requestKeys.reduce<Partial<T>>(reducer, {});
+    return fields;
+  };
+}
+
 /**
  * Match the props in the DB to better names for the API consumers.
  * Turns prop to camelCase when no alias is provided
@@ -65,22 +80,7 @@ function defaultRequestReducer<T, S>(fields: T, aliasMap?: RecordMap<T, S>) {
       capitalCase(oldPropName as string)) as keyof S;
 
     obj[newPropName] = fields[oldPropName];
-    return obj;
-  };
-}
-
-function translateRequest<T, S>(translateOpts: requestTranslateOpts<T, S>) {
-  const { aliasMap, reducerFn = defaultRequestReducer } = translateOpts;
-
-  // This allow us to have a single alias map for both requests and responses
-  const reversedMap = reverseMap?.(aliasMap);
-
-  return function (requestBody: S) {
-    const reducer = reducerFn(requestBody, reversedMap);
-
-    const requestKeys = Object.keys(requestBody) as Array<keyof S>;
-    const fields = requestKeys.reduce<Partial<T>>(reducer, {});
-    return fields;
+    return obj as Partial<S>;
   };
 }
 

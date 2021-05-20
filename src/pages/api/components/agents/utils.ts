@@ -1,3 +1,4 @@
+import type { Fields } from '@srcTypes/api.types';
 import {
   filterRecordInfo,
   recordFilterOpts,
@@ -6,13 +7,28 @@ import {
   translateRequest,
 } from '../../utils/filter-record';
 
-const agentAliasMap: RecordMap = {
+interface AgentResponse {
+  number: string;
+  name: string;
+  primaryContact: string;
+  email: string;
+}
+type AgentFields = Fields['Reps'];
+
+const agentAliasMap: RecordMap<AgentFields, AgentResponse> = {
   RepID: 'number',
 };
 
-const defaultAgentFields = ['RepID', 'Name', 'Primary Contact', 'Email'];
+const defaultAgentFields = [
+  'RepID',
+  'Name',
+  'Primary Contact',
+  'Email',
+] as Array<keyof AgentFields>;
 
-function filterAgentInfo(filterOpts?: recordFilterOpts) {
+function filterAgentInfo(
+  filterOpts?: recordFilterOpts<AgentFields, AgentResponse>,
+) {
   return filterRecordInfo({
     aliasMap: agentAliasMap,
     selectedFields: defaultAgentFields,
@@ -22,7 +38,9 @@ function filterAgentInfo(filterOpts?: recordFilterOpts) {
 
 const filterAgentFields = filterAgentInfo();
 
-function translateAgentRequest(options?: requestTranslateOpts) {
+function translateAgentRequest(
+  options?: requestTranslateOpts<AgentFields, AgentResponse>,
+) {
   return translateRequest({
     aliasMap: agentAliasMap,
     ...options,

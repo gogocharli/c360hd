@@ -1,6 +1,4 @@
-import { OrderStatus } from './../../api.types';
-import { Products } from './../../../../../@types/api.types';
-import type { Fields, Order } from '@srcTypes/api.types';
+import type { Fields, Order, OrderStatus, Products } from '@srcTypes/api.types';
 import { camelCase, capitalCase } from 'change-case';
 import { ClientsTable, OrdersTable, RepsTable } from '../../modules/db-adapter';
 import {
@@ -85,8 +83,7 @@ interface orderDateTime {
   appointment?: { date: string; time: string };
 }
 
-interface OrderResponse {
-  id: string;
+export interface OrderResponse {
   number: string;
   date?: string;
   time?: string;
@@ -96,12 +93,15 @@ interface OrderResponse {
   };
   productName: Products;
   status: OrderStatus;
+  AgentID?: string;
 }
+
+type OrderFields = Fields['Orders'];
 
 /**
  * Aggregates order date and time into a single object
  */
-const reduceOrderResponse: ReducerFn<Fields['Orders'], OrderResponse> = (
+const reduceOrderResponse: ReducerFn<OrderFields, OrderResponse> = (
   fields,
   apiReturnValues,
 ) => {
@@ -119,32 +119,37 @@ const reduceOrderResponse: ReducerFn<Fields['Orders'], OrderResponse> = (
       obj.appointment = obj.appointment ? obj.appointment : {};
       obj.appointment[newPropName] = fields[oldPropName];
     } else {
+      //@ts-ignore not sure which type is cast to 'never' here
       obj[newPropName] = fields[oldPropName];
     }
-
     return obj;
   };
 };
 
-function reduceOrderRequest(fields: {}, apiReturnValues: RecordMap) {
-  return function <T extends orderDateTime>(obj: T, oldPropName: string) {
+const reduceOrderRequest: ReducerFn<OrderResponse, OrderFields> = (
+  fields,
+  apiReturnValues,
+) => {
+  return function (obj, oldPropName) {
     if (oldPropName === 'appointment') {
       obj['Date'] = fields['appointment'].date;
       obj['Time'] = fields['appointment'].time;
       return obj;
     }
 
-    const newPropName =
-      apiReturnValues?.[oldPropName] ?? capitalCase(oldPropName);
+    const newPropName = (apiReturnValues?.[oldPropName] ??
+      capitalCase(oldPropName)) as keyof OrderFields;
+
+    // @ts-ignore
     obj[newPropName] = fields[oldPropName];
 
     return obj;
   };
-}
+};
 
 // Represents a map between the current values returned by the DB
 // and the ones we want to present to the API consumers
-const orderAliasMap: RecordMap = {
+const orderAliasMap: RecordMap<OrderFields, OrderResponse> = {
   'Order Number': 'number',
   'Rep ID': 'AgentID',
 };
@@ -163,7 +168,7 @@ const defaultOrderFields = [
  * @param filterOpts
  */
 function filterOrderInfo(
-  filterOpts?: recordFilterOpts<Fields['Orders'], OrderResponse>,
+  filterOpts?: recordFilterOpts<OrderFields, OrderResponse>,
 ) {
   return filterRecordInfo({
     aliasMap: orderAliasMap,
@@ -178,8 +183,10 @@ const filterOrderFields = filterOrderInfo();
 /**
  * Alias the names of the API consumer requests to the DB Schema
  */
-function translateOrderRequest(options?: requestTranslateOpts) {
-  return translateRequest({
+function translateOrderRequest(
+  options?: requestTranslateOpts<OrderFields, OrderResponse>,
+) {
+  return translateRequest<OrderFields, OrderResponse>({
     aliasMap: orderAliasMap,
     reducerFn: reduceOrderRequest,
     ...options,
@@ -191,11 +198,10 @@ const translateOrderFields = translateOrderRequest();
 /**
  * Gets relevant info for the agent who made the sale
  */
-function getAgentFromOrder({ fields }: Airtable.Record<{}>): Promise<{}> {
+function getAgentFromOrder({ fields }: Airtable.Record<OrderFields>) {
   const [agentId] = fields['Rep ID'];
-  const selectedFields = ['RepID', 'Name'];
   const agent = RepsTable.getRow(agentId).then(
-    filterAgentInfo({ selectedFields }),
+    filterAgentInfo({ selectedFields: ['RepID', 'Name'] }),
   );
   return agent;
 }
@@ -203,22 +209,23 @@ function getAgentFromOrder({ fields }: Airtable.Record<{}>): Promise<{}> {
 /**
  * Retrieves relevant info for the client who passed the order
  */
-function getClientFromOrder({ fields }: Airtable.Record<{}>): Promise<{}> {
+function getClientFromOrder({ fields }: Airtable.Record<OrderFields>) {
   const [clientId] = fields['Clients'];
-  const selectedFields = [
-    'Client',
-    'Address',
-    'Primary Contact',
-    'Secondary Contact',
-    'Email',
-  ];
   const client = ClientsTable.getRow(clientId).then(
-    filterClientInfo({ selectedFields }),
+    filterClientInfo({
+      selectedFields: [
+        'Client',
+        'Address',
+        'Primary Contact',
+        'Secondary Contact',
+        'Email',
+      ],
+    }),
   );
   return client;
 }
 
-function fetchLinkedRecords(orderRecord: Airtable.Record<{}>) {
+function fetchLinkedRecords(orderRecord: Airtable.Record<OrderFields>) {
   const clientPromise = getClientFromOrder(orderRecord);
   const agentPromise = getAgentFromOrder(orderRecord);
 
@@ -226,8 +233,8 @@ function fetchLinkedRecords(orderRecord: Airtable.Record<{}>) {
 }
 
 async function includeLinkedRecords(
-  order: Order,
-  orderRecord: Airtable.Record<{}>,
+  order: { id: string } & Partial<OrderResponse>,
+  orderRecord: Airtable.Record<OrderFields>,
 ) {
   const [Client, Agent] = await fetchLinkedRecords(orderRecord);
   return { ...order, Client, Agent };
