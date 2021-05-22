@@ -23,7 +23,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "noImplicitAny": true,
-    "typeRoots": ["./@types", "node_modules/@types"],
+    "typeRoots": ["./@types", "@types"],
     "types": ["@types/jest", "@types/airtable"]
   },
   "exclude": ["node_modules"],

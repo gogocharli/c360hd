@@ -145,7 +145,10 @@ export function GalleryRow({
 
 export function InitialRows({ items }: { items: GalleryListItem[] }) {
   // Index the list by category
-  const categories = items.reduce((acc, item) => {
+
+  const categories = items.reduce<{
+    [k: string]: GalleryListItem[] | undefined;
+  }>((acc, item) => {
     const category = item.category;
 
     if (acc[category] == undefined) {

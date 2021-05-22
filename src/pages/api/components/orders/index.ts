@@ -184,7 +184,7 @@ export async function searchOrder(query: string) {
  * Set the order's status to "cancelled".
  * @param id
  */
-export async function cancelOrder(id: string): Promise<void> {
+export async function cancelOrder(id: string): Promise<{}> {
   try {
     const update = {
       id,

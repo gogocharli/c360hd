@@ -64,7 +64,7 @@ export function StripeCheckout({
       .then((data) => setClientSecret(data.clientSecret));
   }, []);
 
-  async function handleSubmit(event) {
+  async function handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
     setProcessing(true);
 

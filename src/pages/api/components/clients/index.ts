@@ -50,7 +50,7 @@ enum Intent {
 async function notifyClient(
   clientId: string,
   notificationOpts: { format: Format; type: Intent },
-): Promise<void> {
+): Promise<{}> {
   const { format = Format.email, type = Intent.onboarding } = notificationOpts;
 
   try {
@@ -155,7 +155,7 @@ async function updateClient(clientId: string, changes: ClientResponse) {
   }
 }
 
-async function deleteClients(ids: string[]): Promise<void> {
+async function deleteClients(ids: string[]): Promise<{}> {
   try {
     await ClientsTable.deleteRow(...ids);
     return undefined;

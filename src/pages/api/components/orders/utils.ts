@@ -126,7 +126,7 @@ const reduceOrderResponse: ReducerFn<OrderFields, OrderResponse> = (
   };
 };
 
-const reduceOrderRequest: ReducerFn<OrderResponse, OrderFields> = (
+export const reduceOrderRequest: ReducerFn<OrderResponse, OrderFields> = (
   fields,
   apiReturnValues,
 ) => {

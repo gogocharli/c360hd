@@ -64,8 +64,8 @@ export default function Portfolio({
   }, [query]);
 
   // Debounce input before changing query
-  const searchInputRef = useRef();
-  let scheduled = null;
+  const searchInputRef = useRef<HTMLInputElement>();
+  let scheduled: HTMLInputElement = null;
   function handleSearchChange() {
     if (!scheduled) {
       window.setTimeout(() => {

@@ -34,7 +34,10 @@ export function AddressAutoComplete() {
     scheduled = inputValue;
   }
 
-  async function handleSelect({ description }, onChange) {
+  async function handleSelect(
+    { description }: { description: string },
+    onChange: Function,
+  ) {
     setValue(description, false);
     clearSuggestions();
 
