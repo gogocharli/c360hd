@@ -1,7 +1,8 @@
+import type { AgentResponse } from './utils';
 import { RepsTable } from '../../modules/db-adapter';
 import { filterAgentFields, translateAgentFields } from './utils';
 
-async function createAgent(agentDetails: {}) {
+async function createAgent(agentDetails: AgentResponse) {
   const agentInfo = translateAgentFields(agentDetails);
 
   // Ensure agent numbers aren't duplicated and return error if any exist
@@ -65,7 +66,7 @@ async function getAllAgents() {
   return {};
 }
 
-async function updateAgentInfo(id: string, changes) {
+async function updateAgentInfo(id: string, changes: AgentResponse) {
   try {
     const update = { id, fields: translateAgentFields(changes) };
 

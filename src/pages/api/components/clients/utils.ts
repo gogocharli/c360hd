@@ -1,5 +1,6 @@
-import type { Language, Fields } from '@srcTypes/api.types';
-import { EmailOptions } from '../../modules/email';
+import type { Language, Fields, Thumbnails } from '@srcTypes/api.types';
+import type { Appointment } from '../../utils/phone';
+import type { EmailOptions } from '../../modules/email';
 import {
   filterRecordInfo,
   recordFilterOpts,
@@ -7,9 +8,8 @@ import {
   requestTranslateOpts,
   translateRequest,
 } from '../../utils/filter-record';
-import { Appointment } from '../../utils/phone';
 
-interface ClientResponse {
+export interface ClientResponse {
   name: string;
   decider: string;
   address: string;
@@ -35,7 +35,7 @@ const defaultClientFields = [
   'Email',
   'Order',
   'Language',
-];
+] as const;
 
 /**
  * Alias the names of the api return values and filter the selected fields
@@ -56,8 +56,29 @@ function filterClientInfo(
  */
 const filterClientFields = filterClientInfo();
 
+interface FeaturedClientsResponse {
+  name: string;
+  category: string;
+  address: string;
+  created: string;
+  cover: {
+    id: string;
+    url: string;
+    filename: string;
+    size: string;
+    type: string;
+    thumbnails: {
+      [Property in keyof Thumbnails]: {
+        url: string;
+        width: number;
+        height: number;
+      };
+    };
+  }[];
+}
+
 function filterFeaturedClientInfo(
-  filterOpts?: recordFilterOpts<ClientFields, ClientResponse>,
+  filterOpts?: recordFilterOpts<Fields['Featured'], FeaturedClientsResponse>,
 ) {
   return filterRecordInfo({
     selectedFields: ['Name', 'Category', 'Address', 'Created', 'Cover'],

@@ -161,7 +161,7 @@ const defaultOrderFields = [
   'Payment',
   'Product Name',
   'Status',
-];
+] as const;
 
 /**
  * Alias the names of the api return values and filter the selected fields

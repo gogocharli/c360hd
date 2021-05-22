@@ -7,7 +7,7 @@ import {
   translateRequest,
 } from '../../utils/filter-record';
 
-interface AgentResponse {
+export interface AgentResponse {
   number: string;
   name: string;
   primaryContact: string;
@@ -24,7 +24,7 @@ const defaultAgentFields = [
   'Name',
   'Primary Contact',
   'Email',
-] as Array<keyof AgentFields>;
+] as const;
 
 function filterAgentInfo(
   filterOpts?: recordFilterOpts<AgentFields, AgentResponse>,

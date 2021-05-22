@@ -58,6 +58,9 @@ export interface Fields {
   Featured: {
     Name: string;
     Client: string[];
+    Category: string;
+    Created: string;
+    Address: string;
     Cover: {
       id: string;
       url: string;
@@ -71,11 +74,11 @@ export interface Fields {
           height: number;
         };
       };
-    };
+    }[];
   };
 }
 
-type Thumbnails = {
+export type Thumbnails = {
   small: string;
   large: string;
   full: string;

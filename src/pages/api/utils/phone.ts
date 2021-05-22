@@ -2,9 +2,6 @@ import { createReminderSms } from './templates';
 
 /**
  * Formats a phone number to a simple string by removing spaces and special characters
- *
- * @param {string} phoneNumber
- * @returns {string}
  */
 function formatPhoneNumber(phoneNumber: string): string {
   const regex = /[()\s-]/gi;
@@ -19,11 +16,10 @@ export interface Appointment {
 }
 
 /**
- * Send messages to all appointment owners via Twilio
- * @param {Array} appointments List of appointments.
+ * Send messages to all appointment owners via Twilio.
  */
 async function sendSmsNotifications(
-  appointments: Appointment[]
+  appointments: Appointment[],
 ): Promise<void> {
   // Set up twilio
   const accountSid = process.env.TWILIO_ACCOUNT_SID;
