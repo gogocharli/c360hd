@@ -55,7 +55,7 @@ const scheduleIsFree = async (date: Date): Promise<ValidateResult> => {
     const { isFree, reason } = (await res.json()) as ScheduleResponse;
 
     if (isFree == false) {
-      return reason;
+      return typeof reason == 'string' ? reason : false;
     }
     return isFree;
   } catch (err) {

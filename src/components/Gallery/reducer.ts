@@ -8,7 +8,7 @@ type GalleryAction =
 interface GalleryState {
   search: string;
   filter: string;
-  items?: GalleryListItem[] | undefined;
+  items: GalleryListItem[];
   initialItems: GalleryListItem[];
 }
 

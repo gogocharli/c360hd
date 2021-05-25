@@ -44,7 +44,7 @@ export function StripeCheckout({
   };
   onSuccess: Dispatch<SetStateAction<boolean>>;
 }) {
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<any>(null);
   const [isProcessing, setProcessing] = useState(false);
   const [clientSecret, setClientSecret] = useState('');
 
@@ -70,10 +70,13 @@ export function StripeCheckout({
 
     if (!stripe || !elements) return;
 
+    const card = elements.getElement(CardNumberElement);
+    if (!card) return;
+
     const payload = await stripe.confirmCardPayment(clientSecret, {
       receipt_email: customerInfo.email,
       payment_method: {
-        card: elements.getElement(CardNumberElement),
+        card,
         billing_details: customerInfo,
       },
     });

@@ -58,18 +58,18 @@ export default function Portfolio({
         shallow: true,
       });
       return;
-    } else {
+    } else if (typeof filter == 'string') {
       filterRef.current = filter;
     }
   }, [query]);
 
   // Debounce input before changing query
-  const searchInputRef = useRef<HTMLInputElement>();
-  let scheduled: HTMLInputElement = null;
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  let scheduled: HTMLInputElement | null = null;
   function handleSearchChange() {
     if (!scheduled) {
       window.setTimeout(() => {
-        setSearchQuery(scheduled.value);
+        setSearchQuery(() => (scheduled ? scheduled.value : ''));
         scheduled = null;
       }, 250);
     }
@@ -321,11 +321,11 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   const featuredClientsData = await getFeaturedClients();
   const featuredClients = featuredClientsData.map(
     ({ name, category, address, created, cover }) => ({
-      category: category.toLowerCase(),
+      category: category?.toLowerCase(),
       created,
       name,
       src: cover?.[0]?.thumbnails.large.url ?? '', // 1024 x 512 base image
-      address: address[0],
+      address: address?.[0],
     }),
   );
 

@@ -1,27 +1,29 @@
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import Checkbox from '@components/icon-checkbox.svg';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 export function Timeline({ step }: { step: number }) {
+  const listParentRef = useRef<HTMLOListElement>(null);
   useEffect(() => {
+    const { current: listParent } = listParentRef;
+    if (!listParent) return;
     // Scroll to the timeline element when the component overflows
-    const timeline = document.querySelector('.timeline');
-    const current = timeline.children[step] as HTMLOListElement;
+    const current = listParent.children[step];
     const { x } = current.getBoundingClientRect();
 
     // The unordered list's parent is the one to scroll
-    timeline.parentElement.scrollTo({
+    listParent.parentElement?.scrollTo({
       left: x,
       behavior: 'smooth',
     });
-  }, [step]);
+  }, [step, listParentRef]);
 
   const { t } = useTranslation('checkout');
   return (
     <section>
       <div>
-        <ol className='timeline'>
+        <ol className='timeline' ref={listParentRef}>
           <li data-complete={step > 0} data-current={step == 0}>
             <Link href='#business'>
               <a className='timeline__link'>

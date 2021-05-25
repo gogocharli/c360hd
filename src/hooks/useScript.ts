@@ -42,7 +42,7 @@ export function useScript(src: string) {
         script.addEventListener('error', setAttributeFromEvent);
       } else {
         // Grab existing script status from attribute and set to state.
-        setStatus(script.getAttribute('data-status'));
+        setStatus(script.getAttribute('data-status') ?? 'loading');
       }
 
       // Script event handler to update status in state

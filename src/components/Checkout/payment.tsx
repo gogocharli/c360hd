@@ -61,7 +61,7 @@ export function Payment() {
   const onInvalidForm: SubmitErrorHandler<FormInputs> = (err) => {
     setProcessing(false);
     const errorMessages = Object.entries(err).map(
-      ([field, error]) => `Please verify the ${field}: ${error.message}`,
+      ([field, error]) => `Please verify the ${field}: ${error?.message}`,
     );
     console.error(errorMessages);
     setErrors(errorMessages);

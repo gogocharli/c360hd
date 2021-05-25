@@ -16,8 +16,9 @@ export function changeThemeOnScrollPosition() {
     },
   );
 
-  let bodyEl = document.querySelector('body');
-  let targetEl = document.querySelector('#index-hero');
+  let bodyEl = document.querySelector('body') as HTMLBodyElement;
+  let targetEl = document.querySelector('#index-hero') as HTMLElement;
+
   observer.observe(targetEl);
 
   return () => {

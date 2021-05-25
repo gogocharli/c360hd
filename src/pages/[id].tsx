@@ -3,21 +3,28 @@ import BaseLayout from '@layouts/base';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { getAllPostIds, getPostData } from 'lib/misc';
 
-export default function Terms({ pageData }: {
+export default function Terms({
+  pageData,
+}: {
   pageData: {
     title: string;
     description: string;
     contentHtml: string;
-  }
+  };
 }) {
   const { title, description, contentHtml } = pageData;
 
   return (
     <>
-      <BaseLayout pageMeta={{ title: title, desc: description }} theme="light">
-        <article className="wrapper">
-          <h1 className="[ text-600 lg:text-800 ] [ tracking-tight md:tracking-flat leading-flat measure-micro  ]">{title}</h1>
-          <div className="contents measure-long" dangerouslySetInnerHTML={{ __html: contentHtml }} />
+      <BaseLayout pageMeta={{ title: title, desc: description }} theme='light'>
+        <article className='wrapper'>
+          <h1 className='[ text-600 lg:text-800 ] [ tracking-tight md:tracking-flat leading-flat measure-micro  ]'>
+            {title}
+          </h1>
+          <div
+            className='contents measure-long'
+            dangerouslySetInnerHTML={{ __html: contentHtml }}
+          />
         </article>
       </BaseLayout>
       <style jsx>{`
@@ -54,19 +61,22 @@ export default function Terms({ pageData }: {
         }
       `}</style>
     </>
-  )
+  );
 }
 
-export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
+export const getStaticPaths: GetStaticPaths = async ({ locales = [] }) => {
   const paths = getAllPostIds(locales);
   return {
     paths,
     fallback: false,
-  }
-}
+  };
+};
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'en', params }) => {
-  const pageData = await getPostData(params.id as string, locale);
+export const getStaticProps: GetStaticProps = async ({
+  locale = 'en',
+  params,
+}) => {
+  const pageData = await getPostData(params?.id as string, locale);
 
   if (!pageData) {
     return { notFound: true };
@@ -74,11 +84,8 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en', params }) 
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, [
-        'common',
-        'site',
-      ])),
-      pageData
+      ...(await serverSideTranslations(locale, ['common', 'site'])),
+      pageData,
     },
   };
 };

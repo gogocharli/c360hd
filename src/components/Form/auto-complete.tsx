@@ -27,7 +27,7 @@ export function AddressAutoComplete() {
   function debounceInput(inputValue: string) {
     if (!scheduled) {
       window.setTimeout(() => {
-        setValue(scheduled);
+        setValue(scheduled ?? '');
         scheduled = null;
       }, 300);
     }

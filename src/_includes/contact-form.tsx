@@ -45,7 +45,6 @@ export function ContactForm() {
             </label>
             <input
               type='text'
-              name='company'
               id='company'
               {...register('company', {
                 required: `${t('form.company.error.required')}`,
@@ -59,7 +58,6 @@ export function ContactForm() {
             </label>
             <input
               type='text'
-              name='fullName'
               id='fullName'
               {...register('fullName', {
                 required: `${t('form.fullName.error.required')}`,
@@ -76,7 +74,6 @@ export function ContactForm() {
               inputMode='numeric'
               pattern='[0-9]*'
               autoComplete='tel'
-              name='phone'
               id='phone'
               {...register('phone', {
                 required: `${t('form.phone.error.required')}`,
@@ -91,7 +88,6 @@ export function ContactForm() {
             <input
               type='email'
               autoComplete='email'
-              name='email'
               id='email'
               {...register('email', {
                 required: `${t('form.email.error.required')}`,
@@ -103,12 +99,7 @@ export function ContactForm() {
             <label htmlFor='subject' className='field-label'>
               {t('form.subject.name')}
             </label>
-            <select
-              name='subject'
-              id='subject'
-              defaultValue='info'
-              {...register('subject')}
-            >
+            <select id='subject' defaultValue='info' {...register('subject')}>
               <option value='payment'>{t('form.subject.options.0')}</option>
               <option value='tours'>{t('form.subject.options.1')}</option>
               <option value='info'>{t('form.subject.options.2')}</option>
@@ -119,7 +110,6 @@ export function ContactForm() {
               {t('form.message.name')}
             </label>
             <textarea
-              name='message'
               id='message'
               cols={30}
               rows={10}
