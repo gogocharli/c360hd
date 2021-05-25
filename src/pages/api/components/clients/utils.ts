@@ -46,7 +46,7 @@ function filterClientInfo(
 ) {
   return filterRecordInfo({
     aliasMap: clientAliasMap,
-    selectedFields: defaultClientFields,
+    selectedFields: [...defaultClientFields],
     ...filterOpts,
   });
 }

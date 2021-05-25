@@ -31,7 +31,7 @@ function filterAgentInfo(
 ) {
   return filterRecordInfo({
     aliasMap: agentAliasMap,
-    selectedFields: defaultAgentFields,
+    selectedFields: [...defaultAgentFields],
     ...filterOpts,
   });
 }

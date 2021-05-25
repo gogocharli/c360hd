@@ -1,6 +1,8 @@
 import * as postmark from 'postmark';
 
-const client = new postmark.ServerClient(process.env.POSTMARK_SERVER_TOKEN);
+const client = new postmark.ServerClient(
+  process.env.POSTMARK_SERVER_TOKEN as string,
+);
 
 export interface EmailOptions {
   To: any;
@@ -39,14 +41,14 @@ export default class Email {
      * @see https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-guards-and-differentiating-types
      */
     function isBatch(
-      options: EmailOptions | EmailOptions[]
+      options: EmailOptions | EmailOptions[],
     ): options is EmailOptions[] {
       return Array.isArray(options);
     }
 
     if (isBatch(options)) {
       const batchList: postmark.TemplatedMessage[] = options.map(
-        this.createEmail.bind(this)
+        this.createEmail.bind(this),
       );
 
       return client.sendEmailBatchWithTemplates(batchList);

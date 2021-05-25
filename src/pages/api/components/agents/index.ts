@@ -7,6 +7,8 @@ async function createAgent(agentDetails: AgentResponse) {
 
   // Ensure agent numbers aren't duplicated and return error if any exist
   const newAgentNumber = agentInfo['RepID'];
+  if (!newAgentNumber) throw 'Invalid agent number';
+
   const matchedAgents = await RepsTable.all({
     filterField: { field: 'RepID', query: newAgentNumber },
   });

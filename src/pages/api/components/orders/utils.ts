@@ -77,12 +77,6 @@ function createEmailTemplate(order: Order, repInfo: RepInfo) {
   };
 }
 
-interface orderDateTime {
-  Date: string;
-  Time: string;
-  appointment?: { date: string; time: string };
-}
-
 export interface OrderResponse {
   number: string;
   date?: string;
@@ -158,7 +152,7 @@ const defaultOrderFields = [
   'Order Number',
   'Date',
   'Time',
-  'Payment',
+  'Paid',
   'Product Name',
   'Status',
 ] as const;
@@ -173,7 +167,7 @@ function filterOrderInfo(
   return filterRecordInfo({
     aliasMap: orderAliasMap,
     reducerFn: reduceOrderResponse,
-    selectedFields: defaultOrderFields,
+    selectedFields: [...defaultOrderFields],
     ...filterOpts,
   });
 }

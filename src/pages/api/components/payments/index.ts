@@ -20,7 +20,7 @@ interface PaymentAttributes {
   type?: 'deposit' | 'final';
 }
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: '2020-08-27',
 });
 
@@ -46,6 +46,8 @@ export async function createPayment(
       setup_future_usage: 'off_session',
       description: `Google Streetview: ${capitalCase(intent)}`,
     });
+
+    if (!paymentIntent.client_secret) throw 'Failed to retrieve client secret';
     return {
       clientSecret: paymentIntent.client_secret,
     };
@@ -93,7 +95,7 @@ export async function chargeCustomer({
     if (customer.deleted == true)
       throw 'The customer was deleted. Cannot process payment';
 
-    const province = customer.address?.state;
+    const province = customer.address?.state ?? 'qc';
 
     const paymentIntent = await stripe.paymentIntents.create({
       amount: await calculateOrderAmount({ product, province, type: 'final' }),
@@ -118,5 +120,8 @@ async function calculateOrderAmount({
   type = 'deposit',
 }: PaymentAttributes): Promise<number> {
   const price = await getPrice({ product, province, type });
+
+  if (!price.unit_amount) throw 'Failed to retrieve item price';
+
   return price.unit_amount;
 }

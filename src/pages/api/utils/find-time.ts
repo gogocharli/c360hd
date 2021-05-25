@@ -12,7 +12,7 @@
 
 function findClosestHours(
   preferredHour: string,
-  availableHours: string[]
+  availableHours: string[],
 ): string[] {
   if (availableHours.length < 3) {
     return availableHours;
@@ -30,11 +30,11 @@ function findClosestHours(
   }
 }
 
-function binarySearch(
-  list: unknown[],
-  item: unknown,
+function binarySearch<T>(
+  list: T[],
+  item: T,
   start = 0,
-  end = list.length - 1
+  end = list.length - 1,
 ): number {
   // Base case
   if (start > end) return -1;

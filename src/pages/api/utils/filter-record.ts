@@ -3,7 +3,7 @@ import { camelCase, capitalCase } from 'change-case';
 export type RecordMap<T, S> = Partial<Record<keyof T, keyof S>>;
 export type ReducerFn<T, S> = (
   fields: T,
-  apiReturnValues: RecordMap<T, S>,
+  apiReturnValues: RecordMap<T, S> | undefined,
 ) => (obj: Partial<S>, oldPropName: keyof T) => Partial<S>;
 
 export interface recordFilterOpts<T, S> {
@@ -30,7 +30,7 @@ function filterRecordInfo<T, S>(filterOpts: recordFilterOpts<T, S>) {
     } = filterOpts;
 
     // use the provided reducer over the default
-    const fieldReducer = reducerFn<T, S>(initialFields, aliasMap);
+    const fieldReducer = reducerFn(initialFields, aliasMap);
 
     const newFields = selectedFields.reduce<Partial<S>>(fieldReducer, {});
 
@@ -45,7 +45,7 @@ function translateRequest<T, S>(translateOpts: requestTranslateOpts<T, S>) {
   const { aliasMap, reducerFn = defaultRequestReducer } = translateOpts;
 
   // This allow us to have a single alias map for both requests and responses
-  const reversedMap = reverseMap?.(aliasMap);
+  const reversedMap = aliasMap && reverseMap?.(aliasMap);
 
   return function (requestBody: S) {
     const reducer = reducerFn(requestBody, reversedMap);

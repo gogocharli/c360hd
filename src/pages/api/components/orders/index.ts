@@ -144,7 +144,7 @@ export async function searchOrder(query: string) {
 
     // Find the order(s) placed by each client
     const matchedOrdersList = await matchedClients
-      .map((client) => client.fields['Order'])
+      .map((client) => client.fields['Order'][0])
       .map(OrdersTable.getRow.bind(OrdersTable));
 
     const filterOrderFields = filterOrderInfo({
@@ -184,7 +184,7 @@ export async function searchOrder(query: string) {
  * Set the order's status to "cancelled".
  * @param id
  */
-export async function cancelOrder(id: string): Promise<{}> {
+export async function cancelOrder(id: string): Promise<undefined> {
   try {
     const update = {
       id,
