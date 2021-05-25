@@ -17,7 +17,6 @@ export function Product({ name }: { name: 'classic' | 'special' }) {
           <li>{t(`${name}.perks.public`)}</li>
           <li>{t(`${name}.perks.facebook`)}</li>
           <li>{t(`${name}.perks.web`)}</li>
-          <li>{t(`${name}.perks.shoots`)}</li>
         </ul>
         <div className='price__container'>
           <p className='[ price ] [ text-700 lg:text-800 ] [ tracking-flat weight-bold ]'>
