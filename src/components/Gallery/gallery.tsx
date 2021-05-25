@@ -21,7 +21,12 @@ export function Gallery({
 
   const [state, dispatch] = useReducer(
     categoryReducer,
-    { search: '', filter, initialItems: featuredClients },
+    {
+      search: '',
+      filter,
+      initialItems: featuredClients,
+      items: featuredClients,
+    },
     initCategory,
   );
 
@@ -45,7 +50,7 @@ export function Gallery({
   }, [search]);
 
   const isIdle = state.filter == '';
-  const hasResults = state.items.length !== 0;
+  const hasResults = state?.items?.length !== 0;
 
   return (
     <>

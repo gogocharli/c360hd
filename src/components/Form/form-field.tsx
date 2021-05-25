@@ -75,7 +75,7 @@ export function FormField({
         ) : type == 'fieldset' ? (
           <fieldset>
             <legend>{label}</legend>
-            {options.map((opt) => (
+            {options?.map((opt) => (
               <div key={opt.value}>
                 <label
                   htmlFor={opt.name}

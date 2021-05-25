@@ -1,3 +1,5 @@
+import type { Order } from '@srcTypes/api.types';
+import type { OrderResponse } from './utils';
 import cryptoRandomString from 'crypto-random-string';
 
 import { formatDate, formatTime } from '../../utils/date-time';
@@ -19,14 +21,14 @@ import {
   translateOrderFields,
 } from './utils';
 
+// Used to keep track of orders with no rep specified
 const DEFAULT_REP = 'CYD-000';
 
 /**
  * Create a new order, associate it to a client and a sales agent
  * and setup confirmation emails after creating event in calendar.
- * @param order Order Info
  */
-export async function placeOrder(order) {
+export async function placeOrder(order: Order) {
   const isInvalid = validateInput(order);
 
   // Verify that required inputs aren't empty
@@ -141,20 +143,18 @@ export async function searchOrder(query: string) {
     });
 
     // Find the order(s) placed by each client
-    const matchedOrdersList: Airtable.Records<{}> = await matchedClients
-      .map((client) => client.fields['Order'])
+    const matchedOrdersList = await matchedClients
+      .map((client) => client.fields['Order'][0])
       .map(OrdersTable.getRow.bind(OrdersTable));
 
-    const fieldsToInclude = [
-      'Order Number',
-      'Date',
-      'Time',
-      'Product Name',
-      'Status',
-    ];
-
     const filterOrderFields = filterOrderInfo({
-      selectedFields: fieldsToInclude,
+      selectedFields: [
+        'Order Number',
+        'Date',
+        'Time',
+        'Product Name',
+        'Status',
+      ],
     });
 
     // Include only the aforementioned set of fields
@@ -184,7 +184,7 @@ export async function searchOrder(query: string) {
  * Set the order's status to "cancelled".
  * @param id
  */
-export async function cancelOrder(id: string) {
+export async function cancelOrder(id: string): Promise<undefined> {
   try {
     const update = {
       id,
@@ -202,10 +202,8 @@ export async function cancelOrder(id: string) {
 
 /**
  * Update fields for a specified order.
- * @param id
- * @param changes key value pairs of changes to be made
  */
-export async function updateOrder(id: string, changes) {
+export async function updateOrder(id: string, changes: OrderResponse) {
   try {
     const update = { id, fields: translateOrderFields(changes) };
 

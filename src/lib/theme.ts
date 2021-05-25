@@ -16,8 +16,9 @@ export function changeThemeOnScrollPosition() {
     },
   );
 
-  let bodyEl = document.querySelector('body');
-  let targetEl = document.querySelector('#index-hero');
+  let bodyEl = document.querySelector('body') as HTMLBodyElement;
+  let targetEl = document.querySelector('#index-hero') as HTMLElement;
+
   observer.observe(targetEl);
 
   return () => {
@@ -27,10 +28,10 @@ export function changeThemeOnScrollPosition() {
   };
 }
 
-const styles = ['bg', 'fg', 'hg', 'tint'];
+const styles = ['bg', 'fg', 'hg', 'tint'] as const;
 const choices = { bg: 'main', fg: 'main', hg: 'highlight', tint: 'tint' };
 function setTheme(element: HTMLElement, theme: 'light' | 'dark') {
-  styles.forEach((style) => {
+  styles.forEach((style: typeof styles[number]) => {
     let currentTheme: 'light' | 'dark' = theme;
     // Revert colors for the foreground color
     style === 'fg' && (currentTheme = theme == 'dark' ? 'light' : 'dark');

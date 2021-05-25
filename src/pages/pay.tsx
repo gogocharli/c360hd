@@ -10,9 +10,10 @@ import { Elements } from '@stripe/react-stripe-js';
 import Layout from '@layouts/checkout';
 import { StripeCheckout } from '@components/Checkout/stripe-checkout';
 import { Spinner } from '@components/loading-spinner';
+import { Address } from '@components/Checkout/payment';
 
 const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string,
 );
 export default function Checkout() {
   const [isPaymentSuccess, setPaymentSuccess] = useState(false);
@@ -23,11 +24,13 @@ export default function Checkout() {
     email: '',
     name: '',
     phone: '',
-    address: null,
+    /* Asserting the type here is necessary since
+    partial addresses are invalid */
+    address: null as unknown as Address,
   });
   const [product, setProduct] = useState('classic');
-  const [orderId, setOrderId] = useState<string>(null);
-  const [error, setError] = useState<RequestError>(null);
+  const [orderId, setOrderId] = useState<string>();
+  const [error, setError] = useState<RequestError>();
 
   /**
    * When the window loads, retrieve the order number from the url
@@ -49,7 +52,7 @@ export default function Checkout() {
           name: order.Client?.name ?? '',
           email: order.Client?.email ?? '',
           phone: order.Client?.primaryContact ?? '',
-          address: null,
+          address: null as unknown as Address,
         });
         setOrderId(order.id);
         setProduct(order.productName.toLowerCase());

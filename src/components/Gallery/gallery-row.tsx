@@ -145,22 +145,27 @@ export function GalleryRow({
 
 export function InitialRows({ items }: { items: GalleryListItem[] }) {
   // Index the list by category
-  const categories = items.reduce((acc, item) => {
+
+  const categories = items.reduce<{
+    [k: string]: GalleryListItem[] | undefined;
+  }>((acc, item) => {
     const category = item.category;
 
     if (acc[category] == undefined) {
       acc[category] = [];
-      acc[category].push(item);
+      acc[category]?.push(item);
     } else {
-      acc[category].push(item);
+      acc[category]?.push(item);
     }
 
     return acc;
   }, {});
 
   // Show the first two lists with more than three items (layout requirement)
-  const isLongerThan3 = ([, itemList]: [string, GalleryListItem[]]) =>
-    itemList.length >= 3;
+  const isLongerThan3 = ([, itemList]: [
+    string,
+    GalleryListItem[] | undefined,
+  ]) => itemList && itemList.length >= 3;
 
   const categoriesList = Object.entries(categories)
     .filter(isLongerThan3)

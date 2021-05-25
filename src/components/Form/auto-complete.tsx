@@ -27,14 +27,17 @@ export function AddressAutoComplete() {
   function debounceInput(inputValue: string) {
     if (!scheduled) {
       window.setTimeout(() => {
-        setValue(scheduled);
+        setValue(scheduled ?? '');
         scheduled = null;
       }, 300);
     }
     scheduled = inputValue;
   }
 
-  async function handleSelect({ description }, onChange) {
+  async function handleSelect(
+    { description }: { description: string },
+    onChange: Function,
+  ) {
     setValue(description, false);
     clearSuggestions();
 

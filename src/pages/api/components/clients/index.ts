@@ -5,6 +5,7 @@ import {
   FeaturedTable,
 } from '../../modules/db-adapter';
 import {
+  ClientResponse,
   createDeliveryTemplate,
   createOnboardingTemplate,
   createReminderTemplate,
@@ -15,7 +16,7 @@ import {
 import { deliveryEmail, onboardingEmail } from '../../modules/email';
 import { sendSmsNotifications } from '../../utils/phone';
 
-async function createClient(clientDetails: {}) {
+async function createClient(clientDetails: ClientResponse) {
   const clientInfo = translateClientFields(clientDetails);
 
   try {
@@ -26,7 +27,7 @@ async function createClient(clientDetails: {}) {
   } catch (error) {
     console.error(error);
     const errorMessage = `Couldn't create a new client\n ${error.message}`;
-    return { errorMessage, code: 500 };
+    throw { errorMessage, code: 500 };
   }
 }
 
@@ -41,14 +42,15 @@ enum Intent {
   delivery = 'DELIVERY',
 }
 
-// We send a message for each step of the process as follows
-// - Order confirmation when the order has been processed
-// - Reminder the evening before the shooting
-// - Photos and link to the edited photos
+/* We send a message for each step of the process as follows
+  - Order confirmation when the order has been processed
+  - Reminder the evening before the shooting
+  - Photos and link to the edited photos 
+*/
 async function notifyClient(
-  clientId,
+  clientId: string,
   notificationOpts: { format: Format; type: Intent },
-) {
+): Promise<undefined> {
   const { format = Format.email, type = Intent.onboarding } = notificationOpts;
 
   try {
@@ -70,6 +72,8 @@ async function notifyClient(
 
             const emailTemplate = createDeliveryTemplate(client, links);
             await deliveryEmail.send(emailTemplate);
+          } else {
+            throw { message: 'A valid intent is required to send an email' };
           }
         }
         break;
@@ -80,6 +84,10 @@ async function notifyClient(
           if (type === Intent.reminder) {
             const smsTemplate = createReminderTemplate(client, order);
             await sendSmsNotifications([smsTemplate]);
+          } else {
+            throw {
+              message: 'A valid intent is required to send a text message',
+            };
           }
         }
         break;
@@ -107,7 +115,7 @@ async function getAllClients() {
   }
 }
 
-async function getFeaturedClients(): Promise<Array<any>> {
+async function getFeaturedClients() {
   try {
     const featuredClientRecords = await FeaturedTable.all();
     const featuredClients = featuredClientRecords.map(
@@ -121,7 +129,7 @@ async function getFeaturedClients(): Promise<Array<any>> {
   }
 }
 
-async function getClient(clientId) {
+async function getClient(clientId: string) {
   try {
     const clientRecord = await ClientsTable.getRow(clientId);
     const client = filterClientFields(clientRecord);
@@ -133,7 +141,7 @@ async function getClient(clientId) {
   }
 }
 
-async function updateClient(clientId: string, changes) {
+async function updateClient(clientId: string, changes: ClientResponse) {
   const update = { id: clientId, fields: translateClientFields(changes) };
 
   try {
@@ -147,7 +155,7 @@ async function updateClient(clientId: string, changes) {
   }
 }
 
-async function deleteClients(ids: string[]) {
+async function deleteClients(ids: string[]): Promise<undefined> {
   try {
     await ClientsTable.deleteRow(...ids);
     return undefined;

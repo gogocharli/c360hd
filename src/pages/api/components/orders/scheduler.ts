@@ -49,7 +49,7 @@ async function checkSchedule(date: string, time: string) {
         // Get more availble hours from the ones not fully booked yet
         const otherHours = ordersOnSameDate
           .filter((orderTime) => orderTime !== time)
-          .reduce(getOrderCount, {});
+          .reduce<{ [k: string]: number }>(getOrderCount, {});
 
         for (const [hour, count] of Object.entries(otherHours)) {
           if (count < MAX_CONCURRENT_ORDERS) {

@@ -61,7 +61,7 @@ export function Payment() {
   const onInvalidForm: SubmitErrorHandler<FormInputs> = (err) => {
     setProcessing(false);
     const errorMessages = Object.entries(err).map(
-      ([field, error]) => `Please verify the ${field}: ${error.message}`,
+      ([field, error]) => `Please verify the ${field}: ${error?.message}`,
     );
     console.error(errorMessages);
     setErrors(errorMessages);
@@ -208,7 +208,7 @@ function OrderConfirmation({
         )}
         <p className='[ details ] [ text-300 measure-short ]'>
           {errors.length > 0
-            ? errors.map((err) => <ErrorText key={err} children={err} />)
+            ? errors.map((err: any) => <ErrorText key={err} children={err} />)
             : t('payment.success.desc')}
         </p>
       </div>

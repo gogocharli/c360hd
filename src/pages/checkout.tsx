@@ -25,7 +25,7 @@ import {
 import { StepInfo } from '@components/Checkout/step-info';
 
 const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string,
 );
 
 const paths = ['business', 'contact', 'order', 'review', 'checkout'];
@@ -92,7 +92,7 @@ export default function Checkout() {
     // Validate the required fields in the current step
     const isValid = direction == 'next' ? await validateCurrentStep() : true;
 
-    isValid && router.push(`#${hash}`, null, { shallow: true });
+    isValid && router.push(`#${hash}`, undefined, { shallow: true });
   }
 
   async function validateCurrentStep() {
@@ -125,7 +125,7 @@ export default function Checkout() {
                     {formStep == 2 && <OrderInfo />}
                     {formStep == 3 && (
                       <ReviewOrder
-                        locale={router.locale}
+                        locale={router.locale as string}
                         getValues={getValues}
                       />
                     )}
