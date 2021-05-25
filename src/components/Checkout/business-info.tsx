@@ -23,7 +23,16 @@ export function BusinessInfo() {
         label={`${t('form.decisionMaker.name')}`}
         rules={{ required: `${t('form.decisionMaker.error.required')}` }}
       />
-      {status == 'ready' && <AddressAutoComplete />}
+      {/* Fallback to text input if the auto-complete fails to load */}
+      {status == 'ready' ? (
+        <AddressAutoComplete />
+      ) : (
+        <FormField
+          name='address'
+          label={t('form.address.name')}
+          rules={{ required: `${t('form.address.error.required')}` }}
+        />
+      )}
     </>
   );
 }
