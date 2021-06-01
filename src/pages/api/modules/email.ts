@@ -5,7 +5,7 @@ const client = new postmark.ServerClient(
 );
 
 export interface EmailOptions {
-  To: any;
+  To: string;
   TemplateModel: object;
   locale?: string;
 }
