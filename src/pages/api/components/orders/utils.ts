@@ -14,6 +14,7 @@ import { filterClientInfo } from '../clients/utils';
 
 interface RepInfo {
   key: string;
+  email: string;
   name: string;
   phoneNumber: string;
 }
@@ -27,6 +28,7 @@ async function getRepInfo(number: string): Promise<RepInfo> {
     .map((rep) => {
       return {
         key: rep.id,
+        email: rep.fields['Email'],
         name: rep.fields['Name'],
         phoneNumber: rep.fields['Primary Contact'],
       };
@@ -64,6 +66,7 @@ function createOrderInfo(order: Order, clientId: string, repInfo: RepInfo) {
 function createEmailTemplate(order: Order, repInfo: RepInfo) {
   return {
     To: order.email,
+    cc: repInfo.email ?? '',
     TemplateModel: {
       name: order.decisionMaker,
       company: order.businessName,
