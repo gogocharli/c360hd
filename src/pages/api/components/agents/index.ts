@@ -23,7 +23,7 @@ async function createAgent(agentDetails: AgentResponse) {
     const agentRecord = await RepsTable.createRow(agentInfo);
     const newAgent = filterAgentFields(agentRecord);
     return newAgent;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     const errorMessage = `Couldn't create new agent\n ${error.message}`;
     throw { errorMessage, code: 500 };
@@ -45,7 +45,7 @@ async function searchAgent(query: string) {
     const matchedAgents = matchedAgentsRecords.map(filterAgentFields);
 
     return matchedAgents;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     const errorMessage = `Couldn't find agent number ${query} \n ${error.message}`;
     throw { errorMessage };
@@ -57,7 +57,7 @@ async function getAgent(id: string) {
     const agentRecord = await RepsTable.getRow(id);
     const agent = filterAgentFields(agentRecord);
     return agent;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     const errorMessage = `Couldn't find agent ${id} \n ${error.message}`;
     throw { errorMessage, code: 400 };
@@ -75,7 +75,7 @@ async function updateAgentInfo(id: string, changes: AgentResponse) {
     const [updatedAgentRecord] = await RepsTable.updateRow([update]);
     const updatedAgent = filterAgentFields(updatedAgentRecord);
     return updatedAgent;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     const errorMessage = `Couldn't update agent ${id}\n ${error.message}`;
     throw { errorMessage };

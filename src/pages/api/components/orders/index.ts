@@ -86,7 +86,7 @@ export async function placeOrder(order: Order) {
     } else {
       throw scheduleResponse.reason;
     }
-  } catch (error) {
+  } catch (error: any) {
     throw { errorMessage: error, code: 500 };
   }
 }
@@ -99,7 +99,7 @@ export async function getAllOrders() {
     const orderRecords = await OrdersTable.all();
     const orders = orderRecords.map(filterOrderFields);
     return orders;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     const errorMessage = `Failed to retrieve orders\n ${error.message}`;
     throw { errorMessage, code: 500 };
@@ -122,7 +122,7 @@ export async function getOrder(number: string) {
     const completeOrder = await includeLinkedRecords(order, orderRecord);
 
     return completeOrder;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     const errorMessage = `Couldn't find order number "${number}"\n ${error.message}`;
     throw { errorMessage, code: 500 };
@@ -173,7 +173,7 @@ export async function searchOrder(query: string) {
     });
 
     return ordersWithClientName;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     const errorMessage = `Couldn't find order matching "${query}"\n ${error.message}`;
     throw { errorMessage };
@@ -193,7 +193,7 @@ export async function cancelOrder(id: string): Promise<undefined> {
     await OrdersTable.updateRow([update]);
 
     return undefined;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     const errorMessage = `Couldn't cancel order ${id}\n ${error.message}`;
     throw { errorMessage };
@@ -211,7 +211,7 @@ export async function updateOrder(id: string, changes: OrderResponse) {
     const [updatedOrderRecord] = await OrdersTable.updateRow([update]);
     const updatedOrder = filterOrderFields(updatedOrderRecord);
     return updatedOrder;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     const errorMessage = `Couldn't update order ${id}\n ${error.message}`;
     throw { errorMessage };

@@ -54,7 +54,7 @@ async function addToCalendar(startTime: string, eventInfo: EventInfo) {
       calendarId: 'primary',
       requestBody: event,
     });
-  } catch (err) {
+  } catch (err: any) {
     console.log(err);
     throw { errorMessage: err.message };
   }

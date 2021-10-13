@@ -43,7 +43,7 @@ async function sendEmailsWithPhotos() {
     await sendEmails(photosToSend);
 
     return { message: 'Send Emails to Clients' };
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     throw { errorMessage: '', code: 500 };
   }

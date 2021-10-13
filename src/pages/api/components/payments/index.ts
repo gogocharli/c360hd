@@ -51,7 +51,7 @@ export async function createPayment(
     return {
       clientSecret: paymentIntent.client_secret,
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     throw { errorMessage: error };
   }
@@ -108,7 +108,7 @@ export async function chargeCustomer({
 
     if (paymentIntent.status === 'succeeded')
       return { success: '✅ Successfully charged card off session' };
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     throw { errorMessage: error, code: 503 };
   }

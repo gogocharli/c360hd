@@ -24,7 +24,7 @@ async function createClient(clientDetails: ClientResponse) {
     const client = filterClientFields(clientRecord);
 
     return client;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     const errorMessage = `Couldn't create a new client\n ${error.message}`;
     throw { errorMessage, code: 500 };
@@ -96,7 +96,7 @@ async function notifyClient(
       }
     }
     return undefined;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     const errorMessage = `Coulnd't send notification to client ${clientId}\n ${error.message}`;
     throw { errorMessage, code: 500 };
@@ -108,7 +108,7 @@ async function getAllClients() {
     const clientRecords = await ClientsTable.all();
     const clients = clientRecords.map(filterClientFields);
     return clients;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     const errorMessage = `Couldn't retrieve clients \n ${error.message}`;
     throw { errorMessage, code: 500 };
@@ -122,7 +122,7 @@ async function getFeaturedClients() {
       filterFeaturedClientFields,
     );
     return featuredClients;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     const errorMessage = `Couldn't retrieve featured clients \n ${error.message}`;
     throw { errorMessage, code: 500 };
@@ -134,7 +134,7 @@ async function getClient(clientId: string) {
     const clientRecord = await ClientsTable.getRow(clientId);
     const client = filterClientFields(clientRecord);
     return client;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     const errorMessage = `Couldn't retrieve client ${clientId} \n ${error.message}`;
     throw { errorMessage, code: 500 };
@@ -148,7 +148,7 @@ async function updateClient(clientId: string, changes: ClientResponse) {
     const [updatedClient] = await ClientsTable.updateRow([update]);
     const client = filterClientFields(updatedClient);
     return client;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     const errorMessage = `Couldn't update client ${clientId}\n ${error.message}`;
     throw { errorMessage };
@@ -159,7 +159,7 @@ async function deleteClients(ids: string[]): Promise<undefined> {
   try {
     await ClientsTable.deleteRow(...ids);
     return undefined;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     throw { errorMessage: error.message, code: 500 };
   }
