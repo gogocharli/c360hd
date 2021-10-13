@@ -51,7 +51,7 @@ export function Payment() {
       setErrors([]);
     } catch (err) {
       console.error(err);
-      setErrors([err]);
+      setErrors([String(err)]);
     } finally {
       setProcessing(false);
       setRequestComplete(true); // Avoid making the order when component refreshes
