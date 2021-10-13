@@ -5,7 +5,7 @@
   "scripts": {
     "test": "jest",
     "dev": "next dev",
-    "build": "tsc --noEmit && next build",
+    "build": "next build",
     "start": "next start",
     "optimize": "svgo public/**/*.svg",
     "ts-check": "tsc --noEmit"
@@ -53,6 +53,7 @@
     "remark": "^13.0.0",
     "remark-html": "^13.0.1",
     "stripe": "^8.145.0",
+    "styled-jsx": "^4.0.1",
     "twilio": "^3.57.0",
     "use-places-autocomplete": "^1.9.1"
   },
