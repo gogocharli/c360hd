@@ -113,7 +113,7 @@ function createOnboardingTemplate(
       orderNumber: order['Order Number'],
       time: order['Time'],
       date: order['Date'],
-      storeURL: `https://c360hd.com/${client['Language'] ?? 'fr'}-ca/store`,
+      storeURL: `https://lyncxs.com/${client['Language'] ?? 'fr'}-ca/store`,
       repInfo: '',
     },
     locale: client['Language'],

@@ -36,7 +36,7 @@ export function Header() {
           <a className='site-head__brand'>
             <span className='visually-hidden'>{`${t(
               'links.home',
-            )} - C360HD`}</span>
+            )} - LYNCXS`}</span>
             <Symbol />
           </a>
         </Link>

@@ -17,31 +17,31 @@ export default function Layout({
   return (
     <>
       <NextSeo
-        title={(pageMeta?.title || t('siteTitle')) + ' | C360HD'}
+        title={(pageMeta?.title || t('siteTitle')) + ' | LYNCXS'}
         description={pageMeta?.desc || t('siteDesc')}
         openGraph={{
-          url: 'https://c360hd.com/',
-          title: `${(pageMeta?.title || t('siteTitle')) + ' | C360HD'}`,
+          url: 'https://lyncxs.com/',
+          title: `${(pageMeta?.title || t('siteTitle')) + ' | LYNCXS'}`,
           description: `${pageMeta?.desc || t('siteDesc')}`,
           images: [
             {
-              url: 'https://c360hd.com/social.jpg',
+              url: 'https://lyncxs.com/social.jpg',
               width: 1000,
               height: 500,
-              alt: 'C360HD - Bring more clients to your door',
+              alt: 'LYNCXS - Bring more clients to your door',
             },
           ],
-          site_name: 'C360HD',
+          site_name: 'LYNCXS',
         }}
         twitter={{
-          site: '@c360hd',
+          site: '@lyncxs',
           cardType: 'summary_large_image',
         }}
         additionalLinkTags={[
           {
             rel: 'icon',
             type: 'image/svg',
-            href: 'https://c360hd.com/favicon.svg',
+            href: 'https://lyncxs.com/favicon.svg',
           },
         ]}
       />

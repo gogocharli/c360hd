@@ -73,7 +73,7 @@ function createEmailTemplate(order: Order, repInfo: RepInfo) {
       orderNumber: order.orderNumber,
       time: order.humanTime,
       date: order.date,
-      storeURL: `https://c360hd.com/pay?order=${order.orderNumber}`,
+      storeURL: `https://lyncxs.com/pay?order=${order.orderNumber}`,
       repInfo,
     },
     locale: order.lang,

@@ -68,7 +68,7 @@ export default class Email {
     locale = 'fr',
   }: EmailOptions): postmark.TemplatedMessage {
     const email: postmark.TemplatedMessage = {
-      From: `${this.origin}@c360hd.com`,
+      From: `${this.origin}@lyncxs.com`,
       To,
       TemplateAlias: `${this.templateAlias}-${locale.toLowerCase()}`,
       TemplateModel,
