@@ -7,7 +7,7 @@ const TemplateModel = {
   orderNumber: 'XVS24J',
   time: '12pm',
   date: 'January 20th',
-  storeURL: 'https://c360hd.com/store',
+  storeURL: 'https://lyncxs.com/store',
   repInfo: {
     name: 'Test Agent',
     id: 'CYD-Z05',
@@ -15,7 +15,7 @@ const TemplateModel = {
 };
 
 const aliasedOptions = {
-  From: 'sales@c360hd.com',
+  From: 'sales@lyncxs.com',
   To: testEmail,
   TemplateAlias: 'onboarding-fr',
   TemplateModel,
@@ -25,7 +25,7 @@ const aliasedOptions = {
 test('creates a valid option hash with locale undefined', () => {
   const email = new Email('sales', 'onboarding');
   expect(email.createEmail({ To: testEmail, TemplateModel })).toEqual(
-    aliasedOptions
+    aliasedOptions,
   );
 });
 
@@ -33,6 +33,6 @@ test('creates a valid option hash with locale defined', () => {
   const email = new Email('sales', 'onboarding');
   const locale = 'FR';
   expect(email.createEmail({ To: testEmail, TemplateModel, locale })).toEqual(
-    aliasedOptions
+    aliasedOptions,
   );
 });

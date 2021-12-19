@@ -1,6 +1,6 @@
 # Convention de services
 
-These Terms of Service (the “Terms”) describe your legal rights and responsibilities when using the online shared inbox and productivity tools and services provided by C360HD, Inc. (the “Services”). These Terms create a legal and binding agreement between C360HD, Inc. (“Front” or “we”) and the Customer (as further described below) agreeing to be bound by these Terms. A Customer may be referred to herein as the “Customer” or as “you.” Those persons who access the Services using Customer’s account are referred to herein as the “End Users.”
+These Terms of Service (the “Terms”) describe your legal rights and responsibilities when using the online shared inbox and productivity tools and services provided by LYNCXS, Inc. (the “Services”). These Terms create a legal and binding agreement between LYNCXS, Inc. (“Front” or “we”) and the Customer (as further described below) agreeing to be bound by these Terms. A Customer may be referred to herein as the “Customer” or as “you.” Those persons who access the Services using Customer’s account are referred to herein as the “End Users.”
 
 ## Interpretation and Definitions
 
@@ -24,6 +24,6 @@ For the purposes of these Terms and Conditions:
 
 **Third-party Social Media Service** means any services or content (including data, information, products or services) provided by a third-party that may be displayed, included or made available by the Service.
 
-**Website** refers to C360HD, accessible from [https://c360hd.com](https://c360hd.com)
+**Website** refers to LYNCXS, accessible from [https://lyncxs.com](https://lyncxs.com)
 
 **You** means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.

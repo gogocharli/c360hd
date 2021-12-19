@@ -252,10 +252,7 @@ export function FootLinks({ noLogo = false }: { noLogo?: boolean }) {
       </div>
       {!noLogo && (
         <Link href='/' passHref>
-          <a
-            className='site-foot__brand'
-            aria-label={`${t('links.home')} - C360HD`}
-          >
+          <a className='site-foot__brand'>
             <Logo height={72} />
           </a>
         </Link>
